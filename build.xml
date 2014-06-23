@@ -138,7 +138,6 @@
     <target name="init-db" depends="stop" description="Creates the database from scratch and applies all migrations">
         <exec executable="db/create.sh" />
         <antcall target="migrate-db" />
-        <exec executable="db/bootstrap.sh" />
     </target>
 
     <target name="test-integration-without-report" depends="compile-test, init-db"  description="run all integration tests without report">

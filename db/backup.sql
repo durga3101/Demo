@@ -28,7 +28,7 @@ INSERT INTO account VALUES (10, 'SurveyUser', 'survey@freewheelers.com', 'survey
 -- Name: account_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('account_account_id_seq', 9, true);
+SELECT pg_catalog.setval('account_account_id_seq', (SELECT MAX(account_id) FROM account), true);
 
 
 --
@@ -48,7 +48,7 @@ INSERT INTO account_role VALUES (8, 'SurveyUser', 'ROLE_USER');
 -- Name: account_role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('account_role_role_id_seq', 7, true);
+SELECT pg_catalog.setval('account_role_role_id_seq', (SELECT MAX(role_id) FROM account_role), true);
 
 
 --
@@ -69,13 +69,13 @@ INSERT INTO item VALUES (10, 'If fast and furious is how you like to ride, then 
 -- Name: item_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('item_item_id_seq', 13, true);
+SELECT pg_catalog.setval('item_item_id_seq', (SELECT MAX(item_id) FROM item), true);
 
 --
 -- Name: item_type_item_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('item_type_item_type_id_seq', 2, true);
+SELECT pg_catalog.setval('item_type_item_type_id_seq', (SELECT MAX(item_type_id) FROM item_type), true);
 
 
 --
@@ -96,7 +96,7 @@ INSERT INTO reserve_order VALUES (16, 6, 13, 'NEW', '', '2013-03-26 20:14:25.336
 -- Name: reserve_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('reserve_order_order_id_seq', 18, true);
+SELECT pg_catalog.setval('reserve_order_order_id_seq', (SELECT MAX(order_id) FROM reserve_order), true);
 
 
 --

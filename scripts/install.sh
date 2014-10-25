@@ -10,8 +10,8 @@ if [ $# -ne 2 ]; then
   exit -1
 fi;
 
-if [ ! -e "dist/freewheelers.zip" ]; then
-  echo "cannot find dist/freewheelers.zip to deploy"
+if [ ! -e "dist/freewheelers.war" ]; then
+  echo "cannot find dist/freewheelers.war to deploy"
   exit -1
 fi;
 

@@ -4,7 +4,7 @@ apply plugin: 'jetty'
 [jettyRun, jettyRunWar, jettyStop]*.stopPort = 8081
 [jettyRun, jettyRunWar, jettyStop]*.stopKey = 'stopKey'
 
-war.archiveName "ROOT.war"
+war.archiveName "freewheelers.war"
 
 jettyRun.contextPath = '/'
 

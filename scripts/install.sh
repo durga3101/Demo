@@ -10,12 +10,12 @@ if [ $# -ne 2 ]; then
   exit -1
 fi;
 
-if [ ! -e "dist/freewheelers.war" ]; then
-  echo "cannot find dist/freewheelers.war to deploy"
+if [ ! -e "dist/freewheelers.zip" ]; then
+  echo "cannot find dist/freewheelers.zip to deploy"
   exit -1
 fi;
 
-scp dist/* ${USER}@${HOST}:/tmp
+scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 
 #ssh ${USER}@${HOST} /bin/bash << EOF
 #TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")

@@ -62,7 +62,7 @@ task createDB(type: Exec) {
 
 task initDB(type: Exec) {
     workingDir 'db/migrations'
-    commandLine './mybatis/bin/migrate','up'
+    commandLine './mybatis/bin/migrate', 'up'
 }
 
 
@@ -103,6 +103,20 @@ functionalTest.dependsOn initDB
 integrationTest.dependsOn test
 check.dependsOn integrationTest
 build.dependsOn functionalTest
+
+task dist(type: Zip) {
+    from('.') {
+        include 'db/'
+        include 'scripts/'
+    }
+
+    from('jetty-runner') {
+        include 'jetty-runner-8.1.14.v20131031.jar'
+    }
+
+    from war.outputs.files
+    archiveName 'freewheelers.zip'
+}
 
 
 

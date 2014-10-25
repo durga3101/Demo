@@ -15,16 +15,16 @@ if [ ! -e "dist/freewheelers.zip" ]; then
   exit -1
 fi;
 
-scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
+scp dist/* ${USER}@${HOST}:/tmp
 
-ssh ${USER}@${HOST} /bin/bash << EOF
-TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
-mkdir -p /tmp/\$TIMESTAMP
-mv /tmp/freewheelers.zip /tmp/\$TIMESTAMP
-cd /tmp/\$TIMESTAMP 
-unzip freewheelers.zip
-sh stop-server.sh
-sh db/migrations/mybatis/bin/migrate --path=./db/migrations up
-nohup sh start-server.sh > server.out 2> server.err < /dev/null
-EOF
+#ssh ${USER}@${HOST} /bin/bash << EOF
+#TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
+#mkdir -p /tmp/\$TIMESTAMP
+#mv /tmp/freewheelers.war /tmp/\$TIMESTAMP
+#mv /tmp/jetty-runner-8.1.14.v20131031.jar /tmp/\$TIMESTAMP
+#cd /tmp/\$TIMESTAMP
+#sh stop-server.sh
+#sh db/migrations/mybatis/bin/migrate --path=./db/migrations up
+#nohup sh start-server.sh > server.out 2> server.err < /dev/null
+#EOF
 

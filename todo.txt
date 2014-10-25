@@ -1,2 +1,0 @@
-1.how to depoly(server need tomcat) also we can use ssh plugin for gradle
-2.update readme

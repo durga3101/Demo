@@ -31,7 +31,7 @@ Get Started
     * ./gradlew tasks
 
 
-4. Run local build
+4. Run local build(The first time this may taka a while)
     * ./gradlew clean build
 
 
@@ -47,7 +47,7 @@ Get Started
 Set Up Your IntelliJ Project
 ===========
 1. Checkout the code
-2. run "./gradlew cleanIdea idea"
+2. run "./gradlew cleanIdea idea" (The first time this may take a while)
 3. Open IntelliJ IDEA
 4. Click “Open Project” -> Choose the “twuXXprojX” folder that you just checked out from source control (Or use "File" -> “Open…”)
 5. If you see a popup in which IntelliJ wants to use your confidential information in you keychain, click “Allow” or “Always Allow”

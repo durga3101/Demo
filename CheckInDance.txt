@@ -4,7 +4,7 @@
 2. Check CI (green)
 
 3. Pull (code base up-to-date)
-    ./gradlew pull --rebase
+    git pull --rebase
 
 4. Run tests
     ./gradlew clean build
@@ -18,13 +18,13 @@
     git add . -A
     git commit -m "your commit message"
 
-7. Check CI (green)
+8. Check CI (green)
 
-8. Pull (if merge conflicts, resolve and commit)
+9. Pull (if merge conflicts, resolve and commit)
     git pull --rebase
 
-9. Run tests
+10. Run tests
     ./gradlew clean build
 
-10. Push
+11. Push
     git push

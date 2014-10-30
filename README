@@ -14,6 +14,7 @@ Get Started
 1. Check the database configuration in the following files:
 	* src/main/webapp/WEB-INF/spring/persistence-config.xml
 
+
 2. Start postgres server and setup database
     * check that the postgres superuser exists
       run "psql -c '\du'"
@@ -24,11 +25,21 @@ Get Started
     * to add some data
       run "psql -h localhost -U postgres --password -d trailblazers < db/backup.sql"
 
+
 3. Check out existing tasks
     * go to the project root folder
     * ./gradlew tasks
 
-4. Start the server
+
+4. Run local build
+    * ./gradlew clean build
+
+
+5. Check testing coverage
+    * open build/reports/jacoco/test/html/index.html
+
+
+6. Start the server
 	* ./gradlew jettyRun
 	* go to http://localhost:8080/
 
@@ -36,7 +47,7 @@ Get Started
 Set Up Your IntelliJ Project
 ===========
 1. Checkout the code
-2. run "./gradlew idea"
+2. run "./gradlew cleanIdea idea"
 3. Open IntelliJ IDEA
 4. Click “Open Project” -> Choose the “twuXXprojX” folder that you just checked out from source control (Or use "File" -> “Open…”)
 5. If you see a popup in which IntelliJ wants to use your confidential information in you keychain, click “Allow” or “Always Allow”

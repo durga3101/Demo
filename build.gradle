@@ -93,17 +93,6 @@ task functionalTest(type: Test) {
     }
 }
 
-idea {
-    module {
-        testSourceDirs += file('src/integrationTest/java')
-        testSourceDirs += file('src/functionalTest/java')
-        testSourceDirs += file('src/integrationTest/resources')
-        testSourceDirs += file('src/functionalTest/resources')
-        scopes.TEST.plus += configurations.integrationTestCompile
-        scopes.TEST.plus += configurations.integrationTestRuntime
-    }
-}
-
 
 initDB.dependsOn createDB
 integrationTest.dependsOn initDB
@@ -150,6 +139,19 @@ task checkTestCoverage << {
 checkTestCoverage.dependsOn jacocoTestReport
 
 test.finalizedBy checkTestCoverage
+
+
+idea {
+    module {
+        testSourceDirs += file('src/integrationTest/java')
+        testSourceDirs += file('src/functionalTest/java')
+        testSourceDirs += file('src/integrationTest/resources')
+        testSourceDirs += file('src/functionalTest/resources')
+        scopes.TEST.plus += [configurations.integrationTestCompile]
+        scopes.TEST.plus += [configurations.integrationTestRuntime]
+    }
+}
+
 
 
 

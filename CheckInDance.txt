@@ -1,0 +1,30 @@
+1. Run tests
+    ./gradlew clean build
+
+2. Check CI (green)
+
+3. Pull (code base up-to-date)
+    ./gradlew pull --rebase
+
+4. Run tests
+    ./gradlew clean build
+
+5. Make changes (red-green-refactor)
+
+6. Run tests
+    ./gradlew clean build
+
+7. Commit to local
+    git add . -A
+    git commit -m "your commit message"
+
+7. Check CI (green)
+
+8. Pull (if merge conflicts, resolve and commit)
+    git pull --rebase
+
+9. Run tests
+    ./gradlew clean build
+
+10. Push
+    git push

@@ -3,7 +3,7 @@ apply plugin: 'jetty'
 apply plugin: "jacoco"
 
 ext {
-    expectedLineCoverage = 55
+    expectedLineCoverage = 50
     expectedBranchCoverage = 60
 }
 

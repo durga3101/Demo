@@ -28,3 +28,6 @@
 
 11. Push
     git push
+    
+12. Push
+    Check CI

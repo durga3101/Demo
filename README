@@ -21,7 +21,7 @@ Get Started
     * if user does not exist
         run "createuser -s postgres" (no need to set a password, defaults to 'postgres')
     * create database trailblazers
-      run "./tools/ant/bin/ant init-db"
+      run "./gradlew initdb"
     * to add some data
       run "psql -h localhost -U postgres --password -d trailblazers < db/backup.sql"
 

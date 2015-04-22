@@ -15,13 +15,18 @@
     ./gradlew clean build
 
 7. Commit to local
-    git add . -A
+    git add <filename> -A
     git commit -m "your commit message"
 
 8. Check CI (green)
 
-9. Pull (if merge conflicts, resolve and commit)
+9. Pull
     git pull --rebase
+
+    If there are merge conflicts:
+	a) Fix files with conflicts
+	b) git add <fixed files>
+	c) git rebase --continue
 
 10. Run tests
     ./gradlew clean build

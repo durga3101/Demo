@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -51,7 +52,7 @@ public class SurveyControllerTest {
     @Before
     public void setUp() {
         userAccount.setAccount_id(ACCOUNT_ID);
-        when(accountService.getAccountIdByName(USERNAME)).thenReturn(userAccount);
+        given(accountService.getAccountIdByName(USERNAME)).willReturn(userAccount);
     }
 
     @Test
@@ -79,7 +80,7 @@ public class SurveyControllerTest {
     @Test
     public void shouldSubmitSurveyForUserIfThereIsNoBindingError() {
         BindingResult bindingResult = mock(BindingResult.class);
-        when(bindingResult.hasErrors()).thenReturn(false);
+        given(bindingResult.hasErrors()).willReturn(false);
         ModelAndView modelAndView = surveyController.post(principal, new SurveyEntryForm(SURVEY_ENTRY_RATING, COMMENT),
                                                           bindingResult);
 
@@ -118,7 +119,7 @@ public class SurveyControllerTest {
     @Test
     public void shouldAddANpsReportToTheReport() {
         NpsReport expectedNpsReport = new NpsReport(1, 2, 3, 6);
-        when(surveyService.generateNpsReport()).thenReturn(expectedNpsReport);
+        given(surveyService.generateNpsReport()).willReturn(expectedNpsReport);
 
         ModelAndView reportModelAndView = surveyController.getReport();
         NpsReport actualNpsReport = (NpsReport) reportModelAndView.getModelMap().get("npsReport");
@@ -129,7 +130,7 @@ public class SurveyControllerTest {
     @Test
     public void shouldAddASurveyCommentsToTheReport() {
         SurveyComments expectedSurveyComments = new SurveyComments(new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
-        when(surveyService.getSurveyComments()).thenReturn(expectedSurveyComments);
+        given(surveyService.getSurveyComments()).willReturn(expectedSurveyComments);
 
         ModelAndView reportModelAndView = surveyController.getReport();
         SurveyComments actualSurveyComments = (SurveyComments) reportModelAndView.getModelMap().get("surveyComments");
@@ -139,7 +140,7 @@ public class SurveyControllerTest {
 
     private BindingResult getBindingResultWithError() {
         BindingResult bindingResult = mock(BindingResult.class);
-        when(bindingResult.hasErrors()).thenReturn(true);
+        given(bindingResult.hasErrors()).willReturn(true);
         return bindingResult;
     }
 

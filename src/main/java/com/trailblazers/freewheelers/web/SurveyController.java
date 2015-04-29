@@ -27,9 +27,9 @@ public class SurveyController {
 
     private static final int ONE_DAY = 86400;
     @Autowired
-    SurveyService surveyService;
+    private SurveyService surveyService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
 
     @ModelAttribute("survey")
@@ -51,11 +51,11 @@ public class SurveyController {
                              @Valid
                              SurveyEntryForm surveyEntryForm,
                              BindingResult bindingResult) {
-        String username = principal.getName();
-
         if (bindingResult.hasErrors()) {
             return showValidationError();
         }
+
+        String username = principal.getName();
         Account account = accountService.getAccountIdByName(username);
         surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
         return new ModelAndView("survey/confirmation");

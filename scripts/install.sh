@@ -20,11 +20,19 @@ type -p java > /dev/null || (echo "java not found" && exit -1)
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 
 ssh ${USER}@${HOST} /bin/bash << EOF
+
+cd /tmp/
+jetty_path=/tmp/jetty-runner-8.1.14.v20131031.jar
+if ! [ -f \$jetty_path ];then
+  curl -O http://central.maven.org/maven2/org/mortbay/jetty/jetty-runner/8.1.14.v20131031/jetty-runner-8.1.14.v20131031.jar
+fi
+
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
 mkdir -p /tmp/\$TIMESTAMP
 mv /tmp/freewheelers.zip /tmp/\$TIMESTAMP
 cd /tmp/\$TIMESTAMP
 unzip freewheelers.zip
+cp \$jetty_path .
 sh scripts/stop-server.sh
 sh db/migrations/mybatis/bin/migrate --path=./db/migrations up
 nohup sh scripts/start-server.sh > server.out 2> server.err < /dev/null

@@ -31,7 +31,7 @@ Get Started
     * ./gradlew tasks
 
 
-4. Run local build(The first time this may taka a while)
+4. Run local build (The first time this may take a while)
     * ./gradlew clean build
 
 
@@ -40,9 +40,8 @@ Get Started
 
 
 6. Start the server
-	* ./gradlew jettyRun
-	* go to http://localhost:8080/
-
+    * ./gradlew jettyRun
+    * go to http://localhost:8080/
 
 Set Up Your IntelliJ Project
 ===========
@@ -57,3 +56,15 @@ Set Up Your IntelliJ Project
 	b. Go to the project root directory, run "./gradlew jettyRun"
 	c. Run all the tests from IntelliJ
 	d. If everything is green, you are good to go!
+
+Set Up Remote Debugging
+===========
+1. Enable debugging and start the server
+    * export JAVA_OPTS="-Xms512M -Xmx1024M -XX:MaxPermSize=256m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -noverify"
+    * ./gradlew jettyRun
+2. In IntelliJ, click Run -> Edit Configurations.
+3. Create a new configuration + -> Remote -> "Debug FreeWheelers". Accept default settings -> Apply.
+4. Run -> Debug 'Debug FreeWheelers' 
+
+
+

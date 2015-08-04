@@ -43,6 +43,7 @@ Get Started
     * ./gradlew jettyRun
     * go to http://localhost:8080/
 
+
 Set Up Your IntelliJ Project
 ===========
 1. Checkout the code
@@ -56,6 +57,7 @@ Set Up Your IntelliJ Project
 	b. Go to the project root directory, run "./gradlew jettyRun"
 	c. Run all the tests from IntelliJ
 	d. If everything is green, you are good to go!
+
 
 Set Up Remote Debugging
 ===========

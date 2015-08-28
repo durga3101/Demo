@@ -24,9 +24,15 @@
     <authentication-manager>
         <authentication-provider>
             <jdbc-user-service data-source-ref="myDataSource"
-                               users-by-username-query="select account_name, password, enabled from account where account_name=?"
-                               authorities-by-username-query="select a.account_name, ar.role from account a,
-                                    account_role ar where a.account_name = ar.account_name and a.account_name=?"
+                               users-by-username-query="select account_name, password, enabled
+                                                        from account
+                                                        where ? in (account_name, email_address)"
+                               authorities-by-username-query=
+                                       "select a.account_name, ar.role
+                                        from account a, account_role ar
+                                        where
+                                            a.account_name = ar.account_name and
+                                            ? in (a.account_name, a.email_address)"
                     />
         </authentication-provider>
     </authentication-manager>

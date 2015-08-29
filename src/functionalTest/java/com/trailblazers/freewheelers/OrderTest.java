@@ -40,7 +40,7 @@ public class OrderTest extends UserJourneyBase {
                 .there_should_be_an_order(Simplon_Frame, "NEW");
 
         user
-                .changes_order_status(Simplon_Frame, "IN_PROGRESS");
+                .changes_order_status(Simplon_Frame, "a IN_PROGRESS");
 
         screen
                 .there_should_be_an_order(Simplon_Frame, "IN_PROGRESS");

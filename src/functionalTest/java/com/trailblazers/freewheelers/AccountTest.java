@@ -64,7 +64,7 @@ public class AccountTest extends UserJourneyBase {
         user
                 .visits_admin_profile();
         screen
-                .shows_error_alert("access is denied");
+                .shows_error_alert("f access is denied");
 
         user
                 .logs_in_with(Arno, SOME_PASSWORD)

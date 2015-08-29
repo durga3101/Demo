@@ -5,10 +5,20 @@ import com.trailblazers.freewheelers.apis.ScreenApi;
 import com.trailblazers.freewheelers.apis.UserApi;
 import com.trailblazers.freewheelers.pages.NetPromoterScoreReportPage;
 import com.trailblazers.freewheelers.pages.NetPromoterScoreSurveyForm;
+import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.io.File;
+import java.io.IOException;
 
 public class UserJourneyBase {
 
@@ -40,4 +50,29 @@ public class UserJourneyBase {
         driver.close();
     }
 
+    @Rule
+    public TestRule testWatcher = new TestWatcher() {
+        private String screenshotsDir = System.getProperty("user.dir") + "/build/functionalTests/snapshots/";;
+
+        @Override
+        public void failed(Throwable e, Description d) {
+            takeScreenshot(d);
+        }
+
+        private void takeScreenshot(Description d) {
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            String scrFilename = d.getClassName() + "." + d.getMethodName();
+            try {
+                FileUtils.forceMkdir(new File(screenshotsDir));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            File screenshotPath = new File(screenshotsDir, scrFilename + ".png");
+            try {
+                FileUtils.copyFile(scrFile, screenshotPath);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    };
 }

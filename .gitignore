@@ -5,3 +5,5 @@ build
 out
 .gradle
 jetty-runner/
+.idea/
+.DS_Store

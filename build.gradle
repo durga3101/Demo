@@ -27,12 +27,17 @@ task jasmineRun(type: NodeTask, dependsOn: 'npmInstall') {
 }
 
 task jasmineWatch(type: NodeTask, dependsOn: 'npmInstall') {
-	script = karmaExec
-	args = ['start', karmaConfig]
+    script = karmaExec
+    args = ['start', karmaConfig]
 }
 
-test.dependsOn jasmineRun
+task npmClean(type: DefaultTask) << {
+    delete "node_modules"
+}
 
+
+test.dependsOn jasmineRun
+clean.dependsOn npmClean
 ext {
     expectedLineCoverage = 50
     expectedBranchCoverage = 60

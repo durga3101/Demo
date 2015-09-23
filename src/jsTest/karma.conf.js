@@ -28,7 +28,7 @@ module.exports = function(config) {
     preprocessors: {
     },
 
-    plugins: ['karma-phantomjs2-launcher', 'karma-jasmine-jquery', 'karma-jasmine'],
+    plugins: ['karma-phantomjs-launcher', 'karma-jasmine-jquery', 'karma-jasmine'],
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -49,7 +49,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS2'],
+    browsers: ['PhantomJS'],
     phantomjsLauncher: {
       exitOnResourceError: true
     },

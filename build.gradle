@@ -17,7 +17,7 @@ buildscript {
 }
 
 project.ext {
-    jasmineDependencies = ['karma', 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-jasmine-jquery']
+    jasmineDependencies = ['karma', 'karma-jasmine', 'karma-phantomjs2-launcher', 'karma-jasmine-jquery']
     karmaExec = file('node_modules/karma/bin/karma')
     karmaConfig = 'src/jsTest/karma.conf.js'
 }

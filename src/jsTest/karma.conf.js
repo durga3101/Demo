@@ -28,12 +28,12 @@ module.exports = function(config) {
     preprocessors: {
     },
 
+    plugins: ['karma-phantomjs2-launcher', 'karma-jasmine-jquery', 'karma-jasmine'],
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress'],
-
     // web server port
     port: 9876,
 
@@ -49,11 +49,11 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS2'],
     phantomjsLauncher: {
       exitOnResourceError: true
     },
-    plugins: [ 'karma-phantomjs-launcher', 'karma-jasmine-jquery', 'karma-jasmine'],
+
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

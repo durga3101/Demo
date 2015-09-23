@@ -16,7 +16,6 @@ describe("item", function () {
             itemForm = { price: "aaa"};
 
             expect(itemValidation.validate(itemForm)).toBeFalsy();
-            expect(1).toBe(2);
         });
 
         it("displays errors when there are price validation errors", function () {

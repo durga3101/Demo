@@ -17,22 +17,16 @@ buildscript {
 }
 
 project.ext {
-    jasmineDependencies = ['karma', 'karma-jasmine', 'karma-phantomjs2-launcher', 'karma-jasmine-jquery']
     karmaExec = file('node_modules/karma/bin/karma')
     karmaConfig = 'src/jsTest/karma.conf.js'
 }
 
-task setupJasmine(type: NpmTask) {
-    outputs.dir file('node_modules')
-    args = ['install'] + jasmineDependencies
-}
-
-task jasmineRun(type: NodeTask, dependsOn: 'setupJasmine') {
+task jasmineRun(type: NodeTask, dependsOn: 'npmInstall') {
     script = karmaExec
     args = ['start', karmaConfig, '--single-run']
 }
 
-task jasmineWatch(type: NodeTask, dependsOn: 'setupJasmine') {
+task jasmineWatch(type: NodeTask, dependsOn: 'npmInstall') {
 	script = karmaExec
 	args = ['start', karmaConfig]
 }

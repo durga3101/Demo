@@ -11,11 +11,7 @@ Tech Stack
 
 Get Started
 ===========
-1. Check the database configuration in the following files:
-	* src/main/webapp/WEB-INF/spring/persistence-config.xml
-
-
-2. Start postgres server and setup database
+1. Start postgres server and setup database
     * check that the postgres superuser exists
       run "psql -c '\du'"
     * if user does not exist
@@ -26,20 +22,20 @@ Get Started
       run "psql -h localhost -U postgres --password -d trailblazers < db/backup.sql"
 
 
-3. Check out existing tasks
+2. Check out existing tasks
     * go to the project root folder
     * ./gradlew tasks
 
 
-4. Run local build (The first time this may take a while)
+3. Run local build (The first time this may take a while)
     * ./gradlew clean build
 
 
-5. Check testing coverage
+4. Check testing coverage
     * open build/reports/jacoco/test/html/index.html
 
 
-6. Start the server
+5. Start the server
     * ./gradlew jettyRun
     * go to http://localhost:8080/
 

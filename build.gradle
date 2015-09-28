@@ -1,7 +1,43 @@
 apply plugin: 'idea'
 apply plugin: 'jetty'
-apply plugin: "jacoco"
+apply plugin: 'jacoco'
+apply plugin: 'com.moowork.node'
 
+buildscript {
+  repositories {
+    jcenter()
+    maven {
+      name 'JFrog OSS snapshot repo'
+      url  'https://oss.jfrog.org/oss-snapshot-local/'
+    }
+  }
+  dependencies {
+    classpath 'com.moowork.gradle:gradle-node-plugin:0.10'
+  }
+}
+
+project.ext {
+    karmaExec = file('node_modules/karma/bin/karma')
+    karmaConfig = 'src/jsTest/karma.conf.js'
+}
+
+task jasmineRun(type: NodeTask, dependsOn: 'npmInstall') {
+    script = karmaExec
+    args = ['start', karmaConfig, '--single-run']
+}
+
+task jasmineWatch(type: NodeTask, dependsOn: 'npmInstall') {
+    script = karmaExec
+    args = ['start', karmaConfig]
+}
+
+task npmClean(type: DefaultTask) << {
+    delete "node_modules"
+}
+
+
+test.dependsOn jasmineRun
+clean.dependsOn npmClean
 ext {
     expectedLineCoverage = 50
     expectedBranchCoverage = 60
@@ -16,6 +52,10 @@ jettyRun.contextPath = '/'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
+}
+
+task jsTest(type:Exec) {
+
 }
 
 repositories {
@@ -40,7 +80,6 @@ configurations {
     functionalTestCompile.extendsFrom testCompile
     functionalTestRuntime.extendsFrom testRuntime
 }
-
 
 dependencies {
     compile 'org.springframework:spring-webmvc:3.2.6.RELEASE'
@@ -152,8 +191,3 @@ idea {
         scopes.TEST.plus += [configurations.integrationTestRuntime]
     }
 }
-
-
-
-
-

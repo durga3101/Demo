@@ -35,9 +35,6 @@ task npmClean(type: DefaultTask) << {
     delete "node_modules"
 }
 
-
-test.dependsOn jasmineRun
-clean.dependsOn npmClean
 ext {
     expectedLineCoverage = 50
     expectedBranchCoverage = 60

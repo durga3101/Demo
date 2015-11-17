@@ -12,14 +12,14 @@ Tech Stack
 Get Started
 ===========
 1. Start postgres server and setup database
-    * check that the postgres superuser exists
+    * check that the freewheelers superuser exists
       run "psql -c '\du'"
     * if user does not exist
-        run "createuser -s postgres" (no need to set a password, defaults to 'postgres')
+        run "createuser -s freewheelers" (no need to set a password, defaults to 'postgres')
     * create database trailblazers
       run "./gradlew initdb"
     * to add some data
-      run "psql -h localhost -U postgres --password -d trailblazers < db/backup.sql"
+      run "psql -h localhost -U freewheelers --password -d trailblazers < db/backup.sql"
 
 
 2. Check out existing tasks

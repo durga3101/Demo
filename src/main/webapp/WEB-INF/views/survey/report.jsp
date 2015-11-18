@@ -29,20 +29,25 @@
     </div>
 
     <div class="nps-percentage-breakdown">
-
-        <div class="detractor square"></div>
-        <div id="detractorPercentage">
-            <fmt:formatNumber type="number" pattern="###.##" value="${npsReport.detractorsPercentage}"/>% Detractors
+        <div class="nps-example">
+            <div class="detractor square"></div>
+            <div id="detractorPercentage">
+                <fmt:formatNumber type="number" pattern="###.##" value="${npsReport.detractorsPercentage}"/>% Detractors
+            </div>
         </div>
 
-        <div class="passive square"></div>
-        <div id="passivePercentage">
-            <fmt:formatNumber type="number" pattern="###.##" value="${npsReport.passivesPercentage}"/>% Passives
+        <div class="nps-example">
+            <div class="passive square"></div>
+            <div id="passivePercentage">
+                <fmt:formatNumber type="number" pattern="###.##" value="${npsReport.passivesPercentage}"/>% Passives
+            </div>
         </div>
 
-        <div class="promoter square"></div>
-        <div id="promoterPercentage">
-            <fmt:formatNumber type="number" pattern="###.##" value="${npsReport.promotersPercentage}"/>% Promoters
+        <div class="nps-example">
+            <div class="promoter square"></div>
+            <div id="promoterPercentage">
+                <fmt:formatNumber type="number" pattern="###.##" value="${npsReport.promotersPercentage}"/>% Promoters
+            </div>
         </div>
 
     </div>

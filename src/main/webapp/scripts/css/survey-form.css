@@ -31,7 +31,7 @@
 
 .survey-form textarea {
     max-width: 100%;
-    max-height: 20;
+    max-height: 20px;
     min-width: 30%;
     min-height: 50px;
 }

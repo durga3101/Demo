@@ -10,6 +10,10 @@
     display: inline-block;
 }
 
+.nps-example div {
+    display: inline-block;
+}
+
 .promoter {
     background: #BAC152;
 }
@@ -37,18 +41,19 @@
     margin-right: 20px;
 }
 
-.net-promoter-score, .total-response {
+.net-promoter-score,
+.total-response {
     font-size: 1.1em;
 }
 
-.net-promoter-score > span, .total-response > span {
+.net-promoter-score > span,
+.total-response > span {
     font-weight: bold;
     font-size: 1.3em;
 }
 
 .nps-percentage-visual {
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin: 30px 0 20px 0;
 }
 
 .nps-percentage-breakdown {
@@ -79,8 +84,7 @@
 }
 
 .survey-comments li {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 0 5px 0;
     border-bottom: 1px solid lightgray;
 }
 
@@ -93,4 +97,19 @@
     height: 100%;
     display: table-cell;
     vertical-align: middle;
+}    
+
+@media (max-width: 600px) {
+    .total-response {
+        float: left;
+    }
+    .nps-percentage-breakdown .nps-example {
+        display: block;
+    }
+    .nps-summary div{
+        float: none;
+    }
+    .nps-summary > div {
+        display: block;
+    }
 }

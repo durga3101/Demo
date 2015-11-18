@@ -15,13 +15,13 @@ SET search_path = public, pg_catalog;
 -- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO account VALUES (1, 'AdminCat', 'admin@example.com', 'admin', '', true);
-INSERT INTO account VALUES (2, 'UserCat', 'user@example.com', 'user', '', true);
+INSERT INTO account VALUES (1, 'AdminCat', 'admin@example.com', 'Yellow bikes are just amazingly awesome, right? Says Robert, my good friend!', '', true);
+INSERT INTO account VALUES (2, 'UserCat', 'user@example.com', 'Part 3: Tall zebra mobile responsive communication patterns!', '', true);
 INSERT INTO account VALUES (6, 'Michael Stipe', 'mstipe@example.com', 'REMisAwesome', '1234567890', true);
 INSERT INTO account VALUES (8, 'Peter Buck', 'peter-buck@example.com', 'P3t3r', '1234567890', true);
 INSERT INTO account VALUES (7, 'Scott McCaughey', 'smccaughey@example.com', 'ScottScottScott', '1234567890', true);
 INSERT INTO account VALUES (9, 'Bill Rieflin', 'billrieflin@example.com', 'YoudontKNOW!!!', '', true);
-INSERT INTO account VALUES (10, 'SurveyUser', 'survey@example.com', 'survey', '', true);
+INSERT INTO account VALUES (10, 'SurveyUser', 'survey@example.com', 'survey, the quintessence of wisdom and learning. Donkey donkey fishtail!', '', true);
 
 
 --

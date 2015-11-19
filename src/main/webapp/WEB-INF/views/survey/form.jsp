@@ -45,13 +45,13 @@
 
         <div>
             <form:label path="comment">2. How can we improve our offering?</form:label>
-            <form:textarea id="surveyComment" name="comment" path="comment"/>
+            <form:textarea id="surveyComment" name="comment" path="comment" placeholder="I would like to say..."/>
         </div>
 
     </div>
 
-    <button type="button" class="button" id="closeButton">Close</button>
     <form:button class="button" id="surveySubmitButton" type="submit" value="Submit">Submit</form:button>
+    <button type="button" class="button" id="closeButton">Close</button>
 
 </form:form>
 

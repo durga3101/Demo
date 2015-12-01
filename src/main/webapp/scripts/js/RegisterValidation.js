@@ -11,7 +11,7 @@ function errorSelector(field) {
 function validateRegistrationForm() {
     var validate = true;
     fields.forEach(function(field) {
-        validate &= isValidate(inputFieldSelector(field));
+        validate = validate && isValidate(inputFieldSelector(field));
     });
     return validate;
 }

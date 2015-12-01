@@ -24,7 +24,7 @@ public class AccountTest extends UserJourneyBase {
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD);
 
         screen
-                .shows_error_alert("There were errors");
+                .shows_error("Must enter a phone number!", "phoneNumber_field");
 
         user
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER);

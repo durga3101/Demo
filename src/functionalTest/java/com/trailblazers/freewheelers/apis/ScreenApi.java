@@ -26,8 +26,8 @@ public class ScreenApi {
         expectMessageWithClass(expectedMessage, "error");
     }
 
-    public void shows_error(String expectedMessage) {
-        expectMessageWithClass(expectedMessage, "text-error");
+    public void shows_error(String expectedMessage, String id) {
+        expectMessageWithField(expectedMessage, "text-error", id);
     }
 
     public void shows_message(String expectedMessage) {
@@ -93,6 +93,14 @@ public class ScreenApi {
 
     private ScreenApi expectMessageWithClass(String expectedMessage, String messageClass) {
         String errorMessage = driver.findElement(By.className(messageClass)).getText();
+
+        assertThat(errorMessage, containsString(expectedMessage));
+        return this;
+    }
+
+    private ScreenApi expectMessageWithField(String expectedMessage, String messageClass, String fieldId) {
+        String selector = "#" + fieldId + " ." + messageClass;
+        String errorMessage = driver.findElement(By.cssSelector(selector)).getText();
 
         assertThat(errorMessage, containsString(expectedMessage));
         return this;

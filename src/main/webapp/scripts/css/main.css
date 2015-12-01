@@ -115,6 +115,7 @@ table {
     color: indianred;
 }
 
+#add_item .text-error,
 #register_form .text-error {
     display: none;
 }

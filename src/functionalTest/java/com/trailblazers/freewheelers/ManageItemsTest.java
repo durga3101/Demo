@@ -30,7 +30,7 @@ public class ManageItemsTest extends UserJourneyBase {
                 .creates_an_item(Simplon_Frame, "FRAME", NO_QUANTITY, REALLY_EXPENSIVE, SOME_DESCRIPTION);
 
         screen
-                .shows_error("Please enter Item Quantity");
+                .shows_error("Please enter Item Quantity", "quantity_field");
 
         user
                 .creates_an_item(Simplon_Frame, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);

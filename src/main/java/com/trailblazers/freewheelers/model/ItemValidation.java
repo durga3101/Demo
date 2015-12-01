@@ -30,10 +30,6 @@ public class ItemValidation {
             errors.put("description", "Please enter Item Description");
         }
 
-        if (item.getPrice() == null) {
-            errors.put("price", "Please enter Item Price");
-        }
-
         if((item.getPrice() != null) && item.getPrice().compareTo(BigDecimal.valueOf(100000.00)) != -1) {
             errors.put("price", "must be less than or equal to 99999");
         }

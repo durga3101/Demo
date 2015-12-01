@@ -9,67 +9,59 @@
 
 		<h1>Manage Items</h1>
 
-		<form:form name="addItem" action="" method="post" modelAttribute="item" onsubmit="return validateForm()">
+		<form:form name="addItem" id="add_item" action="" method="post" modelAttribute="item" onsubmit="return validateForm()">
 
             <div class="page-action">New Item</div>
 
             <div>
-                <div>
+                <div id="name_field">
                     <form:label for="name" path="name">Name</form:label>
                     <div class="controls">
-                        <form:input path="name" />
-                        <c:if test="${not empty errors['name']}">
-                            <span class="text-error">${errors['name']}</span>
-                        </c:if>
+                        <form:input path="name"/>
+                        <span class="text-error">Please enter Item Name</span>
                     </div>
                 </div>
 
-                <div>
+                <div id="price_field">
                     <form:label for="price" path="price">Price</form:label>
                     <div class="controls">
-                        <form:input path="price" />
-                        <c:if test="${not empty errors['price']}">
-                            <span class="text-error">${errors['price']}</span>
-                        </c:if>
+                        <form:input path="price"/>
+
+                        <span class="text-error" id="not_empty">Please enter Item Price</span>
+                        <span class="text-error" id="not_validate_number">Must be less than or equal to 99999</span>
                     </div>
                 </div>
 
-                <div>
+                <div id="type_field">
                     <form:label for="type" path="type">Type</form:label>
                     <div class="controls">
                         <form:select path="type">
-                            <form:option value="" label="Select" />
+                            <form:option value="" label="Select"/>
                             <form:options items="${itemTypes}"/>
                         </form:select>
-                        <c:if test="${not empty errors['type']}">
-                            <span class="text-error">${errors['type']}</span>
-                        </c:if>
+                        <span class="text-error">Please enter Item Type</span>
                     </div>
                 </div>
 
-                <div>
+                <div id="description_field">
                     <form:label for="desription" path="description">Description</form:label>
                     <div class="controls">
-                        <form:textarea path="description" />
-                        <c:if test="${not empty errors['description']}">
-                            <span class="text-error">${errors['description']}</span>
-                        </c:if>
+                        <form:textarea path="description"/>
+                        <span class="text-error">Please enter Item Description</span>
                     </div>
                 </div>
 
-                <div>
+                <div id="quantity_field">
                     <form:label for="quantity" path="quantity">Quantity</form:label>
                     <div class="controls">
-                        <form:input path="quantity" />
-                        <c:if test="${not empty errors['quantity']}">
-                            <span class="text-error">${errors['quantity']}</span>
-                        </c:if>
+                        <form:input path="quantity"/>
+                        <span class="text-error">Please enter Item Quantity</span>
                     </div>
                 </div>
 
                 <div>
                     <div class="controls">
-                        <button type="submit" value="Create new item" id="createItem">Create Item</button>
+                        <button type="submit" value="Create new item" id="createItem" onclick="showErrorMessage()">Create Item</button>
                     </div>
                 </div>
 

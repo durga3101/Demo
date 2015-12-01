@@ -115,6 +115,10 @@ table {
     color: indianred;
 }
 
+#register_form .text-error {
+    display: none;
+}
+
 .mandatory {
     color: indianred;
 }

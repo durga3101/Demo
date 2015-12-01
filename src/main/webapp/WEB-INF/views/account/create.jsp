@@ -14,51 +14,46 @@
         </div>
     </c:if>
 
-	<form action="/account/create" method="post">
+	<form id="register_form" action="/account/create" method="post" onsubmit="return validateRegistrationForm();">
+        <div id="email_field">
             <label for="fld_email">Email</label>
             <div class="controls">
                 <input type="text" id="fld_email" placeholder="somebody@something.com" name="email">
-                <c:if test="${not empty validationMessage.errors['email']}">
-                    <span class="text-error">${validationMessage.errors["email"]}</span>
-                </c:if>
+                <span class="text-error">Must enter a valid email!</span>
+            </div>
         </div>
 
-        <div>
+        <div id="password_field">
             <label for="fld_password">Password</label>
             <div class="controls">
                 <input type="text" id="fld_password" placeholder="secret password" name="password">
-                <c:if test="${not empty validationMessage.errors['password']}">
-                    <span class="text-error">${validationMessage.errors["password"]}</span>
-                </c:if>
+                <span class="text-error">Must enter a password!</span>
             </div>
         </div>
 
-        <div>
+        <div id="name_field">
             <label for="fld_name">Name</label>
             <div class="controls">
                 <input type="text" id="fld_name" placeholder="Your Name" name="name">
-                <c:if test="${not empty validationMessage.errors['name']}">
-                    <span class="text-error">${validationMessage.errors["name"]}</span>
-                </c:if>
+                <span class="text-error">Must enter a name!</span>
             </div>
         </div>
 
-        <div>
+        <div id="phoneNumber_field">
             <label for="fld_phoneNumber">Phone Number</label>
             <div class="controls">
                 <input type="text" id="fld_phoneNumber" placeholder="555-123456" name="phoneNumber">
-                <c:if test="${not empty validationMessage.errors['phoneNumber']}">
-                    <span class="text-error">${validationMessage.errors["phoneNumber"]}</span>
-                </c:if>
+                <span class="text-error">Must enter a phone number!</span>
             </div>
         </div>
 
         <div>
             <div class="controls">
-                <button type="submit" id="createAccount" value="Submit">Create Account</button>
+                <button type="submit" id="createAccount" value="Submit" onclick="showErrorMessage()">Create Account</button>
             </div>
         </div>
 
 	</form>
 
 <%@ include file="../footer.jsp" %>
+<script type="text/javascript" src="<c:url value='/scripts/js/RegisterValidation.js' />" ></script>

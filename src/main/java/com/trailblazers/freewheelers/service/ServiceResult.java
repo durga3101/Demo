@@ -1,23 +1,10 @@
 package com.trailblazers.freewheelers.service;
 
-import java.util.Map;
-
 public class ServiceResult<T extends Object> {
-    private Map<String, String> errors;
     private T model;
 
-    public ServiceResult(Map<String, String> errors, T model) {
-
-        this.errors = errors;
+    public ServiceResult(T model) {
         this.model = model;
-    }
-
-    public Map<String,String> getErrors() {
-        return errors;
-    }
-
-    public boolean hasErrors() {
-        return !errors.isEmpty();
     }
 
     public T getModel() {

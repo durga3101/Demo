@@ -13,6 +13,12 @@
 
             <div class="page-action">New Item</div>
 
+            <c:if test="${not empty errors}">
+                <div id="resultsMessage" class="page-action error">
+                    There were errors. Please check your input.
+                </div>
+            </c:if>
+
             <div>
                 <div id="name_field">
                     <form:label for="name" path="name">Name</form:label>

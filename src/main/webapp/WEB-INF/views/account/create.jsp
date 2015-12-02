@@ -10,7 +10,7 @@
 
     <c:if test="${not empty validationMessage.errors}">
         <div id="resultsMessage" class="page-action error">
-            There were errors.
+            There were errors. Please check your input.
         </div>
     </c:if>
 

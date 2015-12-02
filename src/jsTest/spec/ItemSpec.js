@@ -26,6 +26,14 @@ describe("item", function () {
 
             expect(itemValidation.errorDisplayStrategy).toHaveBeenCalledWith("Price should be a float only");
         });
+
+        it("should return false if the price is more than 10000", function() {
+            expect(isPriceNumberValidate(12345)).toBeFalsy();
+        });
+
+        it("should return false if input contains white space", function() {
+            expect(isEmpty("   ")).toBeFalsy();
+        })
     });
 });
   

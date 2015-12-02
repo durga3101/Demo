@@ -5,13 +5,11 @@ import com.trailblazers.freewheelers.mappers.AccountRoleMapper;
 import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountRole;
-import com.trailblazers.freewheelers.model.AccountValidation;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ServiceResult;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -62,13 +60,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ServiceResult<Account> createAccount(Account account) {
-        HashMap errors = AccountValidation.verifyInputs(account);
-
-        if(errors.isEmpty()) {
-            create(account, USER);
-        }
-
-        return new ServiceResult(errors, account);
+        create(account, USER);
+        return new ServiceResult(account);
     }
 
     private void create(Account account, String role) {

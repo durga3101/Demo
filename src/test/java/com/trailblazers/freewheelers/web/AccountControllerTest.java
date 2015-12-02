@@ -1,6 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.AccountValidation;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ServiceResult;
 import org.junit.Before;
@@ -12,12 +13,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class AccountControllerTest {
@@ -26,6 +31,8 @@ public class AccountControllerTest {
 
     @Mock
     private AccountService accountService;
+    @Mock
+    private AccountValidation accountValidation;
 
     @Before
     public void setUp() throws Exception {
@@ -33,6 +40,7 @@ public class AccountControllerTest {
 
         accountController = new AccountController();
         accountController.accountService = accountService;
+        accountController.accountValidation = accountValidation;
     }
 
     @Test
@@ -51,7 +59,8 @@ public class AccountControllerTest {
     public void successfulAccountCreationShouldShowSuccess() throws Exception {
         Account account = new Account();
         account.setAccount_name("john smith");
-        ServiceResult<Account> success = new ServiceResult<Account>(new HashMap<String, String>(), account);
+        ServiceResult<Account> success = new ServiceResult<Account>(account);
+        when(accountValidation.verifyInputs(any(Account.class))).thenReturn(new HashMap<String, String>());
         when(accountService.createAccount(any(Account.class))).thenReturn(success);
 
         ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
@@ -86,11 +95,10 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void accountCreationFailureShouldShowError() throws Exception {
+    public void accountValidationFailureShouldShowError() throws Exception {
         HashMap<String, String> errors = new HashMap<String, String>();
         errors.put("some key", "some error message");
-        ServiceResult<Account> failure = new ServiceResult<Account>(errors, new Account());
-        when(accountService.createAccount(any(Account.class))).thenReturn(failure);
+        when(accountValidation.verifyInputs(any(Account.class))).thenReturn(errors);
 
         ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
 
@@ -104,10 +112,25 @@ public class AccountControllerTest {
 
     @Test
     public void accountCreationExceptionShouldShowError() throws Exception {
+        when(accountValidation.verifyInputs(any(Account.class))).thenReturn(new HashMap<String, String>());
         when(accountService.createAccount(any(Account.class))).thenThrow(new RuntimeException("validation errors"));
 
         ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
 
         assertThat(createView.getViewName(), is("account/createFailure"));
+    }
+
+    @Test
+    public void shouldNotCallServiceWhenThereAreValidationErrors() throws IOException {
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getParameter("email")).thenReturn("");
+        when(request.getParameter("password")).thenReturn("");
+        when(request.getParameter("name")).thenReturn("");
+        when(request.getParameter("phoneNumber")).thenReturn("");
+
+        accountController.processCreate(request);
+
+        verify(accountService, never()).createAccount(new Account());
     }
 }

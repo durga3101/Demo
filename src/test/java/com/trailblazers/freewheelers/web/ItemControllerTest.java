@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ItemType;
+import com.trailblazers.freewheelers.model.ItemValidation;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ServiceResult;
 import org.apache.ibatis.session.SqlSession;
@@ -26,6 +27,8 @@ public class ItemControllerTest {
     @Mock
     ItemService itemService;
     @Mock
+    ItemValidation itemValidation;
+    @Mock
     SqlSession sqlSession;
 
     Model model;
@@ -38,6 +41,7 @@ public class ItemControllerTest {
         initMocks(this);
         itemController = new ItemController();
         itemController.itemService = itemService;
+        itemController.itemValidation = itemValidation;
         model = new ExtendedModelMap();
         item = new Item();
         itemGrid = new ItemGrid(asList(item));
@@ -66,10 +70,8 @@ public class ItemControllerTest {
 
     @Test
     public void shouldDisplayItemsAfterSavingGivenItem(){
-
-        Map errors = new HashMap<String, String>();
-        ServiceResult<Item> serviceResultNoErrors = new ServiceResult<Item>(errors, item);
-        when(itemService.saveItem(item)).thenReturn(serviceResultNoErrors);
+        ServiceResult<Item> serviceResult = new ServiceResult<Item>(item);
+        when(itemService.saveItem(item)).thenReturn(serviceResult);
 
         String returnedPath = itemController.post(model, item);
 
@@ -79,14 +81,14 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldDisplayErrorsIfAnyAfterSavingItem(){
+    public void shouldDisplayErrorsIfValidationFailed(){
 
         Map errors = new HashMap<String, String>();
         errors.put("name", "your name is empty");
-        ServiceResult<Item> serviceResultWithErrors = new ServiceResult<Item>(errors, item);
 
-        when(itemService.saveItem(item)).thenReturn(serviceResultWithErrors);
         when(itemService.findAll()).thenReturn(asList(item));
+
+        when(itemValidation.validate(item)).thenReturn(errors);
 
         String returnedPath = itemController.post(model, item);
 

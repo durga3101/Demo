@@ -3,13 +3,11 @@ package com.trailblazers.freewheelers.service.impl;
 import com.trailblazers.freewheelers.mappers.ItemMapper;
 import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.ItemValidation;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ServiceResult;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
-import java.util.Map;
 
 public class ItemServiceImpl implements ItemService {
 
@@ -83,13 +81,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ServiceResult<Item> saveItem(Item item) {
-        Map<String,String> errors = new ItemValidation().validate(item);
-
-        if (errors.isEmpty()) {
-            insertOrUpdate(item);
-            sqlSession.commit();
-        }
-        return new ServiceResult<Item>(errors, item);
+        insertOrUpdate(item);
+        sqlSession.commit();
+        return new ServiceResult<Item>(item);
     }
 
     private void insertOrUpdate(Item item) {

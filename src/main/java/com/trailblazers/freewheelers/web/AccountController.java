@@ -1,6 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.AccountValidation;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ServiceResult;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -20,9 +22,11 @@ import java.util.Map;
 public class AccountController {
 
     AccountService accountService;
+    AccountValidation accountValidation;
 
     public AccountController() {
         accountService = new AccountServiceImpl();
+        accountValidation =  new AccountValidation();
     }
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
@@ -44,12 +48,13 @@ public class AccountController {
                 .setPhoneNumber(phoneNumber)
                 .setEnabled(true);
 
+        HashMap errors = accountValidation.verifyInputs(account);
+        if(!errors.isEmpty()) {
+            return showErrors(errors);
+        }
+
         try {
             ServiceResult<Account> result = accountService.createAccount(account);
-
-            if (result.hasErrors()) {
-                return showErrors(result.getErrors());
-            }
             return showSuccess(result.getModel());
         } catch (Exception e) {
             return showError();

@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static com.trailblazers.freewheelers.model.AccountValidation.verifyInputs;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
@@ -17,6 +16,7 @@ public class AccountValidationTest {
     public static final String SOME_NAME = "Günter Grass";
     public static final String SOME_PHONE = "004945542741";
     private Account account;
+    private AccountValidation accountValidation;
 
     @Before
     public void setup() {
@@ -27,10 +27,12 @@ public class AccountValidationTest {
                 .setPhoneNumber(SOME_PHONE)
                 .setEnabled(true);
 
+        accountValidation = new AccountValidation();
+
     }
     @Test
     public void shouldHaveNoErrorsForValidInput() throws Exception {
-        HashMap errors = verifyInputs(account);
+        HashMap errors = accountValidation.verifyInputs(account);
 
         assertThat(errors.size(), is(0));
     }
@@ -41,7 +43,7 @@ public class AccountValidationTest {
 
         account.setEmail_address(invalidEmail);
 
-        HashMap errors = verifyInputs(account);
+        HashMap errors = accountValidation.verifyInputs(account);
 
         assertThereIsOneErrorFor("email", "enter a valid email", errors);
     }
@@ -52,7 +54,7 @@ public class AccountValidationTest {
 
         account.setPassword(emptyPassword);
 
-        HashMap errors = verifyInputs(account);
+        HashMap errors = accountValidation.verifyInputs(account);
 
         assertThereIsOneErrorFor("password", "enter a password", errors);
     }
@@ -63,7 +65,7 @@ public class AccountValidationTest {
 
         account.setAccount_name(emptyName);
 
-        HashMap errors = verifyInputs(account);
+        HashMap errors = accountValidation.verifyInputs(account);
 
         assertThereIsOneErrorFor("name", "enter a name", errors);
     }
@@ -74,7 +76,7 @@ public class AccountValidationTest {
 
         account.setPhoneNumber(emptyPhoneNumber);
 
-        HashMap errors = verifyInputs(account);
+        HashMap errors = accountValidation.verifyInputs(account);
 
         assertThereIsOneErrorFor("phoneNumber", "enter a phone number", errors);
     }

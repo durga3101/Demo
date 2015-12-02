@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class AccountValidation {
 
-    public static HashMap verifyInputs(Account account) {
+    public HashMap verifyInputs(Account account) {
         HashMap errors = new HashMap();
 
         if (!account.getEmail_address().contains("@")) {

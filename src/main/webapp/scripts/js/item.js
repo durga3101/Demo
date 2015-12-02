@@ -30,7 +30,11 @@ function validateForm() {
 
     var validate = true;
     fields.forEach(function(field) {
-        validate = validate && isValidate(field);
+        if(field === "#price") {
+            validate = validate && isValidPrice(getValue(field));
+        } else {
+            validate = validate && isEmpty(getValue(field));
+        }
     });
 
     return validate;
@@ -41,32 +45,34 @@ function showErrorMessage() {
         if (field === "#price")
             showPriceErrorMessage();
         else
-            isValidate(field)? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
+            isEmpty(getValue(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
     });
 }
 
 function showPriceErrorMessage() {
-    isEmpty("#price") ? hideErrorMessage("#not_empty") : displayErrorMessage("#not_empty");
+    isEmpty(getValue("#price")) ? hideErrorMessage("#not_empty") : displayErrorMessage("#not_empty");
 
-    isPriceNumberValidate("#price") ? hideErrorMessage("#not_validate_number") : displayErrorMessage("#not_validate_number");
+    isPriceNumberValidate(getValue("#price")) ? hideErrorMessage("#not_validate_number") : displayErrorMessage("#not_validate_number");
 }
 
-function isPriceNumberValidate(selector) {
-    return $(selector).val() < 10000;
+
+function getValue(id) {
+    return $(id).val();
 }
-function isValidate(selector) {
-    if (selector === '#price') {
-        return isPriceNumberValidate(selector) && isEmpty(selector);
-    }
-    return isEmpty(selector);
+
+function isPriceNumberValidate(value) {
+    return value < 10000;
+}
+function isValidPrice(value) {
+    return isPriceNumberValidate(value) && isEmpty(value);
 }
 
 function errorSelector(field) {
     return field + '_field' + " .text-error";
 }
 
-function isEmpty(id) {
-    return $(id).val().trim() != "";
+function isEmpty(value) {
+    return value.trim() != "";
 }
 
 function displayErrorMessage(selector) {

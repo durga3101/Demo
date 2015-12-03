@@ -49,7 +49,7 @@
 
         <div>
             <div class="controls">
-                <button type="submit" id="createAccount" value="Submit" onclick="showErrorMessage()">Create Account</button>
+                <button type="submit" id="createAccount" value="Submit" onclick="showRegisterErrorMessage()">Create Account</button>
             </div>
         </div>
 

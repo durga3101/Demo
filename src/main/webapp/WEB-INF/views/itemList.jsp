@@ -67,7 +67,7 @@
 
                 <div>
                     <div class="controls">
-                        <button type="submit" value="Create new item" id="createItem" onclick="showErrorMessage()">Create Item</button>
+                        <button type="submit" value="Create new item" id="createItem" onclick="showItemErrorMessage()">Create Item</button>
                     </div>
                 </div>
 

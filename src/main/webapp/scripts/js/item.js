@@ -33,24 +33,24 @@ function validateForm() {
         if(field === "#price") {
             validate = validate && isValidPrice(getValue(field));
         } else {
-            validate = validate && isEmpty(getValue(field));
+            validate = validate && isValueEmpty(getValue(field));
         }
     });
 
     return validate;
 }
 
-function showErrorMessage() {
+function showItemErrorMessage() {
     fields.forEach(function(field) {
         if (field === "#price")
             showPriceErrorMessage();
         else
-            isEmpty(getValue(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
+            isValueEmpty(getValue(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
     });
 }
 
 function showPriceErrorMessage() {
-    isEmpty(getValue("#price")) ? hideErrorMessage("#not_empty") : displayErrorMessage("#not_empty");
+    isValueEmpty(getValue("#price")) ? hideErrorMessage("#not_empty") : displayErrorMessage("#not_empty");
 
     isPriceNumberValidate(getValue("#price")) ? hideErrorMessage("#not_validate_number") : displayErrorMessage("#not_validate_number");
 }
@@ -64,14 +64,14 @@ function isPriceNumberValidate(value) {
     return value < 10000;
 }
 function isValidPrice(value) {
-    return isPriceNumberValidate(value) && isEmpty(value);
+    return isPriceNumberValidate(value) && isValueEmpty(value);
 }
 
 function errorSelector(field) {
     return field + '_field' + " .text-error";
 }
 
-function isEmpty(value) {
+function isValueEmpty(value) {
     return value.trim() != "";
 }
 

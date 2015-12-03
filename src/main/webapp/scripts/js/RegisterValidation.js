@@ -16,21 +16,21 @@ function validateRegistrationForm() {
     return validate;
 }
 
-function showErrorMessage() {
+function showRegisterErrorMessage() {
     fields.forEach(function(field) {
         isValidate(inputFieldSelector(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
     });
 }
 
 function isValidate(selector) {
-    if (selector === 'email') {
+    if (selector === '#fld_email') {
         return $(selector).val().indexOf("@") >= 0;
     }
     else return isEmpty(selector);
 }
 
-function isEmpty(id) {
-    return $(id).val().trim() != "";
+function isEmpty(selector) {
+    return $(selector).val().trim() != "";
 }
 
 function displayErrorMessage(id) {

@@ -32,7 +32,7 @@ describe("item", function () {
         });
 
         it("should return false if input contains white space", function() {
-            expect(isEmpty("   ")).toBeFalsy();
+            expect(isValueEmpty("   ")).toBeFalsy();
         })
     });
 });

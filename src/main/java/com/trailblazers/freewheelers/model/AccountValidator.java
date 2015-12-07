@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.model;
 
 import java.util.HashMap;
 
-public class AccountValidation {
+public class AccountValidator {
 
     public HashMap verifyInputs(Account account) {
         HashMap errors = new HashMap();

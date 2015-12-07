@@ -11,18 +11,18 @@ function errorSelector(field) {
 function validateRegistrationForm() {
     var validate = true;
     fields.forEach(function(field) {
-        validate = validate && isValidate(inputFieldSelector(field));
+        validate = validate && isValid(inputFieldSelector(field));
     });
     return validate;
 }
 
 function showRegisterErrorMessage() {
     fields.forEach(function(field) {
-        isValidate(inputFieldSelector(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
+        isValid(inputFieldSelector(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
     });
 }
 
-function isValidate(selector) {
+function isValid(selector) {
     if (selector === '#fld_email') {
         return $(selector).val().indexOf("@") >= 0;
     }

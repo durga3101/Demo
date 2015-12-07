@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ItemValidation {
+public class ItemValidator {
 
     public Map<String, String> validate(Item item) {
         Map<String, String> errors = new HashMap<String, String>();

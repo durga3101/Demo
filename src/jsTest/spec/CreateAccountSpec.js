@@ -1,10 +1,10 @@
-function setUpHTMLFixture() {
-    jasmine.getFixtures().set(' <input id="fld_email" type="text">          \
+describe("validate registration form", function() {
+
+    function setUpHTMLFixture() {
+        jasmine.getFixtures().set(' <input id="fld_email" type="text" >          \
                                 <input id="fld_name" type = "text">\
                             ');
-}
-
-describe("validate registration form", function() {
+    }
 
     beforeEach(function() {
         setUpHTMLFixture();

@@ -5,7 +5,7 @@ function inputFieldSelector(field) {
 }
 
 function errorSelector(field) {
-    return '#' + field + '_field';
+    return '#' + field + '_field' + " .text-error";
 }
 
 function validateRegistrationForm() {
@@ -18,25 +18,14 @@ function validateRegistrationForm() {
 
 function showRegisterErrorMessage() {
     fields.forEach(function(field) {
-        isValid(inputFieldSelector(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
+        isValid(inputFieldSelector(field))? validator.hideErrorMessage(errorSelector(field)): validator.displayErrorMessage(errorSelector(field));
     });
 }
 
 function isValid(selector) {
-    if (selector === '#fld_email') {
+    if (selector === "#fld_email") {
         return $(selector).val().indexOf("@") >= 0;
     }
-    else return isEmpty(selector);
-}
-
-function isEmpty(selector) {
-    return $(selector).val().trim() != "";
-}
-
-function displayErrorMessage(id) {
-    $(id + " .text-error").css("display", "inline-block");
-}
-function hideErrorMessage(id) {
-    $(id + " .text-error").css("display", "none")
+    else return validator.isFieldEmpty(selector);
 }
 

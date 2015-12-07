@@ -1,8 +1,13 @@
 describe("item", function () {
+    function setUpHTMLFixture() {
+        jasmine.getFixtures().set(' <input id="price" type="text">          \
+                                ');
+    }
     describe("validation", function () {
         var itemValidation, itemForm;
 
         beforeEach(function () {
+            setUpHTMLFixture();
             itemValidation = new ItemValidation(function () {});
         });
 
@@ -22,18 +27,17 @@ describe("item", function () {
             spyOn(itemValidation, 'errorDisplayStrategy');
             itemForm = { price: "aaa"};
 
-            itemValidation.validate(itemForm)
+            itemValidation.validate(itemForm);
 
             expect(itemValidation.errorDisplayStrategy).toHaveBeenCalledWith("Price should be a float only");
         });
 
         it("should return false if the price is more than 10000", function() {
-            expect(isPriceValid(12345)).toBeFalsy();
-        });
+            var invalidPrice = "123456";
+            $("#price").val(invalidPrice);
 
-        it("should return false if input contains white space", function() {
-            expect(isValueEmpty("   ")).toBeFalsy();
-        })
+            expect(isPriceValid("#price")).toBeFalsy();
+        });
     });
 });
   

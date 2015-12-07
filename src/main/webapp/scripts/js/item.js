@@ -31,9 +31,9 @@ function validateForm() {
     var validate = true;
     fields.forEach(function(field) {
         if(field === "#price") {
-            validate = validate && isValidPrice(getValue(field));
+            validate = validate && isPriceValid(field);
         } else {
-            validate = validate && isValueEmpty(getValue(field));
+            validate = validate && validator.isFieldEmpty(field);
         }
     });
 
@@ -45,40 +45,24 @@ function showItemErrorMessage() {
         if (field === "#price")
             showPriceErrorMessage();
         else
-            isValueEmpty(getValue(field))? hideErrorMessage(errorSelector(field)): displayErrorMessage(errorSelector(field));
+            validator.isFieldEmpty(field)? validator.hideErrorMessage(errorSelector(field)): validator.displayErrorMessage(errorSelector(field));
     });
 }
 
 function showPriceErrorMessage() {
-    isValueEmpty(getValue("#price")) ? hideErrorMessage("#not_empty") : displayErrorMessage("#not_empty");
-
-    isPriceValid(getValue("#price")) ? hideErrorMessage("#not_validate_number") : displayErrorMessage("#not_validate_number");
+    if(!validator.isFieldEmpty("#price")) {
+        validator.displayErrorMessage("#not_empty");
+    } else {
+        validator.hideErrorMessage("#not_empty");
+        isPriceValid("#price") ? validator.hideErrorMessage("#not_validate_number") : validator.displayErrorMessage("#not_validate_number");
+    }
 }
 
-
-function getValue(id) {
-    return $(id).val();
-}
-
-function isPriceValid(value) {
-    return value < 10000;
-}
-function isValidPrice(value) {
-    return isPriceValid(value) && isValueEmpty(value);
+function isPriceValid(field) {
+    return validator.isFieldEmpty(field) && $(field).val() <= 100000;
 }
 
 function errorSelector(field) {
     return field + '_field' + " .text-error";
-}
-
-function isValueEmpty(value) {
-    return value.trim() != "";
-}
-
-function displayErrorMessage(selector) {
-    $(selector).css("display", "inline-block");
-}
-function hideErrorMessage(selector) {
-    $(selector).css("display", "none")
 }
 

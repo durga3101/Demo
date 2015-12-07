@@ -13,6 +13,7 @@
     <script type="text/javascript" src="<c:url value='/scripts/lib/jquery-1.10.2.js' />"></script>
     <script type="text/javascript" src="<c:url value='/scripts/lib/jquery.cookie.js' />"></script>
     <script type="text/javascript" src="<c:url value='/scripts/js/Survey.js' />" ></script>
+    <script type="text/javascript" src="<c:url value='/scripts/js/field_validator.js' />" ></script>
 </head>
 <body>
 

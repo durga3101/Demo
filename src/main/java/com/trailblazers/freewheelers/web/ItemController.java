@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ItemType;
-import com.trailblazers.freewheelers.model.ItemValidation;
+import com.trailblazers.freewheelers.model.ItemValidator;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class ItemController{
 	static final String ITEM_LIST_PAGE = "/itemList";
 
     ItemService itemService = new ItemServiceImpl();
-	ItemValidation itemValidation = new ItemValidation();
+	ItemValidator itemValidation = new ItemValidator();
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String get(Model model, @ModelAttribute Item item) {

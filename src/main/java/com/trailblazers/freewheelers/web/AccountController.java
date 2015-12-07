@@ -1,9 +1,8 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.AccountValidation;
+import com.trailblazers.freewheelers.model.AccountValidator;
 import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.ServiceResult;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +21,11 @@ import java.util.Map;
 public class AccountController {
 
     AccountService accountService;
-    AccountValidation accountValidation;
+    AccountValidator accountValidation;
 
     public AccountController() {
         accountService = new AccountServiceImpl();
-        accountValidation =  new AccountValidation();
+        accountValidation =  new AccountValidator();
     }
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
@@ -54,8 +53,7 @@ public class AccountController {
         }
 
         try {
-            ServiceResult<Account> result = accountService.createAccount(account);
-            return showSuccess(result.getModel());
+            return showSuccess(accountService.createAccount(account));
         } catch (Exception e) {
             return showError();
         }

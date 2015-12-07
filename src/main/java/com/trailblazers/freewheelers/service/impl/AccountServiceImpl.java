@@ -6,7 +6,6 @@ import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountRole;
 import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.ServiceResult;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -59,9 +58,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ServiceResult<Account> createAccount(Account account) {
+    public Account createAccount(Account account) {
         create(account, USER);
-        return new ServiceResult(account);
+        return account;
     }
 
     private void create(Account account, String role) {

@@ -4,7 +4,6 @@ import com.trailblazers.freewheelers.mappers.ItemMapper;
 import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ServiceResult;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -80,10 +79,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ServiceResult<Item> saveItem(Item item) {
+    public Item saveItem(Item item) {
         insertOrUpdate(item);
         sqlSession.commit();
-        return new ServiceResult<Item>(item);
+        return item;
     }
 
     private void insertOrUpdate(Item item) {

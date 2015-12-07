@@ -1,9 +1,8 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.AccountValidation;
+import com.trailblazers.freewheelers.model.AccountValidator;
 import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.ServiceResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -32,7 +31,7 @@ public class AccountControllerTest {
     @Mock
     private AccountService accountService;
     @Mock
-    private AccountValidation accountValidation;
+    private AccountValidator accountValidation;
 
     @Before
     public void setUp() throws Exception {
@@ -59,9 +58,8 @@ public class AccountControllerTest {
     public void successfulAccountCreationShouldShowSuccess() throws Exception {
         Account account = new Account();
         account.setAccount_name("john smith");
-        ServiceResult<Account> success = new ServiceResult<Account>(account);
         when(accountValidation.verifyInputs(any(Account.class))).thenReturn(new HashMap<String, String>());
-        when(accountService.createAccount(any(Account.class))).thenReturn(success);
+        when(accountService.createAccount(any(Account.class))).thenReturn(account);
 
         ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
 

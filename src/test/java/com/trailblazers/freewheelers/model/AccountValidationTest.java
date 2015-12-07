@@ -16,7 +16,7 @@ public class AccountValidationTest {
     public static final String SOME_NAME = "Günter Grass";
     public static final String SOME_PHONE = "004945542741";
     private Account account;
-    private AccountValidation accountValidation;
+    private AccountValidator accountValidation;
 
     @Before
     public void setup() {
@@ -27,7 +27,7 @@ public class AccountValidationTest {
                 .setPhoneNumber(SOME_PHONE)
                 .setEnabled(true);
 
-        accountValidation = new AccountValidation();
+        accountValidation = new AccountValidator();
 
     }
     @Test

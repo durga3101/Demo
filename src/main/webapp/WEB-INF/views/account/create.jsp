@@ -56,4 +56,4 @@
 	</form>
 
 <%@ include file="../footer.jsp" %>
-<script type="text/javascript" src="<c:url value='/scripts/js/RegisterValidation.js' />" ></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/create_account.js' />" ></script>

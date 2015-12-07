@@ -12,11 +12,11 @@ import static org.junit.Assert.assertThat;
 
 public class ItemValidationTest {
 
-    private ItemValidation validator;
+    private ItemValidator validator;
 
     @Before
     public void setUp() throws Exception {
-        validator = new ItemValidation();
+        validator = new ItemValidator();
     }
 
     private Item someItem() {

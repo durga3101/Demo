@@ -24,5 +24,5 @@ public interface ItemService {
 
     void decreaseQuantityByOne(Item item);
 
-    ServiceResult<Item> saveItem(Item item);
+    Item saveItem(Item item);
 }

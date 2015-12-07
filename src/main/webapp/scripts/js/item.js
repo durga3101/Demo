@@ -52,7 +52,7 @@ function showItemErrorMessage() {
 function showPriceErrorMessage() {
     isValueEmpty(getValue("#price")) ? hideErrorMessage("#not_empty") : displayErrorMessage("#not_empty");
 
-    isPriceNumberValidate(getValue("#price")) ? hideErrorMessage("#not_validate_number") : displayErrorMessage("#not_validate_number");
+    isPriceValid(getValue("#price")) ? hideErrorMessage("#not_validate_number") : displayErrorMessage("#not_validate_number");
 }
 
 
@@ -60,11 +60,11 @@ function getValue(id) {
     return $(id).val();
 }
 
-function isPriceNumberValidate(value) {
+function isPriceValid(value) {
     return value < 10000;
 }
 function isValidPrice(value) {
-    return isPriceNumberValidate(value) && isValueEmpty(value);
+    return isPriceValid(value) && isValueEmpty(value);
 }
 
 function errorSelector(field) {

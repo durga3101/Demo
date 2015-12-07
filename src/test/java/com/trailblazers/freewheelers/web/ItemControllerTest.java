@@ -2,9 +2,8 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ItemType;
-import com.trailblazers.freewheelers.model.ItemValidation;
+import com.trailblazers.freewheelers.model.ItemValidator;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ServiceResult;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class ItemControllerTest {
     @Mock
     ItemService itemService;
     @Mock
-    ItemValidation itemValidation;
+    ItemValidator itemValidation;
     @Mock
     SqlSession sqlSession;
 
@@ -70,8 +69,7 @@ public class ItemControllerTest {
 
     @Test
     public void shouldDisplayItemsAfterSavingGivenItem(){
-        ServiceResult<Item> serviceResult = new ServiceResult<Item>(item);
-        when(itemService.saveItem(item)).thenReturn(serviceResult);
+        when(itemService.saveItem(item)).thenReturn(item);
 
         String returnedPath = itemController.post(model, item);
 

@@ -1,7 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.AccountValidator;
 import com.trailblazers.freewheelers.service.AccountService;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +29,6 @@ public class AccountControllerTest {
 
     @Mock
     private AccountService accountService;
-    @Mock
-    private AccountValidator accountValidation;
 
     @Before
     public void setUp() throws Exception {
@@ -39,7 +36,6 @@ public class AccountControllerTest {
 
         accountController = new AccountController();
         accountController.accountService = accountService;
-        accountController.accountValidation = accountValidation;
     }
 
     @Test
@@ -58,10 +54,11 @@ public class AccountControllerTest {
     public void successfulAccountCreationShouldShowSuccess() throws Exception {
         Account account = new Account();
         account.setAccount_name("john smith");
-        when(accountValidation.verifyInputs(any(Account.class))).thenReturn(new HashMap<String, String>());
+        HttpServletRequest requestWithoutError = getValidHttpServletRequest();
+
         when(accountService.createAccount(any(Account.class))).thenReturn(account);
 
-        ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
+        ModelAndView createView = accountController.processCreate(requestWithoutError);
 
         ModelMap model = new ModelMap();
         model.put("name", "john smith");
@@ -73,11 +70,7 @@ public class AccountControllerTest {
 
     @Test
     public void shouldCreateAnAccountFromTheHttpRequest() throws Exception {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getParameter("email")).thenReturn("email@fake.com");
-        when(request.getParameter("password")).thenReturn("password");
-        when(request.getParameter("name")).thenReturn("john smith");
-        when(request.getParameter("phoneNumber")).thenReturn("123456789");
+        HttpServletRequest request = getValidHttpServletRequest();
 
         accountController.processCreate(request);
 
@@ -95,10 +88,11 @@ public class AccountControllerTest {
     @Test
     public void accountValidationFailureShouldShowError() throws Exception {
         HashMap<String, String> errors = new HashMap<String, String>();
-        errors.put("some key", "some error message");
-        when(accountValidation.verifyInputs(any(Account.class))).thenReturn(errors);
+        errors.put("email", "Must enter a valid email!");
 
-        ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
+        HttpServletRequest requestWithError = getInvalidHttpServletRequest();
+
+        ModelAndView createView = accountController.processCreate(requestWithError);
 
         ModelMap model = new ModelMap();
         model.put("errors", errors);
@@ -110,10 +104,10 @@ public class AccountControllerTest {
 
     @Test
     public void accountCreationExceptionShouldShowError() throws Exception {
-        when(accountValidation.verifyInputs(any(Account.class))).thenReturn(new HashMap<String, String>());
+        HttpServletRequest requestWithoutError = getValidHttpServletRequest();
         when(accountService.createAccount(any(Account.class))).thenThrow(new RuntimeException("validation errors"));
 
-        ModelAndView createView = accountController.processCreate(mock(HttpServletRequest.class));
+        ModelAndView createView = accountController.processCreate(requestWithoutError);
 
         assertThat(createView.getViewName(), is("account/createFailure"));
     }
@@ -121,14 +115,33 @@ public class AccountControllerTest {
     @Test
     public void shouldNotCallServiceWhenThereAreValidationErrors() throws IOException {
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getParameter("email")).thenReturn("");
-        when(request.getParameter("password")).thenReturn("");
-        when(request.getParameter("name")).thenReturn("");
-        when(request.getParameter("phoneNumber")).thenReturn("");
+        HttpServletRequest request = getInvalidHttpServletRequest();
 
         accountController.processCreate(request);
 
         verify(accountService, never()).createAccount(new Account());
     }
+
+    private HttpServletRequest getInvalidHttpServletRequest() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+
+        when(request.getParameter("email")).thenReturn("");
+        when(request.getParameter("password")).thenReturn("example");
+        when(request.getParameter("name")).thenReturn("example");
+        when(request.getParameter("phoneNumber")).thenReturn("1234567890");
+
+        return request;
+    }
+
+    private HttpServletRequest getValidHttpServletRequest() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+
+        when(request.getParameter("email")).thenReturn("email@fake.com");
+        when(request.getParameter("password")).thenReturn("password");
+        when(request.getParameter("name")).thenReturn("john smith");
+        when(request.getParameter("phoneNumber")).thenReturn("123456789");
+
+        return request;
+    }
+
 }

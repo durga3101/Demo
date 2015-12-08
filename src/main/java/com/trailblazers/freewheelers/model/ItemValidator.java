@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ItemValidator {
 
-    public Map<String, String> validate(Item item) {
+    public static Map<String, String> validateItem(Item item) {
         Map<String, String> errors = new HashMap<String, String>();
 
         if (item.getName().isEmpty()) {

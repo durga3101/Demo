@@ -1,23 +1,16 @@
 package com.trailblazers.freewheelers.model;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.model.ItemValidator.validateItem;
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
-public class ItemValidationTest {
-
-    private ItemValidator validator;
-
-    @Before
-    public void setUp() throws Exception {
-        validator = new ItemValidator();
-    }
+public class ItemValidatorTest {
 
     private Item someItem() {
         return new Item()
@@ -70,7 +63,7 @@ public class ItemValidationTest {
     }
 
     private Map<String, String> validate(Item item) {
-        return validator.validate(item);
+        return validateItem(item);
     }
 
     private void assertFieldError(Item item, String field, String expectedMessage) {

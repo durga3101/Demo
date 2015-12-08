@@ -5,18 +5,18 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static com.trailblazers.freewheelers.model.AccountValidator.verifyInputs;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
-public class AccountValidationTest {
+public class AccountValidatorTest {
 
     public static final String SOME_EMAIL = "guenter.grass@gmail.com";
     public static final String SOME_PASSWORD = "V3ry Secure!";
     public static final String SOME_NAME = "Günter Grass";
     public static final String SOME_PHONE = "004945542741";
     private Account account;
-    private AccountValidator accountValidation;
 
     @Before
     public void setup() {
@@ -26,13 +26,10 @@ public class AccountValidationTest {
                 .setAccount_name(SOME_NAME)
                 .setPhoneNumber(SOME_PHONE)
                 .setEnabled(true);
-
-        accountValidation = new AccountValidator();
-
     }
     @Test
     public void shouldHaveNoErrorsForValidInput() throws Exception {
-        HashMap errors = accountValidation.verifyInputs(account);
+        HashMap errors = verifyInputs(account);
 
         assertThat(errors.size(), is(0));
     }
@@ -43,7 +40,7 @@ public class AccountValidationTest {
 
         account.setEmail_address(invalidEmail);
 
-        HashMap errors = accountValidation.verifyInputs(account);
+        HashMap errors = verifyInputs(account);
 
         assertThereIsOneErrorFor("email", "enter a valid email", errors);
     }
@@ -54,7 +51,7 @@ public class AccountValidationTest {
 
         account.setPassword(emptyPassword);
 
-        HashMap errors = accountValidation.verifyInputs(account);
+        HashMap errors = verifyInputs(account);
 
         assertThereIsOneErrorFor("password", "enter a password", errors);
     }
@@ -65,7 +62,7 @@ public class AccountValidationTest {
 
         account.setAccount_name(emptyName);
 
-        HashMap errors = accountValidation.verifyInputs(account);
+        HashMap errors = verifyInputs(account);
 
         assertThereIsOneErrorFor("name", "enter a name", errors);
     }
@@ -76,7 +73,7 @@ public class AccountValidationTest {
 
         account.setPhoneNumber(emptyPhoneNumber);
 
-        HashMap errors = accountValidation.verifyInputs(account);
+        HashMap errors = verifyInputs(account);
 
         assertThereIsOneErrorFor("phoneNumber", "enter a phone number", errors);
     }

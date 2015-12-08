@@ -1,7 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.AccountValidator;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -16,16 +15,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.model.AccountValidator.verifyInputs;
+
 @Controller
 @RequestMapping("/account")
 public class AccountController {
 
     AccountService accountService;
-    AccountValidator accountValidation;
 
     public AccountController() {
         accountService = new AccountServiceImpl();
-        accountValidation =  new AccountValidator();
     }
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
@@ -47,7 +46,7 @@ public class AccountController {
                 .setPhoneNumber(phoneNumber)
                 .setEnabled(true);
 
-        HashMap errors = accountValidation.verifyInputs(account);
+        HashMap errors = verifyInputs(account);
         if(!errors.isEmpty()) {
             return showErrors(errors);
         }

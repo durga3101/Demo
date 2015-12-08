@@ -2,7 +2,6 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ItemType;
-import com.trailblazers.freewheelers.model.ItemValidator;
 import com.trailblazers.freewheelers.service.ItemService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
@@ -14,9 +13,11 @@ import org.springframework.ui.Model;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.math.BigDecimal.valueOf;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -25,8 +26,6 @@ public class ItemControllerTest {
 
     @Mock
     ItemService itemService;
-    @Mock
-    ItemValidator itemValidation;
     @Mock
     SqlSession sqlSession;
 
@@ -40,7 +39,6 @@ public class ItemControllerTest {
         initMocks(this);
         itemController = new ItemController();
         itemController.itemService = itemService;
-        itemController.itemValidation = itemValidation;
         model = new ExtendedModelMap();
         item = new Item();
         itemGrid = new ItemGrid(asList(item));
@@ -69,6 +67,8 @@ public class ItemControllerTest {
 
     @Test
     public void shouldDisplayItemsAfterSavingGivenItem(){
+        Item item = getItemWithoutError();
+
         when(itemService.saveItem(item)).thenReturn(item);
 
         String returnedPath = itemController.post(model, item);
@@ -82,13 +82,11 @@ public class ItemControllerTest {
     public void shouldDisplayErrorsIfValidationFailed(){
 
         Map errors = new HashMap<String, String>();
-        errors.put("name", "your name is empty");
+        errors.put("name", "Please enter Item Name");
 
         when(itemService.findAll()).thenReturn(asList(item));
 
-        when(itemValidation.validate(item)).thenReturn(errors);
-
-        String returnedPath = itemController.post(model, item);
+        String returnedPath = itemController.post(model, getItemWithError());
 
         assertThat((HashMap<String, String>) model.asMap().get("errors"), is(errors));
         verify(itemService).findAll();
@@ -98,4 +96,34 @@ public class ItemControllerTest {
         assertThat(returnedPath, is(ItemController.ITEM_LIST_PAGE));
 
     }
+
+    @Test
+    public void shouldNotCallServiceWhenValidationFailed() throws Exception {
+        itemController.post(model, getItemWithError());
+
+        verify(itemService, never()).saveItem(new Item());
+    }
+
+    private Item getItemWithError() {
+        Item item = new Item();
+        item.setName("")
+                .setPrice(valueOf(123.00))
+                .setDescription("example")
+                .setQuantity((long)123)
+                .setType(ItemType.ACCESSORIES);
+
+        return item;
+    }
+
+
+    private Item getItemWithoutError() {
+        Item item = new Item();
+        item.setName("item")
+                .setPrice(valueOf(123.00))
+                .setDescription("example")
+                .setQuantity((long)123)
+                .setType(ItemType.ACCESSORIES);
+        return item;
+    }
+
 }

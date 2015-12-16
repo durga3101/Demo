@@ -9,3 +9,4 @@ jetty-runner/
 .DS_Store
 node_modules/
 *.kdb.lock
+*.kdbx.lock

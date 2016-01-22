@@ -32,7 +32,8 @@ public class HumansTxtTest {
         String[] expectedTeamMembers = {"Nishitha Ningegowda",
                                         "Peter Gibbons",
                                         "Samir Nagheenanajar",
-                                        "Michael Bolton"};
+                                        "Michael Bolton",
+                                        "Dhruv Kapur"};
         assertThat(element.getText().split("\n"), is(expectedTeamMembers));
     }
 

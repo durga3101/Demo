@@ -1,5 +1,6 @@
 function ItemModel(args) {
     var args = args || {};
+    var fields = ["price","name","type","description","quantity"];
 
     var priceShouldBeANumber = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
@@ -11,7 +12,8 @@ function ItemModel(args) {
     };
 
     this.validate = function() {
-        return args.price && args.name && args.type && args.description && args.quantity && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
+        var allFieldsShouldBePresent = fields.reduce(function(previous,current){return previous && args[current]},true);
+        return allFieldsShouldBePresent && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
     };
 }
 

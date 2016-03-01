@@ -3,25 +3,37 @@ describe("item", function () {
         jasmine.getFixtures().set(' <input id="price" type="text">          \
                                 ');
     }
+
+    describe("ItemModel", function () {
+
+        it("validates when price is a number", function() {
+            var itemModel = new ItemModel({
+                price: "1"
+            });
+            expect(itemModel.validate()).toBeTruthy();
+        });
+
+        it("fails to validate when price is not a number", function () {
+            var itemModel = new ItemModel({
+                price: "aaa"
+            });
+
+            expect(itemModel.validate()).toBeFalsy();
+        });
+
+        
+
+    });
+
     describe("validation", function () {
         var itemValidation, itemForm;
 
         beforeEach(function () {
             setUpHTMLFixture();
-            itemValidation = new ItemValidation(function () {});
+            itemValidation = new ItemValidator(function () {});
         });
 
-        it("returns true when there are no validation errors", function () {
-            itemForm = { price: "1"};
 
-            expect(itemValidation.validate(itemForm)).toBeTruthy();
-        });
-
-        it("returns false when there are no validation errors", function () {
-            itemForm = { price: "aaa"};
-
-            expect(itemValidation.validate(itemForm)).toBeFalsy();
-        });
 
         it("displays errors when there are price validation errors", function () {
             spyOn(itemValidation, 'errorDisplayStrategy');

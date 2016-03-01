@@ -1,24 +1,36 @@
-function ItemValidation(errorDisplayStrategy) {
-    this.errorDisplayStrategy = errorDisplayStrategy;
+function ItemModel(args) {
+    var args = args || {};
+
+    this.price = args.price;
+
+    this.validate = function() {
+        var FLOAT_PATTERN = /^[0-9.]+$/;
+        return this.price.match(FLOAT_PATTERN);
+    };
 }
 
-ItemValidation.prototype.validate = function (itemForm) {
-    var NUMERICAL_PATTERN = /^[0-9.]+$/;
-    var isValid = true;
 
-    if (!itemForm.price.match(NUMERICAL_PATTERN)) {
-        this.errorDisplayStrategy("Price should be a float only");
-        isValid = false;
+function ItemValidator(errorDisplayStrategy) {
+    this.errorDisplayStrategy = errorDisplayStrategy;
+
+    this.validate = function (itemForm) {
+        var NUMERICAL_PATTERN = /^[0-9.]+$/;
+        var isValid = true;
+
+        if (!itemForm.price.match(NUMERICAL_PATTERN)) {
+            this.errorDisplayStrategy("Price should be a float only");
+            isValid = false;
+        }
+
+        return isValid;
     }
-
-    return isValid;
-};
+}
 
 function validatePriceInputType() {
     var errorDisplayStrategy = function (error) {
         alert(error);
     };
-    var itemValidation = new ItemValidation(errorDisplayStrategy);
+    var itemValidation = new ItemValidator(errorDisplayStrategy);
 
     return itemValidation.validate(serializeObject(document.forms["addItem"]));
 }
@@ -29,8 +41,8 @@ function validateForm() {
     validatePriceInputType();
 
     var validate = true;
-    fields.forEach(function(field) {
-        if(field === "#price") {
+    fields.forEach(function (field) {
+        if (field === "#price") {
             validate = validate && isPriceValid(field);
         } else {
             validate = validate && validator.isFieldEmpty(field);
@@ -41,16 +53,16 @@ function validateForm() {
 }
 
 function showItemErrorMessage() {
-    fields.forEach(function(field) {
+    fields.forEach(function (field) {
         if (field === "#price")
             showPriceErrorMessage();
         else
-            validator.isFieldEmpty(field)? validator.hideErrorMessage(errorSelector(field)): validator.displayErrorMessage(errorSelector(field));
+            validator.isFieldEmpty(field) ? validator.hideErrorMessage(errorSelector(field)) : validator.displayErrorMessage(errorSelector(field));
     });
 }
 
 function showPriceErrorMessage() {
-    if(!validator.isFieldEmpty("#price")) {
+    if (!validator.isFieldEmpty("#price")) {
         validator.displayErrorMessage("#not_empty");
     } else {
         validator.hideErrorMessage("#not_empty");

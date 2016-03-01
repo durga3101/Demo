@@ -1,20 +1,17 @@
 function ItemModel(args) {
     var args = args || {};
 
-    this.price = args.price;
-
-    this.priceShouldBeAFloat = function () {
+    var priceShouldBeAFloat = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
-        return this.price.match(FLOAT_PATTERN);
+        return args.price.match(FLOAT_PATTERN);
     };
 
-    this.priceShouldBeLessThanThreshold = function(){
-        return parseInt(this.price) <= 100000;
+    var priceShouldBeLessThanThreshold = function(){
+        return parseInt(args.price) <= 100000;
     };
-
 
     this.validate = function() {
-        return args.price && args.name && args.type && args.description && args.quantity && this.priceShouldBeAFloat() && this.priceShouldBeLessThanThreshold();
+        return args.price && args.name && args.type && args.description && args.quantity && priceShouldBeAFloat() && priceShouldBeLessThanThreshold();
     };
 }
 

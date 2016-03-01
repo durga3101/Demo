@@ -21,7 +21,13 @@ describe("item", function () {
             expect(itemModel.validate()).toBeFalsy();
         });
 
-        
+        it("fails to validade when price is empty", function() {
+            var itemModel = new ItemModel({
+                price: ""
+            });
+            expect(itemModel.validate()).toBeFalsy();
+        });
+
 
     });
 

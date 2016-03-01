@@ -1,43 +1,41 @@
 describe("item", function () {
     function setUpHTMLFixture() {
-        jasmine.getFixtures().set(' <input id="price" type="text">          \
-                                ');
+        jasmine.getFixtures().set(' <input id="price" type="text">');
     }
 
     describe("ItemModel", function () {
-
-        var correctItemArgs;
-
+        var validItemModelParameters;
         var extendWith = $.extend;
 
         beforeEach(function () {
-            correctItemArgs = {
+            validItemModelParameters = {
                 price: "1",
                 name: "name",
                 type: "type",
                 description: "description",
-                quantity: "quantity"
+                quantity: "1"
             };
         });
 
 
         it("validates when price is a number and name, type, description and quantity are present", function () {
-            var itemModel = new ItemModel(correctItemArgs);
+            var itemModel = new ItemModel(validItemModelParameters);
             expect(itemModel.validate()).toBeTruthy();
         });
 
         it("fails to validate when any of the fields are missing", function () {
-            var itemArgsWithMissingNameAndType = extendWith({}, correctItemArgs, {
+            var itemArgsWithMissingNameAndType = extendWith(validItemModelParameters, {
                 name: "",
                 type: ""
             });
+
             var itemModelWithoutNameAndType = new ItemModel(itemArgsWithMissingNameAndType);
             expect(itemModelWithoutNameAndType.validate()).toBeFalsy();
         });
 
         it("fails to validate when price is not a number", function () {
 
-            var itemArgsWithNonNumberPrice = extendWith({}, correctItemArgs, {
+            var itemArgsWithNonNumberPrice = extendWith(validItemModelParameters, {
                price : "aaa"
             });
             var itemModel = new ItemModel(itemArgsWithNonNumberPrice);
@@ -46,7 +44,7 @@ describe("item", function () {
         });
 
         it("fails to validate when price is empty", function() {
-            var itemArgsWithEmptyPrice = extendWith({}, correctItemArgs, {
+            var itemArgsWithEmptyPrice = extendWith(validItemModelParameters, {
                 price : ""
             });
 
@@ -55,15 +53,23 @@ describe("item", function () {
         });
 
         it("fails to validate when price is greater than threshold", function() {
-            var itemArgsWithPriceGreaterThanThreshold = extendWith({}, correctItemArgs, {
+            var itemArgsWithPriceGreaterThanThreshold = extendWith(validItemModelParameters, {
                 price : "100001"
             });
 
             var itemModel = new ItemModel(itemArgsWithPriceGreaterThanThreshold);
-
             expect(itemModel.validate()).toBeFalsy();
+
         });
 
+        it("fails to validade when quantity is not a integer", function () {
+            var itemArgsWithInvalidQuantity = extendWith(validItemModelParameters, {
+                quantity: "blah"
+            });
+
+            var itemModel = new ItemModel(itemArgsWithInvalidQuantity);
+            expect(itemModel.validate()).toBeFalsy();
+        });
     });
 
     describe("validation", function () {

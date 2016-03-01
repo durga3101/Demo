@@ -1,5 +1,5 @@
-function ItemModel(args) {
-    var args = args || {};
+function ItemModel(parameters) {
+    var args = parameters || {};
     var mandatoryFieldNames = ["price", "name", "type", "description", "quantity"];
 
     var priceShouldBeANumber = function () {
@@ -13,12 +13,21 @@ function ItemModel(args) {
 
     var mandatoryFieldsShouldBePresent = function () {
         return mandatoryFieldNames.reduce(function (previous, current) {
-            return previous && args[current]
-        }, true)
+            return previous && args[current];
+        }, true);
+    };
+
+    var quantityShouldBeInteger = function () {
+        var INTEGER_PATTERN = /^[0-9]+$/;
+
+        return args.quantity.match(INTEGER_PATTERN);
     };
 
     this.validate = function () {
-        return mandatoryFieldsShouldBePresent() && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
+        return mandatoryFieldsShouldBePresent()
+            && priceShouldBeANumber()
+            && priceShouldBeLessThanThreshold()
+            && quantityShouldBeInteger();
     };
 }
 

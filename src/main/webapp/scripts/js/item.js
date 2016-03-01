@@ -3,9 +3,18 @@ function ItemModel(args) {
 
     this.price = args.price;
 
-    this.validate = function() {
+    this.priceShouldBeAFloat = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
-        return this.price.match(FLOAT_PATTERN) && parseInt(this.price) <= 100000;
+        return this.price.match(FLOAT_PATTERN);
+    };
+
+    this.priceShouldBeLessThanThreshold = function(){
+        return parseInt(this.price) <= 100000;
+    };
+
+
+    this.validate = function() {
+        return this.priceShouldBeAFloat() && this.priceShouldBeLessThanThreshold();
     };
 }
 

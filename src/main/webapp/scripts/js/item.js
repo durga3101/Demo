@@ -5,7 +5,7 @@ function ItemModel(args) {
 
     this.validate = function() {
         var FLOAT_PATTERN = /^[0-9.]+$/;
-        return this.price.match(FLOAT_PATTERN);
+        return this.price.match(FLOAT_PATTERN) && parseInt(this.price) <= 100000;
     };
 }
 

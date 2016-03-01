@@ -14,7 +14,7 @@ function ItemModel(args) {
 
 
     this.validate = function() {
-        return this.priceShouldBeAFloat() && this.priceShouldBeLessThanThreshold();
+        return args.price && args.name && args.type && args.description && args.quantity && this.priceShouldBeAFloat() && this.priceShouldBeLessThanThreshold();
     };
 }
 

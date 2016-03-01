@@ -6,32 +6,60 @@ describe("item", function () {
 
     describe("ItemModel", function () {
 
-        it("validates when price is a number", function() {
-            var itemModel = new ItemModel({
-                price: "1"
-            });
+        var correctItemArgs;
+
+        var extendWith = $.extend;
+
+        beforeEach(function () {
+            correctItemArgs = {
+                price: "1",
+                name: "name",
+                type: "type",
+                description: "description",
+                quantity: "quantity"
+            };
+        });
+
+
+        it("validates when price is a number and name, type, description and quantity are present", function () {
+            var itemModel = new ItemModel(correctItemArgs);
             expect(itemModel.validate()).toBeTruthy();
         });
 
-        it("fails to validate when price is not a number", function () {
-            var itemModel = new ItemModel({
-                price: "aaa"
+        it("fails to validate when any of the fields are missing", function () {
+            var itemArgsWithMissingNameAndType = extendWith({}, correctItemArgs, {
+                name: "",
+                type: ""
             });
+            var itemModelWithoutNameAndType = new ItemModel(itemArgsWithMissingNameAndType);
+            expect(itemModelWithoutNameAndType.validate()).toBeFalsy();
+        });
+
+        it("fails to validate when price is not a number", function () {
+
+            var itemArgsWithNonNumberPrice = extendWith({}, correctItemArgs, {
+               price : "aaa"
+            });
+            var itemModel = new ItemModel(itemArgsWithNonNumberPrice);
 
             expect(itemModel.validate()).toBeFalsy();
         });
 
         it("fails to validate when price is empty", function() {
-            var itemModel = new ItemModel({
-                price: ""
+            var itemArgsWithEmptyPrice = extendWith({}, correctItemArgs, {
+                price : ""
             });
+
+            var itemModel = new ItemModel(itemArgsWithEmptyPrice);
             expect(itemModel.validate()).toBeFalsy();
         });
 
-        it("fails to validate when price is bigger than threshold", function() {
-            var itemModel = new ItemModel({
-                price: "100001"
+        it("fails to validate when price is greater than threshold", function() {
+            var itemArgsWithPriceGreaterThanThreshold = extendWith({}, correctItemArgs, {
+                price : "100001"
             });
+
+            var itemModel = new ItemModel(itemArgsWithPriceGreaterThanThreshold);
 
             expect(itemModel.validate()).toBeFalsy();
         });

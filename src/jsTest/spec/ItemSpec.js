@@ -67,22 +67,9 @@ describe("item", function () {
     });
 
     describe("validation", function () {
-        var itemValidation, itemForm;
 
         beforeEach(function () {
             setUpHTMLFixture();
-            itemValidation = new ItemValidator(function () {});
-        });
-
-
-
-        xit("displays errors when there are price validation errors", function () {
-            spyOn(itemValidation, 'errorDisplayStrategy');
-            itemForm = { price: "aaa"};
-
-            itemValidation.validate(itemForm);
-
-            expect(itemValidation.errorDisplayStrategy).toHaveBeenCalledWith("Price should be a float only");
         });
 
         it("should return false if the price is more than 10000", function() {

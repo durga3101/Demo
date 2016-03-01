@@ -22,26 +22,9 @@ function ItemModel(args) {
     };
 }
 
-
-function ItemValidator() {
-
-    this.validate = function (itemForm) {
-        var NUMERICAL_PATTERN = /^[0-9.]+$/;
-        var isValid = true;
-
-        return !itemForm.price.match(NUMERICAL_PATTERN);
-    }
-}
-
-function validatePriceInputType() {
-    var itemValidation = new ItemValidator();
-    return itemValidation.validate(serializeObject(document.forms["addItem"]));
-}
-
 var fields = ['#name', '#price', '#type', '#description', '#quantity'];
 
 function validateForm() {
-    validatePriceInputType();
 
     var validate = true;
     fields.forEach(function (field) {

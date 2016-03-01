@@ -1,7 +1,7 @@
 function ItemModel(args) {
     var args = args || {};
 
-    var priceShouldBeAFloat = function () {
+    var priceShouldBeANumber = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
         return args.price.match(FLOAT_PATTERN);
     };
@@ -11,7 +11,7 @@ function ItemModel(args) {
     };
 
     this.validate = function() {
-        return args.price && args.name && args.type && args.description && args.quantity && priceShouldBeAFloat() && priceShouldBeLessThanThreshold();
+        return args.price && args.name && args.type && args.description && args.quantity && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
     };
 }
 

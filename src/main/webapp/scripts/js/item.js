@@ -1,6 +1,6 @@
 function ItemModel(args) {
     var args = args || {};
-    var fields = ["price","name","type","description","quantity"];
+    var mandatoryFieldNames = ["price","name","type","description","quantity"];
 
     var priceShouldBeANumber = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
@@ -11,9 +11,12 @@ function ItemModel(args) {
         return parseInt(args.price) <= 100000;
     };
 
+    var mandatoryFieldsShouldBePresent = function(){
+        return mandatoryFieldNames.reduce(function(previous,current){return previous && args[current]},true)
+    };
+
     this.validate = function() {
-        var allFieldsShouldBePresent = fields.reduce(function(previous,current){return previous && args[current]},true);
-        return allFieldsShouldBePresent && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
+        return mandatoryFieldsShouldBePresent() && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
     };
 }
 

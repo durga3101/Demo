@@ -1,48 +1,40 @@
 function ItemModel(args) {
     var args = args || {};
-    var mandatoryFieldNames = ["price","name","type","description","quantity"];
+    var mandatoryFieldNames = ["price", "name", "type", "description", "quantity"];
 
     var priceShouldBeANumber = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
         return args.price.match(FLOAT_PATTERN);
     };
 
-    var priceShouldBeLessThanThreshold = function(){
+    var priceShouldBeLessThanThreshold = function () {
         return parseInt(args.price) <= 100000;
     };
 
-    var mandatoryFieldsShouldBePresent = function(){
-        return mandatoryFieldNames.reduce(function(previous,current){return previous && args[current]},true)
+    var mandatoryFieldsShouldBePresent = function () {
+        return mandatoryFieldNames.reduce(function (previous, current) {
+            return previous && args[current]
+        }, true)
     };
 
-    this.validate = function() {
+    this.validate = function () {
         return mandatoryFieldsShouldBePresent() && priceShouldBeANumber() && priceShouldBeLessThanThreshold();
     };
 }
 
 
-function ItemValidator(errorDisplayStrategy) {
-    this.errorDisplayStrategy = errorDisplayStrategy;
+function ItemValidator() {
 
     this.validate = function (itemForm) {
         var NUMERICAL_PATTERN = /^[0-9.]+$/;
         var isValid = true;
 
-        if (!itemForm.price.match(NUMERICAL_PATTERN)) {
-            this.errorDisplayStrategy("Price should be a float only");
-            isValid = false;
-        }
-
-        return isValid;
+        return !itemForm.price.match(NUMERICAL_PATTERN);
     }
 }
 
 function validatePriceInputType() {
-    var errorDisplayStrategy = function (error) {
-        alert(error);
-    };
-    var itemValidation = new ItemValidator(errorDisplayStrategy);
-
+    var itemValidation = new ItemValidator();
     return itemValidation.validate(serializeObject(document.forms["addItem"]));
 }
 

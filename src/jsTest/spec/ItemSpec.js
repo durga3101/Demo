@@ -76,7 +76,7 @@ describe("item", function () {
 
 
 
-        it("displays errors when there are price validation errors", function () {
+        xit("displays errors when there are price validation errors", function () {
             spyOn(itemValidation, 'errorDisplayStrategy');
             itemForm = { price: "aaa"};
 

@@ -33,18 +33,25 @@ function ItemModel(parameters) {
 
 var fields = ['#name', '#price', '#type', '#description', '#quantity'];
 
+function ItemView(){
+    var itemModelParameters = {
+        price : $("#price").val(),
+        name : $("#name").val(),
+        type : $("#type").val(),
+        description : $("#description").val(),
+        quantity : $("#quantity").val()
+    };
+
+    this.getModel = function(){
+        return new ItemModel(itemModelParameters);
+    };
+}
+
 function validateForm() {
+    var itemView = new ItemView();
+    var itemModel = itemView.getModel();
 
-    var validate = true;
-    fields.forEach(function (field) {
-        if (field === "#price") {
-            validate = validate && isPriceValid(field);
-        } else {
-            validate = validate && validator.isFieldEmpty(field);
-        }
-    });
-
-    return validate;
+    return itemModel.validate();
 }
 
 function showItemErrorMessage() {

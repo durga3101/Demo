@@ -5,9 +5,9 @@
 		<script type="text/javascript" src="<c:url value='/scripts/js/extensions.js' />"></script>
 		<script type="text/javascript" src="<c:url value='/scripts/js/UpdateItemsCheckbox.js' />"></script>
 		<script type="text/javascript" src="<c:url value='/scripts/js/RowSelector.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/item-model.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/item-view.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/item-controller.js' />"></script>
+		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-model.js' />"></script>
+		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-view.js' />"></script>
+		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-controller.js' />"></script>
 
 		<h1>Manage Items</h1>
 

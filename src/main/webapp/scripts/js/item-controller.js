@@ -1,12 +1,15 @@
+function ItemController () {
+    this.validateForm = function () {
+        var itemView = new ItemView();
+        var itemModel = itemView.getModel();
+
+        return itemModel.validate();
+    }
+}
+
+var itemController = new ItemController();
 
 var fields = ['#name', '#price', '#type', '#description', '#quantity'];
-
-function validateForm() {
-    var itemView = new ItemView();
-    var itemModel = itemView.getModel();
-
-    return itemModel.validate();
-}
 
 function showItemErrorMessage() {
     fields.forEach(function (field) {
@@ -19,10 +22,10 @@ function showItemErrorMessage() {
 
 function showPriceErrorMessage() {
     if (!validator.isFieldEmpty("#price")) {
-        validator.displayErrorMessage("#not_empty");
+        validator.displayErrorMessage("#price_empty");
     } else {
-        validator.hideErrorMessage("#not_empty");
-        isPriceValid("#price") ? validator.hideErrorMessage("#not_validate_number") : validator.displayErrorMessage("#not_validate_number");
+        validator.hideErrorMessage("#price_empty");
+        isPriceValid("#price") ? validator.hideErrorMessage("#price_out_of_bounds") : validator.displayErrorMessage("#price_out_of_bounds");
     }
 }
 

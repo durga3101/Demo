@@ -11,7 +11,7 @@
 
 		<h1>Manage Items</h1>
 
-		<form:form name="addItem" id="add_item" action="" method="post" modelAttribute="item" onsubmit="return validateForm()">
+		<form:form name="addItem" id="add_item" action="" method="post" modelAttribute="item" onsubmit="return itemController.validateForm()">
 
             <div class="page-action">New Item</div>
 
@@ -26,7 +26,7 @@
                     <form:label for="name" path="name">Name</form:label>
                     <div class="controls">
                         <form:input path="name"/>
-                        <span class="text-error">Please enter Item Name</span>
+                        <span class="text-error" id="name_empty">Please enter Item Name</span>
                     </div>
                 </div>
 
@@ -35,8 +35,8 @@
                     <div class="controls">
                         <form:input path="price"/>
 
-                        <span class="text-error" id="not_empty">Please enter Item Price</span>
-                        <span class="text-error" id="not_validate_number">Must be less than or equal to 99999</span>
+                        <span class="text-error" id="price_empty">Please enter Item Price</span>
+                        <span class="text-error" id="price_out_of_bounds">Must be less than or equal to 99999</span>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                             <form:option value="" label="Select"/>
                             <form:options items="${itemTypes}"/>
                         </form:select>
-                        <span class="text-error">Please enter Item Type</span>
+                        <span class="text-error" id="type_empty">Please enter Item Type</span>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
                     <form:label for="desription" path="description">Description</form:label>
                     <div class="controls">
                         <form:textarea path="description"/>
-                        <span class="text-error">Please enter Item Description</span>
+                        <span class="text-error"  id="description_empty">Please enter Item Description</span>
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
                     <form:label for="quantity" path="quantity">Quantity</form:label>
                     <div class="controls">
                         <form:input path="quantity"/>
-                        <span class="text-error">Please enter Item Quantity</span>
+                        <span class="text-error" id="quantity_empty">Please enter Item Quantity</span>
                     </div>
                 </div>
 

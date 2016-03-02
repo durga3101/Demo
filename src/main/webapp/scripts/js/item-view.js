@@ -10,4 +10,17 @@ function ItemView(){
     this.getModel = function(){
         return new ItemModel(itemModelParameters);
     };
+
+    this.showErrors = function(errorNames) {
+        errorNames.forEach(function(errorName) {
+            $("#" + errorName).show();
+        });
+    };
+
+    this.hideErrors = function(errorNames) {
+        errorNames.forEach(function(errorName) {
+            $("#" + errorName).hide();
+        });
+    };
+
 }

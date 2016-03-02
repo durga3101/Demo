@@ -1,3 +1,12 @@
+var ItemErrorEnum = {
+    nameEmpty: "name_empty",
+    priceEmpty: "price_empty",
+    priceOutOfBounds: "price_out_of_bounds",
+    typeEmpty: "type_empty",
+    descriptionEmpty: "description_empty",
+    quantityEmpty: "quantity_empty"
+};
+
 function ItemModel(parameters) {
     var args = parameters || {};
     var mandatoryFieldNames = ["price", "name", "type", "description", "quantity"];
@@ -8,7 +17,7 @@ function ItemModel(parameters) {
     };
 
     var priceShouldBeLessThanThreshold = function () {
-        return parseInt(args.price) <= 100000;
+        return parseInt(args.price) <= 10000;
     };
 
     var mandatoryFieldsShouldBePresent = function () {
@@ -35,4 +44,3 @@ function ItemModel(parameters) {
             && quantityShouldBeInteger();
     };
 }
-

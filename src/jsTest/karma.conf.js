@@ -16,7 +16,8 @@ module.exports = function(config) {
       'main/webapp/scripts/lib/jquery-1.10.2.js',
       'main/webapp/scripts/lib/jquery.cookie.js',
       'main/webapp/scripts/js/*.js',
-      'jsTest/spec/*Spec.js'
+      'jsTest/spec/*Spec.js',
+      'jsTest/spec/*spec.js'
     ],
 
     // list of files to exclude

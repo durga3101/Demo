@@ -12,8 +12,13 @@ function ItemModel(parameters) {
     };
 
     var mandatoryFieldsShouldBePresent = function () {
-        return mandatoryFieldNames.reduce(function (previous, current) {
-            return previous && args[current];
+
+        var fieldIsPresent = function (fieldName) {
+            return !!args[fieldName];
+        };
+
+        return mandatoryFieldNames.reduce(function (lastElementsWerePresent, currentFieldName) {
+            return lastElementsWerePresent && fieldIsPresent(currentFieldName);
         }, true);
     };
 

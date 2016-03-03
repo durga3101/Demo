@@ -36,7 +36,8 @@ mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
 cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip
-cp \$jetty_path .
+cp \$jetty_path /home/appuser/freewheelers/\$TIMESTAMP
+ln -nfs /home/appuser/freewheelers/\$TIMESTAMP /home/appuser/freewheelers/current_version
 
 #Stop app service
 sudo sh /etc/init.d/freewheelers stop

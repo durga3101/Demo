@@ -28,6 +28,7 @@ if ! [ -f \$jetty_path ];then
 fi
 
 #Create directory and move app
+sudo su appuser
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
@@ -36,15 +37,15 @@ unzip freewheelers.zip
 cp \$jetty_path .
 
 #Stop app service
-sh /etc/init.d/freewheelersd stop
+sudo sh /etc/init.d/freewheelers stop
 
 #DB migrations
 sh db/migrations/mybatis/bin/migrate --path=./db/migrations up
 
 #Start app service
-cp scripts/freewheelers.init /etc/init.d/freewheelers
+sudo cp scripts/freewheelers.init /etc/init.d/freewheelers
 sudo chmod 0755 /etc/init.d/freewheelers
 sudo chown root:root /etc/init.d/freewheelers
-sh /etc/init.d/freewheelersd start
+sudo sh /etc/init.d/freewheelers start
 EOF
 

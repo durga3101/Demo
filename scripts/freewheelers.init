@@ -14,7 +14,7 @@ log_freewheelers () {
 start() {
   log_freewheelers "starting freewheelers application"
   chown appuser:user /var/log/freewheelers.log
-  . $USER_HOME/freewheelers/current_version/scripts/start-server.sh > $LOG_FILE 2> $ERROR_LOG_FILE < /dev/null
+  /usr/bin/sudo -u appuser $USER_HOME/freewheelers/current_version/scripts/start-server.sh > $LOG_FILE 2> $ERROR_LOG_FILE < /dev/null
   log_freewheelers "freewheelers application STARTED!"
 }
 

@@ -21,6 +21,8 @@ scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 
 ssh ${USER}@${HOST} /bin/bash << EOF
 
+sudo su appuser
+
 cd /tmp/
 jetty_path=/tmp/jetty-runner-8.1.14.v20131031.jar
 if ! [ -f \$jetty_path ];then
@@ -29,14 +31,11 @@ fi
 
 #Create directory and move app
 sudo chown appuser:user /tmp/freewheelers.zip
-
-sudo su appuser
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
 cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip
-echo "\$jetty_path /home/appuser/freewheelers/\$TIMESTAMP"
 cp \$jetty_path /home/appuser/freewheelers/\$TIMESTAMP
 ln -nfs /home/appuser/freewheelers/\$TIMESTAMP /home/appuser/freewheelers/current_version
 

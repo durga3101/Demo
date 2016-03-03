@@ -28,6 +28,9 @@ if ! [ -f \$jetty_path ];then
 fi
 
 #Create directory and move app
+sudo chown appuser:user /tmp/freewheelers.zip
+
+sudo su appuser
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP

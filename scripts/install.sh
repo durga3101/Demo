@@ -36,6 +36,7 @@ mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
 cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip
+echo "\$jetty_path /home/appuser/freewheelers/\$TIMESTAMP"
 cp \$jetty_path /home/appuser/freewheelers/\$TIMESTAMP
 ln -nfs /home/appuser/freewheelers/\$TIMESTAMP /home/appuser/freewheelers/current_version
 

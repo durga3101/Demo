@@ -27,14 +27,24 @@ if ! [ -f \$jetty_path ];then
   curl -O http://central.maven.org/maven2/org/mortbay/jetty/jetty-runner/8.1.14.v20131031/jetty-runner-8.1.14.v20131031.jar
 fi
 
+#Create directory and move app
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
-mkdir -p /tmp/\$TIMESTAMP
-mv /tmp/freewheelers.zip /tmp/\$TIMESTAMP
-cd /tmp/\$TIMESTAMP
+mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
+mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
+cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip
 cp \$jetty_path .
-sh scripts/stop-server.sh
+
+#Stop app service
+sh /etc/init.d/freewheelersd stop
+
+#DB migrations
 sh db/migrations/mybatis/bin/migrate --path=./db/migrations up
-nohup sh scripts/start-server.sh > server.out 2> server.err < /dev/null
+
+#Start app service
+cp scripts/freewheelers.init /etc/init.d/freewheelers
+sudo chmod 0755 /etc/init.d/freewheelers
+sudo chown root:root /etc/init.d/freewheelers
+sh /etc/init.d/freewheelersd start
 EOF
 

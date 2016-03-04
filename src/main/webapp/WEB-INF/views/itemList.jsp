@@ -9,9 +9,15 @@
 		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-view.js' />"></script>
 		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-controller.js' />"></script>
 
+        <script type="text/javascript">
+            $(function () {
+                new ItemView($('#add_item'));
+            });
+        </script>
+
 		<h1>Manage Items</h1>
 
-		<form:form name="addItem" id="add_item" action="" method="post" modelAttribute="item" onsubmit="return itemController.validateForm()">
+		<form:form name="addItem" id="add_item" action="" method="post" modelAttribute="item">
 
             <div class="page-action">New Item</div>
 
@@ -69,7 +75,7 @@
 
                 <div>
                     <div class="controls">
-                        <button type="submit" value="Create new item" id="createItem" onclick="showItemErrorMessage()">Create Item</button>
+                        <button type="submit" value="Create new item" id="createItem">Create Item</button>
                     </div>
                 </div>
 

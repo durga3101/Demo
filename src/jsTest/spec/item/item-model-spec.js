@@ -15,17 +15,16 @@ describe("ItemModel", function () {
 
     it("validates when price is a number and name, type, description and quantity are present", function () {
         var itemModel = new ItemModel(validItemModelParameters);
-        expect(itemModel.validate()).toBeTruthy();
+        expect(itemModel.validate()).toEqual([]);
     });
 
     it("fails to validate when any of the fields are missing", function () {
         var itemArgsWithMissingNameAndType = extendWith(validItemModelParameters, {
-            name: "",
-            type: ""
+            name: ""
         });
 
         var itemModelWithoutNameAndType = new ItemModel(itemArgsWithMissingNameAndType);
-        expect(itemModelWithoutNameAndType.validate()).toBeFalsy();
+        expect(itemModelWithoutNameAndType.validate()).toEqual([ItemErrorEnum.nameEmpty]);
     });
 
     it("fails to validate when price is not a number", function () {
@@ -35,7 +34,7 @@ describe("ItemModel", function () {
         });
         var itemModel = new ItemModel(itemArgsWithNonNumberPrice);
 
-        expect(itemModel.validate()).toBeFalsy();
+        expect(itemModel.validate()).toEqual([ItemErrorEnum.priceEmpty]);
     });
 
     it("fails to validate when price is empty", function() {
@@ -44,7 +43,7 @@ describe("ItemModel", function () {
         });
 
         var itemModel = new ItemModel(itemArgsWithEmptyPrice);
-        expect(itemModel.validate()).toBeFalsy();
+        expect(itemModel.validate()).toEqual([ItemErrorEnum.priceEmpty]);
     });
 
     it("fails to validate when price is greater than threshold", function() {
@@ -53,8 +52,7 @@ describe("ItemModel", function () {
         });
 
         var itemModel = new ItemModel(itemArgsWithPriceGreaterThanThreshold);
-        expect(itemModel.validate()).toBeFalsy();
-
+        expect(itemModel.validate()).toEqual([ItemErrorEnum.priceOutOfBounds]);
     });
 
     it("fails to validade when quantity is not a integer", function () {
@@ -63,7 +61,7 @@ describe("ItemModel", function () {
         });
 
         var itemModel = new ItemModel(itemArgsWithInvalidQuantity);
-        expect(itemModel.validate()).toBeFalsy();
+        expect(itemModel.validate()).toEqual([ItemErrorEnum.quantityEmpty]);
     });
 });
 

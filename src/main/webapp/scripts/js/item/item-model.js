@@ -7,9 +7,13 @@ var ItemErrorEnum = {
     quantityEmpty: "quantity_empty"
 };
 
+var AllItemErrors = Object.keys(ItemErrorEnum).map(function (k) {
+    return ItemErrorEnum[k];
+});
+
 function ItemModel(parameters) {
     var args = parameters || {};
-    var mandatoryFieldNames = ["price", "name", "type", "description", "quantity"];
+    var mandatoryFieldNames = ["name", "type", "description", "quantity"];
 
     var priceShouldBeANumber = function () {
         var FLOAT_PATTERN = /^[0-9.]+$/;
@@ -20,27 +24,39 @@ function ItemModel(parameters) {
         return parseInt(args.price) <= 10000;
     };
 
+    var priceShouldBeValid = function () {
+
+        if (!priceShouldBeANumber()) {
+            return [ItemErrorEnum.priceEmpty];
+        }
+
+        if (!priceShouldBeLessThanThreshold()) {
+            return [ItemErrorEnum.priceOutOfBounds];
+        }
+
+        return [];
+    };
+
     var mandatoryFieldsShouldBePresent = function () {
 
-        var fieldIsPresent = function (fieldName) {
-            return !!args[fieldName];
+        var fieldEmptyValidation = function (fieldName) {
+            return args[fieldName] ? [] : [fieldName + "_empty"];
         };
 
-        return mandatoryFieldNames.reduce(function (lastElementsWerePresent, currentFieldName) {
-            return lastElementsWerePresent && fieldIsPresent(currentFieldName);
-        }, true);
+        return mandatoryFieldNames.reduce(function (currentErrors, currentFieldName) {
+            return currentErrors.concat(fieldEmptyValidation(currentFieldName));
+        }, []);
     };
 
     var quantityShouldBeInteger = function () {
         var INTEGER_PATTERN = /^[0-9]+$/;
 
-        return args.quantity.match(INTEGER_PATTERN);
+        return args.quantity.match(INTEGER_PATTERN) ? [] : [ItemErrorEnum.quantityEmpty];
     };
 
     this.validate = function () {
         return mandatoryFieldsShouldBePresent()
-            && priceShouldBeANumber()
-            && priceShouldBeLessThanThreshold()
-            && quantityShouldBeInteger();
+            .concat(priceShouldBeValid())
+            .concat(quantityShouldBeInteger());
     };
 }

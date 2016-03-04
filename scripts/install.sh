@@ -32,7 +32,7 @@ fi
 #Create directory and move app
 sudo chown appuser:user /tmp/freewheelers.zip
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
-mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
+mkdir -p /home/appuser/freewheelers/\$TIMESTAMP || exit 1
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP || exit 1
 cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip

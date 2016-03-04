@@ -33,7 +33,7 @@ fi
 sudo chown appuser:user /tmp/freewheelers.zip
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
-mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
+mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP || exit 1
 cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip
 cp \$jetty_path /home/appuser/freewheelers/\$TIMESTAMP

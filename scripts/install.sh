@@ -37,8 +37,8 @@ fi
 #Create directory and move app
 sudo chown appuser:user /tmp/freewheelers.zip
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
-mkdir -p /home/appuser/freewheelers/\$TIMESTAMP || exit 1
-mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP || exit 1
+mkdir -p /home/appuser/freewheelers/\$TIMESTAMP
+mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP
 cd /home/appuser/freewheelers/\$TIMESTAMP
 unzip freewheelers.zip
 cp \$jetty_path /home/appuser/freewheelers/\$TIMESTAMP
@@ -56,3 +56,4 @@ sudo chmod 0755 /etc/init.d/freewheelers
 sudo chown root:root /etc/init.d/freewheelers
 sudo sh /etc/init.d/freewheelers start
 EOF
+echo $?

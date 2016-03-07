@@ -18,7 +18,7 @@ describe("ItemModel", function () {
         expect(itemModel.validate()).toEqual([]);
     });
 
-    it("fails to validate when any of the fields are missing", function () {
+    it("fails to validate when name field is missing", function () {
         var itemArgsWithMissingNameAndType = extendWith(validItemModelParameters, {
             name: ""
         });

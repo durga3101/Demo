@@ -56,4 +56,3 @@ sudo chmod 0755 /etc/init.d/freewheelers
 sudo chown root:root /etc/init.d/freewheelers
 sudo sh /etc/init.d/freewheelers start
 EOF
-echo $?

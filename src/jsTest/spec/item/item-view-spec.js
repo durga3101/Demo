@@ -14,7 +14,6 @@ describe("ItemView", function () {
         );
     }
 
-    var itemController;
     var itemView;
 
     beforeEach(function () {

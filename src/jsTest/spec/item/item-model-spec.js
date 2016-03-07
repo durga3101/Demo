@@ -55,7 +55,7 @@ describe("ItemModel", function () {
         expect(itemModel.validate()).toEqual([ItemErrorEnum.priceOutOfBounds]);
     });
 
-    it("fails to validade when quantity is not a integer", function () {
+    it("fails to validate when quantity is not a integer", function () {
         var itemArgsWithInvalidQuantity = extendWith(validItemModelParameters, {
             quantity: "blah"
         });

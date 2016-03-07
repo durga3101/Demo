@@ -63,5 +63,16 @@ describe("ItemModel", function () {
         var itemModel = new ItemModel(itemArgsWithInvalidQuantity);
         expect(itemModel.validate()).toEqual([ItemErrorEnum.quantityEmpty]);
     });
+
+    it("fails to validate when multiple fields are missing", function () {
+        var itemArgsWithMissingNameAndType = extendWith(validItemModelParameters, {
+            name: "",
+            price: ""
+        });
+
+        var itemModelWithoutNameAndType = new ItemModel(itemArgsWithMissingNameAndType);
+        expect(itemModelWithoutNameAndType.validate()).toEqual([ItemErrorEnum.nameEmpty, ItemErrorEnum.priceEmpty]);
+    });
+
 });
 

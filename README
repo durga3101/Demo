@@ -1,6 +1,7 @@
 Tech Stack
 ==========
 * java 7 __needs to be installed__
+* nodejs __needs to be installed__
 * firefox __needs to be installed__
 * postgres __needs to be installed__
 * spring mvc
@@ -63,6 +64,3 @@ Set Up Remote Debugging
 2. In IntelliJ, click Run -> Edit Configurations.
 3. Create a new configuration + -> Remote -> "Debug FreeWheelers". Accept default settings -> Apply.
 4. Run -> Debug 'Debug FreeWheelers' 
-
-
-

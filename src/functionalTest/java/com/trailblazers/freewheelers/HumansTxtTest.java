@@ -33,10 +33,13 @@ public class HumansTxtTest {
                 "Ella Holmes",
                 "Archanaa Ravikumar",
                 "Steve Liu",
-                "Durga"};
+                "Durga",
+                "Rufus Raghunath",
+                "Sruti Sridhar"
+                };
         String[] split = element.getText().split("\n");
         assertThat(split, is(expectedTeamMembers));
-        assertThat(split.length, is(4));
+        assertThat(split.length, is(6));
     }
 
 }

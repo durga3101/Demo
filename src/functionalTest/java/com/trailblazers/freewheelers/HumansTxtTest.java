@@ -36,7 +36,6 @@ public class HumansTxtTest {
         String[] split = element.getText().split("\n");
         assertThat(split, is(expectedTeamMembers));
         assertThat(split.length, is(3));
-
     }
 
 }

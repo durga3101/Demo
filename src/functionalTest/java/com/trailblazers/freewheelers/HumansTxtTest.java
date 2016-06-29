@@ -35,7 +35,7 @@ public class HumansTxtTest {
                 "Steve Liu"};
         String[] split = element.getText().split("\n");
         assertThat(split, is(expectedTeamMembers));
-        assertThat(split.length, is(7));
+        assertThat(split.length, is(3));
 
     }
 

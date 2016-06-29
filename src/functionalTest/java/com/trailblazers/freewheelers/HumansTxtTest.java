@@ -29,9 +29,17 @@ public class HumansTxtTest {
     public void shouldDisplayAllTheTeamMembers() {
         driver.get("http://localhost:8080/humans.txt");
         WebElement element = driver.findElement(By.tagName("pre"));
-        String[] expectedTeamMembers = {"Ella Holmes",
-                                        "Archanaa Ravikumar","Steve Liu","Durga"};
-        assertThat(element.getText().split("\n"), is(expectedTeamMembers));
+        String[] expectedTeamMembers = {
+                "Ella Holmes",
+                "Archanaa Ravikumar",
+                "Steve Liu",
+                "Rufus Raghunath",
+                "Sruti Sridhar",
+                "Durga"
+                };
+        String[] split = element.getText().split("\n");
+        assertThat(split, is(expectedTeamMembers));
+        assertThat(split.length, is(6));
     }
 
 }

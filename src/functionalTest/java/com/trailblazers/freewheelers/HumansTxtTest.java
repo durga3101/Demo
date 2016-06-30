@@ -21,7 +21,7 @@ public class HumansTxtTest {
     }
 
     @AfterClass
-    public static void after()
+    public static void after(){
         driver.close();
     }
 
@@ -34,14 +34,15 @@ public class HumansTxtTest {
                 "Archanaa Ravikumar",
                 "Steve Liu",
                 "Durga",
-                "Raju",
                 "Rufus Raghunath",
                 "Sruti Sridhar",
-"Siq Liu"
+                "Raju",
+                "Siq Liu",
+                "Luke Belliveau"
                 };
         String[] split = element.getText().split("\n");
         assertThat(split, is(expectedTeamMembers));
-        assertThat(split.length, is(7));
+        assertThat(split.length, is(9));
     }
 
 }

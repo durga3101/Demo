@@ -4,56 +4,72 @@
 
 <%@ include file="../header.jsp" %>
 
-    <div class="page-action">
-        Create a new account
+<div class="page-action">
+    Create a new account
+</div>
+
+<c:if test="${not empty validationMessage.errors}">
+    <div id="resultsMessage" class="page-action error">
+        There were errors. Please check your input.
+    </div>
+</c:if>
+
+<form id="register_form" action="/account/create" method="post" onsubmit="return validateRegistrationForm();">
+    <div id="email_field">
+        <label for="fld_email">Email</label>
+        <div class="controls">
+            <input type="text" id="fld_email" placeholder="somebody@something.com" name="email">
+            <span class="text-error">Must enter a valid email!</span>
+        </div>
     </div>
 
-    <c:if test="${not empty validationMessage.errors}">
-        <div id="resultsMessage" class="page-action error">
-            There were errors. Please check your input.
+    <div id="password_field">
+        <label for="fld_password">Password</label>
+        <div class="controls">
+            <input type="text" id="fld_password" placeholder="secret password" name="password">
+            <span class="text-error">Must enter a password!</span>
         </div>
-    </c:if>
+    </div>
 
-	<form id="register_form" action="/account/create" method="post" onsubmit="return validateRegistrationForm();">
-        <div id="email_field">
-            <label for="fld_email">Email</label>
-            <div class="controls">
-                <input type="text" id="fld_email" placeholder="somebody@something.com" name="email">
-                <span class="text-error">Must enter a valid email!</span>
-            </div>
+    <div id="name_field">
+        <label for="fld_name">Name</label>
+        <div class="controls">
+            <input type="text" id="fld_name" placeholder="Your Name" name="name">
+            <span class="text-error">Must enter a name!</span>
         </div>
+    </div>
 
-        <div id="password_field">
-            <label for="fld_password">Password</label>
-            <div class="controls">
-                <input type="text" id="fld_password" placeholder="secret password" name="password">
-                <span class="text-error">Must enter a password!</span>
-            </div>
+    <div id="phoneNumber_field">
+        <label for="fld_phoneNumber">Phone Number</label>
+        <div class="controls">
+            <input type="text" id="fld_phoneNumber" placeholder="555-123456" name="phoneNumber">
+            <span class="text-error">Must enter a phone number!</span>
         </div>
+    </div>
 
-        <div id="name_field">
-            <label for="fld_name">Name</label>
-            <div class="controls">
-                <input type="text" id="fld_name" placeholder="Your Name" name="name">
-                <span class="text-error">Must enter a name!</span>
-            </div>
+    <div id="country_field">
+        <label for="fld_country">Country</label>
+        <div class="controls">
+            <select id="fld_country" name="country">
+                <option value="India">India</option>
+                <option value="UK">UK</option>
+                <option value="USA">USA</option>
+                <option value="France">France</option>
+                <option value="China">China</option>
+            </select>
+            <span class="text-error">Must enter a country!</span>
         </div>
+    </div>
 
-        <div id="phoneNumber_field">
-            <label for="fld_phoneNumber">Phone Number</label>
-            <div class="controls">
-                <input type="text" id="fld_phoneNumber" placeholder="555-123456" name="phoneNumber">
-                <span class="text-error">Must enter a phone number!</span>
-            </div>
+    <div>
+        <div class="controls">
+            <button type="submit" id="createAccount" value="Submit" onclick="showRegisterErrorMessage()">Create
+                Account
+            </button>
         </div>
+    </div>
 
-        <div>
-            <div class="controls">
-                <button type="submit" id="createAccount" value="Submit" onclick="showRegisterErrorMessage()">Create Account</button>
-            </div>
-        </div>
-
-	</form>
+</form>
 
 <%@ include file="../footer.jsp" %>
-<script type="text/javascript" src="<c:url value='/scripts/js/create_account.js' />" ></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/create_account.js' />"></script>

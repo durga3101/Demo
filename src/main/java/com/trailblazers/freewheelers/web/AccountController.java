@@ -38,13 +38,14 @@ public class AccountController {
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String phoneNumber = request.getParameter("phoneNumber");
+        String country = request.getParameter("country");
 
         Account account = new Account()
                 .setEmail_address(email)
                 .setPassword(password)
                 .setAccount_name(name)
                 .setPhoneNumber(phoneNumber)
-                .setEnabled(true);
+                .setCountry(country);
 
         HashMap errors = verifyInputs(account);
         if(!errors.isEmpty()) {

@@ -21,13 +21,13 @@ public class AccountTest extends UserJourneyBase {
                 .shows_error_alert("login attempt was not successful");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD);
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, "India");
 
         screen
                 .shows_error("Must enter a phone number!", "phoneNumber_field");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER);
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,"India");
 
         screen
                 .shows_message("account has been created");

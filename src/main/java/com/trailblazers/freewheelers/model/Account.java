@@ -8,6 +8,7 @@ public class Account {
     private boolean enabled;
     private String emailAddress;
     private String phoneNumber;
+    private String country;
 
     public String getCountry() {
         return country;
@@ -17,10 +18,6 @@ public class Account {
         this.country = country;
         return this;
     }
-
-    private String country;
-
-
 
     public Account() {
         this.account_id = 0L;
@@ -79,7 +76,5 @@ public class Account {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
-
 
 }

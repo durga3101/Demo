@@ -21,12 +21,17 @@ public class AccountTest extends UserJourneyBase {
                 .shows_error_alert("login attempt was not successful");
 
         user
+<<<<<<< ef7cae23c96e7ff2b925d98b6f6f0a141caf5b3a
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, SOME_COUNTRY);
+=======
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, "India");
+>>>>>>> [siqi/Durga]Enter Country In Order To Create Account
 
         screen
                 .shows_error("Must enter a phone number!", "phoneNumber_field");
 
         user
+<<<<<<< ef7cae23c96e7ff2b925d98b6f6f0a141caf5b3a
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER, UNSELECTED_COUNTRY);
 
         screen
@@ -34,6 +39,9 @@ public class AccountTest extends UserJourneyBase {
 
         user
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+=======
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,"India");
+>>>>>>> [siqi/Durga]Enter Country In Order To Create Account
 
         screen
                 .shows_message("account has been created");

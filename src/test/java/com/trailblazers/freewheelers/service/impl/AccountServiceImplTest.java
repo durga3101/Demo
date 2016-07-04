@@ -53,6 +53,7 @@ public class AccountServiceImplTest {
         account.setPassword("example");
         account.setAccount_name("Example Person");
         account.setPhoneNumber("1234567890");
+        account.setCountry("India");
         return account;
     }
 }

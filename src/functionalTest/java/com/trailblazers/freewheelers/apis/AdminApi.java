@@ -93,4 +93,10 @@ public class AdminApi {
         surveyService.submitSurvey(accountId, new SurveyEntry(feedbackType, comment));
         return this;
     }
+
+    public AdminApi there_is_a_uesr_create_country(String userName, String password, String country ) {
+        there_is_no_account_for(userName);
+        accountService.createAccount(account_for(userName,password).setCountry(country));
+        return this;
+    }
 }

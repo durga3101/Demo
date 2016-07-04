@@ -45,7 +45,8 @@ public class AccountController {
                 .setPassword(password)
                 .setAccount_name(name)
                 .setPhoneNumber(phoneNumber)
-                .setCountry(country);
+                .setCountry(country)
+                .setEnabled(true);
 
         HashMap errors = verifyInputs(account);
         if(!errors.isEmpty()) {

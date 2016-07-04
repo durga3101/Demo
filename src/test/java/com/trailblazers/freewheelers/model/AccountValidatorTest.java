@@ -16,6 +16,7 @@ public class AccountValidatorTest {
     public static final String SOME_PASSWORD = "V3ry Secure!";
     public static final String SOME_NAME = "Günter Grass";
     public static final String SOME_PHONE = "004945542741";
+    public static final String SOME_COUNTRY = "India";
     private Account account;
 
     @Before
@@ -25,6 +26,7 @@ public class AccountValidatorTest {
                 .setPassword(SOME_PASSWORD)
                 .setAccount_name(SOME_NAME)
                 .setPhoneNumber(SOME_PHONE)
+                .setCountry(SOME_COUNTRY)
                 .setEnabled(true);
     }
     @Test

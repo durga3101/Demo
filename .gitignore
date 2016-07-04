@@ -10,3 +10,4 @@ jetty-runner/
 node_modules/
 *.kdb.lock
 *.kdbx.lock
+npm-debug.log

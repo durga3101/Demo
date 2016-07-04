@@ -8,8 +8,8 @@ import java.util.List;
 public interface AccountMapper {
 
     @Insert(
-        "INSERT INTO account (account_name, email_address, password, phone_number, enabled) " +
-        "VALUES (#{account_name}, #{emailAddress}, #{password}, #{phoneNumber}, #{enabled})"
+        "INSERT INTO account (account_name, email_address, password, phone_number, enabled , country) " +
+        "VALUES (#{account_name}, #{emailAddress}, #{password}, #{phoneNumber}, #{enabled} ,#{country})"
     )
     @Options(keyProperty = "account_id", useGeneratedKeys = true)
     Integer insert(Account account);
@@ -22,7 +22,7 @@ public interface AccountMapper {
     Account getById(Long account_id);
 
     @Select(
-        "SELECT account_id, account_name, email_address, password, phone_number, enabled " +
+        "SELECT account_id, account_name, email_address, password, phone_number, enabled , country " +
         "FROM account " +
         "WHERE account_name = #{account_name} " +
         "LIMIT 1"

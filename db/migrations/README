@@ -1,4 +1,4 @@
-Welcome!
+cdWelcome!
 
 This is an MyBatis Migration repository.  You can specify the repository
 directory when running migrations using the --path=<repos-directory>

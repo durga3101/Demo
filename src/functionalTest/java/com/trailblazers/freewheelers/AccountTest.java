@@ -21,13 +21,18 @@ public class AccountTest extends UserJourneyBase {
                 .shows_error_alert("login attempt was not successful");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, "India");
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD,SOME_COUNTRY);
 
         screen
                 .shows_error("Must enter a phone number!", "phoneNumber_field");
+        user
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,EMPTY_PASSWORD) ;
+
+        screen
+                .shows_error("Must select a country!", "country_field");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,"India");
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,SOME_COUNTRY);
 
         screen
                 .shows_message("account has been created");
@@ -77,6 +82,23 @@ public class AccountTest extends UserJourneyBase {
         screen
                 .shows_profile_for(Hugo);
     }
+    @Test
+    public void testViewCountryOnUserProfile() throws Exception{
+        admin
+                .there_is_a_uesr_create_country("name",SOME_PASSWORD,"UK");
+        user
+                .is_logged_out()
+                .visits_his_profile();
+        screen
+                .shows_login();
 
+        user
+                .logs_in_with("name", SOME_PASSWORD)
+                .visits_his_profile();
+        screen
+                .shows_profile_for_country("name","UK");
+
+
+    }
 
 }

@@ -82,6 +82,7 @@ public class AccountControllerTest {
         assertThat(account.getPassword(), is("password"));
         assertThat(account.getAccount_name(), is("john smith"));
         assertThat(account.getPhoneNumber(), is("123456789"));
+        assertThat(account.getCountry(),is("India"));
         assertThat(account.isEnabled(), is(true));
     }
 
@@ -129,6 +130,7 @@ public class AccountControllerTest {
         when(request.getParameter("password")).thenReturn("example");
         when(request.getParameter("name")).thenReturn("example");
         when(request.getParameter("phoneNumber")).thenReturn("1234567890");
+        when(request.getParameter("country")).thenReturn("India");
 
         return request;
     }
@@ -140,6 +142,7 @@ public class AccountControllerTest {
         when(request.getParameter("password")).thenReturn("password");
         when(request.getParameter("name")).thenReturn("john smith");
         when(request.getParameter("phoneNumber")).thenReturn("123456789");
+        when(request.getParameter("country")).thenReturn("India");
 
         return request;
     }

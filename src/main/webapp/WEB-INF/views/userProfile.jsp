@@ -4,7 +4,7 @@
 
 <div class="page-action">Your details</div>
         <div id="user-details" >
-            ${userDetail.account_name} - ${userDetail.email_address}<br />
+            ${userDetail.account_name} - ${userDetail.email_address} - ${userDetail.country}<br />
         </div>
 
 		<div class="page-action">Your Orders</div>
@@ -17,6 +17,7 @@
                     <th>Type</th>
                 </tr>
             </thead>
+
             <tbody>
             <c:forEach var="item" items="${items}" varStatus="row">
                 <tr>

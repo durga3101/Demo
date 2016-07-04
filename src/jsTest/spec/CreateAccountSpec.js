@@ -1,8 +1,9 @@
 describe("validate registration form", function() {
 
     function setUpHTMLFixture() {
-        jasmine.getFixtures().set(' <input id="fld_email" type="text" >          \
+        jasmine.getFixtures().set(' <input id="fld_email" type="text" > \
                                 <input id="fld_name" type = "text">\
+                                <select id="fld_country" name="country"> <option value="" selected="selected"> </option><option value="Italy"></option>\
                             ');
     }
 
@@ -43,6 +44,20 @@ describe("validate registration form", function() {
         $("#fld_name").val(emptyName);
 
         expect(isValid("#fld_name")).toBeFalsy();
+    });
+
+    it("should return true when country is valid", function() {
+        var validCountry = "Italy";
+        $("#fld_country").val(validCountry);
+
+        expect(isValid("#fld_country")).toBeTruthy();
+    });
+
+    it("should return false when country is empty", function() {
+        var emptyCountry = "";
+        $("#fld_country").val(emptyCountry);
+
+        expect(isValid("#fld_country")).toBeFalsy();
     });
 
 });

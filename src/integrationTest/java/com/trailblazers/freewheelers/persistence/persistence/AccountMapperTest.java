@@ -80,21 +80,18 @@ public class AccountMapperTest extends MapperTestBase {
     }
 
     @Test
-    public void shouldContainCountryInTheAccount() {
-        Account account = someAccount();
-        accountMapper.insert(account);
-        Account fetchedAccount = accountMapper.getById(account.getAccount_id());
-        String country = fetchedAccount.getCountry();
-        assertEquals(country, account.getCountry());
+    public void shouldInsertAndGetCountryByName() throws Exception{
+        accountMapper.insert(someAccount());
+        assertThat(accountMapper.getByName("Some Body").getCountry(),is("UK"));
     }
-
+    
     private Account someAccount() {
         return new Account()
                 .setAccount_name("Some Body")
                 .setEmail_address(randomUUID() + "some.body@gmail.com")
                 .setPassword("V3ry S3cret")
                 .setPhoneNumber("12345")
-                .setCountry("India")
+                .setCountry("UK")
                 .setEnabled(true);
     }
 

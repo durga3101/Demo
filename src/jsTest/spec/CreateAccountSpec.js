@@ -53,18 +53,18 @@ describe("validate registration form", function () {
         expect(isValid("#fld_country")).toBeTruthy();
     });
 
-    it("should return false when country is empty", function () {
+
+    it("should return false when country is empty", function() {
         var emptyCountry = "";
         $("#fld_country").val(emptyCountry);
 
         expect(isValid("#fld_country")).toBeFalsy();
     });
-    
+
     it("should return true when country is valid", function () {
         var validCountry = "USA";
         $("#fld_country").val(validCountry);
         expect(isValid("#fld_country")).toBeTruthy();
     });
-
 });
 

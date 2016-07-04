@@ -10,6 +10,7 @@ public class Account {
     private String phoneNumber;
     private String country;
 
+
     public String getCountry() {
         return country;
     }
@@ -76,5 +77,4 @@ public class Account {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
 }

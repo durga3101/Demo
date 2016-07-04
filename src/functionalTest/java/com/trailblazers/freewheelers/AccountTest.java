@@ -21,16 +21,26 @@ public class AccountTest extends UserJourneyBase {
                 .shows_error_alert("login attempt was not successful");
 
         user
+<<<<<<< ff315cd20023bea67aa6c1c308deea8e99d01cf0
 <<<<<<< ef7cae23c96e7ff2b925d98b6f6f0a141caf5b3a
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, SOME_COUNTRY);
 =======
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, "India");
 >>>>>>> [siqi/Durga]Enter Country In Order To Create Account
+=======
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD,SOME_COUNTRY);
+>>>>>>> [Durga/Siqi][#175] Include country in CreateAccount
 
         screen
                 .shows_error("Must enter a phone number!", "phoneNumber_field");
+        user
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,EMPTY_PASSWORD) ;
+
+        screen
+                .shows_error("Must select a country!", "country_field");
 
         user
+<<<<<<< ff315cd20023bea67aa6c1c308deea8e99d01cf0
 <<<<<<< ef7cae23c96e7ff2b925d98b6f6f0a141caf5b3a
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER, UNSELECTED_COUNTRY);
 
@@ -42,6 +52,9 @@ public class AccountTest extends UserJourneyBase {
 =======
                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,"India");
 >>>>>>> [siqi/Durga]Enter Country In Order To Create Account
+=======
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER,SOME_COUNTRY);
+>>>>>>> [Durga/Siqi][#175] Include country in CreateAccount
 
         screen
                 .shows_message("account has been created");
@@ -91,6 +104,21 @@ public class AccountTest extends UserJourneyBase {
         screen
                 .shows_profile_for(Hugo);
     }
+    @Test
+    public void testViewCountryOnUserProfile() throws Exception{
+        admin
+                .there_is_a_uesr_create_country("name",SOME_PASSWORD,"UK");
+        user
+                .is_logged_out()
+                .visits_his_profile();
+        screen
+                .shows_login();
+
+        user
+                .logs_in_with("name", SOME_PASSWORD)
+                .visits_his_profile();
+        screen
+                .shows_profile_for_country("name","UK");
 
     @Test
     public void testViewCountryOnUserProfile() throws Exception {
@@ -102,6 +130,7 @@ public class AccountTest extends UserJourneyBase {
         screen
                 .shows_login();
 
+<<<<<<< ff315cd20023bea67aa6c1c308deea8e99d01cf0
         user
                 .logs_in_with("name", SOME_PASSWORD)
                 .visits_his_profile();
@@ -118,4 +147,8 @@ public class AccountTest extends UserJourneyBase {
         screen.
                 checkPasswordIsMasked();
     }
+=======
+    }
+
+>>>>>>> [Durga/Siqi][#175] Include country in CreateAccount
 }

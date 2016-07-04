@@ -123,7 +123,6 @@ public class ScreenApi {
         assertThat(userDetails, containsString(country));
         return this;
     }
-
     public ScreenApi checkPasswordIsMasked() {
         WebElement passwordField = driver.findElement(By.id("fld_password"));
         assertTrue(passwordField.getAttribute("type").equals("password"));

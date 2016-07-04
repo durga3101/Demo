@@ -78,6 +78,12 @@ public class AccountMapperTest extends MapperTestBase {
 
         assertThat(fetched, is(nullValue()));
     }
+
+    @Test
+    public void shouldInsertAndGetCountryByName() throws Exception{
+        accountMapper.insert(someAccount());
+        assertThat(accountMapper.getByName("Some Body").getCountry(),is("UK"));
+    }
     
     private Account someAccount() {
         return new Account()
@@ -85,7 +91,7 @@ public class AccountMapperTest extends MapperTestBase {
                 .setEmail_address(randomUUID() + "some.body@gmail.com")
                 .setPassword("V3ry S3cret")
                 .setPhoneNumber("12345")
-                .setCountry("India")
+                .setCountry("UK")
                 .setEnabled(true);
     }
 

@@ -86,6 +86,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private void insertOrUpdate(Item item) {
+
+        if (item.getQuantity() == null || item.getPrice() == null) return;
+
         if (item.getItemId() == null) {
             itemMapper.insert(item);
         } else {

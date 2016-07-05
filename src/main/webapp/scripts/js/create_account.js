@@ -15,15 +15,6 @@ function validateRegistrationForm() {
     });
     return validate;
 }
-// var count = 0;
-// function showCountryinShip() {
-//     if (count%2==0){
-//         document.getElementById("countryNoteShow").style.display="inline";
-//     }else {
-//         document.getElementById("countryNoteShow").style.display="none";
-//     }
-//     count++;
-// }
 
 function showRegisterErrorMessage() {
     fields.forEach(function(field) {

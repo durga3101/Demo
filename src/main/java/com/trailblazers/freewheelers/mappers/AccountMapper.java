@@ -8,14 +8,14 @@ import java.util.List;
 public interface AccountMapper {
 
     @Insert(
-        "INSERT INTO account (account_name, email_address, password, phone_number, enabled , country) " +
+        "INSERT INTO account (account_name, email_address, password, phone_number, enabled ,country) " +
         "VALUES (#{account_name}, #{emailAddress}, #{password}, #{phoneNumber}, #{enabled} ,#{country})"
     )
     @Options(keyProperty = "account_id", useGeneratedKeys = true)
     Integer insert(Account account);
 
     @Select(
-        "SELECT account_id, account_name, email_address, password, phone_number, enabled " +
+        "SELECT account_id, account_name, email_address, password, phone_number, enabled ,country " +
         "FROM account " +
         "WHERE account_id = #{account_id}"
     )
@@ -45,7 +45,8 @@ public interface AccountMapper {
             @Result(property="emailAddress", column="email_address"),
             @Result(property="password"),
             @Result(property="phoneNumber", column="phone_number"),
-            @Result(property="enabled")
+            @Result(property="enabled"),
+            @Result(property = "country")
     })
     public List<Account> findAll();
 

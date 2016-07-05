@@ -4,12 +4,12 @@ import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.model.Account;
 import org.junit.Before;
 import org.junit.Test;
-import com.trailblazers.freewheelers.persistence.persistence.MapperTestBase;
 
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 
 public class AccountMapperTest extends MapperTestBase {
 
@@ -80,11 +80,14 @@ public class AccountMapperTest extends MapperTestBase {
     }
 
     @Test
-    public void shouldInsertAndGetCountryByName() throws Exception{
-        accountMapper.insert(someAccount());
-        assertThat(accountMapper.getByName("Some Body").getCountry(),is("UK"));
+    public void shouldContainCountryInTheAccount() {
+        Account account = someAccount();
+        accountMapper.insert(account);
+        Account fetchedAccount = accountMapper.getById(account.getAccount_id());
+        String country = fetchedAccount.getCountry();
+        assertEquals(country, account.getCountry());
     }
-    
+
     private Account someAccount() {
         return new Account()
                 .setAccount_name("Some Body")

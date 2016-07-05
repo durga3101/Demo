@@ -80,11 +80,14 @@ public class AccountMapperTest extends MapperTestBase {
     }
 
     @Test
-    public void shouldInsertAndGetCountryByName() throws Exception{
-        accountMapper.insert(someAccount());
-        assertThat(accountMapper.getByName("Some Body").getCountry(),is("UK"));
+    public void shouldContainCountryInTheAccount() {
+        Account account = someAccount();
+        accountMapper.insert(account);
+        Account fetchedAccount = accountMapper.getById(account.getAccount_id());
+        String country = fetchedAccount.getCountry();
+        assertEquals(country, account.getCountry());
     }
-    
+
     private Account someAccount() {
         return new Account()
                 .setAccount_name("Some Body")

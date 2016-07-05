@@ -52,12 +52,9 @@
         <div class="controls">
             <select id="fld_country" name="country">
                 <option value="" >Choose A Country</option>
-                <option value="Italy">Italy</option>
-                <option value="UK">UK</option>
-                <option value="USA">USA</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="Canada">Canada</option>
+                <c:forEach var="ctry" items="${country}">
+                    <option value=${ctry}>${ctry}</option>
+                </c:forEach>
             </select>
             Note: If your country is not listed then we don't ship there. Please check back later.
             <span class="text-error">Must select a country!</span>

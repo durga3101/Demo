@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +29,8 @@ public class AccountController {
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
+        String[] countries = getCountries();
+        model.addAttribute("country", countries);
         return new ModelAndView("account/create", "validationMessage", model);
     }
 
@@ -49,7 +51,7 @@ public class AccountController {
                 .setEnabled(true);
 
         HashMap errors = verifyInputs(account);
-        if(!errors.isEmpty()) {
+        if (!errors.isEmpty()) {
             return showErrors(errors);
         }
 
@@ -58,6 +60,23 @@ public class AccountController {
         } catch (Exception e) {
             return showError();
         }
+    }
+
+    private String[] getCountries() {
+        String countries = "";
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/nvankaya/Desktop/Projects/twu50proj2/src/main/resources/countries.txt"));
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                countries += line+" ";
+                line = bufferedReader.readLine() ;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return countries.split(" ");
     }
 
     private ModelAndView showErrors(Map errors) {

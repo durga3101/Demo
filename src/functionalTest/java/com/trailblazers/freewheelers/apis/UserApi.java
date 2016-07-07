@@ -138,20 +138,19 @@ public class UserApi {
 
     public UserApi add_to_cart_and_check_out(String name) {
         add_item_to_cart(name);
-        check_out();
+        reserve_items_in_shopping_cart();
 
         return this;
 
     }
 
-    public UserApi check_out() {
-        driver.get(URLs.shoppingCart());
-        driver.findElement(By.name("checkout")).click();
+    public UserApi reserve_items_in_shopping_cart() {
+        driver.findElement(By.id("reserve")).click();
         return this;
     }
 
     public UserApi add_item_to_cart(String name) {
-        driver.findElement(HomeTable.reserveButtonFor(name)).click();
+        driver.findElement(HomeTable.cartButtonFor(name)).click();
         return this;
     }
 
@@ -200,7 +199,10 @@ public class UserApi {
         driver.get(URLs.home());
 
         driver.findElement(By.linkText("Create Account")).click();
+    }
 
-
+    public UserApi click_checkout_button() {
+        driver.findElement(By.id("reserve")).click();
+        return this;
     }
 }

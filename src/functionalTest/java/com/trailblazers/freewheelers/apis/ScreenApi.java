@@ -131,9 +131,12 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi should_see_cart_page() {
-        driver.findElement(By.id("shopping-cart"));
-
+    public ScreenApi shows_cart_page() {
+        assertThat(driver.getCurrentUrl(), is(URLs.shoppingCart()));
         return this;
+    }
+
+    public void shows_reservation_page() {
+        assertThat(driver.getCurrentUrl(), is(URLs.reserve()));
     }
 }

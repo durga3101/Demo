@@ -31,4 +31,8 @@ public class URLs {
     public static String shoppingCart(){
         return BASE + "/cart";
     }
+
+    public static String reserve() {
+        return BASE + "/reserve";
+    }
 }

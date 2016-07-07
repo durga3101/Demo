@@ -43,7 +43,7 @@
         <label for="fld_phoneNumber">Phone Number</label>
         <div class="controls">
             <input type="text" id="fld_phoneNumber" placeholder="555-123456" name="phoneNumber">
-            <span class="text-error">Must enter a phone number!</span>
+            <span class="text-error">Must enter valid phone number!</span>
         </div>
     </div>
 

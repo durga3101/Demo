@@ -29,6 +29,11 @@ function isValid(selector) {
     if (selector === "#fld_country") {
         return $(selector).val() != "";
     }
-    else return validator.isFieldEmpty(selector);
+    if (selector === "#fld_phoneNumber") {
+        var numberFormat = /^\d+\-?\d+$/;
+        var phoneNumber = $(selector).val();
+        return numberFormat.test(phoneNumber);
+    }
+    return validator.isFieldEmpty(selector);
 }
 

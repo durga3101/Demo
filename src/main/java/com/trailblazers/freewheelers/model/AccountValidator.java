@@ -20,7 +20,7 @@ public class AccountValidator {
         }
 
         if(account.getPhoneNumber().isEmpty()) {
-            errors.put("phoneNumber", "Must enter a phone number!");
+            errors.put("phoneNumber", "Must enter valid phone number!");
         }
 
         return errors;

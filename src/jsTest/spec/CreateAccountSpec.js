@@ -3,6 +3,7 @@ describe("validate registration form", function () {
     function setUpHTMLFixture() {
         jasmine.getFixtures().set(' <input id="fld_email" type="text" > \
                                 <input id="fld_name" type = "text">\
+                                <input id="fld_phoneNumber" type = "text">\
                                 <select id="fld_country" name="country"> <option value="" selected="selected"> </option><option value="Italy"></option>\
                             ');
     }
@@ -59,17 +60,35 @@ describe("validate registration form", function () {
 
         expect(isValid("#fld_country")).toBeFalsy();
     });
-    
+
     it("should return true when country is valid", function () {
         var validCountry = "USA";
         $("#fld_country").val(validCountry);
         expect(isValid("#fld_country")).toBeTruthy();
     });
 
-    it("should return true when country is valid", function () {
-        var validCountry = "USA";
-        $("#fld_country").val(validCountry);
-        expect(isValid("#fld_country")).toBeTruthy();
+    it("should return true when phonenumber is valid", function () {
+        var phoneNumber = "1234-1234";
+        $("#fld_phoneNumber").val(phoneNumber);
+        expect(isValid("#fld_phoneNumber")).toBeTruthy();
+    });
+
+    it("should return false when phone number includes digits and alphabets", function () {
+        var phoneNumber = "123-afass";
+        $("#fld_phoneNumber").val(phoneNumber);
+        expect(isValid("#fld_phoneNumber")).toBeFalsy();
+    });
+
+    it("should return true when the phone number contain only digits", function () {
+        var phoneNumber = "12345";
+        $("#fld_phoneNumber").val(phoneNumber);
+        expect(isValid("#fld_phoneNumber")).toBeTruthy();
+    });
+
+    it("should return false when the phonenumber contains only alphabets", function () {
+        var phoneNumber = "abhi";
+        $("#fld_phoneNumber").val(phoneNumber);
+        expect(isValid("#fld_phoneNumber")).toBeFalsy();
     });
 });
 

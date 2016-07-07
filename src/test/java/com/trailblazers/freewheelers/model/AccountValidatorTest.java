@@ -77,7 +77,7 @@ public class AccountValidatorTest {
 
         HashMap errors = verifyInputs(account);
 
-        assertThereIsOneErrorFor("phoneNumber", "enter a phone number", errors);
+        assertThereIsOneErrorFor("phoneNumber", "enter valid phone number", errors);
     }
 
     private void assertThereIsOneErrorFor(String field, String expected, HashMap<String, String> errors) {

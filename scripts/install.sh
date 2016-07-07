@@ -22,6 +22,8 @@ trap errorHandler SIGINT SIGTERM ERR
 #Start actual installation
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
+rm -rf /home/appuser/freewheelers/*
+
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 
 ssh ${USER}@${HOST} /bin/bash << EOF

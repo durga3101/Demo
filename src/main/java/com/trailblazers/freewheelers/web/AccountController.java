@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.service.AccountService;
+import com.trailblazers.freewheelers.service.CountryReader;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,13 @@ public class AccountController {
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
-        String[] countries = getCountries();
+        BufferedReader  bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader("/Users/prajaktadesai/TWU50/twu50proj2/src/main/resources/countries.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String[] countries = new CountryReader(bufferedReader).getCountries();
         model.addAttribute("country", countries);
         return new ModelAndView("account/create", "validationMessage", model);
     }
@@ -62,22 +69,7 @@ public class AccountController {
         }
     }
 
-    private String[] getCountries() {
-        String countries = "";
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/nvankaya/Desktop/Projects/twu50proj2/src/main/resources/countries.txt"));
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                countries += line+" ";
-                line = bufferedReader.readLine() ;
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return countries.split(" ");
-    }
+
 
     private ModelAndView showErrors(Map errors) {
         ModelMap model = new ModelMap();

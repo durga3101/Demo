@@ -108,6 +108,7 @@ public class AccountControllerTest {
         ModelAndView createView = accountController.processCreate(requestWithoutError);
 
         assertThat(createView.getViewName(), is("account/createFailure"));
+
     }
 
     @Test
@@ -140,6 +141,8 @@ public class AccountControllerTest {
         when(request.getParameter("name")).thenReturn("john smith");
         when(request.getParameter("phoneNumber")).thenReturn("123456789");
         when(request.getParameter("country")).thenReturn("India");
+
+
 
         return request;
     }

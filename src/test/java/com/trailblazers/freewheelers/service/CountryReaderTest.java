@@ -1,13 +1,9 @@
 package com.trailblazers.freewheelers.service;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -29,12 +25,13 @@ public class CountryReaderTest {
         countryReader.getCountries();
         verify(bufferedReader, times(4)).readLine();
     }
+
     @Test
     public void shouldReturnEmptyArrayOfCountriesIfCouldNotReadTheFile() throws IOException {
         BufferedReader bufferedReader = mock(BufferedReader.class);
         when(bufferedReader.readLine()).thenThrow(IOException.class);
         CountryReader countryReader = new CountryReader(bufferedReader);
-        assertEquals("",countryReader.getCountries()[0]);
+        assertEquals("", countryReader.getCountries()[0]);
     }
 
 

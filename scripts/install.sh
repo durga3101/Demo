@@ -22,13 +22,16 @@ trap errorHandler SIGINT SIGTERM ERR
 #Start actual installation
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
-sudo chown appuser:user  ${USER}@${HOST}:/tmp
+
+sudo su appuser
+
+sudo chown appuser:user  /home/appuser/freewheelers/*
+rm -rf /home/appuser/freewheelers/*
 
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 
 ssh ${USER}@${HOST} /bin/bash << EOF
 
-sudo su appuser
 
 cd /tmp/
 jetty_path=/tmp/jetty-runner-8.1.14.v20131031.jar

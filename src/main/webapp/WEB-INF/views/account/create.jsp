@@ -56,11 +56,14 @@
                     <option value=${ctry}>${ctry}</option>
                 </c:forEach>
             </select>
-            Note: If your country is not listed then we don't ship there. Please check back later.
             <span class="text-error">Must select a country!</span>
         </div>
     </div>
-
+    <br>
+    <div>
+        Note: If your country is not listed then we don't ship there. Please check back later.
+    </div>
+    <br>
     <div>
         <div class="controls">
             <button type="submit" id="createAccount" value="Submit" onclick="showRegisterErrorMessage()">Create

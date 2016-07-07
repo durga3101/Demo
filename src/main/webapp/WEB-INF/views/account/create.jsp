@@ -24,11 +24,18 @@
     </div>
 
     <div id="password_field">
-        <label for="fld_password">Password</label>
-        <div class="controls">
-            <input type="password" id="fld_password" placeholder="secret password" name="password">
-            <span class="text-error">Must enter a password!</span>
-        </div>
+            <label for="fld_password">Password</label>
+            <div class="controls">
+                <input type="password" id="fld_password" placeholder="secret password" name="password">
+                <span class="text-error">Must enter a valid password!</span>
+            </div>
+            <div style="margin-left: 11em; margin-bottom: 0.7em">
+                Your Password must have<br>
+                <li>8 and 20 characters</li>
+                <li>atleast 1 number</li>
+                <li>atleast 1 lowercase letter & uppercase letter</li>
+                <li>atleast 1 special character</li>
+            </div>
     </div>
 
     <div id="name_field">
@@ -55,7 +62,7 @@
                 <c:forEach var="ctry" items="${country}">
                     <option value=${ctry}>${ctry}</option>
                 </c:forEach>
-            </select>
+             </select>
             <span class="text-error">Must select a country!</span>
         </div>
     </div>

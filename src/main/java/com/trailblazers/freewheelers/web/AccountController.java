@@ -32,7 +32,7 @@ public class AccountController {
     public ModelAndView createAccountForm(Model model) {
         BufferedReader  bufferedReader = null;
         try {
-            File file = new File(System.getProperty("user.dir"),"src/main/resources/countries.txt");
+            File file = new File("src/main/resources/countries.txt");
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();

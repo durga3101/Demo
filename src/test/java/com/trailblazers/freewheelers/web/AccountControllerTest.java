@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -78,7 +79,7 @@ public class AccountControllerTest {
 
         Account account = captor.getValue();
         assertThat(account.getEmail_address(), is("email@fake.com"));
-        assertThat(account.getPassword(), is("password"));
+        assertThat(account.getPassword(), is(not("password")));
         assertThat(account.getAccount_name(), is("john smith"));
         assertThat(account.getPhoneNumber(), is("123456789"));
         assertThat(account.getCountry(),is("India"));

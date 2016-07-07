@@ -23,6 +23,7 @@
 
     <authentication-manager>
         <authentication-provider>
+            <password-encoder ref="bcryptEncoder"/>
             <jdbc-user-service data-source-ref="myDataSource"
                                users-by-username-query="select account_name, password, enabled
                                                         from account
@@ -36,5 +37,7 @@
                     />
         </authentication-provider>
     </authentication-manager>
+
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 </beans:beans>

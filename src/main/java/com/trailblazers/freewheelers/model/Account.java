@@ -1,5 +1,7 @@
 package com.trailblazers.freewheelers.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 public class Account {
 
     private Long account_id;
@@ -18,7 +20,7 @@ public class Account {
     public Account(String password, boolean enabled, String email_address, String phoneNumber, String country, String account_name) {
         this.account_id = 0L;
         this.account_name = account_name;
-        this.password = password;
+        this.setPassword(password);
         this.enabled = enabled;
         this.email_address = email_address;
         this.phoneNumber = phoneNumber;
@@ -43,6 +45,17 @@ public class Account {
 
     public String getPassword() {
         return password;
+    }
+
+    public Account setPassword(String password) {
+
+        if(!password.equals("")){
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            password = passwordEncoder.encode(password);
+        }
+
+        this.password = password;
+        return this;
     }
 
     public boolean isEnabled() {

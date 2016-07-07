@@ -22,6 +22,7 @@ trap errorHandler SIGINT SIGTERM ERR
 #Start actual installation
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
+sudo chown appuser:user  /home/appuser/freewheelers/*
 rm -rf /home/appuser/freewheelers/*
 
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
@@ -37,7 +38,7 @@ if ! [ -f \$jetty_path ];then
 fi
 
 #Create directory and move app
-rm -rf /home/appuser/freewheelers/*
+#rm -rf /home/appuser/freewheelers/*
 sudo chown appuser:user /tmp/freewheelers.zip
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP || exit 1

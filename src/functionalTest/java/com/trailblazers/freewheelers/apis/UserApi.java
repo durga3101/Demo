@@ -136,7 +136,21 @@ public class UserApi {
         return this;
     }
 
-    public UserApi reserves_item(String name) {
+    public UserApi add_to_cart_and_check_out(String name) {
+        add_item_to_cart(name);
+        check_out();
+
+        return this;
+
+    }
+
+    public UserApi check_out() {
+        driver.get(URLs.shoppingCart());
+        driver.findElement(By.name("checkout")).click();
+        return this;
+    }
+
+    public UserApi add_item_to_cart(String name) {
         driver.findElement(HomeTable.reserveButtonFor(name)).click();
         return this;
     }

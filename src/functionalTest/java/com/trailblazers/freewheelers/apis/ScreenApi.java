@@ -14,6 +14,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertTrue;
 
 public class ScreenApi {
     private WebDriver driver;
@@ -120,6 +121,12 @@ public class ScreenApi {
         String userDetails = driver.findElement(By.id("user-details")).getText();
 
         assertThat(userDetails, containsString(country));
+        return this;
+    }
+
+    public ScreenApi checkPasswordIsMasked() {
+        WebElement passwordField = driver.findElement(By.id("fld_password"));
+        assertTrue(passwordField.getAttribute("type").equals("password"));
         return this;
     }
 }

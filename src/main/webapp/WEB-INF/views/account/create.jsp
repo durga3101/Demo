@@ -26,7 +26,7 @@
     <div id="password_field">
         <label for="fld_password">Password</label>
         <div class="controls">
-            <input type="text" id="fld_password" placeholder="secret password" name="password">
+            <input type="password" id="fld_password" placeholder="secret password" name="password">
             <span class="text-error">Must enter a password!</span>
         </div>
     </div>

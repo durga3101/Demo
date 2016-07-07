@@ -103,4 +103,11 @@ public class AccountTest extends UserJourneyBase {
 
     }
 
+    @Test
+    public void passwordShouldBeMasked() throws Exception {
+        user
+                .openCreateAccountPage();
+        screen.
+                checkPasswordIsMasked();
+    }
 }

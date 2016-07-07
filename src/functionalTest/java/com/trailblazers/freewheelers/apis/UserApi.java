@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import static com.trailblazers.freewheelers.helpers.Controls.*;
+import static org.junit.Assert.assertTrue;
 
 public class UserApi {
 
@@ -179,5 +180,13 @@ public class UserApi {
                 return driver.getWindowHandles().size() > 1;
             }
         });
+    }
+
+    public void openCreateAccountPage() {
+        driver.get(URLs.home());
+
+        driver.findElement(By.linkText("Create Account")).click();
+
+
     }
 }

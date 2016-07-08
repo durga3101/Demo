@@ -88,6 +88,21 @@ public class AccountMapperTest extends MapperTestBase {
         assertEquals(country, account.getCountry());
     }
 
+    @Test
+    public void shouldReturnOneWhenCountingAUsersEmail() throws Exception {
+        Account account = someAccount();
+        accountMapper.insert(account);
+        int emailCount = accountMapper.getEmailCount(account.getEmail_address());
+        assertEquals(1, emailCount);
+    }
+
+    @Test
+    public void shouldReturnZeroWhenCountingANonExistingEmail() throws Exception {
+        int emailCount = accountMapper.getEmailCount("Idon'texist@email.notreal");
+        assertEquals(0, emailCount);
+    }
+
+
     private Account someAccount() {
         return new Account()
                 .setAccount_name("Some Body")

@@ -30,6 +30,7 @@ function isValid(selector) {
         return $(selector).val() != "";
     }
     if (selector === "#fld_phoneNumber") {
+
         var numberFormat = /^\d+\-?\d+$/;
         var phoneNumber = $(selector).val();
         return numberFormat.test(phoneNumber);

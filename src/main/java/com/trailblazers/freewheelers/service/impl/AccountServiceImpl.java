@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public AccountServiceImpl(SqlSession sqlSession) {
-        this.sqlSession= sqlSession;
+        this.sqlSession = sqlSession;
         this.accountMapper = sqlSession.getMapper(AccountMapper.class);
         this.accountRoleMapper = sqlSession.getMapper(AccountRoleMapper.class);
     }
@@ -59,8 +59,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account createAccount(Account account) {
-        create(account, USER);
-        return account;
+        if (accountMapper.getEmailCount(account.getEmail_address()) == 0) {
+            create(account, USER);
+            return account;
+        }
+        return null;
     }
 
     private void create(Account account, String role) {

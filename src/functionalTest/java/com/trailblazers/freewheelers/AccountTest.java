@@ -116,4 +116,38 @@ public class AccountTest extends UserJourneyBase {
                 checkPasswordIsMasked();
     }
 
+    @Test
+    public void newUserShouldAbleToCreateAccountWhenEmailDoesNotExist() throws Exception {
+        String Raju = "Raju UserOne";
+        String rajuEmail = "someUnique@email.com";
+        String Ella = "Ella UserTwo";
+        String ellaEmail = "otherUnique@email.in";
+
+
+
+        admin
+                .there_is_no_account_for(Raju)
+                .there_is_no_account_for(Ella);
+        user
+                .creates_an_account(Raju, rajuEmail, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+        screen
+                .shows_message("account has been created");
+
+        user
+                .is_logged_out()
+                .creates_an_account(Raju, rajuEmail, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+        screen
+                .shows_message("An error has occurred while creating the account.");
+
+        user
+                .creates_an_account(Ella, ellaEmail, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+        screen
+                .shows_message("account has been created");
+
+
+
+    }
 }

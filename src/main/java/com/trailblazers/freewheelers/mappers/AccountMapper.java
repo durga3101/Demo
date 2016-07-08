@@ -29,6 +29,11 @@ public interface AccountMapper {
     )
     Account getByName(String accountName);
 
+    @Select(
+            "SELECT count(email_address) FROM account WHERE email_address = #{email}"
+    )
+    int getEmailCount(String email);
+
     @Update(
         "UPDATE account " +
         "SET account_name=#{account_name}, email_address=#{emailAddress}, phone_number=#{phoneNumber}, enabled=#{enabled} " +

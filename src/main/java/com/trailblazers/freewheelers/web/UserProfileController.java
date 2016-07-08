@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 
 import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.AccountRole;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
@@ -39,6 +40,7 @@ public class UserProfileController {
         userName = decode(userName);
 
         Account account = accountService.getAccountIdByName(userName);
+
 
         List<Item> items = getItemsOrderByUser(account);
 

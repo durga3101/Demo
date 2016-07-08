@@ -1,9 +1,11 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.CountryReader;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -66,6 +68,7 @@ public class AccountController {
 
     private ModelAndView returnStateOfValidation(Account account) {
         HashMap errors = verifyInputs(account);
+
         if (!errors.isEmpty()) {
             return showErrors(errors);
         }
@@ -73,7 +76,10 @@ public class AccountController {
         try {
             return showSuccess(accountService.createAccount(account));
         } catch (Exception e) {
+            System.out.println("***************************************************");
+            e.printStackTrace();
             return showError();
+            //unblock sql
         }
     }
 

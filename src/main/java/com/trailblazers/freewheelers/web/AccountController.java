@@ -44,20 +44,19 @@ public class AccountController {
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
     public ModelAndView processCreate(HttpServletRequest request) throws IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String country = request.getParameter("country");
 
         Account account = new Account()
-                .setEmail_address(email)
-                .setPassword(password)
-                .setAccount_name(name)
-                .setPhoneNumber(phoneNumber)
-                .setCountry(country)
+                .setEmail_address(request.getParameter("email"))
+                .setPassword(request.getParameter("password"))
+                .setAccount_name(request.getParameter("name"))
+                .setPhoneNumber(request.getParameter("phoneNumber"))
+                .setCountry(request.getParameter("country"))
                 .setEnabled(true);
 
+        return returnStateOfValidation(account);
+    }
+
+    private ModelAndView returnStateOfValidation(Account account) {
         HashMap errors = verifyInputs(account);
         if (!errors.isEmpty()) {
             return showErrors(errors);
@@ -69,7 +68,6 @@ public class AccountController {
             return showError();
         }
     }
-
 
 
     private ModelAndView showErrors(Map errors) {

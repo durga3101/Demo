@@ -29,10 +29,6 @@ public class NpsReport {
         return percentageFor(promoters - detractors);
     }
 
-    public int getTotal(){
-        return total;
-    }
-
     private Double percentageFor(double value) {
         return total == 0 ? 0.0 : (value / total) * 100;
     }

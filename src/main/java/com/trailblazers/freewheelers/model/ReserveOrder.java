@@ -41,10 +41,6 @@ public class ReserveOrder {
         return order_id;
     }
 
-    public void setOrder_id(Long order_id) {
-        this.order_id = order_id;
-    }
-
     public Long getAccount_id() {
         return account_id;
     }

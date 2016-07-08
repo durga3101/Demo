@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> findAll() {
-        return accountMapper.findAll();
+        return accountMapper.getAllAccounts();
     }
 
     @Override

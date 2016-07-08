@@ -54,13 +54,13 @@ public class AccountMapperTest extends MapperTestBase {
 
     @Test
     public void shouldFindAllAccounts() throws Exception {
-        int before = accountMapper.findAll().size();
+        int before = accountMapper.getAllAccounts().size();
 
         accountMapper.insert(someAccount());
         accountMapper.insert(someAccount());
         accountMapper.insert(someAccount());
 
-        assertThat(accountMapper.findAll().size(), is(before + 3));
+        assertThat(accountMapper.getAllAccounts().size(), is(before + 3));
     }
 
     @Test

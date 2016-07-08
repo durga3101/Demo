@@ -48,7 +48,7 @@ public interface AccountMapper {
             @Result(property="enabled"),
             @Result(property = "country")
     })
-    List<Account> findAll();
+    List<Account> getAllAccounts();
 
     @Delete(
         "DELETE FROM account WHERE account_id = #{account_id}"

@@ -14,13 +14,6 @@ public interface ReserveOrderMapper {
     @Options(keyProperty = "order_id", useGeneratedKeys = true)
     Integer insert(ReserveOrder order);
 
-    @Select(
-        "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +
-        "FROM reserve_order " +
-        "WHERE order_id = #{order_id}"
-    )
-    ReserveOrder getByOrderId(Long order_id);
-
     @Delete(
         "DELETE FROM reserve_order WHERE order_id = #{order_id}"
     )
@@ -46,7 +39,14 @@ public interface ReserveOrderMapper {
         @Result(property="note"),
         @Result(property="reservation_timestamp")
     })
-    List<ReserveOrder> findAll();
+    List<ReserveOrder> getAllOrders();
+
+    @Select(
+            "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +
+                    "FROM reserve_order " +
+                    "WHERE order_id = #{order_id}"
+    )
+    ReserveOrder getOrderByOrderId(Long order_id);
 
     @Select(
             "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +
@@ -61,6 +61,6 @@ public interface ReserveOrderMapper {
             @Result(property="note"),
             @Result(property="reservation_timestamp")
     })
-    List<ReserveOrder> findAllFor(Long account_id);
+    List<ReserveOrder> getOrderByAccountId(Long account_id);
 
 }

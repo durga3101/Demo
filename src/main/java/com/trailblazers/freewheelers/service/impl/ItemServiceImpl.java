@@ -41,13 +41,13 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> findAll() {
         sqlSession.clearCache();
-        return itemMapper.findAll();
+        return itemMapper.getAllItems();
     }
 
     @Override
     public List<Item> getItemsWithNonZeroQuantity() {
         sqlSession.clearCache();
-        return itemMapper.findAvailable();
+        return itemMapper.getAvailableItems();
     }
 
     @Override

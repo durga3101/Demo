@@ -79,22 +79,22 @@ public class ItemMapperTest extends MapperTestBase {
 
     @Test
     public void shouldFindAllItems() throws Exception {
-        int before = itemMapper.findAll().size();
+        int before = itemMapper.getAllItems().size();
 
         itemMapper.insert(someItem());
 
-        assertThat(itemMapper.findAll().size(), is(before + 1));
+        assertThat(itemMapper.getAllItems().size(), is(before + 1));
     }
 
     @Test
     public void shouldShouldFindAllAvailableItems() throws Exception {
-        int before = itemMapper.findAvailable().size();
+        int before = itemMapper.getAvailableItems().size();
 
         itemMapper.insert(someItem().setQuantity(AVAILABLE));
         itemMapper.insert(someItem().setQuantity(UNAVAILABLE));
         itemMapper.insert(someItem().setQuantity(UNAVAILABLE));
 
-        assertThat(itemMapper.findAvailable().size(), is(before + 1));
+        assertThat(itemMapper.getAvailableItems().size(), is(before + 1));
     }
 
     private Item someItem() {

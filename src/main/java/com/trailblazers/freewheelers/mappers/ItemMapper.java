@@ -14,21 +14,6 @@ public interface ItemMapper {
     @Options(keyProperty = "itemId", keyColumn = "item_id", useGeneratedKeys = true)
     void insert(Item item);
 
-    @Select(
-        "SELECT item_id as itemId, description, name, price, type, quantity " +
-        "FROM item " +
-        "WHERE item_id = #{itemId}"
-    )
-    Item getByItemId(Long itemId);
-
-    @Select(
-        "SELECT item_id as itemId, description, name, price, type, quantity " +
-        "FROM item " +
-        "WHERE name = #{name} " +
-        "LIMIT 1"
-    )
-    Item getByName(String name);
-
     @Delete(
         "DELETE FROM item WHERE item_id = #{itemId}"
     )
@@ -53,7 +38,22 @@ public interface ItemMapper {
             @Result(property="type"),
             @Result(property="description")
     })
-    List<Item> findAll();
+    List<Item> getAllItems();
+
+    @Select(
+            "SELECT item_id as itemId, description, name, price, type, quantity " +
+                    "FROM item " +
+                    "WHERE item_id = #{itemId}"
+    )
+    Item getByItemId(Long itemId);
+
+    @Select(
+            "SELECT item_id as itemId, description, name, price, type, quantity " +
+                    "FROM item " +
+                    "WHERE name = #{name} " +
+                    "LIMIT 1"
+    )
+    Item getByName(String name);
 
     @Select(
         "SELECT item_id, name, price, type, quantity, description FROM item WHERE quantity > 0"
@@ -66,6 +66,6 @@ public interface ItemMapper {
             @Result(property="type"),
             @Result(property="description")
     })
-    List<Item> findAvailable();
+    List<Item> getAvailableItems();
 
 }

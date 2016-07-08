@@ -30,16 +30,16 @@ public class ReserveOrderServiceImpl implements ReserveOrderService{
 
     public List<ReserveOrder> findAllOrdersByAccountId(Long account_id) {
         sqlSession.clearCache();
-        return orderMapper.findAllFor(account_id);
+        return orderMapper.getOrderByAccountId(account_id);
     }
 
     public List<ReserveOrder> getAllOrdersByAccount() {
         sqlSession.clearCache();
-        return orderMapper.findAll();
+        return orderMapper.getAllOrders();
     }
 
     public void updateOrderDetails(Long order_id, OrderStatus status, String note) {
-        ReserveOrder order = orderMapper.getByOrderId(order_id);
+        ReserveOrder order = orderMapper.getOrderByOrderId(order_id);
 
         order.setStatus(status);
         order.setNote(note);

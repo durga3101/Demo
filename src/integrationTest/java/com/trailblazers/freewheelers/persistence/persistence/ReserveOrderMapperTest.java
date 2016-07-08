@@ -35,7 +35,7 @@ public class ReserveOrderMapperTest extends MapperTestBase {
         ReserveOrder tobeInserted = someOrder();
 
         reserveOrderMapper.insert(tobeInserted);
-        ReserveOrder fetched = reserveOrderMapper.getByOrderId(tobeInserted.getOrder_id());
+        ReserveOrder fetched = reserveOrderMapper.getOrderByOrderId(tobeInserted.getOrder_id());
 
         assertThat(fetched, is(not(nullValue())));
     }
@@ -47,7 +47,7 @@ public class ReserveOrderMapperTest extends MapperTestBase {
 
         reserveOrderMapper.delete(tobeDeleted);
 
-        ReserveOrder fetched = reserveOrderMapper.getByOrderId(tobeDeleted.getOrder_id());
+        ReserveOrder fetched = reserveOrderMapper.getOrderByOrderId(tobeDeleted.getOrder_id());
         assertThat(fetched, is(nullValue()));
     }
 
@@ -59,16 +59,16 @@ public class ReserveOrderMapperTest extends MapperTestBase {
         toBeUpdated.setNote("A very important note.");
         reserveOrderMapper.update(toBeUpdated);
 
-        ReserveOrder fetched = reserveOrderMapper.getByOrderId(toBeUpdated.getOrder_id());
+        ReserveOrder fetched = reserveOrderMapper.getOrderByOrderId(toBeUpdated.getOrder_id());
         assertThat(fetched.getNote(), is("A very important note."));
     }
 
     @Test
     public void shouldFindAllOrders() throws Exception {
-        int before = reserveOrderMapper.findAll().size();
+        int before = reserveOrderMapper.getAllOrders().size();
         reserveOrderMapper.insert(someOrder());
 
-        List<ReserveOrder> all = reserveOrderMapper.findAll();
+        List<ReserveOrder> all = reserveOrderMapper.getAllOrders();
 
         assertThat(all.size(), is(before + 1));
     }
@@ -77,13 +77,13 @@ public class ReserveOrderMapperTest extends MapperTestBase {
     public void shouldFindAllOrdersForAnAccount() throws Exception {
         long someAccount = (long) 42;
         long anotherAccount = (long) 43;
-        int before = reserveOrderMapper.findAllFor(someAccount).size();
+        int before = reserveOrderMapper.getOrderByAccountId(someAccount).size();
 
         reserveOrderMapper.insert(someOrder().setAccount_id(someAccount));
         reserveOrderMapper.insert(someOrder().setAccount_id(someAccount));
         reserveOrderMapper.insert(someOrder().setAccount_id(anotherAccount));
 
-        List<ReserveOrder> all = reserveOrderMapper.findAllFor(someAccount);
+        List<ReserveOrder> all = reserveOrderMapper.getOrderByAccountId(someAccount);
 
         assertThat(all.size(), is(before + 2));
     }

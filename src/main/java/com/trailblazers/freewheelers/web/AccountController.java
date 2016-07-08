@@ -54,7 +54,7 @@ public class AccountController {
     @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
     public ModelAndView processCreate(HttpServletRequest request) throws IOException {
 
-        Account account = new Account(PASSWORD, true, EMAIL, PHONE_NUMBER, COUNTRY, NAME);
+        Account account = new Account(request.getParameter(PASSWORD), true, request.getParameter(EMAIL), request.getParameter(PHONE_NUMBER), request.getParameter(COUNTRY), request.getParameter(NAME));
 
         return returnStateOfValidation(account);
     }
@@ -75,7 +75,7 @@ public class AccountController {
             //unblock sql
         }
     }
-    
+
     private ModelAndView showErrors(Map errors) {
         ModelMap model = new ModelMap();
         model.put("errors", errors);

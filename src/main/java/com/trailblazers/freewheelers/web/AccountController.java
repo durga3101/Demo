@@ -22,7 +22,7 @@ import static com.trailblazers.freewheelers.model.AccountValidator.verifyInputs;
 @RequestMapping("/account")
 public class AccountController {
 
-    private static final String COUNTRIES_FILE_PATH = "src/main/resources/countries.txt";
+    private static final String COUNTRIES_FILE_PATH = "./src/main/resources/countries.txt";
     private static final String NAME = "name";
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
@@ -37,7 +37,7 @@ public class AccountController {
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
-        BufferedReader  bufferedReader = null;
+        BufferedReader bufferedReader = null;
         try {
             File file = new File(COUNTRIES_FILE_PATH);
             bufferedReader = new BufferedReader(new FileReader(file));

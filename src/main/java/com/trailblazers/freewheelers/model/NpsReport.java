@@ -33,4 +33,7 @@ public class NpsReport {
         return total == 0 ? 0.0 : (value / total) * 100;
     }
 
+    public int getTotal() {
+        return total;
+    }
 }

@@ -29,8 +29,4 @@ public class CartController {
         model.addAttribute("item", itemToReserve);
     }
 
-//    public static final String CART_PAGE = /cart;
-
-    //make a model and view
-    //should show shopping cart
 }

@@ -1,0 +1,21 @@
+.summary {
+    border-style: solid;
+    position: absolute;
+    align: center;
+    width: 50%;
+    margin: 0 auto;
+    left:25%;
+}
+
+.summaryText {
+    border-style: solid;
+    position: absolute;
+    align: center;
+    width: 50%;
+    margin: 0 auto;
+    left:25%;
+}
+
+/*#credit_card_form .text-error{*/
+    /*display: none;*/
+/*}*/

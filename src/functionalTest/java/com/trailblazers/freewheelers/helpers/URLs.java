@@ -35,4 +35,8 @@ public class URLs {
     public static String reserve() {
         return BASE + "/reserve";
     }
+
+    public static String payment() {
+        return  BASE +"/payment";
+    }
 }

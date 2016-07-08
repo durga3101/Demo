@@ -114,6 +114,11 @@ public class UserApi {
         return this;
     }
 
+    public UserApi visits_payment_page() {
+        driver.get(URLs.payment());
+        return this;
+    }
+
     public UserApi wants_to_manage_items() {
         driver.get(URLs.admin());
         driver.findElement(By.id("manageItems")).click();

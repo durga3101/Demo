@@ -23,7 +23,8 @@ trap errorHandler SIGINT SIGTERM ERR
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
 rm -rf ${USER}@${HOST}:/home/appuser/freewheelers
-scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
+
+scp dist/freewheelers.zip ${USER}@${HOST}:/tmp #FAILS AT THIS LINE
 
 ssh ${USER}@${HOST} /bin/bash << EOF
 
@@ -38,6 +39,10 @@ fi
 #Create directory and move app
 sudo chown appuser:user /tmp/freewheelers.zip
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
+<<<<<<< d96a257ea28d5a18065119b489acceb792f59f41
+=======
+rm -rf /home/appuser/freewheelers/*
+>>>>>>> trying to fix pipeline
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP || exit 1
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP/work || exit 1
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP || exit 1

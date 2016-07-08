@@ -1,5 +1,4 @@
-var fields = ['email', 'name', 'password', 'phoneNumber', 'country'];
-var specialCharacters = ['!','"','#','$','%','&','(',')','*','+','-','.','/',':',';','<','=','>','?','@','[',']','^','_','`','{','|','}','~'];
+var fields = ['email', 'name', 'password', 'confirmPassword', 'phoneNumber', 'country'];
 function inputFieldSelector(field) {
     return '#fld_' + field;
 }
@@ -16,37 +15,22 @@ function validateRegistrationForm() {
     return validate;
 }
 
+function checkPasswords() {
+    if ($("#fld_password").val() === $("#fld_confirmPassword").val()) {
+        return true;
+    }
+    $(errorSelector("confirmPassword")).html("Passwords do not match!");
+    return false;
+}
 function showRegisterErrorMessage() {
     fields.forEach(function (field) {
         isValid(inputFieldSelector(field)) ? validator.hideErrorMessage(errorSelector(field)) : validator.displayErrorMessage(errorSelector(field));
     });
 }
-
-function validatePassword(val) {
-
-    if(!(/[0-9]/.test(val))){
-        return false;
-    }
-    if(!(/[a-z]/.test(val))){
-        return false;
-    }
-    if(!(/[A-Z]/.test(val))){
-        return false;
-    }
-    var index;
-    for(index = 0; index < specialCharacters.length; index++){
-        if(val.indexOf(specialCharacters[index]) >= 0){
-            break;
-        }
-    }
-    if(index == specialCharacters.length){
-        return false;
-    }
-
-    var length = val.length;
-    return length >= 8 && length <=20;
-}
 function isValid(selector) {
+    if(validator.isFieldEmpty($(selector).val())){
+        return false; 
+    }
     if (selector === "#fld_email") {
         return $(selector).val().indexOf("@") >= 0;
     }
@@ -58,11 +42,19 @@ function isValid(selector) {
         var phoneNumber = $(selector).val();
         return numberFormat.test(phoneNumber);
     }
-    if(selector === "#fld_password"){
-        return validatePassword($(selector).val());
+
+    if (selector === "#fld_password") {
+        if(!validator.validatePassword($(selector).val())){
+            $(errorSelector("password")).html("Must enter a valid Password!");
+            return false;
+        }
+        return true;
 
     }
-    return validator.isFieldEmpty(selector);
+    if (selector === "#fld_confirmPassword") {
+        return checkPasswords();
+    }
+    return true;
 }
 
 

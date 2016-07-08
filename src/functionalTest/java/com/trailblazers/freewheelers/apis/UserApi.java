@@ -50,14 +50,16 @@ public class UserApi {
         return this;
     }
 
-    public UserApi creates_an_account(String name, String email, String password, String phoneNumber, String country) {
+    public UserApi creates_an_account(String name, String email, String password,String confirmPassword, String phoneNumber, String country) {
         driver.get(URLs.home());
         driver.findElement(By.linkText("Create Account")).click();
 
         fillField(driver.findElement(By.id("fld_email")), email);
         fillField(driver.findElement(By.id("fld_password")), password);
+        fillField(driver.findElement(By.id("fld_confirmPassword")), confirmPassword);
         fillField(driver.findElement(By.id("fld_name")), name);
         fillField(driver.findElement(By.id("fld_phoneNumber")), phoneNumber);
+
         Select select = new Select(driver.findElement(By.id("fld_country")));
         select.selectByVisibleText(country);
 

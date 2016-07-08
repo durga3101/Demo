@@ -5,6 +5,7 @@ describe("validate registration form", function () {
                                 <input id="fld_name" type = "text">\
             <input id="fld_phoneNumber" type = "text">\
                                                <input type="password" id="fld_password" placeholder="secret password" name="password">\
+            <input type="password" id="fld_confirmPassword" placeholder="secret password" name="password">\
             <select id="fld_country" name="country"> <option value="" selected="selected"> </option><option value="Italy"></option>\
                             ');
     }
@@ -36,7 +37,7 @@ describe("validate registration form", function () {
         });
     })
    
-    describe("Name Validation", function () {
+    fdescribe("Name Validation", function () {
         it("should return true when name is valid", function () {
             var validName = "Tim";
             $("#fld_name").val(validName);
@@ -53,21 +54,21 @@ describe("validate registration form", function () {
     
     describe("Country Validation", function () {
         it("should return true when country is valid", function () {
-            var validCountry = "Italy";
+            var validCountry = 'Italy';
             $("#fld_country").val(validCountry);
-
+    
             expect(isValid("#fld_country")).toBeTruthy();
         });
-
+    
         it("should return false when country is empty", function () {
             var emptyCountry = "";
             $("#fld_country").val(emptyCountry);
-
+    
             expect(isValid("#fld_country")).toBeFalsy();
         });
-
+    
         it("should return true when country is valid", function () {
-            var validCountry = "USA";
+            var validCountry = 'USA';
             $("#fld_country").val(validCountry);
             expect(isValid("#fld_country")).toBeTruthy();
         });
@@ -114,6 +115,21 @@ describe("validate registration form", function () {
             var invalidPassword = "Password1!";
             $("#fld_password").val(invalidPassword);
             expect(isValid("#fld_password")).toBeTruthy();
+        })
+
+        it("should return false if passwords are different", function () {
+            var invalidPassword1 = "Password1!";
+            var invalidPassword2 = "Password2!";
+            $("#fld_password").val(invalidPassword1);
+            $("#fld_confirmPassword").val(invalidPassword2);
+            expect(isValid("#fld_confirmPassword")).toBeFalsy();
+        }) 
+        it("should return true if passwords are same", function () {
+            var invalidPassword1 = "Password1!";
+            var invalidPassword2 = "Password1!";
+            $("#fld_password").val(invalidPassword1);
+            $("#fld_confirmPassword").val(invalidPassword2);
+            expect(isValid("#fld_confirmPassword")).toBeTruthy();
         })
     })
 });

@@ -27,7 +27,7 @@
             <label for="fld_password">Password</label>
             <div class="controls">
                 <input type="password" id="fld_password" placeholder="secret password" name="password">
-                <span class="text-error">Must enter a valid password!</span>
+                <span class="text-error">Must enter a password!</span>
             </div>
             <div style="margin-left: 11em; margin-bottom: 0.7em">
                 Your Password must have<br>
@@ -35,6 +35,14 @@
                 <li>atleast 1 number</li>
                 <li>atleast 1 lowercase letter & uppercase letter</li>
                 <li>atleast 1 special character</li>
+            </div>
+    </div>
+
+    <div id="confirmPassword_field">
+            <label for="fld_password">Reenter Password</label>
+            <div class="controls">
+                <input type="password" id="fld_confirmPassword" placeholder="secret password" name="password">
+                <span class="text-error">Must enter a password!</span>
             </div>
     </div>
 

@@ -6,6 +6,7 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class AccountTest extends UserJourneyBase {
 
+
     @Test
     public void testCreateAccount() throws Exception {
         String jan = "Jan Plewka";
@@ -21,25 +22,26 @@ public class AccountTest extends UserJourneyBase {
                 .shows_error_alert("login attempt was not successful");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD,SOME_COUNTRY);
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD,SOME_PASSWORD, EMPTY_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
                 .shows_error("Must enter valid phone number!", "phoneNumber_field");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER, UNSELECTED_COUNTRY);
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PASSWORD,SOME_PHONE_NUMBER, UNSELECTED_COUNTRY);
+
+        screen
+                .shows_error("Must select a country!", "country_field");
+
+
+        user
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, UNSELECTED_COUNTRY);
 
         screen
                 .shows_error("Must select a country!", "country_field");
 
         user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER, UNSELECTED_COUNTRY);
-
-        screen
-                .shows_error("Must select a country!", "country_field");
-
-        user
-                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+                .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
                 .shows_message("account has been created");
@@ -129,20 +131,20 @@ public class AccountTest extends UserJourneyBase {
                 .there_is_no_account_for(Raju)
                 .there_is_no_account_for(Ella);
         user
-                .creates_an_account(Raju, rajuEmail, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+                .creates_an_account(Raju, rajuEmail, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
                 .shows_message("account has been created");
 
         user
                 .is_logged_out()
-                .creates_an_account(Raju, rajuEmail, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+                .creates_an_account(Raju, rajuEmail, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
                 .shows_message("An error has occurred while creating the account.");
 
         user
-                .creates_an_account(Ella, ellaEmail, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+                .creates_an_account(Ella, ellaEmail, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
                 .shows_message("account has been created");
@@ -150,4 +152,45 @@ public class AccountTest extends UserJourneyBase {
 
 
     }
+     @Test
+    public void testPassword() throws Exception {
+         String jan = "Jan Plewka1";
+
+         admin
+                 .there_is_no_account_for(jan);
+
+         user
+                 .creates_an_account(jan, SOME_EMAIL, EMPTY_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+         screen
+                .shows_error("Must enter a password!", "password_field");
+
+         user
+                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD,EMPTY_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+         screen
+                 .shows_error("Must enter a password!", "confirmPassword_field");
+
+         user
+                 .creates_an_account(jan, SOME_EMAIL, SOME_PASSWORD,DIFFERENT_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+         screen
+                 .shows_error( "Passwords do not match!", "confirmPassword_field");
+
+         user
+                 .creates_an_account(jan, SOME_EMAIL, INVAILD_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+         screen
+                 .shows_error( "Must enter a valid Password!", "password_field");
+
+         user
+                 .creates_an_account(jan, "abc@gmail.com", "Password1!","Password1!", SOME_PHONE_NUMBER, SOME_COUNTRY);
+
+         screen
+                 .shows_message("account has been created");
+
+    }
+
+
+
 }

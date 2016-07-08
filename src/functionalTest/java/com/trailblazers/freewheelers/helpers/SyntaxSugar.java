@@ -7,7 +7,11 @@ import static java.math.BigDecimal.valueOf;
 public class SyntaxSugar {
 
     public static final String SOME_PHONE_NUMBER = "555-123456";
+    public static final String EMPTY_PHONE_NUMBER = "";
+
     public static final String SOME_PASSWORD = "Password@1";
+    public static final String DIFFERENT_PASSWORD = "Password@2";
+    public static final String INVAILD_PASSWORD = "password";
     public static final String SOME_EMAIL = "somebody@something.de";
     public static final String SOME_COUNTRY = "UK";
     public static final BigDecimal SOME_PRICE = valueOf(49.99);

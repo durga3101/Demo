@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static com.trailblazers.freewheelers.helpers.Controls.fillField;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
@@ -139,4 +140,16 @@ public class ScreenApi {
     public void shows_reservation_page() {
         assertThat(driver.getCurrentUrl(), is(URLs.reserve()));
     }
+
+    public ScreenApi should_show_cart_item(String simplon_frame) {
+        assertThat(driver.findElement(By.id("item_name")).getText(), containsString(simplon_frame));
+        return this;
+    }
+
+//    public ScreenApi shows_order_information() {
+//        assertThat(driver.findElement(By.id("item_name")));
+//        assertThat(driver.findElement(By.id("item_description")));
+//        assertThat(driver.findElement(By.id("item_price")));
+//        assertThat(driver.findElement(By.id("item_cod")));
+//    }
 }

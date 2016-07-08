@@ -16,12 +16,11 @@
 <body>
 <p>Shopping Cart</p>
 
-${item}
-${item.description}
-${item.itemId}
-${item.name}
-${item.price}
-${item.quantity}
+
+<p id="item_name"><c:out value="${item.name}"/></p>
+<p id="item_description"><c:out value="${item.description}"/></p>
+<p id="item_price"><c:out value="${item.price}"/></p>
+<%--<p id="item_cod"><c:out value="${item.description}"/></p>--%>
 
 <form:form action="reserve" method="post" modelAttribute="item">
     <form:hidden path="itemId" value="${item.itemId}"/>

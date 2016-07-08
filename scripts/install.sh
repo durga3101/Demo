@@ -21,26 +21,24 @@ trap errorHandler SIGINT SIGTERM ERR
 
 #Start actual installation
 type -p java > /dev/null || (echo "java not found" && exit -1)
-echo "right before scp"
+
+rm -rf ${USER}@${HOST}:/home/appuser/freewheelers
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
-echo "after scp to tmp"
+
 ssh ${USER}@${HOST} /bin/bash << EOF
-echo "after ssh cmd"
+
 sudo su appuser
-echo "after sudo su appuser"
+
 cd /tmp/
 jetty_path=/tmp/jetty-runner-8.1.14.v20131031.jar
 if ! [ -f \$jetty_path ];then
   curl -O http://central.maven.org/maven2/org/mortbay/jetty/jetty-runner/8.1.14.v20131031/jetty-runner-8.1.14.v20131031.jar
 fi
-echo "after jetty_path cmd"
+
 #Create directory and move app
 sudo chown appuser:user /tmp/freewheelers.zip
-echo "after chown cmd"
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
-echo "before mkdir"
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP || exit 1
-echo "after first mkdir"
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP/work || exit 1
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP || exit 1
 cd /home/appuser/freewheelers/\$TIMESTAMP

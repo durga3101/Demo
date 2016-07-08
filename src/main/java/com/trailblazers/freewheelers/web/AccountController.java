@@ -54,11 +54,11 @@ public class AccountController {
 
 
         Account account = new Account()
-                .setEmail_address(request.getParameter("email"))
-                .setPassword(request.getParameter("password"))
-                .setAccount_name(request.getParameter("name"))
-                .setPhoneNumber(request.getParameter("phoneNumber"))
-                .setCountry(request.getParameter("country"))
+                .setEmail_address(request.getParameter(EMAIL))
+                .setPassword(request.getParameter(PASSWORD))
+                .setAccount_name(request.getParameter(NAME))
+                .setPhoneNumber(request.getParameter(PHONE_NUMBER))
+                .setCountry(request.getParameter(COUNTRY))
                 .setEnabled(true);
 
         return returnStateOfValidation(account);

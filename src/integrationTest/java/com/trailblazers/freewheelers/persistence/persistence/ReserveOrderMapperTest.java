@@ -35,7 +35,7 @@ public class ReserveOrderMapperTest extends MapperTestBase {
         ReserveOrder tobeInserted = someOrder();
 
         reserveOrderMapper.insert(tobeInserted);
-        ReserveOrder fetched = reserveOrderMapper.get(tobeInserted.getOrder_id());
+        ReserveOrder fetched = reserveOrderMapper.getByOrderId(tobeInserted.getOrder_id());
 
         assertThat(fetched, is(not(nullValue())));
     }
@@ -47,7 +47,7 @@ public class ReserveOrderMapperTest extends MapperTestBase {
 
         reserveOrderMapper.delete(tobeDeleted);
 
-        ReserveOrder fetched = reserveOrderMapper.get(tobeDeleted.getOrder_id());
+        ReserveOrder fetched = reserveOrderMapper.getByOrderId(tobeDeleted.getOrder_id());
         assertThat(fetched, is(nullValue()));
     }
 
@@ -57,9 +57,9 @@ public class ReserveOrderMapperTest extends MapperTestBase {
         reserveOrderMapper.insert(toBeUpdated);
 
         toBeUpdated.setNote("A very important note.");
-        reserveOrderMapper.save(toBeUpdated);
+        reserveOrderMapper.update(toBeUpdated);
 
-        ReserveOrder fetched = reserveOrderMapper.get(toBeUpdated.getOrder_id());
+        ReserveOrder fetched = reserveOrderMapper.getByOrderId(toBeUpdated.getOrder_id());
         assertThat(fetched.getNote(), is("A very important note."));
     }
 

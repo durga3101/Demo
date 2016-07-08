@@ -23,7 +23,7 @@ public class ReserveOrderServiceImpl implements ReserveOrderService{
         if(reserveOrder.getOrder_id() == null) {
             orderMapper.insert(reserveOrder);
         } else {
-            orderMapper.save(reserveOrder);
+            orderMapper.update(reserveOrder);
         }
         sqlSession.commit();
     }
@@ -39,12 +39,12 @@ public class ReserveOrderServiceImpl implements ReserveOrderService{
     }
 
     public void updateOrderDetails(Long order_id, OrderStatus status, String note) {
-        ReserveOrder order = orderMapper.get(order_id);
+        ReserveOrder order = orderMapper.getByOrderId(order_id);
 
         order.setStatus(status);
         order.setNote(note);
 
-        orderMapper.save(order);
+        orderMapper.update(order);
         sqlSession.commit();
     }
 

@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item get(Long item_id) {
-        return itemMapper.get(item_id);
+        return itemMapper.getByItemId(item_id);
     }
 
     @Override

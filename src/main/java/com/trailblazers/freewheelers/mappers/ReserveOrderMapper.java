@@ -19,7 +19,7 @@ public interface ReserveOrderMapper {
         "FROM reserve_order " +
         "WHERE order_id = #{order_id}"
     )
-    ReserveOrder get(Long order_id);
+    ReserveOrder getByOrderId(Long order_id);
 
     @Delete(
         "DELETE FROM reserve_order WHERE order_id = #{order_id}"
@@ -31,7 +31,7 @@ public interface ReserveOrderMapper {
         "SET account_id=#{account_id}, item_id=#{item_id}, status=#{status}, note=#{note}, reservation_timestamp=#{reservation_timestamp} " +
         "WHERE order_id=#{order_id}"
     )
-    void save(ReserveOrder reserveOrder);
+    void update(ReserveOrder reserveOrder);
 
     @Select(
         "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +

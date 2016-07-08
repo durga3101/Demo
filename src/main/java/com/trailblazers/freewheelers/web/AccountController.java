@@ -22,7 +22,7 @@ import static com.trailblazers.freewheelers.model.AccountValidator.verifyInputs;
 @RequestMapping("/account")
 public class AccountController {
 
-    private static final String COUNTRIES_FILE_PATH = "./src/main/resources/countries.txt";
+    private static final String COUNTRIES_FILE_PATH = "resources/countries.txt";
     private static final String NAME = "name";
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";

@@ -2,7 +2,7 @@
 *.ipr
 *.iws
 build
-out
+out/
 .gradle
 jetty-runner/
 .idea/

@@ -22,17 +22,7 @@ trap errorHandler SIGINT SIGTERM ERR
 #Start actual installation
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
-ls ${USER}@${HOST}:/home/appuser/freewheelers
-rm -rf ${USER}@${HOST}:/home/appuser/freewheelers/*
-echo "cleared freewheelers"
-ls ${USER}@${HOST}:/home/appuser/freewheelers
-echo "**************************"
-ls ${USER}@${HOST}:/home/appuser/tmp/
-rm -rf ${USER}@${HOST}:/home/appuser/tmp/
-echo "cleared tmp"
-ls ${USER}@${HOST}:/home/appuser/tmp/
-
-scp dist/freewheelers.zip ${USER}@${HOST}:/tmp #FAILS AT THIS LINE
+scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 
 ssh ${USER}@${HOST} /bin/bash << EOF
 
@@ -47,10 +37,7 @@ fi
 #Create directory and move app
 sudo chown appuser:user /tmp/freewheelers.zip
 TIMESTAMP=\$(date +"%Y-%m-%d-%HH%MM%Ss")
-<<<<<<< d96a257ea28d5a18065119b489acceb792f59f41
-=======
 rm -rf /home/appuser/freewheelers/*
->>>>>>> trying to fix pipeline
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP || exit 1
 mkdir -p /home/appuser/freewheelers/\$TIMESTAMP/work || exit 1
 mv /tmp/freewheelers.zip /home/appuser/freewheelers/\$TIMESTAMP || exit 1

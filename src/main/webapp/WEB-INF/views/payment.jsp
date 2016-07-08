@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <link rel="stylesheet" href="<c:url value='/scripts/css/payment.css' />" type="text/css"/>
 <link rel="stylesheet" href="<c:url value='/scripts/css/main.css' />" type="text/css"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,7 +41,7 @@
         </div>
 
         <div id="ccv_field">
-            <label for="card_ccv">Password</label>
+            <label for="card_ccv">CCV</label>
             <div class="controls">
                 <input type="password" id="card_ccv" name="card_ccv">
                 <span class="text-error">Must enter a ccv!</span>
@@ -51,8 +53,7 @@
         </div>
 
         <div class="controls">
-            <button type="submit" id="createAccount" value="Submit" onclick="showCardErrorMessage()">Create
-                Account
+            <button type="submit" id="makePayment" value="Submit" onclick="return showCardErrorMessage()">Make Payment
             </button>
         </div>
 

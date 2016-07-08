@@ -33,13 +33,13 @@ public class PaymentController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void payForItem(Model model, Principal principal, @ModelAttribute Item item){
-        System.out.println("paying for item");
+        System.out.println("paying for itemmmmm");
         model.addAttribute("totalAmount", "10");
 //        model.addAttribute("total",item.getPrice().toString());
     }
 
     @RequestMapping(value = {"/gateway"}, method = RequestMethod.POST)
     public void redirectToPaymentGateway(HttpServletRequest request){
-
+        System.out.println("hit gateway");
     }
 }

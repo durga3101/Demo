@@ -53,6 +53,7 @@ public class AccountController {
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
     public ModelAndView processCreate(HttpServletRequest request) throws IOException {
+        System.out.println("creating account");
 
         Account account = new Account(request.getParameter(PASSWORD), true, request.getParameter(EMAIL), request.getParameter(PHONE_NUMBER), request.getParameter(COUNTRY), request.getParameter(NAME));
 

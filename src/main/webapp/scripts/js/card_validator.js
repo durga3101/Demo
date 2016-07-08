@@ -1,21 +1,31 @@
+var fields = ['#card_number', '#card_ccv'];
+
 function validateCreditCardDetails() {
     var validate = true;
     fields.forEach(function (field) {
-        validate = validate && isValid(inputFieldSelector(field));
+        console.log("validate:",validate);
+        validate = validate && isCardValid(field);
     });
+    console.log("**********",validate);
+
     return validate;
 }
 
 function isCardValid(selector){
-    
+
+    console.log("%%%%%%%")
     if(selector === "#card_number"){
-         return isAllNumbers($(selector).val())
+
+       return isAllNumbers($(selector).val());
     }
     else if(selector === "#card_ccv"){
-        return checkCCV($(selector).val())
+       return checkCCV($(selector).val());
     }
-    else
+    else{
+
         return true;
+
+    }
 
 }
 
@@ -36,7 +46,8 @@ function checkCCV(ccv){
 }
 
 function showCardErrorMessage() {
+
     fields.forEach(function (field) {
-        isCardValid(inputFieldSelector(field)) ? validator.hideErrorMessage(errorSelector(field)) : validator.displayErrorMessage(errorSelector(field));
+        // isCardValid(field) ? validator.hideErrorMessage(errorSelector(field)) : validator.displayErrorMessage(errorSelector(field));
     });
 }

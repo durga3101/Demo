@@ -23,7 +23,6 @@ trap errorHandler SIGINT SIGTERM ERR
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
 sudo chown appuser:user  ${USER}@${HOST}:/tmp
-rm -rf /home/appuser/freewheelers/*
 
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp
 

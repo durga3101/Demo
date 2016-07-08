@@ -22,10 +22,15 @@ trap errorHandler SIGINT SIGTERM ERR
 #Start actual installation
 type -p java > /dev/null || (echo "java not found" && exit -1)
 
+ls ${USER}@${HOST}:/home/appuser/freewheelers
 rm -rf ${USER}@${HOST}:/home/appuser/freewheelers/*
 echo "cleared freewheelers"
+ls ${USER}@${HOST}:/home/appuser/freewheelers
+echo "**************************"
+ls ${USER}@${HOST}:/home/appuser/tmp/
 rm -rf ${USER}@${HOST}:/home/appuser/tmp/
 echo "cleared tmp"
+ls ${USER}@${HOST}:/home/appuser/tmp/
 
 scp dist/freewheelers.zip ${USER}@${HOST}:/tmp #FAILS AT THIS LINE
 

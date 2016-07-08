@@ -80,12 +80,7 @@ public class AdminApi {
     }
 
     private Account account_for(String userName, String password) {
-        return new Account()
-                    .setAccount_name(userName)
-                    .setPassword(password)
-                    .setEmail_address(emailFor(userName))
-                    .setPhoneNumber(SOME_PHONE_NUMBER)
-                    .setEnabled(true);
+        return new Account(password, true,emailFor(userName),SOME_PHONE_NUMBER,SOME_COUNTRY,userName);
     }
 
     public AdminApi there_is_a_survey_entry_for(long accountId,int feedbackType, String comment) {
@@ -95,7 +90,7 @@ public class AdminApi {
 
     public AdminApi there_is_a_uesr_create_country(String userName, String password, String country ) {
         there_is_no_account_for(userName);
-        accountService.createAccount(account_for(userName,password).setCountry(country));
+        accountService.createAccount(new Account(password, true,emailFor(userName),SOME_PHONE_NUMBER,country,userName));
         return this;
     }
 }

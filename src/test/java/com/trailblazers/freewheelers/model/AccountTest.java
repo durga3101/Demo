@@ -9,12 +9,7 @@ public class AccountTest {
 
     @Test
     public void testCreatingNewAccounts() throws Exception {
-        Account account = new Account()
-                .setAccount_name("Bob")
-                .setPassword("password")
-                .setEmail_address("foo@bar.com")
-                .setPhoneNumber("123443245")
-                .setCountry("India");
+        Account account = new Account("password",true,"foo@bar.com","123443245","India", "Bob");
 
         assertThat(account.getAccount_name(), is("Bob"));
         assertThat(account.getPassword(), is("password"));

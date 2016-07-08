@@ -48,12 +48,6 @@ public class AccountServiceImplTest {
     }
 
     private Account getAccountWithoutErrors() {
-        Account account = new Account();
-        account.setEmail_address("example@example.com");
-        account.setPassword("example");
-        account.setAccount_name("Example Person");
-        account.setPhoneNumber("1234567890");
-        account.setCountry("India");
-        return account;
+        return new Account("example",true,"example@example.com","1234567890","India", "Example Person");
     }
 }

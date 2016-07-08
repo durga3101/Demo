@@ -18,19 +18,20 @@ public class AccountValidatorTest {
     public static final String SOME_PHONE = "004945542741";
     public static final String SOME_COUNTRY = "India";
     private Account account;
+    private AccountBuilder accountBuilder;
 
     @Before
     public void setup() {
-        account = new Account()
-                .setEmail_address(SOME_EMAIL)
-                .setPassword(SOME_PASSWORD)
-                .setAccount_name(SOME_NAME)
-                .setPhoneNumber(SOME_PHONE)
-                .setCountry(SOME_COUNTRY)
-                .setEnabled(true);
+        accountBuilder = new AccountBuilder()
+                .setAccountName(SOME_NAME)
+                .setAccountPassword(SOME_PASSWORD)
+                .setAccountEmailAddress(SOME_EMAIL)
+                .setAccountPhoneNumber(SOME_PHONE)
+                .setAccountCountry(SOME_COUNTRY);
     }
     @Test
     public void shouldHaveNoErrorsForValidInput() throws Exception {
+        account = accountBuilder.build();
         HashMap errors = verifyInputs(account);
 
         assertThat(errors.size(), is(0));
@@ -39,8 +40,7 @@ public class AccountValidatorTest {
     @Test
     public void shouldComplainAboutAnInvalidEmail() throws Exception {
         String invalidEmail = "invalid.email.address";
-
-        account.setEmail_address(invalidEmail);
+        account = accountBuilder.setAccountEmailAddress(invalidEmail).build();
 
         HashMap errors = verifyInputs(account);
 
@@ -51,7 +51,7 @@ public class AccountValidatorTest {
     public void shouldComplainAboutAnEmptyPassword() throws Exception {
         String emptyPassword = "";
 
-        account.setPassword(emptyPassword);
+        account = accountBuilder.setAccountPassword(emptyPassword).build();
 
         HashMap errors = verifyInputs(account);
 
@@ -62,7 +62,7 @@ public class AccountValidatorTest {
     public void shouldComplainAboutAnEmptyName() throws Exception {
         String emptyName = "";
 
-        account.setAccount_name(emptyName);
+        account = accountBuilder.setAccountName(emptyName).build();
 
         HashMap errors = verifyInputs(account);
 
@@ -73,7 +73,7 @@ public class AccountValidatorTest {
     public void shouldComplainAboutAnEmptyPhoneNumber() throws Exception {
         String emptyPhoneNumber = "";
 
-        account.setPhoneNumber(emptyPhoneNumber);
+        account = accountBuilder.setAccountPhoneNumber(emptyPhoneNumber).build();
 
         HashMap errors = verifyInputs(account);
 
@@ -84,6 +84,4 @@ public class AccountValidatorTest {
         assertThat(errors.size(), is(1));
         assertThat(errors.get(field), containsString(expected));
     }
-
-
 }

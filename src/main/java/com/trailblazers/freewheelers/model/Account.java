@@ -6,7 +6,7 @@ public class Account {
     private String account_name;
     private String password;
     private boolean enabled;
-    private String emailAddress;
+    private String email_address;
     private String phoneNumber;
     private String country;
 
@@ -15,9 +15,14 @@ public class Account {
         return country;
     }
 
-    public Account setCountry(String country) {
+    public Account(String password, boolean enabled, String email_address, String phoneNumber, String country, String account_name) {
+        this.account_id = 0L;
+        this.account_name = account_name;
+        this.password = password;
+        this.enabled = enabled;
+        this.email_address = email_address;
+        this.phoneNumber = phoneNumber;
         this.country = country;
-        return this;
     }
 
     public Account() {
@@ -28,53 +33,31 @@ public class Account {
         return account_id;
     }
 
+    public void setAccount_id(Long account_id) {
+        this.account_id = account_id;
+    }
+
     public String getAccount_name() {
         return account_name;
-    }
-
-    public Account setAccount_name(String account_name) {
-        this.account_name = account_name;
-        return this;
-    }
-
-    public Account setAccount_id(Long account_id) {
-        this.account_id = account_id;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public Account setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
 
-    public Account setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
-    public Account setEmail_address(String emailAddress) {
-        this.emailAddress = emailAddress;
-        return this;
-    }
-
     public String getEmail_address() {
-        return emailAddress;
-    }
-
-    public Account setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
+        return email_address;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setAccountName(String accountName) {
+        this.account_name = accountName;
     }
 }

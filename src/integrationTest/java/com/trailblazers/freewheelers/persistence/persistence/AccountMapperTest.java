@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.persistence.persistence;
 
 import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.AccountBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,16 +15,19 @@ import static org.junit.Assert.assertEquals;
 public class AccountMapperTest extends MapperTestBase {
 
     private AccountMapper accountMapper;
+    private Account account;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         accountMapper = getSqlSession().getMapper(AccountMapper.class);
+
     }
 
     @Test
     public void shouldInsertAndGetAccount() throws Exception {
-        Account account = someAccount().setAccount_name("Johnny Cash");
+
+        account = someAccount().setAccountName("Johnny Cash").build();
 
         accountMapper.insert(account);
         Account fetchedFromDB = accountMapper.getById(account.getAccount_id());
@@ -33,7 +37,8 @@ public class AccountMapperTest extends MapperTestBase {
 
     @Test
     public void shouldGetAccountByName() throws Exception {
-        accountMapper.insert(someAccount().setAccount_name("Michael Stipe"));
+        account = someAccount().setAccountName("Michael Stipe").build();
+        accountMapper.insert(account);
 
         Account fetchedFromDB = accountMapper.getByName("Michael Stipe");
 
@@ -42,10 +47,10 @@ public class AccountMapperTest extends MapperTestBase {
 
     @Test
     public void shouldUpdateAnExistingAccount() throws Exception {
-        Account someAccount = someAccount().setAccount_name("Prince");
+        Account someAccount = someAccount().setAccountName("Prince").build();
         accountMapper.insert(someAccount);
 
-        someAccount.setAccount_name("TAFKAP");
+        someAccount.setAccountName("TAFKAP");
         accountMapper.update(someAccount);
 
         Account fetched = accountMapper.getById(someAccount.getAccount_id());
@@ -56,9 +61,9 @@ public class AccountMapperTest extends MapperTestBase {
     public void shouldFindAllAccounts() throws Exception {
         int before = accountMapper.getAllAccounts().size();
 
-        accountMapper.insert(someAccount());
-        accountMapper.insert(someAccount());
-        accountMapper.insert(someAccount());
+        accountMapper.insert(someAccount().build());
+        accountMapper.insert(someAccount().build());
+        accountMapper.insert(someAccount().build());
 
         assertThat(accountMapper.getAllAccounts().size(), is(before + 3));
     }
@@ -70,9 +75,8 @@ public class AccountMapperTest extends MapperTestBase {
 
     @Test
     public void shouldDeleteAccount() throws Exception {
-        Account account = someAccount();
+        account = someAccount().build();
         accountMapper.insert(account);
-
         accountMapper.delete(account);
         Account fetched = accountMapper.getById(account.getAccount_id());
 
@@ -81,7 +85,7 @@ public class AccountMapperTest extends MapperTestBase {
 
     @Test
     public void shouldContainCountryInTheAccount() {
-        Account account = someAccount();
+        account = someAccount().build();
         accountMapper.insert(account);
         Account fetchedAccount = accountMapper.getById(account.getAccount_id());
         String country = fetchedAccount.getCountry();
@@ -90,7 +94,7 @@ public class AccountMapperTest extends MapperTestBase {
 
     @Test
     public void shouldReturnOneWhenCountingAUsersEmail() throws Exception {
-        Account account = someAccount();
+        account = someAccount().build();
         accountMapper.insert(account);
         int emailCount = accountMapper.getEmailCount(account.getEmail_address());
         assertEquals(1, emailCount);
@@ -102,15 +106,14 @@ public class AccountMapperTest extends MapperTestBase {
         assertEquals(0, emailCount);
     }
 
+    private AccountBuilder someAccount() {
+        return new AccountBuilder()
 
-    private Account someAccount() {
-        return new Account()
-                .setAccount_name("Some Body")
-                .setEmail_address(randomUUID() + "some.body@gmail.com")
-                .setPassword("V3ry S3cret")
-                .setPhoneNumber("12345")
-                .setCountry("UK")
-                .setEnabled(true);
+                .setAccountName("Some Body")
+                .setAccountEmailAddress(randomUUID() + "some.body@gmail.com")
+                .setAccountCountry("UK")
+                .setAccountPhoneNumber("12345")
+                .setAccountPassword("V3ry S3cret");
     }
 
 }

@@ -18,8 +18,7 @@ public abstract class MapperTestBase {
 
     @After
     public void tearDown() throws Exception {
-        sqlSession.rollback();
-        sqlSession.close();
+
     }
 
     protected SqlSession getSqlSession() {

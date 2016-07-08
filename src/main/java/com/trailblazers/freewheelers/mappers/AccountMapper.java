@@ -9,7 +9,7 @@ public interface AccountMapper {
 
     @Insert(
         "INSERT INTO account (account_name, email_address, password, phone_number, enabled ,country) " +
-        "VALUES (#{account_name}, #{emailAddress}, #{password}, #{phoneNumber}, #{enabled} ,#{country})"
+        "VALUES (#{account_name}, #{email_address}, #{password}, #{phoneNumber}, #{enabled} ,#{country})"
     )
     @Options(keyProperty = "account_id", useGeneratedKeys = true)
     Integer insert(Account account);
@@ -27,7 +27,7 @@ public interface AccountMapper {
         "WHERE account_name = #{account_name} " +
         "LIMIT 1"
     )
-    Account getByName(String accountName);
+    Account getByName(String account_name);
 
     @Select(
             "SELECT count(email_address) FROM account WHERE email_address = #{email}"
@@ -36,7 +36,7 @@ public interface AccountMapper {
 
     @Update(
         "UPDATE account " +
-        "SET account_name=#{account_name}, email_address=#{emailAddress}, phone_number=#{phoneNumber}, enabled=#{enabled} " +
+        "SET account_name=#{account_name}, email_address=#{email_address}, phone_number=#{phoneNumber}, enabled=#{enabled} " +
         "WHERE account_id=#{account_id}"
     )
     void update(Account account);
@@ -47,7 +47,7 @@ public interface AccountMapper {
     @Results(value = {
             @Result(property="account_id"),
             @Result(property="account_name"),
-            @Result(property="emailAddress", column="email_address"),
+            @Result(property="email_address"),
             @Result(property="password"),
             @Result(property="phoneNumber", column="phone_number"),
             @Result(property="enabled"),

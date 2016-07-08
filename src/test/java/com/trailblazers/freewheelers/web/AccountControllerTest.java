@@ -1,6 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.AccountBuilder;
 import com.trailblazers.freewheelers.service.AccountService;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,8 +50,9 @@ public class AccountControllerTest {
 
     @Test
     public void successfulAccountCreationShouldShowSuccess() throws Exception {
-        Account account = new Account();
-        account.setAccount_name("john smith");
+
+        Account account = new AccountBuilder().setAccountName("john smith").build();
+
         HttpServletRequest requestWithoutError = getValidHttpServletRequest();
 
         when(accountService.createAccount(any(Account.class))).thenReturn(account);

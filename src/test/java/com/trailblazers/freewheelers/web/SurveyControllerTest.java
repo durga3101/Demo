@@ -34,7 +34,6 @@ public class SurveyControllerTest {
 
     private static final String COMMENT = "comment";
     private static final int A_DAY_IN_SECONDS = 86400;
-    private static final long ACCOUNT_ID = 12L;
     private static final int SURVEY_ENTRY_RATING = 10;
     private static final String USERNAME = "john";
 
@@ -51,7 +50,6 @@ public class SurveyControllerTest {
 
     @Before
     public void setUp() {
-        userAccount.setAccount_id(ACCOUNT_ID);
         given(accountService.getAccountIdByName(USERNAME)).willReturn(userAccount);
     }
 
@@ -85,7 +83,7 @@ public class SurveyControllerTest {
                                                           bindingResult);
 
         assertThat(modelAndView.getViewName(), is("survey/confirmation"));
-        verify(surveyService).submitSurvey(eq(ACCOUNT_ID), aSurveyEntry(SURVEY_ENTRY_RATING, COMMENT));
+        verify(surveyService).submitSurvey(eq(userAccount.getAccount_id()), aSurveyEntry(SURVEY_ENTRY_RATING, COMMENT));
     }
 
     @Test

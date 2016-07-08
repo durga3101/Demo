@@ -22,6 +22,13 @@ import static com.trailblazers.freewheelers.model.AccountValidator.verifyInputs;
 @RequestMapping("/account")
 public class AccountController {
 
+    private static final String COUNTRIES_FILE_PATH = "src/main/resources/countries.txt";
+    private static final String NAME = "name";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
+    private static final String PHONE_NUMBER = "phoneNumber";
+    private static final String COUNTRY = "country";
+    public static final String VALIDATION_MESSAGE = "validationMessage";
     AccountService accountService;
 
     public AccountController() {
@@ -32,18 +39,19 @@ public class AccountController {
     public ModelAndView createAccountForm(Model model) {
         BufferedReader  bufferedReader = null;
         try {
-            File file = new File("src/main/resources/countries.txt");
+            File file = new File(COUNTRIES_FILE_PATH);
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         String[] countries = new CountryReader(bufferedReader).getCountries();
-        model.addAttribute("country", countries);
-        return new ModelAndView("account/create", "validationMessage", model);
+        model.addAttribute(COUNTRY, countries);
+        return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
     public ModelAndView processCreate(HttpServletRequest request) throws IOException {
+
 
         Account account = new Account()
                 .setEmail_address(request.getParameter("email"))
@@ -73,7 +81,7 @@ public class AccountController {
     private ModelAndView showErrors(Map errors) {
         ModelMap model = new ModelMap();
         model.put("errors", errors);
-        return new ModelAndView("account/create", "validationMessage", model);
+        return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }
 
     private ModelAndView showError() {
@@ -82,7 +90,7 @@ public class AccountController {
 
     private ModelAndView showSuccess(Account account) {
         ModelMap model = new ModelMap();
-        model.put("name", account.getAccount_name());
+        model.put(NAME, account.getAccount_name());
         return new ModelAndView("account/createSuccess", "postedValues", model);
     }
 

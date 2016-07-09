@@ -1,11 +1,9 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.CountryReader;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
-import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -40,13 +38,14 @@ public class AccountController {
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
         BufferedReader bufferedReader = null;
+        String[] countries;
+
         try {
             File file = new File(COUNTRIES_FILE_PATH);
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
-        String[] countries = new CountryReader(bufferedReader).getCountries();
+        countries = new CountryReader(bufferedReader).getCountries();
         model.addAttribute(COUNTRY, countries);
         return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }

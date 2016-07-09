@@ -1,7 +1,6 @@
 package com.trailblazers.freewheelers.service;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CountryReader {
@@ -22,6 +21,7 @@ public class CountryReader {
                 countries += line+" ";
                 line = bufferedReader.readLine() ;
             }
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

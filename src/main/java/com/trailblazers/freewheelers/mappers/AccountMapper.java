@@ -36,13 +36,13 @@ public interface AccountMapper {
 
     @Update(
         "UPDATE account " +
-        "SET account_name=#{account_name}, email_address=#{email_address}, phone_number=#{phoneNumber}, enabled=#{enabled} " +
+        "SET account_name=#{account_name}, email_address=#{email_address}, phone_number=#{phoneNumber}, enabled=#{enabled}" +
         "WHERE account_id=#{account_id}"
     )
     void update(Account account);
 
     @Select(
-        "SELECT account_id, account_name, email_address, password, phone_number, enabled FROM account"
+        "SELECT account_id, account_name, email_address, password, phone_number, enabled, country FROM account"
     )
     @Results(value = {
             @Result(property="account_id"),
@@ -61,5 +61,10 @@ public interface AccountMapper {
     @Options(flushCache = true)
     void delete(Account account);
 
-
+    @Update(
+            "UPDATE account " +
+                    "SET password=#{password}" +
+                    "WHERE account_id=#{account_id}"
+    )
+    void updatePassword(Account account);
 }

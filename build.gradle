@@ -111,7 +111,7 @@ task initDB(type: Exec) {
 
 task dummy(type: Exec) {
     commandLine './UpdateDatabasePassword.sh'
-    doFirst{
+    doFirst {
         println 'aa-------------aa'
     }
 }

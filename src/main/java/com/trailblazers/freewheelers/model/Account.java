@@ -47,6 +47,14 @@ public class Account {
         return password;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Account setPassword(String password) {
 
         if(!password.equals("")){

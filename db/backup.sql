@@ -17,6 +17,7 @@ SET search_path = public, pg_catalog;
 
 INSERT INTO account VALUES (1, 'AdminCat', 'admin@example.com', 'Yellow bikes are just amazingly awesome, right? Says Robert, my good friend!', '', true);
 INSERT INTO account VALUES (2, 'UserCat', 'user@example.com', 'Part 3: Tall zebra mobile responsive communication patterns!', '', true);
+INSERT INTO account VALUES (3, 'Shil', 'shil@example.com', 'shilkumar', '', true);
 INSERT INTO account VALUES (6, 'Michael Stipe', 'mstipe@example.com', 'REMisAwesome', '1234567890', true);
 INSERT INTO account VALUES (8, 'Peter Buck', 'peter-buck@example.com', 'P3t3r', '1234567890', true);
 INSERT INTO account VALUES (7, 'Scott McCaughey', 'smccaughey@example.com', 'ScottScottScott', '1234567890', true);

@@ -3,14 +3,19 @@ package com.trailblazers.freewheelers.persistence.persistence;
 import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountBuilder;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.util.UUID.randomUUID;
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 
 public class AccountMapperTest extends MapperTestBase {
 
@@ -106,6 +111,25 @@ public class AccountMapperTest extends MapperTestBase {
         assertEquals(0, emailCount);
     }
 
+    @Test
+    public void shouldUpdatePassword(){
+        account = someAccount().setAccountPassword("firstPassword").build();
+        accountMapper.insert(account);
+        String oldPassword = account.getPassword();
+
+        String secondPassword = "secondPassword";
+        account.setPassword(secondPassword);
+        String newPassword = account.getPassword();
+        accountMapper.updatePassword(account);
+        Account newAccount = accountMapper.getByName(account.getAccount_name());
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        //Assert.assertEquals(newPassword,newAccount.getPassword());
+      ///  Assert.assertTrue(passwordEncoder.matches(secondPassword,newAccount.getPassword()));
+        //assertNotEquals(oldPassword,newAccount.getPassword());
+
+    }
     private AccountBuilder someAccount() {
         return new AccountBuilder()
 

@@ -93,6 +93,7 @@ dependencies {
     testCompile 'org.apache.httpcomponents:httpclient:4.2.1'
     testCompile 'org.springframework:spring-test:3.2.6.RELEASE'
     testCompile 'org.seleniumhq.selenium:selenium-java:2.53.1'
+    testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.53.1'
     testCompile 'com.github.detro:phantomjsdriver:1.2.0'
 }
 

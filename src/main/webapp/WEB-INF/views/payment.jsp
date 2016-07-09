@@ -4,18 +4,24 @@
 <link rel="stylesheet" href="<c:url value='/scripts/css/payment.css' />" type="text/css"/>
 <link rel="stylesheet" href="<c:url value='/scripts/css/main.css' />" type="text/css"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="header.jsp" %>
+
 <html>
 <head>
     <title>Payment</title>
+
 </head>
 <body>
+
+<script type="text/javascript" src="<c:url value='/scripts/js/card_validator.js' />"></script>
+
 <h2 align="center">Payment Details</h2>
 <div class="summary">
     <h3 align="center">Order Summary</h3>
     <p align="center">£${totalAmount}
 </div>
 <div class="cardEntry">
-    <h3>Credit Card Details</h3>
+    <h3 id="details">Credit Card Details</h3>
     <form id="credit_card_form" action="/payment/gateway" method="post" onsubmit="return validateCreditCardDetails();">
 
         <div id="card_type_field">
@@ -52,7 +58,7 @@
             <input type="month" name="date_field">
         </div>
 
-        <div class="controls">
+        <div id="submit" class="controls">
             <button type="submit" id="makePayment" value="Submit" onclick="return showCardErrorMessage()">Make Payment
             </button>
         </div>
@@ -64,4 +70,3 @@
 </body>
 </html>
 
-<script type="text/javascript" src="<c:url value='/scripts/js/card_validator.js' />"></script>

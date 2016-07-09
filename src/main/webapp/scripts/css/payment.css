@@ -1,21 +1,26 @@
 .summary {
     border-style: solid;
-    position: absolute;
+    position: relative;
     align: center;
     width: 50%;
     margin: 0 auto;
-    left:25%;
+    display: block;
+    padding: 0;
 }
 
-.summaryText {
-    border-style: solid;
-    position: absolute;
-    align: center;
-    width: 50%;
-    margin: 0 auto;
-    left:25%;
+.cardEntry {
+    margin-top: 5%;
+    display: block;
 }
 
-/*#credit_card_form .text-error{*/
-    /*display: none;*/
-/*}*/
+#credit_card_form .text-error{
+    display: none;
+}
+
+#details {
+    margin-bottom: 1%;
+}
+
+#submit {
+    margin-top: 1%;
+}

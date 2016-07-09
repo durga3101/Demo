@@ -157,6 +157,7 @@ public class UserApi {
 
     public UserApi add_item_to_cart(String name) {
         driver.findElement(HomeTable.cartButtonFor(name)).click();
+
         return this;
     }
 

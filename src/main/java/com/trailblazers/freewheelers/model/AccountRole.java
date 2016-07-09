@@ -20,4 +20,8 @@ public class AccountRole {
         this.role = role;
         return this;
     }
+
+    public String getRole() {
+        return role;
+    }
 }

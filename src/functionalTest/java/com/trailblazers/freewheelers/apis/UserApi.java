@@ -5,7 +5,6 @@ import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
 import com.trailblazers.freewheelers.helpers.URLs;
-import com.trailblazers.freewheelers.model.OrderStatus;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +20,6 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import static com.trailblazers.freewheelers.helpers.Controls.*;
-import static org.junit.Assert.assertTrue;
 
 public class UserApi {
 

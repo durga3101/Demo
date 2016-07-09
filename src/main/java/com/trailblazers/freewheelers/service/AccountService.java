@@ -19,4 +19,6 @@ public interface AccountService {
     void createAdmin(Account account);
 
     Account createAccount(Account account);
+
+    String getRole(String loggedInUser);
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     public static final String USER = "ROLE_USER";
-    private static final String ADMIN = "ROLE_ADMIN";
+    public static final String ADMIN = "ROLE_ADMIN";
 
     private final AccountRoleMapper accountRoleMapper;
     private SqlSession sqlSession;
@@ -64,6 +64,11 @@ public class AccountServiceImpl implements AccountService {
             return account;
         }
         return null;
+    }
+
+    @Override
+    public String getRole(String loggedInUser) {
+        return accountRoleMapper.get(loggedInUser).getRole();
     }
 
     private void create(Account account, String role) {

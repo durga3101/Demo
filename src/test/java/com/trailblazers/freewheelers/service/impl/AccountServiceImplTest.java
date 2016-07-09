@@ -10,10 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class AccountServiceImplTest {
@@ -37,7 +34,7 @@ public class AccountServiceImplTest {
     }
 
     @Test
-    public void shouldCreateAccountWhenThereAreNoValidationErrors(){
+    public void shouldCreateAccountWhenThereAreNoValidationErrors() {
         Account account = getAccountWithoutErrors();
 
         accountService.createAccount(account);
@@ -47,7 +44,15 @@ public class AccountServiceImplTest {
         verify(sqlSession, times(1)).commit();
     }
 
+    @Test
+    public void shouldReturnRoleForGivenUser() throws Exception {
+        String user = "abc";
+        when(accountRoleMapper.get(user)).thenReturn(mock(AccountRole.class));
+        accountService.getRole(user);
+        verify(accountRoleMapper, times(1)).get(user);
+    }
+
     private Account getAccountWithoutErrors() {
-        return new Account("example",true,"example@example.com","1234567890","India", "Example Person");
+        return new Account("example", true, "example@example.com", "1234567890", "India", "Example Person");
     }
 }

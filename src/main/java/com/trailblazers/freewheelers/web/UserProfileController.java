@@ -2,7 +2,6 @@ package com.trailblazers.freewheelers.web;
 
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.AccountRole;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
@@ -23,6 +22,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.trailblazers.freewheelers.service.impl.AccountServiceImpl.ADMIN;
+
 @Controller
 @RequestMapping("/userProfile")
 public class UserProfileController {
@@ -33,13 +34,27 @@ public class UserProfileController {
 
     @RequestMapping(value = "/{userName:.*}", method = RequestMethod.GET)
     public String get(@PathVariable String userName, Model model, Principal principal) {
-
+//
+//        if (userName == null) {
+//            userName = principal.getName();
+//        }
+//        userName = decode(userName);
+        String loggedInUser = decode(principal.getName());
+        System.out.println(loggedInUser+"\n\n\n\n\n");
         if (userName == null) {
             userName = principal.getName();
         }
-        userName = decode(userName);
+        String role = accountService.getRole(loggedInUser);
+        System.out.println(loggedInUser+"\n\n\n\n\n");
 
-        Account account = accountService.getAccountIdByName(userName);
+        if(ADMIN.equals(role) || loggedInUser.equals(userName)){
+            loggedInUser = decode(userName);
+        }
+        else {
+            return "accessDenied";
+        }
+
+        Account account = accountService.getAccountIdByName(loggedInUser);
 
 
         List<Item> items = getItemsOrderByUser(account);

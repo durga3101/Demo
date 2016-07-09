@@ -28,13 +28,50 @@ public class OrderTest extends UserJourneyBase {
 
         user
                 .add_item_to_cart(Simplon_Frame);
+
         screen
                 .shows_cart_page()
                 .should_show_cart_item(Simplon_Frame);
+
         user
                 .click_checkout_button();
+
         screen
                 .shows_reservation_page();
+
+        user
+                .visits_home_page();
+
+        screen
+                .should_not_list_item(Simplon_Frame);
+
+        user
+                .logs_in_with(Arno, SOME_PASSWORD)
+                .visits_admin_profile();
+
+        screen
+                .shows_admin_profile()
+                .there_should_be_an_order(Simplon_Frame, "NEW");
+
+//        user
+//                .changes_order_status(Simplon_Frame, "IN_PROGRESS");
+//
+//
+//        screen
+//                .shows_admin_profile()
+//                .there_should_be_an_order(Simplon_Frame, "IN_PROGRESS");
+    }
+
+    @Ignore
+    public void shouldGoToHomePageAndWhenUserCancelsOrder(){
+        String Bob = "Bob Buyer";
+        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
+
+        admin
+                .there_is_a_user(Bob, SOME_PASSWORD)
+                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
+
+
     }
 
 

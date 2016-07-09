@@ -21,6 +21,7 @@ import java.util.List;
 import static java.lang.Long.valueOf;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     static final String URL = "/admin";
@@ -30,13 +31,14 @@ public class AdminController {
     ItemService itemService = new ItemServiceImpl();
     AccountService accountService = new AccountServiceImpl();
 
-    @RequestMapping(value="/admin", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
         model.addAttribute("reserveOrders", getAllOrders());
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST, params="update=Save Changes")
+    @RequestMapping(method = RequestMethod.POST, params = "update=Save Changes")
     public void updateOrder(Model model, String state, String orderId, String note) {
+        System.out.println("**************** " + state + " " + orderId + " " + note + "************" );
         Long order_id = valueOf(orderId);
         OrderStatus status = OrderStatus.valueOf(state);
         reserveOrderService.updateOrderDetails(order_id, status, note);
@@ -48,16 +50,16 @@ public class AdminController {
 
         List<ReservedOrderDetail> reservedOrderDetails = new ArrayList<ReservedOrderDetail>();
 
-        for (ReserveOrder reserveOrder: reserveOrders){
+        for (ReserveOrder reserveOrder : reserveOrders) {
             Account account = accountService.get(reserveOrder.getAccount_id());
             Item item = itemService.get(reserveOrder.getItem_id());
 
             reservedOrderDetails.add(new ReservedOrderDetail(reserveOrder.getOrder_id(),
-                                                             account,
-                                                             item,
-                                                             reserveOrder.getReservation_timestamp(),
-                                                             reserveOrder.getStatus(),
-                                                             reserveOrder.getNote()));
+                    account,
+                    item,
+                    reserveOrder.getReservation_timestamp(),
+                    reserveOrder.getStatus(),
+                    reserveOrder.getNote()));
 
         }
         return reservedOrderDetails;

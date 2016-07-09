@@ -4,6 +4,7 @@ import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
 import com.trailblazers.freewheelers.helpers.URLs;
+import org.apache.xpath.SourceTree;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 import static com.trailblazers.freewheelers.helpers.Controls.fillField;
+import static com.trailblazers.freewheelers.helpers.Controls.select;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;

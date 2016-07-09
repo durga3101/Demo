@@ -70,10 +70,7 @@ public class AccountController {
         try {
             return showSuccess(accountService.createAccount(account));
         } catch (Exception e) {
-            System.out.println("***************************************************");
-            e.printStackTrace();
             return showError();
-            //unblock sql
         }
     }
 

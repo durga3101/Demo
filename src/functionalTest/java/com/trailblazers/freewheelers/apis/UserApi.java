@@ -5,6 +5,7 @@ import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
 import com.trailblazers.freewheelers.helpers.URLs;
+import com.trailblazers.freewheelers.model.OrderStatus;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -164,7 +165,6 @@ public class UserApi {
     public UserApi changes_order_status(String item, String toState) {
         select(toState, driver.findElement(OrderTable.selectFor(item)));
         driver.findElement(OrderTable.saveButtonFor(item)).click();
-
         return this;
     }
 

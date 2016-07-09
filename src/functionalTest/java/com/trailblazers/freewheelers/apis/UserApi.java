@@ -212,4 +212,9 @@ public class UserApi {
         driver.findElement(By.id("reserve")).click();
         return this;
     }
+
+    public UserApi click_cancel_button() {
+        driver.findElement(By.id("cancel")).click();
+        return this;
+    }
 }

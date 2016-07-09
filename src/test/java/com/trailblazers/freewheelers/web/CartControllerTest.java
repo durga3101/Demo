@@ -25,8 +25,6 @@ public class CartControllerTest {
         Model model = new ExtendedModelMap();
         Principal principal = mock(Principal.class);
         Item item = mock(Item.class);
-//        Long itemId = new Long("10");
-//        item.setItemId(itemId);
         CartController cartController = new CartController();
 
         cartController.addToCart(model, principal, item);

@@ -74,8 +74,32 @@ public class OrderTest extends UserJourneyBase {
 
     }
 
-
     @Test
+    public void loggedInUserCancelsOrderThenGoesToHomePage() throws Exception {
+        String Raju = "Raju User";
+        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
+
+
+        admin
+                .there_is_a_user(Raju, SOME_PASSWORD)
+                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
+
+        user
+                .logs_in_with(Raju, SOME_PASSWORD)
+                .visits_home_page()
+                .add_item_to_cart(Simplon_Frame);
+
+        screen
+                .shows_cart_page();
+
+        user
+                .click_cancel_button();
+
+        screen
+                .shows_home_page();
+
+    }
+
     @Ignore
     public void testOrderProcess() throws Exception {
         String Arno = "Arno Admin";

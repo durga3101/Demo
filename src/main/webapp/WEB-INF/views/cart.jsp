@@ -22,6 +22,12 @@
 <p id="item_price"><c:out value="${item.price}"/></p>
 <%--<p id="item_cod"><c:out value="${item.description}"/></p>--%>
 
+<form:form action="/" method="get">
+    <button type="submit" id="cancel">
+        Cancel
+    </button>
+</form:form>
+
 <form:form action="reserve" method="post" modelAttribute="item">
     <form:hidden path="itemId" value="${item.itemId}"/>
     <button class="reserve-button" type="submit" name="reserve" id="reserve" value="Reserve Item">

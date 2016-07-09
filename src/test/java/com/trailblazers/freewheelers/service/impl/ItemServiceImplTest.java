@@ -11,6 +11,8 @@ import org.mockito.Mock;
 
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -51,6 +53,15 @@ public class ItemServiceImplTest {
 
         verify(itemMapper, times(1)).insert(item);
         verify(sqlSession, times(1)).commit();
+    }
+
+    @Test
+    public void shouldDecreaseQuantityByOne() throws Exception {
+        Item item = getItemWithoutError();
+        Long expectedQuantity = item.getQuantity() - 1 ;
+        itemService.decreaseQuantityByOne(item);
+
+        assertEquals(expectedQuantity, item.getQuantity());
     }
 
     private Item getItemWithoutError() {

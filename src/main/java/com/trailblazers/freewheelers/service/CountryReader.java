@@ -1,31 +1,21 @@
 package com.trailblazers.freewheelers.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
 public class CountryReader {
-    private BufferedReader bufferedReader;
 
-    public CountryReader(BufferedReader bufferedReader) {
+    public CountryReader() {
 
-        this.bufferedReader = bufferedReader;
     }
 
     public String[] getCountries() {
-        String countries = "";
-        try {
-
-
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                countries += line+" ";
-                line = bufferedReader.readLine() ;
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return countries.split(" ");
+       String [] countries = new String[]{
+               "UK",
+               "USA",
+               "FRANCE",
+               "GERMANY",
+               "CANADA",
+               "ITALY"
+       };
+        return countries;
     }
 }
 

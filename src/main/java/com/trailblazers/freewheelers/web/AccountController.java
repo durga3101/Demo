@@ -37,15 +37,8 @@ public class AccountController {
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
-        BufferedReader bufferedReader = null;
         String[] countries;
-
-        try {
-            File file = new File(COUNTRIES_FILE_PATH);
-            bufferedReader = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-        }
-        countries = new CountryReader(bufferedReader).getCountries();
+        countries = new CountryReader().getCountries();
         model.addAttribute(COUNTRY, countries);
         return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }

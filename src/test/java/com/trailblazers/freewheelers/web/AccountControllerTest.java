@@ -79,6 +79,7 @@ public class AccountControllerTest {
 
         Account account = captor.getValue();
         assertThat(account.getEmail_address(), is("email@fake.com"));
+        System.out.println(account.getPassword()+"FFff");
         assertThat(account.getPassword(), is(not("password")));
         assertThat(account.getAccount_name(), is("john smith"));
         assertThat(account.getPhoneNumber(), is("123456789"));

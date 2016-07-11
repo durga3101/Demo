@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Controller
@@ -37,9 +36,9 @@ public class PaymentController {
         model.addAttribute("totalAmount", "10");
 //        model.addAttribute("total",item.getPrice().toString());
     }
-
-    @RequestMapping(value = {"/gateway"}, method = RequestMethod.POST)
-    public void redirectToPaymentGateway(HttpServletRequest request){
-        System.out.println("hit gateway");
-    }
+//
+//    @RequestMapping(value = {"/gateway"}, method = RequestMethod.POST)
+//    public void redirectToPaymentGateway(HttpServletRequest request){
+//        System.out.println("hit gateway");
+//    }
 }

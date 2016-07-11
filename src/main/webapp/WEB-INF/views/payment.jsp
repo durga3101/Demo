@@ -22,7 +22,7 @@
 </div>
 <div class="cardEntry">
     <h3 id="details">Credit Card Details</h3>
-    <form id="credit_card_form" action="/payment/gateway" method="post" onsubmit="return validateCreditCardDetails();">
+    <form id="credit_card_form" action="/gateway" method="post" onsubmit="return validateCreditCardDetails();">
 
         <div id="card_type_field">
             <label for="card_type">Card Type</label>
@@ -42,7 +42,7 @@
             <label for="card_number">Card Number</label>
             <div class="controls">
                 <input type="text" id="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" name="card_number">
-                <span class="text-error" >Must enter a card number.</span>
+                <span class="text-error">Must enter a card number.</span>
             </div>
         </div>
 
@@ -57,17 +57,35 @@
         <div id="date_field">
             <label for="date">Expiration Date</label>
             <div id="date">
-                <select id="date_month">
-                    <option>Month</option>
-                    <option>01</option><option>02</option><option>03</option><option>04</option>
-                    <option>05</option><option>06</option><option>07</option><option>08</option>
-                    <option>09</option><option>10</option><option>11</option><option>12</option>
+                <select id="date_month" name="expiry_month">
+                    <option value="NONE">Month</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
                 </select>
-                <select id="date_year">
-                    <option>Year</option>
-                    <option>2016</option><option>2017</option><option>2018</option><option>2019</option>
-                    <option>2020</option><option>2021</option><option>2022</option><option>2023</option>
-                    <option>2024</option><option>2025</option><option>2026</option><option>2027</option>
+                <select id="date_year" name="expiry_year">
+                    <option value="NONE">Year</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
                 </select>
             </div>
             <span class="text-error">Must enter an expiration date.</span>
@@ -78,7 +96,7 @@
             </button>
         </div>
 
-</form>
+    </form>
 
 </div>
 </body>

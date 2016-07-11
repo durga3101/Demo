@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/gateway")
 public class GatewayController {
 
-    private
+    private String url = "http://ops.freewheelers.bike:5000/authorise";
+
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String post(@RequestParam(value = "card_number", required = true) String cc_number,
@@ -41,12 +42,10 @@ public class GatewayController {
                             "</authorisation-request>";
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity("http://ops.freewheelers.bike:5000/authorise", request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
-
-
-
-
+        System.out.println("************************");
+        System.out.println(response);
 
 
         // TODO: redirect to success/failure view

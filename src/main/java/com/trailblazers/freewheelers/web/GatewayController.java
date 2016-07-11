@@ -27,6 +27,10 @@ public class GatewayController {
                        @RequestParam(value = "amount", required = true) String amount
     ) {
 
+
+        System.out.println("PARAMS");
+        System.out.println(cc_number);
+
         String expiry = expiry_month + "-" + expiry_year;
 
         RestTemplate restTemplate = new RestTemplate();

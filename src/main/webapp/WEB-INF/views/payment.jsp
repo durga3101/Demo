@@ -22,7 +22,7 @@
 </div>
 <div class="cardEntry">
     <h3 id="details">Credit Card Details</h3>
-    <form id="credit_card_form" action="/gateway" method="post" onsubmit="return validateCreditCardDetails();">
+    <form id="credit_card_form" action="/gateway" method="post" onsubmit="return validateCreditCardDetails()">
 
         <div id="card_type_field">
             <label for="card_type">Card Type</label>
@@ -90,6 +90,8 @@
             </div>
             <span class="text-error">Must enter an expiration date.</span>
         </div>
+
+        <input type="hidden" name="amount" value=${totalAmount}>
 
         <div id="submit" class="controls">
             <button type="submit" id="makePayment" value="Submit" onclick="return showCardErrorMessage()">Make Payment

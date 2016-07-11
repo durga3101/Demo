@@ -4,28 +4,11 @@ function errorSelector(field){
     return field + "_field" + " .text-error";
 }
 function validateCreditCardDetails() {
-    var validate = true;
+    var validate = false;
     fields.forEach(function (field) {
-        validate = validate && isCardFieldValid(field);
+        validate = isCardFieldValid(field);
     });
-
-    console.log("making request");
-    var data = new FormData();
-    data.append('cc_number', '4111111111111111');
-    data.append('csc', '534');
-    data.append('expiry', '11-2020');
-    data.append('amount', '52.04');
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://ops.freewheelers.bike:5000/authorise', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.onload = function(){
-        console.log("i got a response");
-        console.log(this.responseText);
-    }
-    xhr.send(data);
-    console.log("did this shit");
-    return false;
+    return validate;
 }
 
 function isCardFieldValid(selector){
@@ -41,8 +24,8 @@ function isCardFieldValid(selector){
     }
     else if(selector === "#date"){
         return (
-            $("#date_month").val() !== "Month" &&
-            $("#date_year").val() !== "Year"
+            $("#date_month").val() !== "NONE" &&
+            $("#date_year").val() !== "NONE"
         );
     }
     else{

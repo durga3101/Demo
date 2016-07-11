@@ -24,7 +24,6 @@ function checkPasswords() {
     return false;
 }
 function showRegisterErrorMessage() {
-    console.log("reg error message")
     fields.forEach(function (field) {
         isValid(inputFieldSelector(field)) ? validator.hideErrorMessage(errorSelector(field)) : validator.displayErrorMessage(errorSelector(field));
     });

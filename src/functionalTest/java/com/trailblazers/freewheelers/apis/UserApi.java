@@ -214,6 +214,17 @@ public class UserApi {
 
     public UserApi click_cancel_button() {
         driver.findElement(By.id("cancel")).click();
+    }
+
+    public UserApi opens_payment_page() {
+        driver.get(URLs.payment());
+
+        return this;
+    }
+
+    public UserApi submits_payment_details() {
+        driver.findElement(By.id("submit")).click();
+
         return this;
     }
 }

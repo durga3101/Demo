@@ -15,21 +15,21 @@ fdescribe("validate credit card details form", function(){
         var invalidCardNumber = "17265dfjh";
         $("#card_number").val(invalidCardNumber);
 
-        expect(isCardValid("#card_number")).toBeFalsy();
+        expect(isCardFieldValid("#card_number")).toBeFalsy();
     });
 
     it("should return true when card number contains only numbers", function () {
         var validCardNumber = "17265";
         $("#card_number").val(validCardNumber);
 
-        expect(isCardValid("#card_number")).toBeTruthy();
+        expect(isCardFieldValid("#card_number")).toBeTruthy();
     });
 
     it("should return false when CCV contains a letter", function () {
         var invalidCVV = "a129";
         $("#card_ccv").val(invalidCVV);
 
-        expect(isCardValid("#card_ccv")).toBeFalsy();
+        expect(isCardFieldValid("#card_ccv")).toBeFalsy();
     });
 
     it("should return true when CCV contains only numbers", function () {
@@ -37,7 +37,7 @@ fdescribe("validate credit card details form", function(){
         $("#card_ccv").val(validCVV);
         $("#card_type").val("VISA");
 
-        expect(isCardValid("#card_ccv")).toBeTruthy();
+        expect(isCardFieldValid("#card_ccv")).toBeTruthy();
     });
 
     it("should return false when AMEX CVV is only 3 digits", function () {
@@ -45,7 +45,7 @@ fdescribe("validate credit card details form", function(){
         $("#card_ccv").val(validCCV);
         $("#card_type").val("AMEX");
 
-        expect(isCardValid("#card_ccv")).toBeFalsy();
+        expect(isCardFieldValid("#card_ccv")).toBeFalsy();
     });
 
     it("should return true when AMEX CVV is 4 digits", function () {
@@ -53,7 +53,7 @@ fdescribe("validate credit card details form", function(){
         $("#card_ccv").val(validCCV);
         $("#card_type").val("AMEX");
 
-        expect(isCardValid("#card_ccv")).toBeTruthy();
+        expect(isCardFieldValid("#card_ccv")).toBeTruthy();
     });
 
     it("should return false when Non-AMEX CVV is more than 3 digits", function () {
@@ -61,13 +61,12 @@ fdescribe("validate credit card details form", function(){
         $("#card_ccv").val(validCCV);
         $("#card_type").val("VISA");
 
-        expect(isCardValid("#card_ccv")).toBeFalsy();
+        expect(isCardFieldValid("#card_ccv")).toBeFalsy();
     });
-    it("should return true when Non-AMEX CVV is 3 digits", function () {
-        var validCCV = "123";
-        $("#card_ccv").val(validCCV);
-        $("#card_type").val("VISA");
+    it("should return false when date field is blank", function () {
+        
 
-        expect(isCardValid("#card_ccv")).toBeTruthy();
+        expect(isCardFieldValid("#card_ccv")).toBeTruthy();
     });
+    
 })

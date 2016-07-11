@@ -4,9 +4,9 @@ function errorSelector(field){
     return field + "_field" + " .text-error";
 }
 function validateCreditCardDetails() {
-    var validate = false;
+    var validate = true;
     fields.forEach(function (field) {
-        validate = isCardFieldValid(field);
+        if (!isCardFieldValid(field)) { validate = validate && isCardFieldValid(field) }
     });
     return validate;
 }
@@ -28,11 +28,6 @@ function isCardFieldValid(selector){
             $("#date_year").val() !== "NONE"
         );
     }
-    else{
-
-        return true;
-    }
-
 }
 
 function isAllNumbers(input){

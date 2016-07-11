@@ -1,9 +1,10 @@
-fdescribe("validate credit card details form", function(){
+describe("validate credit card details form", function(){
     function setUpHTMLFixture() {
         jasmine.getFixtures().set(' <select id="card_type"  > <option value="VISA">Visa</option><option value="AMEX">AMEX</option><option>Mastercard</option><option>American Express</option></select>\
                                 <input id="card_number" type = "text">\
                                 <input id="card_ccv" type = "text">\
                                 <input id="card_exp_date" type="date"> \
+                                <input id="amount">\
                             ');
     }
 
@@ -63,6 +64,5 @@ fdescribe("validate credit card details form", function(){
 
         expect(isCardFieldValid("#card_ccv")).toBeFalsy();
     });
-   
     
 })

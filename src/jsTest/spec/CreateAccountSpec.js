@@ -37,7 +37,7 @@ describe("validate registration form", function () {
         });
     })
    
-    fdescribe("Name Validation", function () {
+    describe("Name Validation", function () {
         it("should return true when name is valid", function () {
             var validName = "Tim";
             $("#fld_name").val(validName);
@@ -65,12 +65,6 @@ describe("validate registration form", function () {
             $("#fld_country").val(emptyCountry);
     
             expect(isValid("#fld_country")).toBeFalsy();
-        });
-    
-        it("should return true when country is valid", function () {
-            var validCountry = 'USA';
-            $("#fld_country").val(validCountry);
-            expect(isValid("#fld_country")).toBeTruthy();
         });
     })
     

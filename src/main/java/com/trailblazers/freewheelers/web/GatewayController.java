@@ -28,31 +28,36 @@ public class GatewayController {
     ) {
 
 
-        System.out.println("PARAMS");
-        System.out.println(cc_number);
-
         String expiry = expiry_month + "-" + expiry_year;
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_XML);
 
-        String body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                            "<authorisation-request>" +
-                                "<cc_number>" + cc_number + "</cc_number>" +
-                                    "<csc>" + csc + "</csc>" +
-                                    "<expiry>" + expiry + "</expiry>" +
-                                "<amount>" + amount + "</amount>" +
-                            "</authorisation-request>";
+        String body =
+                "<authorisation-request>" +
+                        "<cc_number>" + cc_number + "</cc_number>" +
+                        "<csc>" + csc + "</csc>" +
+                        "<expiry>" + expiry + "</expiry>" +
+                        "<amount>" + "10.00" + "</amount>" +
+                        "</authorisation-request>";
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
-        System.out.println("************************");
+        System.out.println("ORDER");
+        System.out.println(body);
+        System.out.println("RESPONSE");
         System.out.println(response);
+        String s = response + "";
 
+        if (s.contains("SUCCESS")) return "redirect:/reserve";
 
-        // TODO: redirect to success/failure view
-        return "redirect:/";
+        return "redirect:/gateway/reserve-error";
+    }
+
+    @RequestMapping(value = "reserve-error", method = RequestMethod.GET)
+    public String get() {
+        return "reserve-error";
     }
 }

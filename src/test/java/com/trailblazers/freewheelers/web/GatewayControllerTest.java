@@ -1,16 +1,5 @@
 package com.trailblazers.freewheelers.web;
 
-import org.junit.Test;
-import org.mockito.Matchers;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.client.RestTemplate;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 public class GatewayControllerTest {
 //    @Test
 //    public void checkTheGateway() throws Exception {
@@ -20,4 +9,4 @@ public class GatewayControllerTest {
 //        HttpEntity<String> request = new HttpEntity<>("",new HttpHeaders());
 //        verify(restTemplate).postForEntity(anyString(), any(), Matchers.<Class<Object>>any());
 //    }
-//}
+}

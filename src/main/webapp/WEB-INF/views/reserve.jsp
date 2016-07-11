@@ -8,7 +8,7 @@
     })
 </script>
 
-<div class="page-action">Item reserved !</div>
+<div class="page-action">Thank you. Your order will be delivered in ten days!</div>
 
 <table class="table">
     <thead>

@@ -36,9 +36,5 @@ public class PaymentController {
         model.addAttribute("totalAmount", "10");
 //        model.addAttribute("total",item.getPrice().toString());
     }
-//
-//    @RequestMapping(value = {"/gateway"}, method = RequestMethod.POST)
-//    public void redirectToPaymentGateway(HttpServletRequest request){
-//        System.out.println("hit gateway");
-//    }
+
 }

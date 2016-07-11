@@ -27,7 +27,7 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/encyrpiton" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/encyrption" ,method = RequestMethod.GET)
         public  void post(Model model){
         new UpdateDatabasePassword().updateDatabaseToEncryptPassword();
         System.out.println("button clicked............................");

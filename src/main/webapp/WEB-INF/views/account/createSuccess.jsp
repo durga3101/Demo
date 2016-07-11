@@ -7,6 +7,8 @@
 <div id="resultMessage" class="page-action">
 
     Hello, ${postedValues.name}, your new account has been created!
+    <br><br>
+    Please <a href="/userProfile" style="color: white; text-decoration: none;">Click here</a> to login and continue shopping
 </div>
 
 <%@ include file="../footer.jsp" %>

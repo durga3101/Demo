@@ -145,13 +145,13 @@ public class UserApi {
     public UserApi add_to_cart_and_check_out(String name) {
         add_item_to_cart(name);
         reserve_items_in_shopping_cart();
-
+        //proceed we have to add credit card
         return this;
 
     }
 
     public UserApi reserve_items_in_shopping_cart() {
-        driver.findElement(By.id("reserve")).click();
+        driver.findElement(By.id("checkout")).click();
         return this;
     }
 
@@ -208,7 +208,7 @@ public class UserApi {
     }
 
     public UserApi click_checkout_button() {
-        driver.findElement(By.id("reserve")).click();
+        driver.findElement(By.id("checkout")).click();
         return this;
     }
 

@@ -37,21 +37,23 @@ public class OrderTest extends UserJourneyBase {
                 .click_checkout_button();
 
         screen
-                .shows_reservation_page();
-
-        user
-                .visits_home_page();
-
-        screen
-                .should_not_list_item(Simplon_Frame);
-
-        user
-                .logs_in_with(Arno, SOME_PASSWORD)
-                .visits_admin_profile();
-
-        screen
-                .shows_admin_profile()
-                .there_should_be_an_order(Simplon_Frame, "NEW");
+                .shows_cart_page();
+//        screen
+//                .shows_reservation_page();
+//
+//        user
+//                .visits_home_page();
+//
+//        screen
+//                .should_not_list_item(Simplon_Frame);
+//
+//        user
+//                .logs_in_with(Arno, SOME_PASSWORD)
+//                .visits_admin_profile();
+//
+//        screen
+//                .shows_admin_profile()
+//                .there_should_be_an_order(Simplon_Frame, "NEW");
 
 //        user
 //                .changes_order_status(Simplon_Frame, "IN_PROGRESS");

@@ -28,9 +28,9 @@
     </button>
 </form:form>
 
-<form:form action="reserve" method="post" modelAttribute="item">
+<form:form action="" method="post" modelAttribute="item">
     <form:hidden path="itemId" value="${item.itemId}"/>
-    <button class="reserve-button" type="submit" name="reserve" id="reserve" value="Reserve Item">
+    <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
         Check Out
     </button>
 </form:form>

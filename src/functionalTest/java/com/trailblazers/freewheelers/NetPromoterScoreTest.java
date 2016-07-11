@@ -3,6 +3,7 @@ package com.trailblazers.freewheelers;
 import com.trailblazers.freewheelers.helpers.FeedbackType;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,7 @@ public class NetPromoterScoreTest extends UserJourneyBase {
                 .there_is_a_user(username, password);
     }
 
-    @Test
+    @Ignore
     public void testSurveyPopUp() throws InterruptedException {
         user
                 .logs_in_with(username, password)

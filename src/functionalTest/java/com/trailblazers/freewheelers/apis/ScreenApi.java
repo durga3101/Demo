@@ -150,17 +150,17 @@ public class ScreenApi {
     public void shows_home_page() {
         assertThat(driver.getCurrentUrl(), is(URLs.home()));
     }
-    
+
     public ScreenApi should_see_error_in_card_form(String error) {
         assertThat(driver.findElement(By.id("credit_card_form")).getText(), containsString(error));
 
         return this;
     }
 
-    public ScreenApi shows_order_information() {
-        assertThat(driver.findElement(By.id("item_name")));
-        assertThat(driver.findElement(By.id("item_description")));
-        assertThat(driver.findElement(By.id("item_price")));
-        assertThat(driver.findElement(By.id("item_cod")));
-    }
+//    public ScreenApi shows_order_information() {
+//        assertThat(driver.findElement(By.id("item_name")));
+//        assertThat(driver.findElement(By.id("item_description")));
+//        assertThat(driver.findElement(By.id("item_price")));
+//        assertThat(driver.findElement(By.id("item_cod")));
+//    }
 }

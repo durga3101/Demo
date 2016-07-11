@@ -214,6 +214,8 @@ public class UserApi {
 
     public UserApi click_cancel_button() {
         driver.findElement(By.id("cancel")).click();
+
+        return this;
     }
 
     public UserApi opens_payment_page() {

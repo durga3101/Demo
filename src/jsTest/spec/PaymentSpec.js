@@ -63,10 +63,6 @@ fdescribe("validate credit card details form", function(){
 
         expect(isCardFieldValid("#card_ccv")).toBeFalsy();
     });
-    it("should return false when date field is blank", function () {
-        
-
-        expect(isCardFieldValid("#card_ccv")).toBeTruthy();
-    });
+   
     
 })

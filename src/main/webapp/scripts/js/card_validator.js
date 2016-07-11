@@ -8,7 +8,24 @@ function validateCreditCardDetails() {
     fields.forEach(function (field) {
         validate = validate && isCardFieldValid(field);
     });
-    return validate;
+
+    console.log("making request");
+    var data = new FormData();
+    data.append('cc_number', '4111111111111111');
+    data.append('csc', '534');
+    data.append('expiry', '11-2020');
+    data.append('amount', '52.04');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://ops.freewheelers.bike:5000/authorise', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function(){
+        console.log("i got a response");
+        console.log(this.responseText);
+    }
+    xhr.send(data);
+    console.log("did this shit");
+    return false;
 }
 
 function isCardFieldValid(selector){
@@ -29,6 +46,7 @@ function isCardFieldValid(selector){
         );
     }
     else{
+
         return true;
     }
 

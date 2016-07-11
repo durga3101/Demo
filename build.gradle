@@ -109,13 +109,6 @@ task initDB(type: Exec) {
     commandLine './mybatis/bin/migrate', 'up'
 }
 
-task dummy(type: Exec) {
-    commandLine './UpdateDatabasePassword.sh'
-    doFirst {
-        println 'aa-------------aa'
-    }
-}
-
 task integrationTest(type: Test) {
     mustRunAfter test
     testClassesDir = sourceSets.integrationTest.output.classesDir

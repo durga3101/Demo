@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.UpdateDatabasePassword;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
@@ -24,6 +25,12 @@ public class HomeController {
         }
         model.addAttribute("items", itemService.getItemsWithNonZeroQuantity());
         return "home";
+    }
+
+    @RequestMapping(value = "/encyrpiton" ,method = RequestMethod.GET)
+        public  void post(Model model){
+        new UpdateDatabasePassword().updateDatabaseToEncryptPassword();
+        System.out.println("button clicked............................");
     }
 
 }

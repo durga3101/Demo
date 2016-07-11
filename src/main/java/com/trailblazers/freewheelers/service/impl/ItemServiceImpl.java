@@ -53,8 +53,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void saveAll(List<Item> items) {
         for (Item item : items) {
-            insertOrUpdate(item);
-            sqlSession.commit();
+            saveItem(item);
         }
     }
 
@@ -80,14 +79,18 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item saveItem(Item item) {
-        insertOrUpdate(item);
-        sqlSession.commit();
+        if( item.getQuantity() > 0){
+            insertOrUpdate(item);
+            sqlSession.commit();
+            return item;
+        }
+        item.setQuantity(null);
         return item;
     }
 
     private void insertOrUpdate(Item item) {
 
-        if (item.getQuantity() == null || item.getPrice() == null) return;
+        if (item.getQuantity() == null ||item.getPrice() == null) return;
 
         if (item.getItemId() == null) {
             itemMapper.insert(item);

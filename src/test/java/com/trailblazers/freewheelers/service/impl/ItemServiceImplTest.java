@@ -63,6 +63,18 @@ public class ItemServiceImplTest {
 
         assertEquals(expectedQuantity, item.getQuantity());
     }
+    @Test
+    public void shouldNotUpdateItemWhenThereIsANegativeItemQuantity(){
+        Item item = getItemWithoutError();
+        Long negativeNumber = (long) -10;
+        item.setQuantity(negativeNumber);
+
+        Item savedItem = itemService.saveItem(item);
+
+        assertNotEquals(savedItem.getQuantity(), negativeNumber);
+
+    }
+
 
     private Item getItemWithoutError() {
         Item item = new Item();

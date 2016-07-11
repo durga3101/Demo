@@ -7,6 +7,7 @@
 		<script type="text/javascript" src="<c:url value='/scripts/js/RowSelector.js' />"></script>
 		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-model.js' />"></script>
 		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-view.js' />"></script>
+		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-update.js' />"></script>
 
         <script type="text/javascript">
             $(function () {
@@ -81,7 +82,13 @@
                 </div>
 		</form:form>
 
-		<form:form action="" method="post" modelAttribute="itemGrid">
+<script type="text/javascript">
+    $(function () {
+        new ItemViewUpdate($('#update_item'));
+    });
+</script>
+
+		<form:form action="" method="post" modelAttribute="itemGrid" id="update_item">
 
             <div class="page-action">Update Items</div>
 
@@ -95,7 +102,7 @@
 				<th>Quantity</th>
 				</tr></thead>
 				<tbody>
-					<c:forEach var="itemEntry" items="${itemGrid.itemMap}" varStatus="row">
+					<c:forEach var="itemEntry" items="${itemGrid.itemMap}" varStatus="row" >
 						<tr>
 							<td>
 								<form:input type="hidden" disabled="true" path="itemMap[${itemEntry.key}].itemId" />
@@ -103,23 +110,26 @@
 							</td>
 							<td>
 								<form:errors path="itemMap[${itemEntry.key}].name" class="text-error" />
-								<form:input disabled="true" path="itemMap[${itemEntry.key}].name" />
+								<form:input disabled="true" path="itemMap[${itemEntry.key}].name" id="name"/>
 							</td>
 							<td>
 								<form:errors path="itemMap[${itemEntry.key}].price" class="text-error" />
-								<form:input disabled="true" path="itemMap[${itemEntry.key}].price" />
-							</td>
+								<form:input disabled="true" path="itemMap[${itemEntry.key}].price" class="price" id="price${itemEntry.key}"/>
+                                <span class="text-error" id="empty_price${itemEntry.key}" >Please enter valid Item Price</span>
+
+                            </td>
 							<td>
 								<form:errors path="itemMap[${itemEntry.key}].description" class="text-error" />
-								<form:input path="itemMap[${itemEntry.key}].description" disabled="true"/>
+								<form:input path="itemMap[${itemEntry.key}].description" disabled="true" id="description"/>
 							</td>
 							<td>
                             	<form:errors path="itemMap[${itemEntry.key}].type" class="text-error" />
-       							<form:input path="itemMap[${itemEntry.key}].type" disabled="true" />
+       							<form:input path="itemMap[${itemEntry.key}].type" disabled="true" id="type"/>
      					    </td>
      					    <td>
                                 <form:errors path="itemMap[${itemEntry.key}].quantity" class="text-error" />
-                                <form:input path="itemMap[${itemEntry.key}].quantity" disabled="true" />
+                                <form:input path="itemMap[${itemEntry.key}].quantity" disabled="true" class="quantity" id="quantity${itemEntry.key}"/>
+                                <span class="text-error" id="empty_quantity${itemEntry.key}" >Please enter valid Item Quantity</span>
                             </td>
 						</tr>
 					</c:forEach>

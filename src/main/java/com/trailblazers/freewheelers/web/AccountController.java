@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.CountryReader;
+import com.trailblazers.freewheelers.service.CountryList;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +38,7 @@ public class AccountController {
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
         String[] countries;
-        countries = new CountryReader().getCountries();
+        countries = new CountryList().getCountries();
         model.addAttribute(COUNTRY, countries);
         return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }

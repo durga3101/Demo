@@ -121,10 +121,9 @@ public class AccountTest extends UserJourneyBase {
     @Test
     public void newUserShouldAbleToCreateAccountOnlyWhenEmailDoesNotExist() throws Exception {
         String Raju = "Raju UserOne";
-        String rajuEmail = "someUnique@email.com";
+        String rajuEmail = "raj@email.com";
         String Ella = "Ella UserTwo";
         String ellaEmail = "otherUnique@email.in";
-
 
 
         admin

@@ -53,7 +53,6 @@ sudo sh /etc/init.d/freewheelers stop
 sh db/migrations/mybatis/bin/migrate --path=./db/migrations up
 
 #Start app service
-export DISPLAY=:0
 sudo cp scripts/freewheelers.init /etc/init.d/freewheelers
 sudo chmod 0755 /etc/init.d/freewheelers
 sudo chown root:root /etc/init.d/freewheelers

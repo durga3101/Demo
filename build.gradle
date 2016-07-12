@@ -95,7 +95,6 @@ dependencies {
     testCompile 'org.seleniumhq.selenium:selenium-java:2.53.1'
     testCompile 'org.seleniumhq.selenium:selenium-server:2.53.1'
     testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.53.1'
-    testCompile 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0'
     testCompile 'com.github.detro:phantomjsdriver:1.2.0'
 }
 

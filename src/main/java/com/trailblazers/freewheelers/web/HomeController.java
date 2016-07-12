@@ -1,9 +1,12 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.UpdateDatabasePassword;
+import com.trailblazers.freewheelers.mappers.AccountMapper;
+import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,7 +32,9 @@ public class HomeController {
 
     @RequestMapping(value = "/encryption" ,method = RequestMethod.GET)
         public  void post(Model model){
-        new UpdateDatabasePassword().updateDatabaseToEncryptPassword();
+        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+        AccountMapper mapper = sqlSession.getMapper(AccountMapper.class);
+        new UpdateDatabasePassword(mapper, sqlSession).updateDatabaseToEncryptPassword();
         System.out.println("button clicked............................");
     }
 

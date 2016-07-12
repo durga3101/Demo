@@ -43,6 +43,19 @@ public class ManageItemsTest extends UserJourneyBase {
         screen
                 .shows_in_manage_item_list(Simplon_Frame)
                 .shows_in_manage_item_list(Spoke_Reflectors);
+        user
+                .changes_item_quantity(from(A_LOT), to("-10"))
+                .changes_item_price(from(REALLY_EXPENSIVE), to("-10.00"));
+
+        screen
+
+                .pageElementContainsMessage("Please enter valid Item Quantity")
+                .pageElementContainsMessage("Please enter valid Item Price");
+
+        user
+                .changes_item_quantity(from(A_LOT), to(A_LOT))
+                .changes_item_price(from(REALLY_EXPENSIVE), to(REALLY_EXPENSIVE));
+
 
         user
                 .changes_item_name(from(Simplon_Frame), to(New_Simplon_Name))
@@ -58,6 +71,8 @@ public class ManageItemsTest extends UserJourneyBase {
         screen
                 .shows_in_manage_item_list(New_Spoke_Name)
                 .shows_not_in_manage_item_list(New_Simplon_Name);
+
+
     }
 
 

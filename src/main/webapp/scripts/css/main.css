@@ -116,6 +116,7 @@ table {
 }
 
 #add_item .text-error,
+#update_item .text-error,
 #register_form .text-error,
 #credit_card_form .text-error
  {

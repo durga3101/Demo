@@ -101,7 +101,7 @@
 				<th>ItemType</th>
 				<th>Quantity</th>
 				</tr></thead>
-				<tbody>
+				<tbody >
 					<c:forEach var="itemEntry" items="${itemGrid.itemMap}" varStatus="row" >
 						<tr>
 							<td>

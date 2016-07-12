@@ -135,6 +135,29 @@ public class UserApi {
         return this;
     }
 
+    public UserApi changes_item_quantity(String from, String to) {
+        check(driver.findElement(ManageItemTable.toggleAll()));
+
+        WebElement input = driver.findElement(ManageItemTable.quantityFieldFor(from));
+        fillField(input, to);
+
+        driver.findElement(By.name("update")).click();
+
+        return this;
+    }
+    public UserApi changes_item_price(String from, String to) {
+        check(driver.findElement(ManageItemTable.toggleAll()));
+
+        WebElement input = driver.findElement(ManageItemTable.priceFieldFor(from));
+        fillField(input, to);
+
+        driver.findElement(By.name("update")).click();
+
+        return this;
+    }
+
+
+
     public UserApi delete_item(String itemName) {
         check(driver.findElement(ManageItemTable.checkBoxFor(itemName)));
         driver.findElement(By.name("delete")).click();
@@ -229,4 +252,7 @@ public class UserApi {
 
         return this;
     }
+
+
+
 }

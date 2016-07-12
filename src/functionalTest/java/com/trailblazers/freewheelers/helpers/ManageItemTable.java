@@ -15,4 +15,14 @@ public class ManageItemTable {
     public static By toggleAll() {
         return By.className("toggleAll");
     }
+
+    public static By quantityFieldFor(String quantity) {
+        return By.xpath("//tbody/tr/td[6]/input[@value='" + quantity + "']");
+
+    }
+
+    public static By priceFieldFor(String price) {
+        return By.xpath("//tbody/tr/td[3]/input[@value='" + price + "']");
+
+    }
 }

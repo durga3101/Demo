@@ -33,6 +33,7 @@ public class ScreenApi {
         expectMessageWithField(expectedMessage, "text-error", id);
     }
 
+
     public void shows_message(String expectedMessage) {
         expectMessageWithClass(expectedMessage, "page-action");
     }
@@ -40,7 +41,6 @@ public class ScreenApi {
     public void shows_in_navbar(String expectedMessage) {
         expectMessageWithClass(expectedMessage, "navbar-text");
     }
-
 
 
     public ScreenApi shows_profile_for(String name) {
@@ -94,7 +94,7 @@ public class ScreenApi {
         assertThat(elements.size(), is(expectedRows));
     }
 
-    private ScreenApi expectMessageWithClass(String expectedMessage, String messageClass) {
+    public ScreenApi expectMessageWithClass(String expectedMessage, String messageClass) {
         String errorMessage = driver.findElement(By.className(messageClass)).getText();
         System.out.println("error: "+errorMessage);
         assertThat(errorMessage, containsString(expectedMessage));
@@ -157,10 +157,9 @@ public class ScreenApi {
         return this;
     }
 
-//    public ScreenApi shows_order_information() {
-//        assertThat(driver.findElement(By.id("item_name")));
-//        assertThat(driver.findElement(By.id("item_description")));
-//        assertThat(driver.findElement(By.id("item_price")));
-//        assertThat(driver.findElement(By.id("item_cod")));
-//    }
+
+    public ScreenApi pageElementContainsMessage(String message) {
+        assertThat(driver.findElement(By.id("update_item")).getText(), containsString(message));
+        return this;
+    }
 }

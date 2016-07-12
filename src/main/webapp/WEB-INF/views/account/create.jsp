@@ -30,11 +30,11 @@
                 <span class="text-error">Must enter a password!</span>
             </div>
             <div style="margin-left: 11em; margin-bottom: 0.7em">
-                Your Password must have<br>
-                <li>8 and 20 characters</li>
-                <li>atleast 1 number</li>
-                <li>atleast 1 lowercase letter & uppercase letter</li>
-                <li>atleast 1 special character</li>
+                Your Password must meet the following criteria:<br>
+                <li>8 to 20 characters long</li>
+                <li>At least 1 number</li>
+                <li>At least 1 special character</li>
+                <li>Combination of uppercase & lowercase letters</li>
             </div>
     </div>
 

@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,15 @@ public class GatewayControllerTest {
     private RestTemplate restTemplate;
     private ItemServiceImpl itemService;
     private Item item;
+    private PaymentRequestBuilderServiceImpl builder;
 
     @Before
     public void setUp() throws Exception {
         restTemplate= mock(RestTemplate.class);
         itemService = mock(ItemServiceImpl.class);
-        gatewayController = new GatewayController(restTemplate, itemService);
+        builder = mock(PaymentRequestBuilderServiceImpl.class);
+        when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
+        gatewayController = new GatewayController(restTemplate, itemService, builder);
     }
 
     @Test

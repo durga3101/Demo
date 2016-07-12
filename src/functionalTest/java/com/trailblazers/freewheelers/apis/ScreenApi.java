@@ -36,7 +36,6 @@ public class ScreenApi {
 
     public void shows_message(String expectedMessage) {
         expectMessageWithClass(expectedMessage, "page-action");
-        assert(false);
     }
 
     public void shows_in_navbar(String expectedMessage) {

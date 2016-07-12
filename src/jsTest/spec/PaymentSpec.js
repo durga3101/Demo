@@ -38,7 +38,7 @@ describe("validate credit card details form", function(){
         $("#card_ccv").val(validCVV);
         $("#card_type").val("VISA");
 
-        expect(isCardFieldValid("#card_ccv")).toBeTruthy();
+        expect(isCardFieldValid("#card_ccv")).toBeFalsy();
     });
 
     it("should return false when AMEX CVV is only 3 digits", function () {

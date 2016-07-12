@@ -1,6 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.UpdateDatabasePassword;
+//import com.trailblazers.freewheelers.UpdateDatabasePassword;
 import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Item;
@@ -30,13 +30,13 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/encryption" ,method = RequestMethod.GET)
-        public  void post(Model model){
-        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-        AccountMapper mapper = sqlSession.getMapper(AccountMapper.class);
-        new UpdateDatabasePassword(mapper, sqlSession).updateDatabaseToEncryptPassword();
-        System.out.println("button clicked............................");
-    }
+//    @RequestMapping(value = "/encryption" ,method = RequestMethod.GET)
+//        public  void post(Model model){
+//        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+//        AccountMapper mapper = sqlSession.getMapper(AccountMapper.class);
+//        new UpdateDatabasePassword(mapper, sqlSession).updateDatabaseToEncryptPassword();
+//        System.out.println("button clicked............................");
+//    }
 
 }
 

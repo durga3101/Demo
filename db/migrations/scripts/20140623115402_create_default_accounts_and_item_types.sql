@@ -1,9 +1,11 @@
 -- // create_default_accounts_and_item_types
 -- Migration SQL that makes the change goes here.
 INSERT INTO account (email_address, account_name, password, phone_number, enabled)
-	    VALUES ('admin@example.com', 'AdminCat','Yellow bikes are just amazingly awesome, right? Says Robert, my good friend!', '', true);
+-- 	    VALUES ('admin@example.com', 'AdminCat','Yellow bikes are just amazingly awesome, right? Says Robert, my good friend!', '', true);
+VALUES ('admin@example.com', 'AdminCat','$2a$10$80blsfJDgDBgtoZQbIc/rug3L1wEK9ZkYxvI43FF30My/CV2zu96K', '', true);
 INSERT INTO account (email_address, account_name, password, phone_number, enabled)
-	    VALUES ('user@example.com', 'UserCat','Part 3: Tall zebra mobile responsive communication patterns!', '', true);
+-- 	    VALUES ('user@example.com', 'UserCat','Part 3: Tall zebra mobile responsive communication patterns!', '', true);
+	    VALUES ('user@example.com', 'UserCat','$2a$10$hPCopeHYjdgCvHzFuedUW.IDVlOlzNTxAlkG3SjJUFGqxsvLBz8Re', '', true);
 
 INSERT INTO account_role (account_name, role) VALUES ('AdminCat', 'ROLE_ADMIN');
 INSERT INTO account_role (account_name, role) VALUES ('UserCat', 'ROLE_USER');

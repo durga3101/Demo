@@ -66,4 +66,5 @@ public class ReserveOrder {
     public String getNote() {
         return note;
     }
+
 }

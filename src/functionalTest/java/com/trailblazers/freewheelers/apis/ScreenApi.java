@@ -46,6 +46,7 @@ public class ScreenApi {
     public ScreenApi shows_profile_for(String name) {
         String userDetails = driver.findElement(By.id("user-details")).getText();
 
+        assert(false);
         assertThat(userDetails, containsString(name));
         return this;
     }

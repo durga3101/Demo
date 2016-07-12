@@ -5,9 +5,10 @@ import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ItemServiceImpl implements ItemService {
 
     private final SqlSession sqlSession;

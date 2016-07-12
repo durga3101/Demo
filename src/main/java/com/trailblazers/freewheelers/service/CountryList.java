@@ -1,10 +1,6 @@
 package com.trailblazers.freewheelers.service;
 
-public class CountryReader {
-
-    public CountryReader() {
-
-    }
+public class CountryList {
 
     public String[] getCountries() {
        String [] countries = new String[]{

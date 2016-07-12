@@ -10,6 +10,7 @@ import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,19 +27,25 @@ public class AdminController {
 
     static final String URL = "/admin";
 
-    ReserveOrderService reserveOrderService = new ReserveOrderServiceImpl();
+    private ReserveOrderService reserveOrderService;
+    private ItemService itemService;
+    private AccountService accountService;
 
-    ItemService itemService = new ItemServiceImpl();
-    AccountService accountService = new AccountServiceImpl();
+    @Autowired
+    public AdminController(ReserveOrderService reserveOrderService, ItemService itemService, AccountService accountService) {
+        this.reserveOrderService = reserveOrderService;
+        this.itemService = itemService;
+        this.accountService = accountService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
-        model.addAttribute("reserveOrders", getAllOrders());
+        List<ReservedOrderDetail> reserveOrders = getAllOrders();
+        model.addAttribute("reserveOrders",reserveOrders);
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "update=Save Changes")
     public void updateOrder(Model model, String state, String orderId, String note) {
-        System.out.println("**************** " + state + " " + orderId + " " + note + "************" );
         Long order_id = valueOf(orderId);
         OrderStatus status = OrderStatus.valueOf(state);
         reserveOrderService.updateOrderDetails(order_id, status, note);

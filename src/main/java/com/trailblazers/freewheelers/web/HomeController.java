@@ -9,17 +9,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
     ItemService itemService = new ItemServiceImpl();
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String get(Model model, @ModelAttribute("item") Item item) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String get(Model model, @ModelAttribute("item") Item item, HttpServletRequest request) {
+        if (request.getSession().getAttribute("itemForReserve") != null) {
+            request.getSession().setAttribute("itemForReserve", null);
+        }
         model.addAttribute("items", itemService.getItemsWithNonZeroQuantity());
         return "home";
-	}
+    }
 
 }
 

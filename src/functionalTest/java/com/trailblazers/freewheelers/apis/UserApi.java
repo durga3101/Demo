@@ -249,7 +249,6 @@ public class UserApi {
 
     public UserApi submits_payment_details() {
         driver.findElement(By.id("submit")).click();
-
         return this;
     }
 

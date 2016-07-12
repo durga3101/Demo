@@ -33,11 +33,11 @@ public class OrderTest extends UserJourneyBase {
                 .shows_cart_page()
                 .should_show_cart_item(Simplon_Frame);
 
-        user
-                .click_checkout_button();
-
-        screen
-                .shows_cart_page();
+//        user
+//                .click_checkout_button();
+//
+//        screen
+//                .shows_cart_page();
 //        screen
 //                .shows_reservation_page();
 //

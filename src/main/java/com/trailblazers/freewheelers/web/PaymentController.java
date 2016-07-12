@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Controller
@@ -24,9 +25,13 @@ public class PaymentController {
     ReserveOrderService reserveOrderService = new ReserveOrderServiceImpl();
 
     @RequestMapping(method = RequestMethod.GET)
-    public String get(Model model) {
-        System.out.println("paying for item");
-        model.addAttribute("totalAmount", "10");
+    public String get(Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("itemOnConfirm") == null){
+            return "payment";
+        }
+        Item item = (Item) request.getSession().getAttribute("itemOnConfirm");
+        Item itemOnConfirm = itemService.get(item.getItemId());
+        model.addAttribute("totalAmount", itemOnConfirm.getPrice());
         return "payment";
     }
 

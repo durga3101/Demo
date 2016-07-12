@@ -28,7 +28,7 @@
     </button>
 </form:form>
 
-<form:form action="" method="post" modelAttribute="item">
+<form:form action="/payment" method="get" modelAttribute="item">
     <form:hidden path="itemId" value="${item.itemId}"/>
     <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
         Check Out

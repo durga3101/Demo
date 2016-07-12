@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-import static com.trailblazers.freewheelers.helpers.Controls.fillField;
-import static com.trailblazers.freewheelers.helpers.Controls.select;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
@@ -160,6 +158,18 @@ public class ScreenApi {
 
     public ScreenApi pageElementContainsMessage(String message) {
         assertThat(driver.findElement(By.id("update_item")).getText(), containsString(message));
+        return this;
+    }
+
+    public ScreenApi shouldSeePaymentSuccess() {
+        String successMessage = "Thank you. Your order will be delivered in ten days!";
+        assertThat(driver.getPageSource(),containsString(successMessage));
+        return this;
+    }
+
+    public ScreenApi shouldSeePaymentFailure() {
+        String failureMessage = "Oh no! There was an error processing your request. Please try again.";
+        assertThat(driver.getPageSource(),containsString(failureMessage));
         return this;
     }
 }

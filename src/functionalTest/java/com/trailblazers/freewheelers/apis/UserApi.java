@@ -253,5 +253,25 @@ public class UserApi {
     }
 
 
+    public UserApi reservesAnItem() {
+        driver.findElement(By.id("reserve")).click();
+        return this;
+    }
 
+    public UserApi checksOutItem() {
+        driver.findElement(By.id("checkout")).click();
+        return this;
+    }
+
+    public UserApi entersPaymentDetails(String type, String card_no, String cvc, String exp_month, String exp_year) {
+        Select selectType = new Select(driver.findElement(By.id("card_type")));
+        selectType.selectByVisibleText(type);
+        fillField(driver.findElement(By.id("card_number")), card_no);
+        fillField(driver.findElement(By.id("card_ccv")), cvc);
+        Select selectMonth = new Select(driver.findElement(By.id("date_month")));
+        selectMonth.selectByVisibleText(exp_month);
+        Select selectYear = new Select(driver.findElement(By.id("date_year")));
+        selectYear.selectByVisibleText(exp_year);
+        return this;
+    }
 }

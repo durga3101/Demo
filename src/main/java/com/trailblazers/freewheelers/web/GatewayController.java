@@ -4,6 +4,7 @@ package com.trailblazers.freewheelers.web;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,8 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/gateway")
 public class GatewayController {
 
-    ItemService itemService = new ItemServiceImpl();
     private String url = "http://ops.freewheelers.bike:5000/authorise";
+
+    private RestTemplate restTemplate;
+    private ItemService itemService;
+
+    @Autowired
+    public GatewayController(RestTemplate restTemplate, ItemServiceImpl itemService) {
+        this.restTemplate = restTemplate;
+        this.itemService = itemService;
+    }
 
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -36,8 +45,6 @@ public class GatewayController {
 
 
         String expiry = expiry_month + "-" + expiry_year;
-
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_XML);
 
@@ -47,18 +54,19 @@ public class GatewayController {
                         "<csc>" + csc + "</csc>" +
                         "<expiry>" + expiry + "</expiry>" +
                         "<amount>" + amount + "</amount>" +
-                        "</authorisation-request>";
+                "</authorisation-request>";
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 
-        System.out.println("ORDER");
+        System.out.println("REQUEST");
         System.out.println(body);
         System.out.println("RESPONSE");
         System.out.println(response);
-        String s = response + "";
 
-        if (s.contains("SUCCESS")) {
+        String responseString = response + "";
+
+        if (responseString.contains("SUCCESS")) {
             Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
             Item itemToReserve = itemService.get(item.getItemId());
             itemService.decreaseQuantityByOne(itemToReserve);

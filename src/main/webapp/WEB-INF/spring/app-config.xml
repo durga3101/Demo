@@ -15,4 +15,9 @@
 	<!-- Bean Validation -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+	</bean>
+
+	<bean id="itemServiceImpl" class="com.trailblazers.freewheelers.service.impl.ItemServiceImpl">
+	</bean>
 </beans>

@@ -46,7 +46,7 @@ public class GatewayController {
                         "<cc_number>" + cc_number + "</cc_number>" +
                         "<csc>" + csc + "</csc>" +
                         "<expiry>" + expiry + "</expiry>" +
-                        "<amount>" + "10.00" + "</amount>" +
+                        "<amount>" + amount + "</amount>" +
                         "</authorisation-request>";
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);

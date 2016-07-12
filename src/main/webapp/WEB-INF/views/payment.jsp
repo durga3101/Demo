@@ -97,6 +97,9 @@
             <button type="submit" id="makePayment" value="Submit" onclick="return showCardErrorMessage()">Make Payment
             </button>
         </div>
+        <div id="cancel" class="controls">
+            <button id="cancelButton" onclick="location.href = '/';">Cancel</button>
+        </div>
 
     </form>
 

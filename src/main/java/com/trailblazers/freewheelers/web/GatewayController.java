@@ -1,8 +1,12 @@
 package com.trailblazers.freewheelers.web;
 
 
+import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
+import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Date;
 
 
 @Controller
@@ -26,16 +32,21 @@ public class GatewayController {
 
     private RestTemplate restTemplate;
     private ItemService itemService;
+    private ReserveOrderService reserveOrderService;
+    private AccountService accountService;
 
     @Autowired
-    public GatewayController(RestTemplate restTemplate, ItemServiceImpl itemService) {
+    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService) {
         this.restTemplate = restTemplate;
         this.itemService = itemService;
+        this.reserveOrderService = reserveOrderService;
+        this.accountService = accountService;
     }
 
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String post(HttpServletRequest servletRequest,
+                       Principal principal,
                        @RequestParam(value = "card_number", required = true) String cc_number,
                        @RequestParam(value = "card_ccv", required = true) String csc,
                        @RequestParam(value = "expiry_month", required = true) String expiry_month,
@@ -69,8 +80,20 @@ public class GatewayController {
         if (responseString.contains("SUCCESS")) {
             Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
             Item itemToReserve = itemService.get(item.getItemId());
+
+            String userName = principal.getName();
+
+
+            Account account =  accountService.getAccountIdByName(userName);
+            Date rightNow = new Date();
+
+            ReserveOrder reserveOrder = new ReserveOrder(account.getAccount_id(), itemToReserve.getItemId(), rightNow );
+
+            reserveOrderService.save(reserveOrder);
+
             itemService.decreaseQuantityByOne(itemToReserve);
             servletRequest.getSession().setAttribute("itemOnConfirm", null);
+
             return "redirect:/reserve";
         }
 

@@ -2,9 +2,11 @@ package com.trailblazers.freewheelers.service;
 
 import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.ReserveOrder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface ReserveOrderService {
 
     void save(ReserveOrder reserveOrder);

@@ -77,7 +77,6 @@ public class OrderTest extends UserJourneyBase {
 
     }
 
-    @Ignore
     @Test
     public void loggedInUserCancelsOrderThenGoesToHomePage() throws Exception {
         String Raju = "Raju User";
@@ -104,7 +103,6 @@ public class OrderTest extends UserJourneyBase {
 
     }
 
-    @Ignore
     @Test
     public void loggedOutUserShouldLoginToReserveAnItem() throws Exception {
         String Raju = "Raju User";

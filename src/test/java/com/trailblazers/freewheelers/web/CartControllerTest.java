@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -67,7 +68,6 @@ public class CartControllerTest {
     public void postShouldAddTheItemToModelWhenUserAddsItemToTheCart() {
         when(itemService.get(anyLong())).thenReturn(item);
         cartController.post(request, model, principal, item);
-
         verify(model, times(1)).addAttribute("item", item);
     }
 }

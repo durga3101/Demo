@@ -8,6 +8,7 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SOME_PASSWORD;
 
 public class OrderTest extends UserJourneyBase {
 
+    @Ignore
     @Test
     public void loggedInUserViewsShoppingCartWithItem() throws Exception {
         String Arno = "Arno Admin";
@@ -76,6 +77,7 @@ public class OrderTest extends UserJourneyBase {
 
     }
 
+    @Ignore
     @Test
     public void loggedInUserCancelsOrderThenGoesToHomePage() throws Exception {
         String Raju = "Raju User";
@@ -102,6 +104,7 @@ public class OrderTest extends UserJourneyBase {
 
     }
 
+    @Ignore
     @Test
     public void loggedOutUserShouldLoginToReserveAnItem() throws Exception {
         String Raju = "Raju User";

@@ -25,6 +25,7 @@ public class CartController {
         this.itemService = itemService;
     }
 
+
     @RequestMapping(method = RequestMethod.GET)
     public String get(HttpServletRequest request, Model model, Principal principal) {
 
@@ -71,6 +72,4 @@ public class CartController {
     private void setItemAttribute(HttpServletRequest request, @ModelAttribute Item item, String itemAttribute) {
         request.getSession().setAttribute(itemAttribute, item);
     }
-
-
 }

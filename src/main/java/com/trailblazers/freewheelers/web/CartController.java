@@ -2,8 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import org.springframework.http.HttpRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,38 +16,61 @@ import java.security.Principal;
 @RequestMapping("/cart")
 public class CartController {
 
-    ItemService itemService = new ItemServiceImpl();
-    @RequestMapping(method = RequestMethod.GET)
-    public String get(HttpServletRequest request,Model model, Principal principal)
-    {
-        if(principal == null){
-            return "redirect:/login";
-        }
-        Item item = (Item)request.getSession().getAttribute("itemForReserve");
-        Item itemToReserve = itemService.get(item.getItemId());
+    private static final String ITEM_FOR_RESERVE = "itemForReserve";
+    private static final String ITEM_ON_CONFIRM = "itemOnConfirm";
+    ItemService itemService;
 
-        model.addAttribute("item", itemToReserve);
-        request.getSession().setAttribute("itemForReserve", null);
-        request.getSession().setAttribute("itemOnConfirm", item);
+    @Autowired
+    public CartController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String get(HttpServletRequest request, Model model, Principal principal) {
+
+        if (isPrincipalNull(principal)) return "redirect:/login";
+
+        Item item = (Item) request.getSession().getAttribute(ITEM_FOR_RESERVE);
+        setModel(request, model, item);
+
+        setItemAttribute(request, null, ITEM_FOR_RESERVE);
+        setItemAttribute(request, item, ITEM_ON_CONFIRM);
         return "cart";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String addToCart(HttpServletRequest request,Model model, Principal principal, @ModelAttribute Item item) {
-        if(principal == null){
-            request.getSession().setAttribute("itemForReserve", item);
+    public String post(HttpServletRequest request, Model model, Principal principal, @ModelAttribute Item item) {
+        if (isPrincipalNull(principal)) {
+            setItemAttribute(request, item, ITEM_FOR_RESERVE);
             return "redirect:/login";
         }
-        Item itemToReserve;
 
-        if(item == null){
-            item = (Item)request.getSession().getAttribute("itemForReserve");
-        }
-
-        itemToReserve = itemService.get(item.getItemId());
-        model.addAttribute("item", itemToReserve);
-        request.getSession().setAttribute("itemOnConfirm", item);
+        item = getItemFromSession(request, item);
+        setModel(request, model, item);
+        setItemAttribute(request, item, ITEM_ON_CONFIRM);
 
         return "cart";
     }
+
+    private Item getItemFromSession(HttpServletRequest request, @ModelAttribute Item item) {
+        if (item == null) {
+            item = (Item) request.getSession().getAttribute(ITEM_FOR_RESERVE);
+        }
+        return item;
+    }
+
+    private boolean isPrincipalNull(Principal principal) {
+        return principal == null;
+    }
+
+    private void setModel(HttpServletRequest request, Model model, @ModelAttribute Item item) {
+        Item itemToReserve = itemService.get(item.getItemId());
+        model.addAttribute("item", itemToReserve);
+    }
+
+    private void setItemAttribute(HttpServletRequest request, @ModelAttribute Item item, String itemAttribute) {
+        request.getSession().setAttribute(itemAttribute, item);
+    }
+
+
 }

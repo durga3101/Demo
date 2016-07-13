@@ -2,7 +2,6 @@ package com.trailblazers.freewheelers.web;
 
 
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +26,14 @@ public class GatewayController {
 
     private RestTemplate restTemplate;
     private ItemService itemService;
-    private PaymentRequestBuilderServiceImpl paymentBuilder;
 
     @Autowired
-    public GatewayController(RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder) {
+    public GatewayController(RestTemplate restTemplate, ItemServiceImpl itemService) {
         this.restTemplate = restTemplate;
         this.itemService = itemService;
-        this.paymentBuilder = paymentBuilder;
     }
-    
+
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String post(HttpServletRequest servletRequest,
                        @RequestParam(value = "card_number", required = true) String cc_number,
@@ -45,12 +43,34 @@ public class GatewayController {
                        @RequestParam(value = "amount", required = true) String amount
     ) {
 
-        HttpEntity<String> request = createRequest(cc_number,csc,expiry_month,expiry_year, amount);
+
+        String expiry = expiry_month + "-" + expiry_year;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_XML);
+
+        String body =
+                "<authorisation-request>" +
+                        "<cc_number>" + cc_number + "</cc_number>" +
+                        "<csc>" + csc + "</csc>" +
+                        "<expiry>" + expiry + "</expiry>" +
+                        "<amount>" + amount + "</amount>" +
+                "</authorisation-request>";
+
+        HttpEntity<String> request = new HttpEntity<>(body, headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+
+        System.out.println("REQUEST");
+        System.out.println(body);
+        System.out.println("RESPONSE");
+        System.out.println(response);
+
         String responseString = response + "";
 
         if (responseString.contains("SUCCESS")) {
-            decreasePurchasedItemQuantityByOne(servletRequest);
+            Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
+            Item itemToReserve = itemService.get(item.getItemId());
+            itemService.decreaseQuantityByOne(itemToReserve);
+            servletRequest.getSession().setAttribute("itemOnConfirm", null);
             return "redirect:/reserve";
         }
 
@@ -61,19 +81,4 @@ public class GatewayController {
     public String get() {
         return "reserve-error";
     }
-
-    private void decreasePurchasedItemQuantityByOne(HttpServletRequest servletRequest) {
-        Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
-        Item itemToReserve = itemService.get(item.getItemId());
-        itemService.decreaseQuantityByOne(itemToReserve);
-        servletRequest.getSession().setAttribute("itemOnConfirm", null);
-    }
-
-    private HttpEntity<String> createRequest(String cc_number, String csc, String expiry_month, String expiry_year, String amount) {
-        String body = paymentBuilder.buildXMLRequestBody(cc_number, csc, expiry_month, expiry_year, amount);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_XML);
-        return new HttpEntity<>(body, headers);
-    }
-
 }

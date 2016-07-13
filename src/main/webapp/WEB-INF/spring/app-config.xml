@@ -20,7 +20,4 @@
 
 	<bean id="itemServiceImpl" class="com.trailblazers.freewheelers.service.impl.ItemServiceImpl">
 	</bean>
-
-	<bean id="paymentBuilder" class="com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl">
-	</bean>
 </beans>

@@ -116,7 +116,7 @@ table {
 .text-error {
     color: indianred;
 }
-
+#shippingAddress_form .text-error,
 #add_item .text-error,
 #update_item .text-error,
 #register_form .text-error,

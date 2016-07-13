@@ -174,7 +174,12 @@ public class ScreenApi {
     }
 
     public ScreenApi shouldDisplayPurchasedItem(String itemName) {
-        assertThat(driver.getPageSource(),containsString(itemName));
+        assertThat(driver.getPageSource(), containsString(itemName));
         return this;
+    }
+    public ScreenApi shouldDisplayShippingAddress() {
+        String displayShippingAddressPage = "Shipping Address";
+        assertThat(driver.getPageSource(),containsString(displayShippingAddressPage));
+        return  this;
     }
 }

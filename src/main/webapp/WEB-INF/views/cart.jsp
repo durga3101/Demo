@@ -28,13 +28,20 @@
         <th></th>
     </tr>
     </thead>
+    <%--<tr>--%>
+        <%--<td ><c:out value="${item.name}"/></td>--%>
+        <%--<td ><c:out value="${item.description}"/></td>--%>
+        <%--<td><c:out value="${item.quantity}"/></td>--%>
+        <%--<td ><c:out value="${item.price}"/></td>--%>
+    <%--</tr>--%>
 
-    <tr>
-        <td id="item_name" class=""><c:out value="${item.name}"/></td>
-        <td id="item_description"><c:out value="${item.description}"/></td>
-        <td><c:out value="${item.quantity}"/></td>
-        <td id="item_price"><c:out value="${item.price}"/></td>
-    </tr>
+
+        <tr>
+            <td id="item_name"><c:out value="${item.name}"/></td>
+            <td id="item_description"><c:out value="${item.description}"/></td>
+            <td><c:out value="${item.quantity}"/></td>
+            <td id="item_price"><c:out value="${item.price}"/></td>
+        </tr>
 </table>
 
 <div style="display: flex; flex-direction: row ; justify-content: center">

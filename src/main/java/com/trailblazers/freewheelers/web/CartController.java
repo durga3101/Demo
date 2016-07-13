@@ -20,7 +20,7 @@ public class CartController {
 
     private static final String ITEM_FOR_RESERVE = "itemForReserve";
     private static final String ITEM_ON_CONFIRM = "itemOnConfirm";
-    ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
     public CartController(ItemService itemService) {
@@ -34,11 +34,13 @@ public class CartController {
         else return "cart";
 
         // Uncomment code below when ready to use cart user flow
+        // DO NOT DELETE
+
 
 //        if (isPrincipalNull(principal)) return "redirect:/login";
 //
 //        Item item = (Item) request.getSession().getAttribute(ITEM_FOR_RESERVE);
-//        setModel(request, model, item);
+//        setModel(model, item);
 //
 //        setItemAttribute(request, null, ITEM_FOR_RESERVE);
 //        setItemAttribute(request, item, ITEM_ON_CONFIRM);
@@ -54,7 +56,7 @@ public class CartController {
         }
 
         item = getItemFromSession(request, item);
-        setModel(request, model, item);
+        setModel(model, item);
         setItemAttribute(request, item, ITEM_ON_CONFIRM);
 
         return "cart";
@@ -71,7 +73,7 @@ public class CartController {
         return principal == null;
     }
 
-    private void setModel(HttpServletRequest request, Model model, @ModelAttribute Item item) {
+    private void setModel(Model model, @ModelAttribute Item item) {
         Item itemToReserve = itemService.get(item.getItemId());
         model.addAttribute("item", itemToReserve);
     }

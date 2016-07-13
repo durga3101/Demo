@@ -17,6 +17,8 @@ import java.security.Principal;
 @RequestMapping("/cart")
 public class CartController {
 
+    static boolean cameFromHome = false;
+
     ItemService itemService = new ItemServiceImpl();
     @RequestMapping(method = RequestMethod.GET)
     public String get(HttpServletRequest request,Model model, Principal principal)
@@ -30,7 +32,8 @@ public class CartController {
         model.addAttribute("item", itemToReserve);
         request.getSession().setAttribute("itemForReserve", null);
         request.getSession().setAttribute("itemOnConfirm", item);
-        return "cart";
+        if(cameFromHome) return "redirect:/payment";
+        else return "cart";
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -50,5 +53,26 @@ public class CartController {
         request.getSession().setAttribute("itemOnConfirm", item);
 
         return "cart";
+    }
+
+    @RequestMapping(value="/skipCart", method = RequestMethod.POST)
+    public String addToCartFromHome(HttpServletRequest request,Model model, Principal principal, @ModelAttribute Item item) {
+        cameFromHome = true;
+        if(principal == null){
+            request.getSession().setAttribute("itemForReserve", item);
+            return "redirect:/login";
+        }
+        Item itemToReserve;
+
+        if(item == null){
+            item = (Item)request.getSession().getAttribute("itemForReserve");
+        }
+
+        itemToReserve = itemService.get(item.getItemId());
+        model.addAttribute("item", itemToReserve);
+        request.getSession().setAttribute("itemForReserve", null);
+        request.getSession().setAttribute("itemOnConfirm", item);
+
+        return "redirect:/payment";
     }
 }

@@ -35,15 +35,6 @@ public class PaymentController {
         return "payment";
     }
 
-    @RequestMapping(value="/fromHome", method = RequestMethod.GET)
-    public String getFromHome(Model model, HttpServletRequest request, @ModelAttribute Item item) {
-        if(request.getSession().getAttribute("itemOnConfirm") == null){
-            return "payment";
-        }
-        Item itemOnConfirm = itemService.get(item.getItemId());
-        model.addAttribute("totalAmount", itemOnConfirm.getPrice());
-        return "payment";
-    }
 
     @RequestMapping(method = RequestMethod.POST)
     public void payForItem(Model model, Principal principal, @ModelAttribute Item item){

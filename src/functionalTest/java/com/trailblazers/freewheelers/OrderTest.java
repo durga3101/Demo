@@ -8,7 +8,6 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SOME_PASSWORD;
 
 public class OrderTest extends UserJourneyBase {
 
-    @Ignore
     @Test
     public void loggedInUserViewsShoppingCartWithItem() throws Exception {
         String Arno = "Arno Admin";
@@ -33,36 +32,6 @@ public class OrderTest extends UserJourneyBase {
         screen
                 .shows_cart_page()
                 .should_show_cart_item(Simplon_Frame);
-
-//        user
-//                .click_checkout_button();
-//
-//        screen
-//                .shows_cart_page();
-//        screen
-//                .shows_reservation_page();
-//
-//        user
-//                .visits_home_page();
-//
-//        screen
-//                .should_not_list_item(Simplon_Frame);
-//
-//        user
-//                .logs_in_with(Arno, SOME_PASSWORD)
-//                .visits_admin_profile();
-//
-//        screen
-//                .shows_admin_profile()
-//                .there_should_be_an_order(Simplon_Frame, "NEW");
-
-//        user
-//                .changes_order_status(Simplon_Frame, "IN_PROGRESS");
-//
-//
-//        screen
-//                .shows_admin_profile()
-//                .there_should_be_an_order(Simplon_Frame, "IN_PROGRESS");
     }
 
     @Ignore

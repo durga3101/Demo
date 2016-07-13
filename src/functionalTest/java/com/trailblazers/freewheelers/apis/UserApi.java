@@ -254,7 +254,7 @@ public class UserApi {
 
 
     public UserApi reservesAnItem() {
-        driver.findElement(By.id("reserve")).click();
+        driver.findElement(By.className("add-to-cart")).click();
         return this;
     }
 

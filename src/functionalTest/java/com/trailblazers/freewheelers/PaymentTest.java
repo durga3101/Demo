@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ONLY_ONE_LEFT;
@@ -20,7 +19,6 @@ public class PaymentTest extends UserJourneyBase{
                 .should_see_error_in_card_form("Must select card type.");
     }
 
-    @Ignore
     @Test
     public void shouldShowReservePageWhenUsingValidCardDetails() throws Exception {
 
@@ -42,7 +40,6 @@ public class PaymentTest extends UserJourneyBase{
                 .shouldSeePaymentSuccess();
     }
 
-    @Ignore
     @Test
     public void shouldShowReserveErrorPageWhenUsingInvalidCardDetails() throws Exception {
 
@@ -64,7 +61,6 @@ public class PaymentTest extends UserJourneyBase{
                 .shouldSeePaymentFailure();
     }
 
-    @Ignore
     @Test
     public void shouldShowReserveErrorPageWhenCardIsRevoked() throws Exception {
 

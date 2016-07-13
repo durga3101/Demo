@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="header.jsp" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: luke
@@ -14,26 +16,41 @@
 
 </head>
 <body>
-<p>Shopping Cart</p>
+<div class="page-action">Your Shopping Cart</div>
 
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    </thead>
 
-<p id="item_name"><c:out value="${item.name}"/></p>
-<p id="item_description"><c:out value="${item.description}"/></p>
-<p id="item_price"><c:out value="${item.price}"/></p>
-<%--<p id="item_cod"><c:out value="${item.description}"/></p>--%>
+    <tr>
+        <td id="item_name" class=""><c:out value="${item.name}"/></td>
+        <td id="item_description"><c:out value="${item.description}"/></td>
+        <td><c:out value="${item.quantity}"/></td>
+        <td id="item_price"><c:out value="${item.price}"/></td>
+    </tr>
+</table>
 
-<form:form action="/" method="get">
-    <button type="submit" id="cancel">
-        Cancel
-    </button>
-</form:form>
+<div style="display: flex; flex-direction: row ; justify-content: center">
+    <form:form action="/" method="get">
+        <button type="submit" id="cancel">
+            Continue Shopping
+        </button>
+    </form:form>
 
-<form:form action="/payment" method="get" modelAttribute="item">
-    <form:hidden path="itemId" value="${item.itemId}"/>
-    <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
-        Check Out
-    </button>
-</form:form>
+    <form:form action="/payment" method="get" modelAttribute="item">
+        <form:hidden path="itemId" value="${item.itemId}"/>
+        <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
+            Proceed to Checkout
+        </button>
+    </form:form>
+</div>
 
 </body>
 </html>

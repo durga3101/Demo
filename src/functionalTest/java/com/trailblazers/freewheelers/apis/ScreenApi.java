@@ -172,4 +172,9 @@ public class ScreenApi {
         assertThat(driver.getPageSource(),containsString(failureMessage));
         return this;
     }
+
+    public ScreenApi shouldDisplayPurchasedItem(String itemName) {
+        assertThat(driver.getPageSource(),containsString(itemName));
+        return this;
+    }
 }

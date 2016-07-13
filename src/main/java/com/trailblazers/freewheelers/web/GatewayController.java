@@ -93,7 +93,7 @@ public class GatewayController {
 
             itemService.decreaseQuantityByOne(itemToReserve);
             servletRequest.getSession().setAttribute("itemOnConfirm", null);
-
+            servletRequest.getSession().setAttribute("purchasedItem", itemToReserve);
             return "redirect:/reserve";
         }
 

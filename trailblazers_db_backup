@@ -1,0 +1,513 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: account; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE account (
+    account_id integer NOT NULL,
+    account_name character varying(255) NOT NULL,
+    email_address character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    phone_number character varying(32) NOT NULL,
+    enabled boolean NOT NULL,
+    country character varying(255)
+);
+
+
+ALTER TABLE account OWNER TO postgres;
+
+--
+-- Name: account_account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE account_account_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE account_account_id_seq OWNER TO postgres;
+
+--
+-- Name: account_account_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE account_account_id_seq OWNED BY account.account_id;
+
+
+--
+-- Name: account_role; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE account_role (
+    role_id integer NOT NULL,
+    account_name character varying(255) NOT NULL,
+    role character varying(255) NOT NULL
+);
+
+
+ALTER TABLE account_role OWNER TO postgres;
+
+--
+-- Name: account_role_role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE account_role_role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE account_role_role_id_seq OWNER TO postgres;
+
+--
+-- Name: account_role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE account_role_role_id_seq OWNED BY account_role.role_id;
+
+
+--
+-- Name: changelog; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE changelog (
+    id numeric(20,0) NOT NULL,
+    applied_at character varying(25) NOT NULL,
+    description character varying(255) NOT NULL
+);
+
+
+ALTER TABLE changelog OWNER TO postgres;
+
+--
+-- Name: item; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE item (
+    item_id integer NOT NULL,
+    description character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    price numeric(19,2) NOT NULL,
+    type character varying(255) NOT NULL,
+    quantity bigint NOT NULL,
+    CONSTRAINT item_testcol_non_negative CHECK ((quantity >= 0))
+);
+
+
+ALTER TABLE item OWNER TO postgres;
+
+--
+-- Name: item_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE item_item_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE item_item_id_seq OWNER TO postgres;
+
+--
+-- Name: item_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE item_item_id_seq OWNED BY item.item_id;
+
+
+--
+-- Name: item_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE item_type (
+    item_type_id integer NOT NULL,
+    name character varying(64) NOT NULL
+);
+
+
+ALTER TABLE item_type OWNER TO postgres;
+
+--
+-- Name: item_type_item_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE item_type_item_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE item_type_item_type_id_seq OWNER TO postgres;
+
+--
+-- Name: item_type_item_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE item_type_item_type_id_seq OWNED BY item_type.item_type_id;
+
+
+--
+-- Name: reserve_order; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE reserve_order (
+    order_id integer NOT NULL,
+    account_id bigint NOT NULL,
+    item_id bigint NOT NULL,
+    status character varying(255) NOT NULL,
+    note character varying(255) NOT NULL,
+    reservation_timestamp timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE reserve_order OWNER TO postgres;
+
+--
+-- Name: reserve_order_order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE reserve_order_order_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE reserve_order_order_id_seq OWNER TO postgres;
+
+--
+-- Name: reserve_order_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE reserve_order_order_id_seq OWNED BY reserve_order.order_id;
+
+
+--
+-- Name: survey_entry; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE survey_entry (
+    survey_entry_id integer NOT NULL,
+    account_id bigint NOT NULL,
+    rating integer NOT NULL,
+    comment character varying(255)
+);
+
+
+ALTER TABLE survey_entry OWNER TO postgres;
+
+--
+-- Name: survey_entry_survey_entry_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE survey_entry_survey_entry_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE survey_entry_survey_entry_id_seq OWNER TO postgres;
+
+--
+-- Name: survey_entry_survey_entry_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE survey_entry_survey_entry_id_seq OWNED BY survey_entry.survey_entry_id;
+
+
+--
+-- Name: account_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY account ALTER COLUMN account_id SET DEFAULT nextval('account_account_id_seq'::regclass);
+
+
+--
+-- Name: role_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY account_role ALTER COLUMN role_id SET DEFAULT nextval('account_role_role_id_seq'::regclass);
+
+
+--
+-- Name: item_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY item ALTER COLUMN item_id SET DEFAULT nextval('item_item_id_seq'::regclass);
+
+
+--
+-- Name: item_type_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY item_type ALTER COLUMN item_type_id SET DEFAULT nextval('item_type_item_type_id_seq'::regclass);
+
+
+--
+-- Name: order_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY reserve_order ALTER COLUMN order_id SET DEFAULT nextval('reserve_order_order_id_seq'::regclass);
+
+
+--
+-- Name: survey_entry_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY survey_entry ALTER COLUMN survey_entry_id SET DEFAULT nextval('survey_entry_survey_entry_id_seq'::regclass);
+
+
+--
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY account (account_id, account_name, email_address, password, phone_number, enabled, country) FROM stdin;
+1	AdminCat	admin@example.com	$2a$10$80blsfJDgDBgtoZQbIc/rug3L1wEK9ZkYxvI43FF30My/CV2zu96K		t	\N
+2	UserCat	user@example.com	$2a$10$hPCopeHYjdgCvHzFuedUW.IDVlOlzNTxAlkG3SjJUFGqxsvLBz8Re		t	\N
+13	Jan Plewka	somebody@something.de	$2a$10$4qR0opZe7dxRZAiXqXTYG.2IwuctNP0KLncrhc6TO8FW1Ocr5Ecr.	555-123456	t	UK
+14	Hugo Huser	Hugo-Huser@random-email.com	$2a$10$3XHYNiZh2WDuieNLuazkveZCDM1yNw2H21FAQFos3aWIdOG2x99lG	555-123456	t	UK
+16	name	name@random-email.com	$2a$10$gY/JQbz9kPeXOo8F11UcWeCLpTR.I4cDxKt.qS9FvWaVcbhfDx9z.	555-123456	t	UK
+17	Raju UserOne	raj@email.com	$2a$10$08AVLnEypuiLjei6OX822u3PCG5uGy10WmONQDBHeE4dnspAbFiFW	555-123456	t	UK
+18	Ella UserTwo	otherUnique@email.in	$2a$10$lWadxOgbAiGpqtD2lU/bU.0j8f/4hDS18IsZJlNnn.AgZE7xi/JGe	555-123456	t	UK
+19	Jan Plewka1	abc@gmail.com	$2a$10$ilscWKuIBh4ycnywShRkAeX7Jd6dQ.ODTVS02c8mXiX10uG6GNFX2	555-123456	t	UK
+20	Arno Admin	Arno-Admin@random-email.com	$2a$10$Ab5cfLE9wMgCtJ8uA0oH3OVclHVacL0h2x4yFwsP9GasqQ8/xahu6	555-123456	t	UK
+\.
+
+
+--
+-- Name: account_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('account_account_id_seq', 24, true);
+
+
+--
+-- Data for Name: account_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY account_role (role_id, account_name, role) FROM stdin;
+1	AdminCat	ROLE_ADMIN
+2	UserCat	ROLE_USER
+5	Jan Plewka	ROLE_USER
+6	Hugo Huser	ROLE_USER
+7	Arno Admin	ROLE_ADMIN
+8	name	ROLE_USER
+9	Raju UserOne	ROLE_USER
+10	Ella UserTwo	ROLE_USER
+11	Jan Plewka1	ROLE_USER
+12	Arno Admin	ROLE_ADMIN
+13	NPSAdmin123	ROLE_ADMIN
+14	Promoter	ROLE_USER
+15	NPSAdmin123	ROLE_ADMIN
+16	Promoter	ROLE_USER
+\.
+
+
+--
+-- Name: account_role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('account_role_role_id_seq', 16, true);
+
+
+--
+-- Data for Name: changelog; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY changelog (id, applied_at, description) FROM stdin;
+20140425082801	2016-07-13 15:02:50	create changelog
+20140428101139	2016-07-13 15:02:50	create item
+20140428105002	2016-07-13 15:02:50	create item type
+20140428105329	2016-07-13 15:02:50	create account
+20140428105545	2016-07-13 15:02:50	create account role
+20140428105730	2016-07-13 15:02:50	reserve order
+20140428110040	2016-07-13 15:02:50	survey entry
+20140623115402	2016-07-13 15:02:50	create default accounts and item types
+20160703103444	2016-07-13 15:02:50	alert account add country
+20160709063633	2016-07-13 15:02:50	non negative item quantity
+\.
+
+
+--
+-- Data for Name: item; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY item (item_id, description, name, price, type, quantity) FROM stdin;
+11	4 x red, curved Arrow shape, screw fastening	NEW - Spoke - Reflectors Arrow red	2899.00	ACCESSORIES	1000
+\.
+
+
+--
+-- Name: item_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('item_item_id_seq', 13, true);
+
+
+--
+-- Data for Name: item_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY item_type (item_type_id, name) FROM stdin;
+1	Frames
+2	Accessories
+\.
+
+
+--
+-- Name: item_type_item_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('item_type_item_type_id_seq', 2, true);
+
+
+--
+-- Data for Name: reserve_order; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY reserve_order (order_id, account_id, item_id, status, note, reservation_timestamp) FROM stdin;
+\.
+
+
+--
+-- Name: reserve_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('reserve_order_order_id_seq', 7, true);
+
+
+--
+-- Data for Name: survey_entry; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY survey_entry (survey_entry_id, account_id, rating, comment) FROM stdin;
+\.
+
+
+--
+-- Name: survey_entry_survey_entry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('survey_entry_survey_entry_id_seq', 31, true);
+
+
+--
+-- Name: account_email_address_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY account
+    ADD CONSTRAINT account_email_address_key UNIQUE (email_address);
+
+
+--
+-- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (account_id);
+
+
+--
+-- Name: account_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY account_role
+    ADD CONSTRAINT account_role_pkey PRIMARY KEY (role_id);
+
+
+--
+-- Name: item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY item
+    ADD CONSTRAINT item_pkey PRIMARY KEY (item_id);
+
+
+--
+-- Name: item_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY item_type
+    ADD CONSTRAINT item_type_pkey PRIMARY KEY (item_type_id);
+
+
+--
+-- Name: pk_changelog; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY changelog
+    ADD CONSTRAINT pk_changelog PRIMARY KEY (id);
+
+
+--
+-- Name: reserve_order_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY reserve_order
+    ADD CONSTRAINT reserve_order_pkey PRIMARY KEY (order_id);
+
+
+--
+-- Name: survey_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY survey_entry
+    ADD CONSTRAINT survey_entry_pkey PRIMARY KEY (survey_entry_id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: luke
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM luke;
+GRANT ALL ON SCHEMA public TO luke;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

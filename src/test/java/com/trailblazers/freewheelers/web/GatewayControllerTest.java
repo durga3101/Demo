@@ -51,15 +51,15 @@ public class GatewayControllerTest {
 
     @Test
     public void shouldReturnRedirectToReservePageWhenAPICallToPayentGatewaySucceeds() throws Exception {
+        Account account = mock(Account.class);
+
         when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
 
         item = mock(Item.class);
+
         when(itemService.get(anyLong())).thenReturn(item);
-
-        Account account = mock(Account.class);
-
-
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+
 
         HttpSession mockSession = mock(HttpSession.class);
         when(mockSession.getAttribute("itemOnConfirm")).thenReturn(item);
@@ -67,8 +67,10 @@ public class GatewayControllerTest {
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
         when(mockRequest.getSession()).thenReturn(mockSession);
 
+
         String expected = "redirect:/reserve";
         String actual = gatewayController.post(mockRequest, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
         assertEquals(expected, actual);
     }
 }

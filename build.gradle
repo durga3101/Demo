@@ -36,8 +36,8 @@ task npmClean(type: DefaultTask) << {
 }
 
 ext {
-    expectedLineCoverage = 50
-    expectedBranchCoverage = 60
+    expectedLineCoverage = 71
+    expectedBranchCoverage = 68
 }
 
 [jettyRun, jettyRunWar, jettyStop]*.stopPort = 8081

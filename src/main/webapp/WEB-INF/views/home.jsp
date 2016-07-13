@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" scope="request" value="Home"/>
 <%@ include file="header.jsp" %>
+<div class="page-action">Home</div>
 
 <table>
     <thead>

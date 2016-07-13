@@ -23,7 +23,14 @@
             <td><c:out value="${item.quantity}"/></td>
             <td>
 
-                    <form:form action="cart" method="post" modelAttribute="item">
+                    <%--<form:form action="cart" method="post" modelAttribute="item">--%>
+                        <%--<form:hidden path="itemId" value="${item.itemId}"/>--%>
+                        <%--<button class="reserve-button" type="submit" name="reserve" id="reserve" value="Reserve Item">--%>
+                            <%--Reserve Item--%>
+                        <%--</button>--%>
+                    <%--</form:form>--%>
+
+                    <form:form action="payment/fromHome" method="get" modelAttribute="item">
                         <form:hidden path="itemId" value="${item.itemId}"/>
                         <button class="reserve-button" type="submit" name="reserve" id="reserve" value="Reserve Item">
                             Reserve Item

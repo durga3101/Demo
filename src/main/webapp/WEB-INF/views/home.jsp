@@ -26,8 +26,8 @@
 
                     <form:form action="cart" method="post" modelAttribute="item">
                         <form:hidden path="itemId" value="${item.itemId}"/>
-                        <button class="reserve-button" type="submit" name="reserve" id="reserve" value="Reserve Item">
-                            Reserve Item
+                        <button class="reserve-button add-to-cart" type="submit">
+                            Add to cart
                         </button>
                     </form:form>
 

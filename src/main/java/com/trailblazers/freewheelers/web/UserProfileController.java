@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -35,9 +34,9 @@ public class UserProfileController {
     ItemService itemService = new ItemServiceImpl();
 
     @RequestMapping(value = "/{userName:.*}", method = RequestMethod.GET)
-    public String get(@PathVariable String userName, Model model, Principal principal,HttpServletRequest request) {
-        if(request.getSession().getAttribute("itemForReserve") != null){
-            return  "redirect:/cart";
+    public String get(@PathVariable String userName, Model model, Principal principal, HttpServletRequest request) {
+        if (request.getSession().getAttribute("itemForReserve") != null) {
+            return "redirect:/cart";
         }
         String loggedInUser = decode(principal.getName());
         if (userName == null) {
@@ -45,10 +44,9 @@ public class UserProfileController {
         }
         String role = accountService.getRole(loggedInUser);
 
-        if(ADMIN.equals(role) || loggedInUser.equals(userName)){
+        if (ADMIN.equals(role) || loggedInUser.equals(userName)) {
             loggedInUser = decode(userName);
-        }
-        else {
+        } else {
             return "accessDenied";
         }
 
@@ -62,7 +60,7 @@ public class UserProfileController {
         return "userProfile";
     }
 
-    private String decode(String userName)  {
+    private String decode(String userName) {
         try {
             return URLDecoder.decode(userName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -71,8 +69,8 @@ public class UserProfileController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String get(Model model, Principal principal,HttpServletRequest request) {
-        return get(null, model, principal,request);
+    public String get(Model model, Principal principal, HttpServletRequest request) {
+        return get(null, model, principal, request);
     }
 
     private List<Item> getItemsOrderByUser(Account account) {

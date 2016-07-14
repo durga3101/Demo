@@ -4,15 +4,12 @@ import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,6 +38,6 @@ public class ShippingAddressController {
         String state = request.getParameter("state");
         String postcode = request.getParameter("postcode");
         ShippingAddress shippingAddress = new ShippingAddress(street1,street2,city,state,postcode);
-        return "Success";
+        return "payment";
     }
 }

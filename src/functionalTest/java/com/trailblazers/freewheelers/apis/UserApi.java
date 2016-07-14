@@ -276,8 +276,17 @@ public class UserApi {
         return this;
     }
 
-    public UserApi visits_cart_page() {
+    public void visits_cart_page() {
         driver.get(URLs.shoppingCart());
+    }
+
+
+    public UserApi gentersShippingAddressDetails(String street1, String street2, String city, String state, String postcode) {
+        fillField(driver.findElement(By.id("fld_street1")), street1);
+        fillField(driver.findElement(By.id("fld_street2")), street2);
+        fillField(driver.findElement(By.id("fld_city")), city);
+        fillField(driver.findElement(By.id("fld_state")), state);
+        fillField(driver.findElement(By.id("fld_postcode")), postcode);
         return this;
     }
 }

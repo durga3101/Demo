@@ -93,5 +93,4 @@ public class PaymentTest extends UserJourneyBase{
         screen
                 .shouldSeePaymentFailure();
     }
-
 }

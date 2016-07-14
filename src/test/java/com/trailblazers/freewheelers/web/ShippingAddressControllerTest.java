@@ -1,15 +1,12 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Account;
 import org.junit.Test;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +28,7 @@ public class ShippingAddressControllerTest {
     public void shouldReturnSuccess() throws Exception {
         request = mock(HttpServletRequest.class);
         ShippingAddressController shippingAddressController = new ShippingAddressController();
-        assertEquals("Success",shippingAddressController.getShippingAddress(request));
+        assertEquals("payment",shippingAddressController.getShippingAddress(request));
 
     }
 }

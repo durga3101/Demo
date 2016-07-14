@@ -31,13 +31,6 @@
                         </button>
                     </form:form>
 
-                    <%--<form:form action="cart/skipCart" method="post" modelAttribute="item">--%>
-                        <%--<form:hidden path="itemId" value="${item.itemId}"/>--%>
-                        <%--<button class="reserve-button" type="submit" name="reserve" id="reserve" value="Reserve Item">--%>
-                            <%--Purchase Item--%>
-                        <%--</button>--%>
-                    <%--</form:form>--%>
-
             </td>
         </tr>
     </c:forEach>

@@ -16,8 +16,6 @@ import java.security.Principal;
 @RequestMapping("/cart")
 public class CartController {
 
-    static boolean cameFromHome = false;
-
     private static final String ITEM_FOR_RESERVE = "itemForReserve";
     private static final String ITEM_ON_CONFIRM = "itemOnConfirm";
     private ItemService itemService;
@@ -30,22 +28,15 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String get(HttpServletRequest request, Model model, Principal principal) {
 
-        if(cameFromHome) return "redirect:/payment";
-        else return "cart";
+        if (isPrincipalNull(principal)) return "redirect:/login";
 
-        // Uncomment code below when ready to use cart user flow
-        // DO NOT DELETE
+        Item item = (Item) request.getSession().getAttribute(ITEM_FOR_RESERVE);
+        setModel(model, item);
 
+        setItemAttribute(request, null, ITEM_FOR_RESERVE);
+        setItemAttribute(request, item, ITEM_ON_CONFIRM);
 
-//        if (isPrincipalNull(principal)) return "redirect:/login";
-//
-//        Item item = (Item) request.getSession().getAttribute(ITEM_FOR_RESERVE);
-//        setModel(model, item);
-//
-//        setItemAttribute(request, null, ITEM_FOR_RESERVE);
-//        setItemAttribute(request, item, ITEM_ON_CONFIRM);
-//
-//        return "cart";
+        return "cart";
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -80,26 +71,5 @@ public class CartController {
 
     private void setItemAttribute(HttpServletRequest request, @ModelAttribute Item item, String itemAttribute) {
         request.getSession().setAttribute(itemAttribute, item);
-    }
-
-    @RequestMapping(value="/skipCart", method = RequestMethod.POST)
-    public String addToCartFromHome(HttpServletRequest request,Model model, Principal principal, @ModelAttribute Item item) {
-        cameFromHome = true;
-        if(principal == null){
-            request.getSession().setAttribute("itemForReserve", item);
-            return "redirect:/login";
-        }
-        Item itemToReserve;
-
-        if(item == null){
-            item = (Item)request.getSession().getAttribute("itemForReserve");
-        }
-
-        itemToReserve = itemService.get(item.getItemId());
-        model.addAttribute("item", itemToReserve);
-        request.getSession().setAttribute("itemForReserve", null);
-        request.getSession().setAttribute("itemOnConfirm", item);
-
-        return "redirect:/payment";
     }
 }

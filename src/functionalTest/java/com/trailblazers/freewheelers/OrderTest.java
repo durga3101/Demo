@@ -34,18 +34,6 @@ public class OrderTest extends UserJourneyBase {
                 .should_show_cart_item(Simplon_Frame);
     }
 
-    @Ignore
-    public void shouldGoToHomePageAndWhenUserCancelsOrder(){
-        String Bob = "Bob Buyer";
-        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
-
-        admin
-                .there_is_a_user(Bob, SOME_PASSWORD)
-                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
-
-
-    }
-
     @Test
     public void loggedInUserCancelsOrderThenGoesToHomePage() throws Exception {
         String Raju = "Raju User";
@@ -96,7 +84,9 @@ public class OrderTest extends UserJourneyBase {
 
     }
 
+    //        TODO: Fix this test to reflect new flow - add the payment step
     @Ignore
+    @Test
     public void testOrderProcess() throws Exception {
         String Arno = "Arno Admin";
         String Bob = "Bob Buyer";

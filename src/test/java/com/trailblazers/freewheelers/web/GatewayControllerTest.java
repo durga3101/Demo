@@ -57,7 +57,7 @@ public class GatewayControllerTest {
     }
 
     @Test
-    public void shouldReturnRedirectToReservePageWhenAPICallToPayentGatewaySucceeds() throws Exception {
+    public void shouldReturnRedirectToReservePageWhenAPICallToPaymentGatewaySucceeds() throws Exception {
         Account account = mock(Account.class);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
 

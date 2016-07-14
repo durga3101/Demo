@@ -89,6 +89,7 @@ public class GatewayController {
 
         itemService.decreaseQuantityByOne(itemToReserve);
         servletRequest.getSession().setAttribute("itemOnConfirm", null);
+        servletRequest.getSession().setAttribute("purchasedItem", itemToReserve);
     }
 
     private HttpEntity<String> createRequest(String cc_number, String csc, String expiry_month, String expiry_year, String amount) {

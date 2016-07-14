@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
+import java.security.Principal;
+
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
@@ -28,6 +30,9 @@ public class GatewayControllerTest {
     private ItemServiceImpl itemService;
     private Item item;
     private PaymentRequestBuilderServiceImpl builder;
+    private Principal principal;
+    private AccountService accountService;
+    private ReserveOrderService reserveOrderService;
 
     @Before
     public void setUp() throws Exception {
@@ -35,20 +40,26 @@ public class GatewayControllerTest {
         itemService = mock(ItemServiceImpl.class);
         builder = mock(PaymentRequestBuilderServiceImpl.class);
         when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
-        gatewayController = new GatewayController(restTemplate, itemService, builder);
+
+        accountService = mock(AccountService.class);
+        reserveOrderService = mock(ReserveOrderService.class);
+        principal = mock(Principal.class);
+        gatewayController = new GatewayController(reserveOrderService, accountService, restTemplate, itemService, builder);
+
     }
 
     @Test
     public void shouldReturnRedirectToErrorWhenAPICallToPaymentGatewayFails() throws Exception {
         when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("NET_ERR", HttpStatus.OK));
         String expected = "redirect:/gateway/reserve-error";
-        String actual = gatewayController.post(null, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+        String actual = gatewayController.post(null, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         assertEquals(expected, actual);
     }
 
     @Test
     public void shouldReturnRedirectToReservePageWhenAPICallToPayentGatewaySucceeds() throws Exception {
         Account account = mock(Account.class);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
 
         when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
 
@@ -64,8 +75,7 @@ public class GatewayControllerTest {
 
 
         String expected = "redirect:/reserve";
-        String actual = gatewayController.post(mockRequest, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-
+        String actual = gatewayController.post(mockRequest, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         assertEquals(expected, actual);
     }
 }

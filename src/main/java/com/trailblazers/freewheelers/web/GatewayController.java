@@ -1,7 +1,10 @@
 package com.trailblazers.freewheelers.web;
 
 
+import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/gateway")
@@ -25,12 +30,16 @@ public class GatewayController {
 
     private String url = "http://ops.freewheelers.bike:5000/authorise";
 
+    private final ReserveOrderService reserveOrderService;
+    private final AccountService accountService;
     private RestTemplate restTemplate;
     private ItemService itemService;
     private PaymentRequestBuilderServiceImpl paymentBuilder;
 
     @Autowired
-    public GatewayController(RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder) {
+    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder) {
+        this.reserveOrderService = reserveOrderService;
+        this.accountService = accountService;
         this.restTemplate = restTemplate;
         this.itemService = itemService;
         this.paymentBuilder = paymentBuilder;
@@ -38,6 +47,7 @@ public class GatewayController {
     
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String post(HttpServletRequest servletRequest,
+                       Principal principal,
                        @RequestParam(value = "card_number", required = true) String cc_number,
                        @RequestParam(value = "card_ccv", required = true) String csc,
                        @RequestParam(value = "expiry_month", required = true) String expiry_month,
@@ -50,11 +60,24 @@ public class GatewayController {
         String responseString = response + "";
 
         if (responseString.contains("SUCCESS")) {
-            decreasePurchasedItemQuantityByOne(servletRequest);
+            Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
+            Item itemToReserve = itemService.get(item.getItemId());
+
+            saveReservedOrderToDatabase(principal, itemToReserve);
+
+            decreasePurchasedItemQuantityByOne(servletRequest, itemToReserve);
             return "redirect:/reserve";
         }
 
         return "redirect:/gateway/reserve-error";
+    }
+
+    private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve) {
+        String userName = principal.getName();
+        Account account =  accountService.getAccountIdByName(userName);
+        Date rightNow = new Date();
+        ReserveOrder reserveOrder = new ReserveOrder(account.getAccount_id(), itemToReserve.getItemId(), rightNow );
+        reserveOrderService.save(reserveOrder);
     }
 
     @RequestMapping(value = "reserve-error", method = RequestMethod.GET)
@@ -62,9 +85,8 @@ public class GatewayController {
         return "reserve-error";
     }
 
-    private void decreasePurchasedItemQuantityByOne(HttpServletRequest servletRequest) {
-        Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
-        Item itemToReserve = itemService.get(item.getItemId());
+    private void decreasePurchasedItemQuantityByOne(HttpServletRequest servletRequest, Item itemToReserve) {
+
         itemService.decreaseQuantityByOne(itemToReserve);
         servletRequest.getSession().setAttribute("itemOnConfirm", null);
     }

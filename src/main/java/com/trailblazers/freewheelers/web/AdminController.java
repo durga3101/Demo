@@ -44,7 +44,7 @@ public class AdminController {
         model.addAttribute("reserveOrders",reserveOrders);
     }
 
-    @RequestMapping(method = RequestMethod.POST, params = "update=Save Changes")
+    @RequestMapping(method = RequestMethod.POST)
     public void updateOrder(Model model, String state, String orderId, String note) {
         Long order_id = valueOf(orderId);
         OrderStatus status = OrderStatus.valueOf(state);

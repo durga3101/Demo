@@ -70,13 +70,5 @@ public class HomeController {
     }
 
 
-//    @RequestMapping(value = "/encryption" ,method = RequestMethod.GET)
-//        public  void post(Model model){
-//        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-//        AccountMapper mapper = sqlSession.getMapper(AccountMapper.class);
-//        new UpdateDatabasePassword(mapper, sqlSession).updateDatabaseToEncryptPassword();
-//        System.out.println("button clicked............................");
-//    }
-
 }
 

@@ -2,9 +2,8 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ShippingAddress;
-import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
+import com.trailblazers.freewheelers.service.ShippingAddressService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/shippingAddress")
 public class ShippingAddressController {
-    ItemService itemService = new ItemServiceImpl();
-    AccountService accountService = new AccountServiceImpl();
+    ShippingAddressService shippingAddressService;
+
+    public ShippingAddressController(ShippingAddressService shippingAddressService) {
+        this.shippingAddressService = shippingAddressService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, HttpServletRequest request) {
+        ItemService itemService=new ItemServiceImpl();
         if(request.getSession().getAttribute("itemOnConfirm") == null){
             return "shippingAddress";
         }
@@ -38,6 +41,7 @@ public class ShippingAddressController {
         String state = request.getParameter("state");
         String postcode = request.getParameter("postcode");
         ShippingAddress shippingAddress = new ShippingAddress(street1,street2,city,state,postcode);
+        ShippingAddressService.createShippingAddress(shippingAddress);
         return "payment";
     }
 }

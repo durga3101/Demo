@@ -14,7 +14,7 @@
     </div>
 </c:if>
 
-<form id="shippingAddress_form" action="/shippingAddress/addShippingAddress" method="post" onsubmit="return validateShippingAddressForm();">
+<form id="shippingAddress_form" action="/shippingAddress/addShippingAddress" method="post" onsubmit="return  validateShippingAddressForm();">
     <div id="street1_field">
         <label for="fld_street1">Street 1</label>
         <div class="controls">
@@ -54,10 +54,9 @@
     </div>
     <br>
     <div>
+        <%--<form:form action="/shippingAddress" method="get" modelAttribute="item">--%>
         <div class="controls">
-            <button type="submit" id="Proceed to Payment" value="Submit" onclick="showShippingAddressErrorMessage()">Create
-                Account
-            </button>
+            <button type="submit" id="Proceed to Payment" value="Submit" onclick="showShippingAddressErrorMessage()">Proceed to Payment</button>
         </div>
     </div>
 

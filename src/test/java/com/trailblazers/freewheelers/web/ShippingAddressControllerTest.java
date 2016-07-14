@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
@@ -14,20 +15,23 @@ public class ShippingAddressControllerTest {
 
     private HttpServletRequest request;
     private HttpSession httpSession;
+    private ShippingAddressService shippingAddressService;
+
 
     @Test
     public void shouldReturnShippingAddressPage() throws Exception {
         request = mock(HttpServletRequest.class);
         httpSession =mock(HttpSession.class);
+        shippingAddressService=mock(ShippingAddressService.class);
         when(request.getSession()).thenReturn(httpSession);
         Model model = mock(Model.class);
-        assertEquals("shippingAddress",new ShippingAddressController().get(model, request));
+        assertEquals("shippingAddress",new ShippingAddressController(shippingAddressService).get(model, request));
     }
 
     @Test
-    public void shouldReturnSuccess() throws Exception {
+    public void shouldRedirectToPaymentPage() throws Exception {
         request = mock(HttpServletRequest.class);
-        ShippingAddressController shippingAddressController = new ShippingAddressController();
+        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService);
         assertEquals("payment",shippingAddressController.getShippingAddress(request));
 
     }

@@ -31,24 +31,13 @@ public class ReservedOrderDetail  {
         return item;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
 
     public Account getAccount() {
         return account;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public Date getReserve_time() {
         return reserve_time;
-    }
-
-    public void setReserve_time(Date reserve_time) {
-        this.reserve_time = reserve_time;
     }
 
     public OrderStatus getStatus() {
@@ -63,15 +52,8 @@ public class ReservedOrderDetail  {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
     public String getNote() {
         return note;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
 }

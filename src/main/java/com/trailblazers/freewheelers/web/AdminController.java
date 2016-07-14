@@ -55,13 +55,14 @@ public class AdminController {
     protected List<ReservedOrderDetail> getAllOrders() {
         List<ReserveOrder> reserveOrders = reserveOrderService.getAllOrdersByAccount();
 
-        List<ReservedOrderDetail> reservedOrderDetails = new ArrayList<ReservedOrderDetail>();
+        List<ReservedOrderDetail> reservedOrderDetails = new ArrayList<>();
 
         for (ReserveOrder reserveOrder : reserveOrders) {
             Account account = accountService.get(reserveOrder.getAccount_id());
             Item item = itemService.get(reserveOrder.getItem_id());
 
-            reservedOrderDetails.add(new ReservedOrderDetail(reserveOrder.getOrder_id(),
+            reservedOrderDetails.add(new ReservedOrderDetail(
+                    reserveOrder.getOrder_id(),
                     account,
                     item,
                     reserveOrder.getReservation_timestamp(),

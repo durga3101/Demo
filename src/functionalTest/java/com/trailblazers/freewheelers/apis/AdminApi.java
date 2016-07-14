@@ -72,25 +72,25 @@ public class AdminApi {
 
     private Item itemFor(String itemName, Long quantity) {
         return new Item()
-                    .setName(itemName)
-                    .setQuantity(quantity)
-                    .setDescription("A very nice item.")
-                    .setPrice(SOME_PRICE)
-                    .setType(ItemType.FRAME);
+                .setName(itemName)
+                .setQuantity(quantity)
+                .setDescription("A very nice item.")
+                .setPrice(SOME_PRICE)
+                .setType(ItemType.FRAME);
     }
 
     private Account account_for(String userName, String password) {
-        return new Account(password, true,emailFor(userName),SOME_PHONE_NUMBER,SOME_COUNTRY,userName);
+        return new Account(password, true, emailFor(userName), SOME_PHONE_NUMBER, SOME_COUNTRY, userName);
     }
 
-    public AdminApi there_is_a_survey_entry_for(long accountId,int feedbackType, String comment) {
+    public AdminApi there_is_a_survey_entry_for(long accountId, int feedbackType, String comment) {
         surveyService.submitSurvey(accountId, new SurveyEntry(feedbackType, comment));
         return this;
     }
 
-    public AdminApi there_is_a_uesr_create_country(String userName, String password, String country ) {
+    public AdminApi there_is_a_uesr_create_country(String userName, String password, String country) {
         there_is_no_account_for(userName);
-        accountService.createAccount(new Account(password, true,emailFor(userName),SOME_PHONE_NUMBER,country,userName));
+        accountService.createAccount(new Account(password, true, emailFor(userName), SOME_PHONE_NUMBER, country, userName));
         return this;
     }
 }

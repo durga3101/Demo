@@ -7,9 +7,7 @@ import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
-import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,49 +27,78 @@ import static com.trailblazers.freewheelers.service.impl.AccountServiceImpl.ADMI
 @RequestMapping("/userProfile")
 public class UserProfileController {
 
-    AccountService accountService = new AccountServiceImpl();
-    ReserveOrderService reserveOrderService = new ReserveOrderServiceImpl();
-    ItemService itemService = new ItemServiceImpl();
+    AccountService accountService;
+    ReserveOrderService reserveOrderService;
+    ItemService itemService;
 
-    @RequestMapping(value = "/{userName:.*}", method = RequestMethod.GET)
-    public String get(@PathVariable String userName, Model model, Principal principal, HttpServletRequest request) {
+    @Autowired
+    public UserProfileController(AccountService accountService, ReserveOrderService reserveOrderService, ItemService itemService) {
+        this.accountService = accountService;
+        this.reserveOrderService = reserveOrderService;
+        this.itemService = itemService;
+    }
+
+    @RequestMapping(value = "/{nameFromURL:.*}", method = RequestMethod.GET)
+    public String get(@PathVariable String nameFromURL, Model model, Principal principal, HttpServletRequest request) {
+
+        // TODO:
+        // Redirect to cart when user has reserved item
+        // REMOVE/solve more elegantly - this would redirect anytime you visit /userProfile if logged in!
         if (request.getSession().getAttribute("itemForReserve") != null) {
             return "redirect:/cart";
         }
+
+        nameFromURL = getUserNameIfNull(nameFromURL, principal);
         String loggedInUser = decode(principal.getName());
-        if (userName == null) {
-            userName = principal.getName();
-        }
         String role = accountService.getRole(loggedInUser);
 
-        if (ADMIN.equals(role) || loggedInUser.equals(userName)) {
-            loggedInUser = decode(userName);
-        } else {
+        if (role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
+            model = setModel(model, nameFromURL);
+            return "userProfile";
+        }
+
+        if (!role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
             return "accessDenied";
         }
 
-        Account account = accountService.getAccountIdByName(loggedInUser);
+        setModel(model, loggedInUser);
+        return "userProfile";
 
+    }
+
+
+
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String get(Model model, Principal principal, HttpServletRequest request) {
+        return get(null, model, principal, request);
+    }
+
+    private Model setModel(Model model, String userName) {
+        Account account = accountService.getAccountIdByName(userName);
         List<Item> items = getItemsOrderByUser(account);
-
         model.addAttribute("items", items);
         model.addAttribute("userDetail", account);
+        return model;
+    }
 
-        return "userProfile";
+    private String getUserNameIfNull(String userName, Principal principal) {
+        if (userName == null) {
+            userName = principal.getName();
+        }
+        return decode(userName);
     }
 
     private String decode(String userName) {
         try {
             return URLDecoder.decode(userName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
+            System.out.println("CATCH CATCH CATCH me if you can");
             return userName;
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String get(Model model, Principal principal, HttpServletRequest request) {
-        return get(null, model, principal, request);
-    }
+
 
     private List<Item> getItemsOrderByUser(Account account) {
         List<ReserveOrder> reserveOrders = reserveOrderService.findAllOrdersByAccountId(account.getAccount_id());

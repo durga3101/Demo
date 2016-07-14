@@ -5,6 +5,7 @@ import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.security.Principal;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.*;
@@ -27,25 +27,22 @@ public class GatewayControllerTest {
     private RestTemplate restTemplate;
     private ItemServiceImpl itemService;
     private Item item;
-    private Principal principal;
-    private AccountService accountService;
-    private ReserveOrderService reserveOrderService;
+    private PaymentRequestBuilderServiceImpl builder;
 
     @Before
     public void setUp() throws Exception {
         restTemplate= mock(RestTemplate.class);
         itemService = mock(ItemServiceImpl.class);
-        accountService = mock(AccountService.class);
-        reserveOrderService = mock(ReserveOrderService.class);
-        gatewayController = new GatewayController(reserveOrderService, accountService, restTemplate, itemService);
-        principal = mock(Principal.class);
+        builder = mock(PaymentRequestBuilderServiceImpl.class);
+        when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
+        gatewayController = new GatewayController(restTemplate, itemService, builder);
     }
 
     @Test
     public void shouldReturnRedirectToErrorWhenAPICallToPaymentGatewayFails() throws Exception {
         when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("NET_ERR", HttpStatus.OK));
         String expected = "redirect:/gateway/reserve-error";
-        String actual = gatewayController.post(null, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+        String actual = gatewayController.post(null, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         assertEquals(expected, actual);
     }
 
@@ -58,8 +55,6 @@ public class GatewayControllerTest {
         item = mock(Item.class);
 
         when(itemService.get(anyLong())).thenReturn(item);
-        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
-
 
         HttpSession mockSession = mock(HttpSession.class);
         when(mockSession.getAttribute("itemOnConfirm")).thenReturn(item);
@@ -69,7 +64,7 @@ public class GatewayControllerTest {
 
 
         String expected = "redirect:/reserve";
-        String actual = gatewayController.post(mockRequest, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+        String actual = gatewayController.post(mockRequest, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
         assertEquals(expected, actual);
     }

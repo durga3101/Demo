@@ -1,24 +1,22 @@
-function Survey() {
-    this.showSurvey = function (popUpWindow) {
-        if (!$.cookie("SurveyTaken")) {
-            popUpWindow.show();
-        }
-    }
-}
-
 function SurveyPopUp() {
     var modal = document.getElementById('modal');
-    var modalClose = document.getElementById('modal-close');
+    var modalCloseButton = document.getElementById('modal-close');
 
-    function addModalCloseListener() {
-        modalClose.onclick = function() {
-            modal.style.display = 'none';
+    this.showSurvey = function () {
+        if (!$.cookie("SurveyTaken")) {
+            this.show();
         }
-    }
+    };
 
     this.show = function () {
         modal.style.display = 'block';
     };
+
+    function addModalCloseListener() {
+        modalCloseButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+    }
 
     function init() {
         addModalCloseListener()

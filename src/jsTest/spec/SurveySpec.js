@@ -1,5 +1,4 @@
 describe("survey pop up", function () {
-    var survey;
     var surveyPopUp;
 
     function setUpHTMLFixture() {
@@ -8,12 +7,13 @@ describe("survey pop up", function () {
             .set('\
                 <div id="modal" style="display: none"> \
                     <button id="modal-close">Close</button> \
-                </div>');
+                </div>'
+            );
     }
 
     beforeEach(function () {
         setUpHTMLFixture();
-        survey = new Survey();
+
         surveyPopUp = new SurveyPopUp();
     });
 
@@ -21,7 +21,8 @@ describe("survey pop up", function () {
     	$.cookie = jasmine.createSpy('cookie').and.returnValue(false);
         spyOn(surveyPopUp, 'show');
 
-        survey.showSurvey(surveyPopUp);
+        surveyPopUp.showSurvey();
+
         expect(surveyPopUp.show).toHaveBeenCalled();
     });
 
@@ -29,7 +30,8 @@ describe("survey pop up", function () {
         $.cookie = jasmine.createSpy('cookie').and.returnValue(true);
         spyOn(surveyPopUp, 'show');
 
-        survey.showSurvey(surveyPopUp);
+        surveyPopUp.showSurvey();
+
         expect(surveyPopUp.show).not.toHaveBeenCalled();
     });
 

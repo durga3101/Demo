@@ -59,19 +59,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account createAccount(Account account) {
-        if (accountDoesNotAlreadyExist(account)) {
+        if (accountMapper.getEmailCount(account.getEmail_address()) == 0) {
             create(account, USER);
             return account;
         }
         return null;
-    }
-
-    private boolean accountDoesNotAlreadyExist(Account account){
-        if(accountMapper.getEmailCount(account.getEmail_address()) > 0) return false;
-        else if (accountMapper.getUsernameCount(account.getAccount_name()) > 0) return false;
-        else {
-            return true;
-        }
     }
 
     @Override

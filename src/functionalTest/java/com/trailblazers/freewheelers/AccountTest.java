@@ -119,7 +119,7 @@ public class AccountTest extends UserJourneyBase {
     }
 
     @Test
-    public void newUserShouldAbleToCreateAccountOnlyWhenAccountDoesNotExist() throws Exception {
+    public void newUserShouldAbleToCreateAccountOnlyWhenEmailDoesNotExist() throws Exception {
         String Raju = "Raju UserOne";
         String rajuEmail = "raj@email.com";
         String Ella = "Ella UserTwo";
@@ -138,12 +138,6 @@ public class AccountTest extends UserJourneyBase {
         user
                 .is_logged_out()
                 .creates_an_account(Raju, rajuEmail, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
-
-        screen
-                .shows_message("An error has occurred while creating the account.");
-        user
-                .is_logged_out()
-                .creates_an_account(Raju, ellaEmail, SOME_PASSWORD,SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
                 .shows_message("An error has occurred while creating the account.");

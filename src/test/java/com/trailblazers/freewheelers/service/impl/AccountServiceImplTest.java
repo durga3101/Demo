@@ -55,16 +55,4 @@ public class AccountServiceImplTest {
     private Account getAccountWithoutErrors() {
         return new Account("example", true, "example@example.com", "1234567890", "India", "Example Person");
     }
-
-    @Test
-    public void shouldNotCreateAccountWhenUsernameInUse() {
-        Account account = getAccountWithoutErrors();
-
-        when(accountMapper.getUsernameCount(anyString())).thenReturn(1);
-
-        accountService.createAccount(account);
-
-        verify(accountMapper, never()).insert(account);
-        verify(sqlSession, never()).commit();
-    }
 }

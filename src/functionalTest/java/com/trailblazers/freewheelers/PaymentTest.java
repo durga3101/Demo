@@ -41,7 +41,8 @@ public class PaymentTest extends UserJourneyBase{
                 .visits_home_page()
                 .reservesAnItem()
                 .add_item_to_cart(SIMPLON_FRAME)
-                .visits_cart_page()
+                .visits_cart_page();
+        user
                 .checksOutItem()
                 .entersShippingAddressDetails("Street 1","Street 2","City","Uk","12345678")
                 .entersPaymentDetails(type, card_no, ccv, exp_month, exp_year)
@@ -62,12 +63,7 @@ public class PaymentTest extends UserJourneyBase{
         String exp_month = "11";
         String exp_year = "2020";
 
-        user
-                .logs_in_with(jan, SOME_PASSWORD)
-                .visits_home_page()
-                .reservesAnItem()
-                .visits_cart_page()
-                .checksOutItem()
+        user.checksOutItem()
                 .entersPaymentDetails(type, card_no, ccv, exp_month, exp_year)
                 .submits_payment_details();
         screen
@@ -85,12 +81,7 @@ public class PaymentTest extends UserJourneyBase{
         String exp_month = "11";
         String exp_year = "2020";
 
-        user
-                .logs_in_with(jan, SOME_PASSWORD)
-                .visits_home_page()
-                .reservesAnItem()
-                .visits_cart_page()
-                .checksOutItem()
+        user.checksOutItem()
                 .entersPaymentDetails(type, card_no, ccv, exp_month, exp_year)
                 .submits_payment_details();
         screen

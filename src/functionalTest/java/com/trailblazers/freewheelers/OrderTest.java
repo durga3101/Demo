@@ -145,6 +145,7 @@ public class OrderTest extends UserJourneyBase {
     }
 
     @Test
+    @Ignore
     public void shouldShowTaxesOnCart(){
         String Arno = "Arno Admin";
         String Bob = "Bob Buyer";

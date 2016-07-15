@@ -27,6 +27,7 @@ public class PaymentTest extends UserJourneyBase{
         String jan = "Jan Plewka";
         String type = "Visa";
         String card_no = "4111111111111111";
+        String invalid_card_no = "123";
         String ccv = "534";
 
         String exp_month = "11";

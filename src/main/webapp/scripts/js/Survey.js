@@ -7,7 +7,22 @@ function Survey() {
 }
 
 function SurveyPopUp() {
-    this.show = function () {
-        document.getElementById('modal').style.display = 'block';
+    var modal = document.getElementById('modal');
+    var modalClose = document.getElementById('modal-close');
+
+    function addModalCloseListener() {
+        modalClose.onclick = function() {
+            modal.style.display = 'none';
+        }
     }
+
+    this.show = function () {
+        modal.style.display = 'block';
+    };
+
+    function init() {
+        addModalCloseListener()
+    }
+
+    init()
 }

@@ -275,4 +275,9 @@ public class UserApi {
         selectYear.selectByVisibleText(exp_year);
         return this;
     }
+
+    public UserApi visits_cart_page() {
+        driver.get(URLs.shoppingCart());
+        return this;
+    }
 }

@@ -34,6 +34,7 @@ public class ManageItemsTest extends UserJourneyBase {
 
         user
                 .creates_an_item(Simplon_Frame, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+
         screen
                 .shows_in_manage_item_list(Simplon_Frame);
 
@@ -55,7 +56,6 @@ public class ManageItemsTest extends UserJourneyBase {
         user
                 .changes_item_quantity(from(A_LOT), to(A_LOT))
                 .changes_item_price(from(REALLY_EXPENSIVE), to(REALLY_EXPENSIVE));
-
 
         user
                 .changes_item_name(from(Simplon_Frame), to(New_Simplon_Name))

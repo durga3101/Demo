@@ -9,11 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.HashMap;
+
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -75,6 +78,20 @@ public class ItemServiceImplTest {
 
     }
 
+    @Test
+    public void shouldReturnHashMapWithItemObjectsGivenHashMapWithItemIDs() throws Exception {
+        Item item = getItemWithoutError();
+        HashMap<Long,Long> map = new HashMap<>();
+        map.put(1l, 2l);
+        when(itemMapper.getByItemId(anyLong())).thenReturn(item);
+        HashMap<Item, Long> expectedMap = new HashMap<>();
+        expectedMap.put(item, 2l);
+
+        HashMap<Item, Long> itemMap = itemService.getItemHashMap(map);
+
+        verify(itemMapper).getByItemId(anyLong());
+        assertEquals(expectedMap, itemMap);
+    }
 
     private Item getItemWithoutError() {
         Item item = new Item();

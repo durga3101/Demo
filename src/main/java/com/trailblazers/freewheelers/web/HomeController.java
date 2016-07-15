@@ -33,9 +33,6 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, @ModelAttribute("item") Item item, HttpServletRequest request) {
         session = request.getSession();
-        if (session.getAttribute("itemForReserve") != null) {
-            session.setAttribute("itemForReserve", null);
-        }
         model.addAttribute("items", itemService.getItemsWithNonZeroQuantity());
         return "home";
     }

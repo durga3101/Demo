@@ -29,12 +29,18 @@
     </tr>
     </thead>
 
-    <tr>
-        <td id="item_name" class=""><c:out value="${item.name}"/></td>
-        <td id="item_description"><c:out value="${item.description}"/></td>
-        <td><c:out value="${item.quantity}"/></td>
-        <td id="item_price"><c:out value="${item.price}"/></td>
-    </tr>
+    <c:forEach var="entry" items="${items}" varStatus="row">
+        <c:set var="item" value="${entry.key}" />
+
+        <tr>
+            <td><c:out value="${item.name}"/></td>
+            <td><c:out value="${item.description}"/></td>
+            <td><c:out value="${entry.value}"/></td>
+            <td><c:out value="${item.price}"/></td>
+            <td>
+        </tr>
+    </c:forEach>
+
 </table>
 
 <div style="display: flex; flex-direction: row ; justify-content: center">

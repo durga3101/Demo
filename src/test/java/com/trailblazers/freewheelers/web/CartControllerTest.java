@@ -4,13 +4,13 @@ import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -42,34 +42,33 @@ public class CartControllerTest {
     public void getShouldReturnCartJSPWhenPrincipalIsNotNull() {
         when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
 
-        actual = cartController.get(request, model, principal);
+        actual = cartController.get(item, request, model, principal);
         expected = "cart";
 
         assertEquals(expected, actual);
     }
 
-    // currently ignored due to altered payment flow
-    @Ignore
     @Test
     public void getShouldRedirectToLoginWhenPrincipalIsNull() throws Exception {
-        actual = cartController.get(request, model, null);
+        actual = cartController.get(item, request, model, null);
         expected = "redirect:/login";
 
         assertEquals(expected, actual);
     }
 
     @Test
-    public void postShouldRedirectToLoginWhenPrincipalIsNull() throws Exception {
-        actual = cartController.post(request, model, null, item);
-        expected = "redirect:/login";
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void postShouldAddTheItemToModelWhenUserAddsItemToTheCart() {
+    public void getShouldAddItemsFromCartToModel() {
         when(itemService.get(anyLong())).thenReturn(item);
-        cartController.post(request, model, principal, item);
-        verify(model, times(1)).addAttribute("item", item);
+        cartController.get(item, request, model, principal);
+
+        verify(model).addAttribute(anyString(), anyMap());
+    }
+
+
+    @Test
+    public void shouldGetItemObjsFromServiceAndAddToModel() throws Exception {
+        cartController.get(item, request, model, principal);
+
+        verify(itemService).getItemHashMap((HashMap<Long, Long>) anyMap());
     }
 }

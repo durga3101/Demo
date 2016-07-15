@@ -7,7 +7,10 @@ import com.trailblazers.freewheelers.service.ItemService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -87,6 +90,21 @@ public class ItemServiceImpl implements ItemService {
         }
         item.setQuantity(null);
         return item;
+    }
+
+    @Override
+    public HashMap<Item, Long> getItemHashMap(HashMap<Long, Long> map) {
+
+        HashMap<Item, Long> result = new HashMap<>();
+
+        for (Map.Entry<Long, Long> entry : map.entrySet()) {
+            Long id = entry.getKey();
+            Long quantity = entry.getValue();
+            Item item = get(id);
+            result.put(item, quantity);
+        }
+
+        return result;
     }
 
     private void insertOrUpdate(Item item) {

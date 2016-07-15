@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ONLY_ONE_LEFT;
+import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SOME_PASSWORD;
 
 public class OrderTest extends UserJourneyBase {
@@ -27,11 +28,12 @@ public class OrderTest extends UserJourneyBase {
                 .should_list_item(Simplon_Frame);
 
         user
-                .add_item_to_cart(Simplon_Frame);
+                .add_item_to_cart(Simplon_Frame)
+                .visits_cart_page();
 
         screen
                 .shows_cart_page()
-                .should_show_cart_item(Simplon_Frame);
+                .should_list_item(Simplon_Frame);
     }
 
     @Test
@@ -47,7 +49,8 @@ public class OrderTest extends UserJourneyBase {
         user
                 .logs_in_with(Raju, SOME_PASSWORD)
                 .visits_home_page()
-                .add_item_to_cart(Simplon_Frame);
+                .add_item_to_cart(Simplon_Frame)
+                .visits_cart_page();
 
         screen
                 .shows_cart_page();
@@ -63,15 +66,13 @@ public class OrderTest extends UserJourneyBase {
     @Test
     public void loggedOutUserShouldLoginToReserveAnItem() throws Exception {
         String Raju = "Raju User";
-        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
-
         admin
                 .there_is_a_user(Raju, SOME_PASSWORD)
-                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
+                .there_is_a_frame(SIMPLON_FRAME, ONLY_ONE_LEFT);
 
         user
                 .visits_home_page()
-                .add_item_to_cart(Simplon_Frame);
+                .add_item_to_cart(SIMPLON_FRAME);
 
         screen
                 .shows_login();
@@ -80,7 +81,7 @@ public class OrderTest extends UserJourneyBase {
                 .logs_in_with(Raju, SOME_PASSWORD);
 
         screen
-                .shows_cart_page();
+                .shows_home_page();
 
     }
 

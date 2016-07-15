@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.service;
 
 import com.trailblazers.freewheelers.model.Item;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ItemService {
@@ -25,4 +26,6 @@ public interface ItemService {
     void decreaseQuantityByOne(Item item);
 
     Item saveItem(Item item);
+
+    HashMap<Item, Long> getItemHashMap( HashMap<Long,Long> map);
 }

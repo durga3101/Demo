@@ -41,13 +41,6 @@ public class UserProfileController {
     @RequestMapping(value = "/{nameFromURL:.*}", method = RequestMethod.GET)
     public String get(@PathVariable String nameFromURL, Model model, Principal principal, HttpServletRequest request) {
 
-        // TODO:
-        // Redirect to cart when user has reserved item
-        // REMOVE/solve more elegantly - this would redirect anytime you visit /userProfile if logged in!
-        if (request.getSession().getAttribute("itemForReserve") != null) {
-            return "redirect:/cart";
-        }
-
         nameFromURL = getUserNameIfNull(nameFromURL, principal);
         String loggedInUser = decode(principal.getName());
         String role = accountService.getRole(loggedInUser);

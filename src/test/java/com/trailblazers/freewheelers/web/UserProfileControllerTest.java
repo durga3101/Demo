@@ -1,7 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
@@ -34,7 +33,6 @@ public class UserProfileControllerTest {
     private HttpServletRequest request;
     private UserProfileController userProfileController;
     private HttpSession httpSession;
-    private Item item;
     private Account account;
 
     private AccountService accountService;
@@ -47,7 +45,6 @@ public class UserProfileControllerTest {
         principal = mock(Principal.class);
         request = mock(HttpServletRequest.class);
         httpSession = mock(HttpSession.class);
-        item = mock(Item.class);
         accountService = mock(AccountServiceImpl.class);
         reserveOrderService = mock(ReserveOrderServiceImpl.class);
         itemService = mock(ItemServiceImpl.class);
@@ -62,12 +59,6 @@ public class UserProfileControllerTest {
 
         List<ReserveOrder> emptyList = new ArrayList<>();
         when(reserveOrderService.findAllOrdersByAccountId(anyLong())).thenReturn(emptyList);
-    }
-
-    @Test
-    public void shouldReturnRedirectToCartStringWhenGetIsCalled() {
-        when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
-        assertEquals("redirect:/cart", userProfileController.get(null, model, principal, request));
     }
 
     @Test

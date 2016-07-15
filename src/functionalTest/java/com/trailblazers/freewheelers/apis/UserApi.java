@@ -252,7 +252,6 @@ public class UserApi {
         return this;
     }
 
-
     public UserApi reservesAnItem() {
         driver.findElement(By.className("add-to-cart")).click();
         return this;

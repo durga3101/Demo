@@ -11,12 +11,19 @@ public class ShippingAddressMapperTest extends MapperTestBase {
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         shippingAddressMapper = getSqlSession().getMapper(ShippingAddressMapper.class);
     }
 
     @Test
     public void shouldInsertAndGetAccount() throws Exception {
-        shippingAddress = new ShippingAddress("","","","","");
+        shippingAddress = someShippingAddress();
         shippingAddressMapper.insert(shippingAddress);
+    }
+
+    private ShippingAddress someShippingAddress(){
+        return new ShippingAddress("Some Street 1","Some Street 2", "Some City",
+                "Some State", "Some PostCode");
+
     }
 }

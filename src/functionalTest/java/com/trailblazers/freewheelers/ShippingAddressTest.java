@@ -1,16 +1,11 @@
 package com.trailblazers.freewheelers;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.trailblazers.freewheelers.UserJourneyBase.screen;
-import static com.trailblazers.freewheelers.UserJourneyBase.user;
-
-public class ShippingAddressTest {
+public class ShippingAddressTest extends UserJourneyBase{
     String jan = "Jan Plewka";
     String password = "Password@1";
 
-    @Ignore
     @Test
     public void checkTheShippingAddress() {
         user
@@ -19,6 +14,6 @@ public class ShippingAddressTest {
                 .reservesAnItem()
                 .checksOutItem();
         screen
-            .shouldDisplayShippingAddress();
+            .shouldDisplayShippingAddressPage();
     }
 }

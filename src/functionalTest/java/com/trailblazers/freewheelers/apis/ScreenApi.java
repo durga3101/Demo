@@ -177,7 +177,7 @@ public class ScreenApi {
         assertThat(driver.getPageSource(), containsString(itemName));
         return this;
     }
-    public ScreenApi shouldDisplayShippingAddress() {
+    public ScreenApi shouldDisplayShippingAddressPage() {
         String displayShippingAddressPage = "Shipping Address";
         assertThat(driver.getPageSource(),containsString(displayShippingAddressPage));
         return  this;

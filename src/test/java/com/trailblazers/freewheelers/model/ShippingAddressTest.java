@@ -10,11 +10,11 @@ public class ShippingAddressTest {
     public void checkingAddressDetails() throws Exception {
         ShippingAddress shippingAddress = new ShippingAddress("abc", "def", "pune", "Maharastra", "4111069");
 
-            assertThat(shippingAddress.getStreet1(),is("abc"));
-            assertThat(shippingAddress.getStreet2(), is("def"));
+            assertThat(shippingAddress.getStreet_1(),is("abc"));
+            assertThat(shippingAddress.getStreet_2(), is("def"));
             assertThat(shippingAddress.getCity(), is("pune"));
             assertThat(shippingAddress.getState(), is("Maharastra"));
-            assertThat(shippingAddress.getPostcose(), is("4111069"));
+            assertThat(shippingAddress.getPostcode(), is("4111069"));
             assertThat(shippingAddress.getCountry(), is(""));
         }
 }

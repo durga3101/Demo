@@ -5,6 +5,7 @@ import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ShippingAddressService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/shippingAddress")
 public class ShippingAddressController {
     ShippingAddressService shippingAddressService;
+    private ShippingAddress shippingAddress;
 
+    @Autowired
     public ShippingAddressController(ShippingAddressService shippingAddressService) {
         this.shippingAddressService = shippingAddressService;
     }
@@ -36,12 +39,14 @@ public class ShippingAddressController {
     @RequestMapping(value = {"/addShippingAddress"},method = RequestMethod.POST)
     public String getShippingAddress(HttpServletRequest request){
         String street1 = request.getParameter("street1");
+        System.out.println(street1);
         String street2 = request.getParameter("street2");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
         String postcode = request.getParameter("postcode");
-        ShippingAddress shippingAddress = new ShippingAddress(street1,street2,city,state,postcode);
-        ShippingAddressService.createShippingAddress(shippingAddress);
+        //ShippingAddress shippingAddress = null;
+        shippingAddress = new ShippingAddress(street1,street2,city,state,postcode);
+        shippingAddressService.createShippingAddress(shippingAddress);
         return "payment";
     }
 }

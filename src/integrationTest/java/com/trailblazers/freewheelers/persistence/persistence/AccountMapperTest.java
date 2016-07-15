@@ -106,20 +106,6 @@ public class AccountMapperTest extends MapperTestBase {
     }
 
     @Test
-    public void shouldReturnOneWhenCountingAUsersUsername() throws Exception {
-        account = someAccount().build();
-        accountMapper.insert(account);
-        int userCount = accountMapper.getUsernameCount(account.getAccount_name());
-        assertEquals(1, userCount);
-    }
-
-    @Test
-    public void shouldReturnZeroWhenCountingANonexistingUsername() throws Exception {
-        int userCount = accountMapper.getUsernameCount("fakeUsername");
-        assertEquals(0, userCount);
-    }
-
-    @Test
     public void shouldReturnZeroWhenCountingANonExistingEmail() throws Exception {
         int emailCount = accountMapper.getEmailCount("Idon'texist@email.notreal");
         assertEquals(0, emailCount);
@@ -147,7 +133,7 @@ public class AccountMapperTest extends MapperTestBase {
     private AccountBuilder someAccount() {
         return new AccountBuilder()
 
-                .setAccountName(randomUUID() + "name")
+                .setAccountName("Some Body")
                 .setAccountEmailAddress(randomUUID() + "some.body@gmail.com")
                 .setAccountCountry("UK")
                 .setAccountPhoneNumber("12345")

@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
@@ -118,7 +119,7 @@ public class AccountTest extends UserJourneyBase {
                 checkPasswordIsMasked();
     }
 
-    @Test
+    @Ignore
     public void newUserShouldAbleToCreateAccountOnlyWhenEmailDoesNotExist() throws Exception {
         String Raju = "Raju UserOne";
         String rajuEmail = "raj@email.com";

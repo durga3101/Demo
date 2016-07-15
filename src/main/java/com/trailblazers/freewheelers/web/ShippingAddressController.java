@@ -47,6 +47,6 @@ public class ShippingAddressController {
         //ShippingAddress shippingAddress = null;
         shippingAddress = new ShippingAddress(street1,street2,city,state,postcode);
         shippingAddressService.createShippingAddress(shippingAddress);
-        return "payment";
+        return "redirect:/payment";
     }
 }

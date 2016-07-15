@@ -281,7 +281,7 @@ public class UserApi {
     }
 
 
-    public UserApi gentersShippingAddressDetails(String street1, String street2, String city, String state, String postcode) {
+    public UserApi entersShippingAddressDetails(String street1, String street2, String city, String state, String postcode) {
         fillField(driver.findElement(By.id("fld_street1")), street1);
         fillField(driver.findElement(By.id("fld_street2")), street2);
         fillField(driver.findElement(By.id("fld_city")), city);

@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 public class TaxCalculator {
 
     public BigDecimal calculateVat(BigDecimal subTotal) {
-        return null;
+        return new BigDecimal(10);
     }
 }

@@ -10,9 +10,9 @@ public class CountryTest {
 
     @Test
     public void shouldReturnTrueIfCountriesAreSame() {
-        Country first = new Country(COUNTRY_NAME, 20, 0);
-        Country second = new Country(COUNTRY_NAME, 20, 0);
-        assertTrue(first.equals(second));
+        Country first = new Country();
+        Country second = new Country();
+        assert(first.equals(second));
     }
 
 

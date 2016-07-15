@@ -248,6 +248,17 @@ INSERT INTO survey_entry (account_id, rating, comment)
 SELECT account.account_id, 7,'It''s OK. Wish I didn''t have to log in after creating an account though'
 FROM account WHERE account.account_name = 'SurveyUser';
 
+
+--
+-- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+INSERT INTO country VALUES (1,'UK',20,0 );
+INSERT INTO country VALUES (2,'ITALY',21,0 );
+INSERT INTO country VALUES (3,'CANADA',0,9 );
+INSERT INTO country VALUES (4,'USA',0,5.4 );
+INSERT INTO country VALUES (5,'GERMANY',19,0);
+INSERT INTO country VALUES (6,'FRANCE',19.6,0);
+
 --
 -- PostgreSQL database dump complete
 --

@@ -4,6 +4,7 @@ import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
 import com.trailblazers.freewheelers.helpers.URLs;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -194,5 +195,10 @@ public class ScreenApi {
         assertThat(driver.getPageSource(), not(containsString(ADD_TO_CART_FAILURE)));
         assertThat(driver.getPageSource(), not(containsString("Awesome, you added")));
         return this;
+    }
+
+    public void show_tax_on_cart_page(String tax) {
+        assertThat(driver.findElement(By.id("vat")).getText(), containsString(tax));
+
     }
 }

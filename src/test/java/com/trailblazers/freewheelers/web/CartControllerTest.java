@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashMap;
 
@@ -28,6 +29,7 @@ public class CartControllerTest {
     private String actual;
     private String expected;
     private HashMap<Item, Long> emptyCart;
+    private TaxCalculator taxCalculator;
 
     @Before
     public void setUp() throws Exception {
@@ -35,7 +37,9 @@ public class CartControllerTest {
         principal = mock(Principal.class);
         request = mock(HttpServletRequest.class);
         itemService = mock(ItemServiceImpl.class);
-        cartController = new CartController(itemService);
+        taxCalculator = mock(TaxCalculator.class);
+
+        cartController = new CartController(itemService,taxCalculator);
         httpSession = mock(HttpSession.class);
         item = mock(Item.class);
         when(request.getSession()).thenReturn(httpSession);
@@ -93,5 +97,14 @@ public class CartControllerTest {
 
         verify(model).addAttribute(EMPTY_CART, true);
         verify(model, never()).addAttribute(ITEMS, emptyCart);
+    }
+
+    @Test
+    public void shouldCalculateTaxWhenGetIsCalled() throws Exception {
+        BigDecimal subTotal = new BigDecimal(50);
+        when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
+        when(item.getPrice()).thenReturn(subTotal);
+        cartController.get(item,request, model, principal);
+        verify(taxCalculator).calculateVat(subTotal);
     }
 }

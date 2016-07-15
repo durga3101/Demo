@@ -51,6 +51,9 @@
 
         </table>
 
+        <div>VAT:</div>
+        <div id ="vat"> ${vat}</div>
+
         <div id="shopping-actions" style="display: flex; flex-direction: row ; justify-content: center">
             <form:form action="/" method="get">
                 <button type="submit" id="cancel">

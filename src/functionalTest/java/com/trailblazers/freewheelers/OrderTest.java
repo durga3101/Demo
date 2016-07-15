@@ -144,4 +144,28 @@ public class OrderTest extends UserJourneyBase {
                 .there_should_be_an_order(Simplon_Frame, "IN_PROGRESS");
     }
 
+    @Test
+    public void shouldShowTaxesOnCart(){
+        String Arno = "Arno Admin";
+        String Bob = "Bob Buyer";
+        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
+
+        admin
+                .there_is_an_admin(Arno, SOME_PASSWORD)
+                .there_is_a_user(Bob, SOME_PASSWORD)
+                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
+
+        user
+                .logs_in_with(Bob, SOME_PASSWORD)
+                .visits_home_page();
+
+        screen
+                .should_list_item(Simplon_Frame);
+
+        user
+                .add_item_to_cart(Simplon_Frame);
+        screen
+                .show_tax_on_cart_page("9.998");
+
+    }
 }

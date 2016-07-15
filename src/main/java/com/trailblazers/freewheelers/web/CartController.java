@@ -25,11 +25,13 @@ public class CartController {
     private static final String SHOPPING_CART = "shoppingCart";
 
     private ItemService itemService;
+    private TaxCalculator taxCalculator;
 
 
     @Autowired
-    public CartController(ItemService itemService) {
+    public CartController(ItemService itemService, TaxCalculator taxCalculator) {
         this.itemService = itemService;
+        this.taxCalculator = taxCalculator;
     }
 
     @RequestMapping(method = RequestMethod.GET)

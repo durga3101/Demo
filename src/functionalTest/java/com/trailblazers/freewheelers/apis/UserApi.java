@@ -200,7 +200,7 @@ public class UserApi {
 
     public UserApi waits_for_survey_popup() throws InterruptedException {
         waitForSurveyToShow();
-        focusOnPopUpWindow();
+//        focusOnPopUpWindow();
         return this;
     }
 
@@ -212,16 +212,8 @@ public class UserApi {
     }
 
     private void waitForSurveyToShow() {
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(5, TimeUnit.SECONDS)
-                .pollingEvery(100, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class);
-
-        wait.until(new Function<WebDriver, Boolean>() {
-            public Boolean apply(WebDriver driver)  {
-                return driver.getWindowHandles().size() > 1;
-            }
-        });
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("modal")));
     }
 
     public void openCreateAccountPage() {

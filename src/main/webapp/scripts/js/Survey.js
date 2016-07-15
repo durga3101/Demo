@@ -2,13 +2,13 @@ function SurveyPopUp() {
     var modal = document.getElementById('modal');
     var modalCloseButton = document.getElementById('modal-close');
 
-    this.showSurvey = function () {
+    this.showSurvey = function() {
         if (!$.cookie("SurveyTaken")) {
             this.show();
         }
     };
 
-    this.show = function () {
+    this.show = function() {
         modal.style.display = 'block';
     };
 

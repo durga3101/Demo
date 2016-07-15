@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
     $(function () {
-        new Survey().showSurvey(new SurveyPopUp());
+        new SurveyPopUp().showSurvey();
     })
 </script>
 
@@ -28,5 +28,9 @@
     </tr>
     </tbody>
 </table>
+
+<div id="modal" style="display: none">
+    <button id="modal-close">Close</button>
+</div>
 
 <%@ include file="footer.jsp" %>

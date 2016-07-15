@@ -24,7 +24,7 @@
             <td><c:out value="${item.quantity}"/></td>
             <td>
 
-                    <form:form action="/cart" method="post" modelAttribute="item">
+                    <form:form action="cart" method="post" modelAttribute="item">
                         <form:hidden path="itemId" value="${item.itemId}"/>
                         <button class="reserve-button add-to-cart" type="submit">
                             Add to cart

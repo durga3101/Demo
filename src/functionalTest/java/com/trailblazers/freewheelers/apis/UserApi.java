@@ -258,6 +258,8 @@ public class UserApi {
     }
 
     public UserApi checksOutItem() {
+        String pageText = driver.findElement(By.className("body")).getText();
+        System.out.println("PAGETEXT: " + pageText);
         driver.findElement(By.id("checkout")).click();
         return this;
     }

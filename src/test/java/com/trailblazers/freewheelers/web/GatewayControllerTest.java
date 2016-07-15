@@ -21,6 +21,7 @@ import java.security.Principal;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class GatewayControllerTest {
@@ -77,5 +78,26 @@ public class GatewayControllerTest {
         String expected = "redirect:/reserve";
         String actual = gatewayController.post(mockRequest, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldAddItemToPurchasedItemAttributeWhenPurchaseIsSuccessful() {
+        Account account = mock(Account.class);
+
+        when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
+
+        item = mock(Item.class);
+        when(itemService.get(anyLong())).thenReturn(item);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+
+        HttpSession mockSession = mock(HttpSession.class);
+        when(mockSession.getAttribute("itemOnConfirm")).thenReturn(item);
+
+        HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+        when(mockRequest.getSession()).thenReturn(mockSession);
+
+        gatewayController.post(mockRequest, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(mockSession).setAttribute("purchasedItem", item);
     }
 }

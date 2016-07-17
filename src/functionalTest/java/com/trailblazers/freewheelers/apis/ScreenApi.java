@@ -11,7 +11,9 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ADD_TO_CART_FAILURE;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertTrue;
@@ -34,6 +36,10 @@ public class ScreenApi {
 
     public void shows_message(String expectedMessage) {
         expectMessageWithClass(expectedMessage, "page-action");
+    }
+
+    public void showsMessageInClass(String expectedMessage, String expectedClass) {
+        expectMessageWithClass(expectedMessage, expectedClass);
     }
 
     public void shows_in_navbar(String expectedMessage) {
@@ -177,9 +183,16 @@ public class ScreenApi {
         assertThat(driver.getPageSource(), containsString(itemName));
         return this;
     }
+
     public ScreenApi shouldDisplayShippingAddressPage() {
         String displayShippingAddressPage = "Shipping Address";
-        assertThat(driver.getPageSource(),containsString(displayShippingAddressPage));
-        return  this;
+        assertThat(driver.getPageSource(), containsString(displayShippingAddressPage));
+        return this;
+    }
+
+    public ScreenApi shouldNotShowAddToCartMessages() {
+        assertThat(driver.getPageSource(), not(containsString(ADD_TO_CART_FAILURE)));
+        assertThat(driver.getPageSource(), not(containsString("Awesome, you added")));
+        return this;
     }
 }

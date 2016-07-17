@@ -3,9 +3,7 @@ package com.trailblazers.freewheelers;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ONLY_ONE_LEFT;
-import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
-import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SOME_PASSWORD;
+import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class OrderTest extends UserJourneyBase {
 
@@ -13,27 +11,40 @@ public class OrderTest extends UserJourneyBase {
     public void loggedInUserViewsShoppingCartWithItem() throws Exception {
         String Arno = "Arno Admin";
         String Bob = "Bob Buyer";
-        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
 
         admin
-                .there_is_an_admin(Arno, SOME_PASSWORD)
+                .there_is_no_account_for(Bob)
                 .there_is_a_user(Bob, SOME_PASSWORD)
-                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
+                .there_is_no_item(SIMPLON_FRAME)
+                .there_is_a_frame(SIMPLON_FRAME, ONLY_ONE_LEFT);
 
         user
                 .logs_in_with(Bob, SOME_PASSWORD)
                 .visits_home_page();
 
         screen
-                .should_list_item(Simplon_Frame);
+                .should_list_item(SIMPLON_FRAME)
+                .shouldNotShowAddToCartMessages();
 
         user
-                .add_item_to_cart(Simplon_Frame)
+                .add_item_to_cart(SIMPLON_FRAME);
+
+        screen
+                .showsMessageInClass(ADD_TO_CART_SUCCESS, ADD_TO_CART_SUCCESS_CLASS);
+
+        user
+                .add_item_to_cart(SIMPLON_FRAME);
+
+        screen
+                .should_list_item(SIMPLON_FRAME)
+                .showsMessageInClass(ADD_TO_CART_FAILURE, ADD_TO_CART_FAILURE_CLASS);
+
+        user
                 .visits_cart_page();
 
         screen
                 .shows_cart_page()
-                .should_list_item(Simplon_Frame);
+                .should_list_item(SIMPLON_FRAME);
     }
 
     @Test

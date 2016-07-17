@@ -21,11 +21,16 @@ public class SyntaxSugar {
     public static final String NO_QUANTITY = "";
     public static final long ONLY_ONE_LEFT = 1L;
     public static final long ONLY_TWO_LEFT = 2L;
-
+    public static final String ADDED_ITEM = "addedItemName";
+    public static final String HAS_ITEM_BEEN_ADDED = "hasItemBeenAdded";
+    public static String SIMPLON_FRAME = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
+    public static final String ADD_TO_CART_SUCCESS = "Awesome, you added " + SIMPLON_FRAME + " to your cart! You can keep shopping, or view my cart.";
+    public static final String ADD_TO_CART_FAILURE = "Sorry, that item is temporarily out of stock. Please check back later!";
+    public static final String ADD_TO_CART_SUCCESS_CLASS = "add-to-cart-success";
+    public static final String ADD_TO_CART_FAILURE_CLASS = "add-to-cart-failure";
     public static final String REALLY_EXPENSIVE = "2899.00";
     public static final String SOME_DESCRIPTION = "4 x red, curved Arrow shape, screw fastening";
     public static final String A_LOT = "1000";
-    public static String SIMPLON_FRAME = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
     public static String CHROME_FRAME = "Chrome Pavo 5 Ultra " + System.currentTimeMillis();
     public static String PASSWORD_ERROR = "Must enter a password!";
     public static String PASSWORD_FIELD = "confirmPassword_field";

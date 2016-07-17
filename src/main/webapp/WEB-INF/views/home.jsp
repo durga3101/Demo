@@ -3,6 +3,19 @@
 <%@ include file="header.jsp" %>
 <div class="page-action">Home</div>
 
+<c:if test="${isItemOutOfStock}">
+    <div id="out-of-stock" class="add-to-cart-failure page-action">
+        Sorry, that item is temporarily out of stock. Please check back later!
+    </div>
+</c:if>
+<c:if test="${hasItemBeenAdded}">
+    <div id="added-to-cart" class="add-to-cart-success page-action">
+        Awesome, you added <b><c:out value="${addedItemName}" /></b> to your cart!
+
+        You can keep shopping, or <a href="/cart">view my cart</a>.
+    </div>
+</c:if>
+
 <table>
     <thead>
     <tr>

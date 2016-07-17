@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.web;
 
-//import com.trailblazers.freewheelers.UpdateDatabasePassword;
 
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
@@ -20,10 +19,18 @@ import java.util.HashMap;
 @RequestMapping("/")
 public class HomeController {
 
-    public static final String SHOPPING_CART = "shoppingCart";
+    private static final String OUT_OF_STOCK = "isItemOutOfStock";
+    private static final String ADDED_ITEM = "addedItemName";
+    private static final String HAS_ITEM_BEEN_ADDED = "hasItemBeenAdded";
+    private static final String SHOPPING_CART = "shoppingCart";
+    private static final String ITEMS = "items";
+    private static final String ITEM = "item";
+    private static final String HOME = "home";
+    private static final String REDIRECT_LOGIN = "redirect:/login";
+    private static final String REDIRECT_HOME = "redirect:/";
+    private static final String CAME_FROM_POST = "cameFromPost";
     private ItemService itemService;
     private HttpSession session;
-    private HashMap<Long, Long> emptyShoppingCart;
 
     @Autowired
     public HomeController(ItemService itemService) {
@@ -31,35 +38,80 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String get(Model model, @ModelAttribute("item") Item item, HttpServletRequest request) {
+    public String get(Model model, @ModelAttribute(ITEM) Item item, HttpServletRequest request) {
         session = request.getSession();
-        model.addAttribute("items", itemService.getItemsWithNonZeroQuantity());
-        return "home";
+
+        if (session.getAttribute(CAME_FROM_POST) == false) hideItemMessages(session);
+
+        setModel(model, session);
+        session.setAttribute(CAME_FROM_POST, false);
+
+        return HOME;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String post(@ModelAttribute("item") Item item, HttpServletRequest request, Principal principal) {
+    public String post(@ModelAttribute(ITEM) Item item, HttpServletRequest request, Principal principal) {
         session = request.getSession();
+        Long itemId = item.getItemId();
+        String itemName = itemService.get(itemId).getName();
+        Long quantityInStock = itemService.get(itemId).getQuantity();
+        HashMap<Long, Long> shoppingCart = createCartIfNull(session);
+        Long quantityInCart = getQuantityInCart(itemId, shoppingCart);
 
-        if (session.getAttribute(SHOPPING_CART) == null) {
-            emptyShoppingCart = new HashMap<>();
-            session.setAttribute(SHOPPING_CART, emptyShoppingCart);
-        }
+        session.setAttribute(CAME_FROM_POST, true);
 
-        HashMap<Long, Long> shoppingCart = (HashMap<Long, Long>) session.getAttribute(SHOPPING_CART);
+        if (quantityInCart > quantityInStock) return cancelItem(session);
 
-        Long quantity = 1L;
+        updateCart(itemId, shoppingCart, quantityInCart);
+        updateSession(session, itemName, shoppingCart);
 
-        if (shoppingCart.containsKey(item.getItemId())) {
-            quantity += shoppingCart.remove(item.getItemId());
-        }
+        if (isPrincipalNull(principal)) return REDIRECT_LOGIN;
 
-        shoppingCart.put(item.getItemId(), quantity);
+        return REDIRECT_HOME;
+    }
+
+    private static void hideItemMessages(HttpSession session) {
+        session.setAttribute(OUT_OF_STOCK, false);
+        session.setAttribute(ADDED_ITEM, null);
+        session.setAttribute(HAS_ITEM_BEEN_ADDED, false);
+    }
+
+    private void setModel(Model model, HttpSession session) {
+        model.addAttribute(ITEMS, itemService.getItemsWithNonZeroQuantity());
+    }
+
+    private void updateSession(HttpSession session, String itemName, HashMap<Long, Long> shoppingCart) {
         session.setAttribute(SHOPPING_CART, shoppingCart);
+        session.setAttribute(ADDED_ITEM, itemName);
+        session.setAttribute(HAS_ITEM_BEEN_ADDED, true);
+        session.setAttribute(OUT_OF_STOCK, false);
+    }
 
-        if (isPrincipalNull(principal)) { return "redirect:/login"; }
+    private void updateCart(Long itemId, HashMap<Long, Long> shoppingCart, Long quantityInCart) {
+        shoppingCart.remove(itemId);
+        shoppingCart.put(itemId, quantityInCart);
+    }
 
-        return "redirect:/";
+    private long getQuantityInCart(Long itemId, HashMap<Long, Long> shoppingCart) {
+        return shoppingCart.containsKey(itemId)
+                ?
+                1L + shoppingCart.get(itemId) : 1L;
+    }
+
+    private HashMap<Long, Long> createCartIfNull(HttpSession session) {
+        return getCart(this.session) == null
+                ?
+                new HashMap<Long, Long>() : getCart(this.session);
+    }
+
+    private static String cancelItem(HttpSession session) {
+        session.setAttribute(OUT_OF_STOCK, true);
+        session.setAttribute(HAS_ITEM_BEEN_ADDED, false);
+        return REDIRECT_HOME;
+    }
+
+    private HashMap<Long, Long> getCart(HttpSession session) {
+        return (HashMap<Long, Long>) session.getAttribute(SHOPPING_CART);
     }
 
     private boolean isPrincipalNull(Principal principal) {

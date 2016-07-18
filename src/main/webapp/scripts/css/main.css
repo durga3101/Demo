@@ -128,3 +128,11 @@ table {
 .mandatory {
     color: indianred;
 }
+
+#added-to-cart {
+    background-color: #66CC44;
+}
+
+#out-of-stock {
+    background-color: #880000;
+}

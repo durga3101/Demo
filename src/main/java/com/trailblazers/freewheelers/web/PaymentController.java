@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
+    private static final String SHOPPING_CART = "shoppingCart";
 
     ItemService itemService;
 
@@ -26,10 +32,27 @@ public class PaymentController {
         if(request.getSession().getAttribute("itemOnConfirm") == null){
             return "payment";
         }
-        Item item = (Item) request.getSession().getAttribute("itemOnConfirm");
-        Item itemOnConfirm = itemService.get(item.getItemId());
-        model.addAttribute("totalAmount", itemOnConfirm.getPrice());
+//        model.addAttribute("totalAmount", ));
         return "payment";
     }
 
+    public BigDecimal getTotalPriceFromCart(HttpServletRequest request) {
+        HashMap<Item, Long> cart = getItemsFromCart(request);
+        BigDecimal totalPrice = new BigDecimal(0);
+        for (Map.Entry<Item, Long> entry : cart.entrySet()) {
+            BigDecimal itemPrice = entry.getKey().getPrice();
+
+            for(int quantity = 0; quantity < entry.getValue(); quantity++){
+                totalPrice = totalPrice.add(itemPrice);
+            }
+
+        }
+        totalPrice = totalPrice.setScale(2, RoundingMode.CEILING);
+        return totalPrice;
+    }
+
+    private HashMap<Item, Long> getItemsFromCart(HttpServletRequest request) {
+        HashMap<Long, Long> cart = (HashMap<Long, Long>) request.getSession().getAttribute(SHOPPING_CART);
+        return itemService.getItemHashMap(cart);
+    }
 }

@@ -289,7 +289,7 @@ public class UserApi {
 
         return this;
     }
-    
+
     public UserApi click_proceed_to_payment_button() {
         driver.findElement(By.id("proceed_to_payment")).click();
 

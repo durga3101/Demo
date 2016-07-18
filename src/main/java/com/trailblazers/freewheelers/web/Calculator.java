@@ -4,7 +4,6 @@ import com.trailblazers.freewheelers.model.Country;
 import com.trailblazers.freewheelers.model.Item;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import java.util.Map;
 
 @Component
 public class Calculator {
-
     public BigDecimal getSubtotalFromCart(HashMap<Item, Long> cart) {
         BigDecimal totalPrice = new BigDecimal(0);
         for (Map.Entry<Item, Long> entry : cart.entrySet()) {
@@ -31,5 +29,11 @@ public class Calculator {
         BigDecimal vat_rate = new BigDecimal(country.getVat_rate()/100);
         BigDecimal vat = subTotal.multiply(vat_rate);
         return vat.setScale(2,BigDecimal.ROUND_HALF_UP);
+    }
+
+    public BigDecimal calculateDuty(BigDecimal subtotal, Country country) {
+        BigDecimal duty_rate = new BigDecimal(country.getDuty_rate() / 100);
+        BigDecimal duty = subtotal.multiply(duty_rate);
+        return duty.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 }

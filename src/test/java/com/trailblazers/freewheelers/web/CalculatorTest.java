@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -57,5 +56,29 @@ public class CalculatorTest {
 
         assertEquals(new BigDecimal("80.00"), calculator.getSubtotalFromCart(cartMap));
 
+    }
+
+
+
+    @Test
+    public void shouldReturnDutyOf54IfInputIs1000WhenCountryNameIsUSA(){
+        BigDecimal expected = new BigDecimal(54.00);
+        country.setCountry_name("USA");
+        country.setDuty_rate(5.4);
+
+        BigDecimal actual = calculator.calculateDuty(new BigDecimal(1000),country);
+
+        assertEquals(expected.intValue(),actual.intValue());
+    }
+
+    @Test
+    public void shouldReturnDutyOf54IfInputIs1000WhenCountryNameIsCanada() {
+        BigDecimal expected = new BigDecimal(9.00);
+        country.setCountry_name("CANADA");
+        country.setDuty_rate(9);
+
+        BigDecimal actual = calculator.calculateDuty(new BigDecimal(100), country);
+
+        assertEquals(expected.intValue(), actual.intValue());
     }
 }

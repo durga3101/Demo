@@ -59,9 +59,7 @@ public class CartController {
         }
         Country country = countryService.getByName(countryName);
 
-        BigDecimal vat = calculator.calculateVat(new BigDecimal(100),country);
-
-        setVat(model,vat.toString());
+        setTax(model,country,items);
 
         if (items.isEmpty()) {
             model.addAttribute(EMPTY_CART, true);
@@ -73,8 +71,17 @@ public class CartController {
         return CART;
     }
 
-    private void setVat(Model model, @ModelAttribute  String attributeValue) {
-        model.addAttribute("vat",attributeValue);
+    private void setTax(Model model, Country country, HashMap<Item, Long> items) {
+        BigDecimal subtotal = calculator.getSubtotalFromCart(items);
+        BigDecimal vat = calculator.calculateVat(subtotal,country);
+        BigDecimal duty = calculator.calculateDuty(subtotal,country);
+        BigDecimal grandTotal = subtotal.add(vat).add(duty);
+        model.addAttribute("vatRate",country.getVat_rate());
+        model.addAttribute("dutyRate",country.getDuty_rate());
+        model.addAttribute("vat",vat);
+        model.addAttribute("duty",duty);
+        model.addAttribute("subTotal",subtotal.toString());
+        model.addAttribute("grandTotal",grandTotal.toString());
 
     }
 

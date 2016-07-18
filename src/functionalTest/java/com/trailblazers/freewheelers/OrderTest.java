@@ -51,7 +51,8 @@ public class OrderTest extends UserJourneyBase {
 
         screen
                 .shows_cart_page()
-                .should_list_item(SIMPLON_FRAME);
+                .should_list_item(SIMPLON_FRAME)
+                .show_tax_on_cart_page("60.00");
     }
 
     @Test
@@ -104,8 +105,8 @@ public class OrderTest extends UserJourneyBase {
     }
 
     //        TODO: Fix this test to reflect new flow - add the payment step
-    @Ignore
     @Test
+    @Ignore
     public void testOrderProcess() throws Exception {
         String Arno = "Arno Admin";
         String Bob = "Bob Buyer";
@@ -122,13 +123,17 @@ public class OrderTest extends UserJourneyBase {
 
         screen
                 .should_list_item(Simplon_Frame);
+        user
+                .add_item_to_cart(Simplon_Frame)
+                .visits_cart_page();
+        screen
+                .show_tax_on_cart_page("60.00");
 
         user
-                .add_to_cart_and_check_out(Simplon_Frame)
                 .visits_home_page();
 
-        screen
-                .should_not_list_item(Simplon_Frame);
+//        screen
+//                .should_not_list_item(Simplon_Frame);
 
         user
                 .logs_in_with(Arno, SOME_PASSWORD)
@@ -144,29 +149,4 @@ public class OrderTest extends UserJourneyBase {
                 .there_should_be_an_order(Simplon_Frame, "IN_PROGRESS");
     }
 
-    @Test
-    @Ignore // Ignored because still working on UI
-    public void shouldShowTaxesOnCart(){
-        String Arno = "Arno Admin";
-        String Bob = "Bob Buyer";
-        String Simplon_Frame = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
-
-        admin
-                .there_is_an_admin(Arno, SOME_PASSWORD)
-                .there_is_a_user(Bob, SOME_PASSWORD)
-                .there_is_a_frame(Simplon_Frame, ONLY_ONE_LEFT);
-
-        user
-                .logs_in_with(Bob, SOME_PASSWORD)
-                .visits_home_page();
-
-        screen
-                .should_list_item(Simplon_Frame);
-
-        user
-                .add_item_to_cart(Simplon_Frame);
-        screen
-                .show_tax_on_cart_page("9.998");
-
-    }
 }

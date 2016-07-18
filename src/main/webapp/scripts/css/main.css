@@ -32,14 +32,29 @@ body {
     margin-bottom: 20px;
 }
 
-a { text-decoration: none; }
-a:link { color: black; }
-a:visited { color: black; }
-a:hover { color: grey; }
-a:active { color: gray; }
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: grey;
+}
+
+a:active {
+    color: gray;
+}
 
 .header-link {
-    font-weight: bold; border-bottom: 2px solid gray;
+    font-weight: bold;
+    border-bottom: 2px solid gray;
 }
 
 .navbar-text {
@@ -59,7 +74,6 @@ a:active { color: gray; }
     background-color: indianred;
 }
 
-
 form label {
     display: inline-block;
     width: 10em;
@@ -70,7 +84,7 @@ form label {
     margin-bottom: 10px;
 }
 
-form input[type=text],[type=password] {
+form input[type=text], [type=password] {
     padding: 4px;
     width: 14em;
     font-size: 12pt;
@@ -85,7 +99,7 @@ select {
 button {
     font-size: 12pt;
     padding: 5px;
-    background-color:lightgray;
+    background-color: lightgray;
     border-radius: 4px;
 }
 
@@ -116,12 +130,12 @@ table {
 .text-error {
     color: indianred;
 }
+
 #shippingAddress_form .text-error,
 #add_item .text-error,
 #update_item .text-error,
 #register_form .text-error,
-#credit_card_form .text-error
- {
+#credit_card_form .text-error {
     display: none;
 }
 
@@ -160,4 +174,26 @@ table {
 #cart-header-image {
     height: 12px;
     margin-right: 3px;
+}
+
+#tax {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 64%;
+    align-content: flex-end;
+}
+
+#shopping-actions {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#shopping-actions form:first-of-type {
+    float: left;
+    margin: auto;
+}
+#shopping-actions form:last-of-type {
+    float: right;
+    margin: auto;
 }

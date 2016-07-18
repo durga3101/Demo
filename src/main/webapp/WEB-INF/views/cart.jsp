@@ -18,10 +18,10 @@
 <body>
 <div class="page-action">Your Shopping Cart</div>
 <c:choose>
-    <c:when test = "${isCartEmpty}">
+    <c:when test="${isCartEmpty}">
         <div id="empty-cart" class="empty-cart page-action">
             <p>Oops, looks like your cart is empty. <b><a href="/">Add items</a></b></p>
-            <img src="http://fe867b.medialib.glogster.com/media/a4/a4ef95c9cd527f82a9008124821afed35bc57f7ccdf8373d54a52be381ffb48b/empty.jpg" />
+            <img src="http://fe867b.medialib.glogster.com/media/a4/a4ef95c9cd527f82a9008124821afed35bc57f7ccdf8373d54a52be381ffb48b/empty.jpg"/>
         </div>
 
     </c:when>
@@ -38,7 +38,7 @@
             </thead>
 
             <c:forEach var="entry" items="${items}" varStatus="row">
-                <c:set var="item" value="${entry.key}" />
+                <c:set var="item" value="${entry.key}"/>
 
                 <tr>
                     <td><c:out value="${item.name}"/></td>
@@ -48,13 +48,34 @@
                     <td>
                 </tr>
             </c:forEach>
-
         </table>
 
-        <div>VAT:</div>
-        <div id ="vat"> ${vat}</div>
-
-        <div id="shopping-actions" style="display: flex; flex-direction: row ; justify-content: center">
+        <%--<div id ="tax">--%>
+        <%--VAT: <div id="vat"> ${vat}</div>--%>
+        <%--<br>--%>
+        <%--Duty: <div>${duty}</div>--%>
+        <%--</div>--%>
+        <table id="tax">
+            <tr>
+                <td>Sub Total:</td>
+                <td>${subTotal}</td>
+            </tr>
+            <tr>
+                <td >Vat (${vatRate}%):</td>
+                <td>${vat}</td>
+            </tr>
+            <tr>
+                <td>Duty (${dutyRate}%):</td>
+                <td>${duty}</td>
+            </tr>
+            <tr>
+                <td>Grand Total:</td>
+                <td id="grand_total">${grandTotal}</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <div id="shopping-actions">
             <form:form action="/" method="get">
                 <button type="submit" id="cancel">
                     Continue Shopping
@@ -63,11 +84,12 @@
 
             <form:form action="/shippingAddress" method="get" modelAttribute="item">
                 <form:hidden path="itemId" value="${item.itemId}"/>
-                <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
+                <button type="submit" name="checkout" id="checkout" value="Reserve Item">
                     Proceed to Checkout
                 </button>
             </form:form>
         </div>
+
     </c:otherwise>
 </c:choose>
 

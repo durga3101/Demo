@@ -198,17 +198,4 @@ public class ScreenApi {
         return this;
     }
 
-    public void show_tax_on_cart_page(String tax) {
-        assertThat(driver.findElement(By.id("vat")).getText(), containsString(tax));
-    }
-
-    public ScreenApi checkCountryFromDatabase(String country) {
-        assertThat(driver.getPageSource(), containsString(country));
-        return this;
-    }
-
-    public void visits_payment_page() {
-        //driver.get(URLs.payment());
-        assertThat(driver.getCurrentUrl(), is(URLs.payment()));
-    }
 }

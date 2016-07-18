@@ -39,6 +39,8 @@ public class CartControllerTest {
     private CountryService countryService;
     private Country country;
     private BigDecimal subTotal;
+    private BigDecimal vat;
+    private BigDecimal duty;
 
     @Before
     public void setUp() throws Exception {
@@ -68,6 +70,15 @@ public class CartControllerTest {
         when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10));
 
         when(principal.getName()).thenReturn("ABC");
+
+
+        vat = new BigDecimal(10);
+        duty = new BigDecimal(56);
+        when(calculator.getSubtotalFromCart((HashMap<Item, Long>) any())).thenReturn(new BigDecimal(100));
+        when(calculator.calculateVat((BigDecimal) any(), (Country) any())).thenReturn(vat);
+        when(calculator.calculateDuty((BigDecimal) any(), (Country) any())).thenReturn(duty);
+        when(item.getPrice()).thenReturn(subTotal);
+
     }
 
     @Test
@@ -128,16 +139,28 @@ public class CartControllerTest {
     @Test
     public void shouldCalculateTaxWhenGetIsCalled() throws Exception {
 
-        BigDecimal vat = new BigDecimal(10);
-        when(calculator.calculateVat(subTotal,country)).thenReturn(vat);
-        when(item.getPrice()).thenReturn(subTotal);
-
-        when(principal.getName()).thenReturn("ABC");
         String result = cartController.get(item,request, model, principal);
         assertEquals("cart",result);
         verify(calculator).calculateVat((BigDecimal)any(), (Country)any());
         verify(accountService).getAccountIdByName("ABC");
         verify(countryService).getByName(SOME_COUNTRY);
-        verify(model).addAttribute("vat",vat.toString());
+        verify(model).addAttribute("vatRate",country.getVat_rate());
+        verify(model).addAttribute("dutyRate",country.getDuty_rate());
+        verify(model,atLeast(1)).addAttribute("vat",vat);
+        verify(model,atLeast(1)).addAttribute("duty",duty);
     }
+
+//    @Test
+//    public void shouldCheckNoOfItemsWhenGetIsCalled(){
+//
+//        HashMap<Long,Long> items = mock(HashMap.class);
+//        BigDecimal vat = new BigDecimal(10);
+//        when(taxCalculator.calculateVat(subTotal,country)).thenReturn(vat);
+//        when(item.getPrice()).thenReturn(subTotal);
+//        when(principal.getName()).thenReturn("ABC");
+//        when(httpSession.getAttribute("shoppingCart")).thenReturn(items);
+//        String result = cartController.get(item,request, model, principal);
+//
+//        verify(items,atLeast(1)).get(anyLong());
+//    }
 }

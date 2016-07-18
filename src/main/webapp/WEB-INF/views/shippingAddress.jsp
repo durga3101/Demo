@@ -73,6 +73,13 @@
                 Back to Cart
             </button>
             <button type="submit" id="proceedToPayment" value="Submit" onclick="showShippingAddressErrorMessage()">Proceed to Payment</button>
+        </div>
+            <%--<form:form action="/shippingAddress" method="get" modelAttribute="item">--%>
+                <%--<form:hidden path="itemId" value="${item.itemId}"/>--%>
+                <%--<button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">--%>
+                    <%--Proceed to Checkout--%>
+                <%--</button>--%>
+            <%--</form:form>--%>
     </div>
 
 </form>

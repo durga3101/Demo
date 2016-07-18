@@ -7,6 +7,6 @@
 
 <div class="page-action">Oh no! There was an error processing your request. Please try again.</div>
 
-<button id="back_to_checkout" onclick="location.href = '/payment';">Back to checkout</button>
+<button onclick="location.href = '/payment';">Back to checkout</button>
 
 <%@ include file="footer.jsp" %>

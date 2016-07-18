@@ -45,12 +45,6 @@ public class SyntaxSugar {
     public static String VALID_CARD_NO = "4111111111111111";
     public static String REVOKED_CARD_NO = "4111111111111116";
 
-    public static String ADDRESS_1 = "An Address";
-    public static String ADDRESS_2 = "More of address";
-    public static String CITY = "A city";
-    public static String STATE = "A state";
-    public static String POSTAL_CODE = "12345";
-
     public static String ENTER_CARD_NO = "Must enter a card number.";
     public static String CARD_NO_FIELD = "card_number_field";
 

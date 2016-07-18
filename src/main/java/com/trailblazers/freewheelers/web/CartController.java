@@ -80,7 +80,7 @@ public class CartController {
         BigDecimal subtotal = calculator.getSubtotalFromCart(items);
         BigDecimal vat = calculator.calculateVat(subtotal,country);
         BigDecimal duty = calculator.calculateDuty(subtotal,country);
-        BigDecimal grandTotal = subtotal.add(vat).add(duty);
+        BigDecimal grandTotal = calculator.getGrandTotal(items,country);
         model.addAttribute("vatRate",country.getVat_rate());
         model.addAttribute("dutyRate",country.getDuty_rate());
         model.addAttribute("vat",vat);

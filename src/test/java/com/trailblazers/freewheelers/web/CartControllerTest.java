@@ -68,6 +68,7 @@ public class CartControllerTest {
         when(countryService.getByName(SOME_COUNTRY)).thenReturn(country);
         when(accountService.getAccountIdByName("ABC")).thenReturn(account);
         when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10));
+        when(calculator.getGrandTotal((HashMap)any(),(Country)any())).thenReturn(new BigDecimal(60));
 
         when(principal.getName()).thenReturn("ABC");
 

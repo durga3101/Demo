@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.matches;
+import static org.mockito.Mockito.*;
 
 public class CalculatorTest {
 
@@ -80,5 +80,30 @@ public class CalculatorTest {
         BigDecimal actual = calculator.calculateDuty(new BigDecimal(100), country);
 
         assertEquals(expected.intValue(), actual.intValue());
+    }
+
+    @Test
+    public void shouldreturnGrandTotalOf60IfSubtotalIs50With10tax(){
+        BigDecimal expected = new BigDecimal(60.00);
+        Country country = mock(Country.class);
+        Item item = mock(Item.class);
+        HashMap<Item, Long> cartMap = new HashMap<>();
+        cartMap.put(item,1l);
+        when(country.getDuty_rate()).thenReturn(0.0);
+        when(country.getVat_rate()).thenReturn(20.0);
+        when(item.getPrice()).thenReturn(new BigDecimal(50));
+
+        BigDecimal actual = calculator.getGrandTotal(cartMap,country);
+        assertEquals(expected.intValue(),actual.intValue());
+    }
+
+    @Test
+    public void shouldReturnThreeIfCartContainsThreeItems(){
+        HashMap<Item, Long> cartMap = mock(HashMap.class);
+        when(cartMap.size()).thenReturn(3);
+        when(cartMap.get(any())).thenReturn(1l).thenReturn(1l).thenReturn(1l);
+
+        calculator.noOfItemsInCart(cartMap);
+        verify(cartMap,times(3)).get(any());
     }
 }

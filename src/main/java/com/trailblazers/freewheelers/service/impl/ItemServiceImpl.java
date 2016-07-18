@@ -7,6 +7,7 @@ import com.trailblazers.freewheelers.service.ItemService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final SqlSession sqlSession;
     private final ItemMapper itemMapper;
+    private static final String SHOPPING_CART = "shoppingCart";
 
     public ItemServiceImpl() {
         this(MyBatisUtil.getSqlSessionFactory().openSession());
@@ -93,9 +95,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public HashMap<Item, Long> getItemHashMap(HashMap<Long, Long> map) {
+    public HashMap<Item, Long> getItemHashMap(HttpServletRequest request) {
 
         HashMap<Item, Long> result = new HashMap<>();
+
+        HashMap<Long, Long> map = (HashMap<Long, Long>) request.getSession().getAttribute(SHOPPING_CART);
 
         if (map == null) return result;
 

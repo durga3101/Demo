@@ -34,7 +34,7 @@ public class CartControllerTest {
     private String actual;
     private String expected;
     private HashMap<Item, Long> emptyCart;
-    private TaxCalculator taxCalculator;
+    private Calculator calculator;
     private AccountService accountService;
     private CountryService countryService;
     private Country country;
@@ -46,10 +46,10 @@ public class CartControllerTest {
         principal = mock(Principal.class);
         request = mock(HttpServletRequest.class);
         itemService = mock(ItemServiceImpl.class);
-        taxCalculator = mock(TaxCalculator.class);
+        calculator = mock(Calculator.class);
         accountService = mock(AccountService.class);
         countryService = mock(CountryService.class);
-        cartController = new CartController(itemService,taxCalculator, accountService,countryService);
+        cartController = new CartController(itemService, calculator, accountService,countryService);
         httpSession = mock(HttpSession.class);
         item = mock(Item.class);
 
@@ -65,7 +65,7 @@ public class CartControllerTest {
         when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
         when(countryService.getByName(SOME_COUNTRY)).thenReturn(country);
         when(accountService.getAccountIdByName("ABC")).thenReturn(account);
-        when(taxCalculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10));
+        when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10));
 
         when(principal.getName()).thenReturn("ABC");
     }
@@ -104,11 +104,11 @@ public class CartControllerTest {
         HashMap<Item, Long> fullCart = emptyCart;
         fullCart.put(item, 1L);
 
-        when(itemService.getItemHashMap((HashMap<Long, Long>) anyMap())).thenReturn(fullCart);
+        when(itemService.getItemHashMap(any(HttpServletRequest.class))).thenReturn(fullCart);
 
         cartController.get(item, request, model, principal);
 
-        verify(itemService).getItemHashMap((HashMap<Long, Long>) anyMap());
+        verify(itemService).getItemHashMap(any(HttpServletRequest.class));
         verify(model).addAttribute(ITEMS, fullCart);
         verify(model).addAttribute(EMPTY_CART, false);
         verify(model, never()).addAttribute(EMPTY_CART, true);
@@ -117,7 +117,7 @@ public class CartControllerTest {
 
     @Test
     public void getShouldSetEmptyCartAttributeOnModelIfCartIsEmpty() throws Exception {
-        when(itemService.getItemHashMap((HashMap<Long, Long>) anyMap())).thenReturn(emptyCart);
+        when(itemService.getItemHashMap(any(HttpServletRequest.class))).thenReturn(emptyCart);
 
         cartController.get(item, request, model, principal);
 
@@ -129,13 +129,13 @@ public class CartControllerTest {
     public void shouldCalculateTaxWhenGetIsCalled() throws Exception {
 
         BigDecimal vat = new BigDecimal(10);
-        when(taxCalculator.calculateVat(subTotal,country)).thenReturn(vat);
+        when(calculator.calculateVat(subTotal,country)).thenReturn(vat);
         when(item.getPrice()).thenReturn(subTotal);
 
         when(principal.getName()).thenReturn("ABC");
         String result = cartController.get(item,request, model, principal);
         assertEquals("cart",result);
-        verify(taxCalculator).calculateVat((BigDecimal)any(), (Country)any());
+        verify(calculator).calculateVat((BigDecimal)any(), (Country)any());
         verify(accountService).getAccountIdByName("ABC");
         verify(countryService).getByName(SOME_COUNTRY);
         verify(model).addAttribute("vat",vat.toString());

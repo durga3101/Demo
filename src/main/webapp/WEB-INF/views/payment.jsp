@@ -18,7 +18,7 @@
 <h2 align="center">Payment Details</h2>
 <div class="summary">
     <h3 align="center">Order Summary</h3>
-    <p align="center">£${totalAmount}
+    <p align="center">£<c:out value="${subtotal}" /></p>
 </div>
 <div class="cardEntry">
     <h3 id="details">Credit Card Details</h3>
@@ -91,7 +91,7 @@
             <span class="text-error">Must enter an expiration date.</span>
         </div>
 
-        <input type="hidden" name="amount" value=${totalAmount}>
+        <input type="hidden" name="amount" value=${subtotal}>
 
         <div id="submit" class="controls">
             <button type="submit" id="makePayment" value="Submit" onclick="return showCardErrorMessage()">Make Payment

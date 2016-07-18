@@ -9,11 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -25,6 +29,9 @@ public class ItemServiceImplTest {
 
     @Mock
     SqlSession sqlSession;
+
+    @Mock
+    Item item;
 
     ItemService itemService;
     private HashMap<Long, Long> map;
@@ -75,6 +82,18 @@ public class ItemServiceImplTest {
         Item savedItem = itemService.saveItem(item);
 
         assertNotEquals(savedItem.getQuantity(), negativeNumber);
+
+    }
+    @Test
+    public void shouldUpdateItemWhenItemAlreadyExists(){
+        when(item.getQuantity()).thenReturn(10l);
+        when(item.getPrice()).thenReturn(new BigDecimal(20));
+        when(item.getItemId()).thenReturn(5l);
+
+        Item savedItem = itemService.saveItem(item);
+
+        verify(itemMapper).update(item);
+
 
     }
 

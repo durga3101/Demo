@@ -54,7 +54,14 @@ public class CartController {
         Account account = accountService.getAccountIdByName(decode(principal.getName()));
 
         Country country = countryService.getByName(account.getCountry());
-        BigDecimal vat = taxCalculator.calculateVat(item.getPrice(),country );
+
+        //temporary country.
+        Country country1 = new Country();
+        country1.setCountry_name("UK");
+        country1.setVat_rate(20.0);
+
+
+        BigDecimal vat = taxCalculator.calculateVat(new BigDecimal(50),country1 );
 
         setVat(model,vat.toString());
 

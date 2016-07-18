@@ -9,19 +9,26 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class ReserveOrderServiceImpl implements ReserveOrderService{
+public class ReserveOrderServiceImpl implements ReserveOrderService {
+
 
     private final SqlSession sqlSession;
     private final ReserveOrderMapper orderMapper;
 
     public ReserveOrderServiceImpl() {
-        sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+        this(MyBatisUtil.getSqlSessionFactory().openSession());
+    }
+
+    public ReserveOrderServiceImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
         orderMapper = sqlSession.getMapper(ReserveOrderMapper.class);
+
     }
 
     public void save(ReserveOrder reserveOrder) {
-        if(reserveOrder.getOrder_id() == null) {
+        if (reserveOrder.getOrder_id() == null) {
             orderMapper.insert(reserveOrder);
         } else {
             orderMapper.update(reserveOrder);

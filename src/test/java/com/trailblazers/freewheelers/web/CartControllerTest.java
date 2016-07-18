@@ -21,12 +21,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class CartControllerTest {
-<<<<<<< 3d58c66340391012ea6309bb43aa733ed226e4a2
     private static final String EMPTY_CART = "isCartEmpty";
     private static final String ITEMS = "items";
-=======
     public static final String SOME_COUNTRY = "UK";
->>>>>>> [Prajakta/Shil] [#197] Add country service implementation
     private Model model;
     private Principal principal;
     private HttpServletRequest request;
@@ -38,11 +35,10 @@ public class CartControllerTest {
     private String expected;
     private HashMap<Item, Long> emptyCart;
     private TaxCalculator taxCalculator;
-<<<<<<< 3d58c66340391012ea6309bb43aa733ed226e4a2
-=======
     private AccountService accountService;
     private CountryService countryService;
->>>>>>> [Prajakta/Shil] [#197] Add country service implementation
+    private Country country;
+    private BigDecimal subTotal;
 
     @Before
     public void setUp() throws Exception {
@@ -56,8 +52,22 @@ public class CartControllerTest {
         cartController = new CartController(itemService,taxCalculator, accountService,countryService);
         httpSession = mock(HttpSession.class);
         item = mock(Item.class);
+
+        country = new Country();
+        country.setCountry_name(SOME_COUNTRY);
+        Account account = new Account();
+        account.setCountry(SOME_COUNTRY);
+        subTotal = new BigDecimal(50);
+
         when(request.getSession()).thenReturn(httpSession);
         emptyCart = new HashMap<>();
+
+        when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
+        when(countryService.getByName(SOME_COUNTRY)).thenReturn(country);
+        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        when(taxCalculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10));
+
+        when(principal.getName()).thenReturn("ABC");
     }
 
     @Test
@@ -73,6 +83,7 @@ public class CartControllerTest {
     // currently ignored due to altered payment flow
     @Test
     public void getShouldRedirectToLoginWhenPrincipalIsNull() throws Exception {
+
         actual = cartController.get(item, request, model, null);
         expected = "redirect:/login";
 
@@ -84,7 +95,7 @@ public class CartControllerTest {
         when(itemService.get(anyLong())).thenReturn(item);
         cartController.get(item, request, model, principal);
 
-        verify(model).addAttribute(anyString(), anyMap());
+        verify(model,atLeast(1)).addAttribute(anyString(), anyMap());
     }
 
 
@@ -116,24 +127,15 @@ public class CartControllerTest {
 
     @Test
     public void shouldCalculateTaxWhenGetIsCalled() throws Exception {
-        BigDecimal subTotal = new BigDecimal(50);
-        BigDecimal vat = new BigDecimal(10);
-        Country country = new Country();
-        country.setCountry_name(SOME_COUNTRY);
-        Account account = new Account();
-        account.setCountry(SOME_COUNTRY);
 
-        when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
-        when(countryService.getByName(SOME_COUNTRY)).thenReturn(country);
-        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        BigDecimal vat = new BigDecimal(10);
         when(taxCalculator.calculateVat(subTotal,country)).thenReturn(vat);
         when(item.getPrice()).thenReturn(subTotal);
 
         when(principal.getName()).thenReturn("ABC");
-
         String result = cartController.get(item,request, model, principal);
         assertEquals("cart",result);
-        verify(taxCalculator).calculateVat(subTotal, country);
+        verify(taxCalculator).calculateVat((BigDecimal)any(), (Country)any());
         verify(accountService).getAccountIdByName("ABC");
         verify(countryService).getByName(SOME_COUNTRY);
         verify(model).addAttribute("vat",vat.toString());

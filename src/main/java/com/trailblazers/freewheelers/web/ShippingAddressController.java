@@ -18,15 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 public class ShippingAddressController {
     ShippingAddressService shippingAddressService;
     private ShippingAddress shippingAddress;
+    private ItemService itemService;
 
     @Autowired
-    public ShippingAddressController(ShippingAddressService shippingAddressService) {
+    public ShippingAddressController(ShippingAddressService shippingAddressService, ItemService itemService) {
         this.shippingAddressService = shippingAddressService;
+        this.itemService = itemService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, HttpServletRequest request) {
-        ItemService itemService=new ItemServiceImpl();
         if(request.getSession().getAttribute("itemOnConfirm") == null){
             return "shippingAddress";
         }

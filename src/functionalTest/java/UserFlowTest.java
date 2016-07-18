@@ -19,6 +19,7 @@ public class UserFlowTest extends UserJourneyBase{
                 .there_is_a_frame(CHROME_FRAME, ONLY_TWO_LEFT);
 
         user
+                .clearCookies()
                 .creates_an_account(RAJU, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
 
         screen
@@ -63,7 +64,8 @@ public class UserFlowTest extends UserJourneyBase{
                 .should_list_item(CHROME_FRAME);
 
         user
-                .click_checkout_button()
+                .click_checkout_button();
+        user
                 .entersShippingAddressDetails(ADDRESS_1, ADDRESS_2, CITY, STATE, POSTAL_CODE);
         user
                 .click_proceed_to_payment_button();

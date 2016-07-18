@@ -17,6 +17,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ScreenApi {
@@ -199,6 +200,9 @@ public class ScreenApi {
 
     public void show_tax_on_cart_page(String tax) {
         assertThat(driver.findElement(By.id("vat")).getText(), containsString(tax));
+    }
 
+    public void checkCountryFromDatabase(String country) {
+        assertThat(driver.getPageSource(), containsString(country));
     }
 }

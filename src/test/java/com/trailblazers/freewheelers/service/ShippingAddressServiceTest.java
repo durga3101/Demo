@@ -41,7 +41,7 @@ public class ShippingAddressServiceTest {
     }
 
     private ShippingAddress someShippingAddress(){
-        return new ShippingAddress("Some Street 1","Some Street 2", "Some City",
+        return new ShippingAddress(1L, "Some Street 1","Some Street 2", "Some City",
                 "Some State", "Some PostCode");
 
     }

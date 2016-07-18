@@ -1,7 +1,10 @@
 package com.trailblazers.freewheelers.web;
 
+
+import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ShippingAddress;
+import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.junit.Before;
@@ -12,7 +15,10 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import java.math.BigDecimal;
+import java.security.Principal;
+import java.util.HashMap;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.any;
@@ -24,36 +30,66 @@ public class ShippingAddressControllerTest {
     private HttpSession httpSession;
     private ShippingAddressService shippingAddressService;
     private ShippingAddress shippingAddress;
+    private AccountService accountService;
+    private ShippingAddressController shippingAddressController;
     private Model model;
+    private Principal principal;
     private ItemService itemService;
+    private Account account;
 
     @Before
     public void setUp() throws Exception {
-        shippingAddressService=mock(ShippingAddressService.class);
+        shippingAddressService = mock(ShippingAddressService.class);
         shippingAddress = mock(ShippingAddress.class);
+        accountService = mock(AccountService.class);
+        model = mock(Model.class);
+        request = mock(HttpServletRequest.class);
+        httpSession = mock(HttpSession.class);
+        principal = mock(Principal.class);
         itemService = mock(ItemService.class);
+        account = mock(Account.class);
+        shippingAddressController = new ShippingAddressController(shippingAddressService, accountService, itemService);
 
     }
 
     @Test
     public void shouldReturnShippingAddressPage() throws Exception {
-        request = mock(HttpServletRequest.class);
-        httpSession =mock(HttpSession.class);
         when(request.getSession()).thenReturn(httpSession);
-        assertEquals("shippingAddress",new ShippingAddressController(shippingAddressService,itemService).get(model, request));
+        assertEquals("shippingAddress", shippingAddressController.get(model, request, principal));
     }
 
     @Test
     public void shouldRedirectToPaymentPage() throws Exception {
         request = getHttpServletRequest();
-        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,itemService);
-        shippingAddressController.getShippingAddress(request);
-        //assertEquals("payment",shippingAddressController.getShippingAddress(request));
+        String userName = "ABC";
+        when(principal.getName()).thenReturn(userName);
+        when(accountService.getAccountIdByName(userName)).thenReturn(account);
+        shippingAddressController.getShippingAddress(request, principal);
+
         ArgumentCaptor<ShippingAddress> captor = ArgumentCaptor.forClass(ShippingAddress.class);
         verify(shippingAddressService).createShippingAddress(captor.capture());
         verify(shippingAddressService).createShippingAddress(any(ShippingAddress.class));
+        verify(accountService).getAccountIdByName(userName);
+    }
+
+    @Test
+    public void shouldGetUserCountryFromAccountDatabase() throws Exception {
+        HashMap<Long, Long> cart = mock(HashMap.class);
+        Item item = mock(Item.class);
+        when(request.getSession()).thenReturn(httpSession);
+        when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
+        when(itemService.get((Long) any())).thenReturn(item);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(account.getCountry()).thenReturn("UK");
+        when(principal.getName()).thenReturn("ABC");
+
+        shippingAddressController.get(model, request, principal);
+
+        verify(accountService).getAccountIdByName(anyString());
+        verify(model).addAttribute("country", "UK");
 
     }
+
     private HttpServletRequest getHttpServletRequest() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameter("street1")).thenReturn("street1");
@@ -66,19 +102,21 @@ public class ShippingAddressControllerTest {
     }
 
     @Test
-    public void shouldAddAmountInTheModel(){
+    public void shouldAddAmountInTheModel() {
         request = mock(HttpServletRequest.class);
-        httpSession =mock(HttpSession.class);
+        httpSession = mock(HttpSession.class);
         model = mock(Model.class);
         Item item = mock(Item.class);
         when(request.getSession()).thenReturn(httpSession);
         when(httpSession.getAttribute(anyString())).thenReturn(item);
         when(itemService.get(anyLong())).thenReturn(item);
+        when(principal.getName()).thenReturn("ABC");
+        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
 
-        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,itemService);
-        shippingAddressController.get(model,request);
+        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,accountService, itemService);
+        shippingAddressController.get(model, request, principal);
 
-        verify(model).addAttribute(anyString(),(BigDecimal)any());
+        verify(model).addAttribute(anyString(), (BigDecimal) any());
 
     }
 }

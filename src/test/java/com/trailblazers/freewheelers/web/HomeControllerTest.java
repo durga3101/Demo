@@ -86,7 +86,7 @@ public class HomeControllerTest {
 
     @Test
     public void getShouldNotSetMessagesIfRequestDidNotComeFromPost() throws Exception {
-        when(httpSession.getAttribute(CAME_FROM_POST)).thenReturn(null);
+        when(httpSession.getAttribute(CAME_FROM_POST)).thenReturn(false);
 
         homeController.get(model, item, request);
 

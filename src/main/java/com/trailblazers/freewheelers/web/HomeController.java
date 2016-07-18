@@ -40,8 +40,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, @ModelAttribute(ITEM) Item item, HttpServletRequest request) {
         session = request.getSession();
-
-        if (session.getAttribute(CAME_FROM_POST) == null) hideItemMessages(session);
+        if ( session.getAttribute(CAME_FROM_POST) != null && (boolean)session.getAttribute(CAME_FROM_POST) ==false) hideItemMessages(session);
 
         setModel(model, session);
         session.setAttribute(CAME_FROM_POST, false);

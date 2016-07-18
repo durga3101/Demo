@@ -12,7 +12,7 @@ public class ShippingAddressTest {
 
     @Before
     public void setUp() throws Exception {
-        shippingAddress = new ShippingAddress("abc", "def", "pune", "Maharastra", "4111069");
+        shippingAddress = new ShippingAddress(1L, "abc", "def", "pune", "Maharastra", "4111069");
     }
 
     @Test

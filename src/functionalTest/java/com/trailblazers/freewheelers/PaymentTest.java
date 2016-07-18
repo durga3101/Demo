@@ -7,6 +7,13 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class PaymentTest extends UserJourneyBase{
 
+    public static final String STREET_NAME_1 = "Street 1";
+    public static final String STREET_NAME_2 = "Street 2";
+    public static final String CITY_NAME = "City";
+    public static final String STATE_NAME = "State";
+    public static final String POST_CODE = "12345678";
+    public static final String COUNTRY = "UK";
+
     @Test
     public void shouldShowInvalidFieldErrorsWhenInvalidField() {
         user
@@ -45,7 +52,10 @@ public class PaymentTest extends UserJourneyBase{
                 .visits_cart_page();
         user
                 .checksOutItem()
-                .entersShippingAddressDetails("Street 1","Street 2","City","Uk","12345678")
+                .entersShippingAddressDetails(STREET_NAME_1, STREET_NAME_2, CITY_NAME, STATE_NAME, POST_CODE);
+//        screen
+//                .checkCountryFromDatabase(COUNTRY);
+        user
                 .entersPaymentDetails(type, card_no, ccv, exp_month, exp_year)
                 .submits_payment_details();
         screen
@@ -89,4 +99,28 @@ public class PaymentTest extends UserJourneyBase{
                 .shouldSeePaymentFailure();
     }
 
+
+    @Test
+    public void shouldTestCountryDisplayedOnShippingAddressPage() throws Exception {
+
+        String jan = "Jan Plewka";
+
+        admin
+                .there_is_no_item(SIMPLON_FRAME)
+                .there_is_a_frame(SIMPLON_FRAME, ONLY_ONE_LEFT);
+
+        user
+                .logs_in_with(jan, SOME_PASSWORD)
+                .visits_home_page()
+                .reservesAnItem()
+                .add_item_to_cart(SIMPLON_FRAME)
+                .visits_cart_page();
+        user
+                .checksOutItem()
+                .entersShippingAddressDetails(STREET_NAME_1, STREET_NAME_2, CITY_NAME, STATE_NAME, POST_CODE);
+        screen
+                .checkCountryFromDatabase(COUNTRY);
+
+
+    }
 }

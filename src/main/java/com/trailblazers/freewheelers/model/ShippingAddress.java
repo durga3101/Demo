@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.model;
 
 public class ShippingAddress {
     private long shipping_address_id;
+    private Long account_id;
     private String street_1;
     private String street_2;
     private String city;
@@ -9,7 +10,9 @@ public class ShippingAddress {
     private String postcode;
     private String country;
 
-    public ShippingAddress(String street1, String street2, String city, String state, String postcode) {
+
+    public ShippingAddress(Long account_id, String street1, String street2, String city, String state, String postcode) {
+        this.account_id = account_id;
         this.shipping_address_id = 0L;
         this.street_1 = street1;
         this.street_2 = street2;
@@ -19,6 +22,9 @@ public class ShippingAddress {
         this.country = "";
     }
 
+    public void setAccount_id(Long account_id) {
+        this.account_id = account_id;
+    }
 
     public void setShipping_address_id(Long shipping_address_id){
         this.shipping_address_id = shipping_address_id;

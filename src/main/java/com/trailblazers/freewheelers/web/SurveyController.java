@@ -50,15 +50,19 @@ public class SurveyController {
                              @ModelAttribute("survey")
                              @Valid
                              SurveyEntryForm surveyEntryForm,
-                             BindingResult bindingResult) {
+                             BindingResult bindingResult,HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return showValidationError();
         }
 
+        Cookie cookie = new Cookie("SurveyTaken", "true");
+        cookie.setMaxAge(ONE_DAY);
+        response.addCookie(cookie);
+
         String username = principal.getName();
         Account account = accountService.getAccountIdByName(username);
         surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
-        return new ModelAndView("survey/confirmation");
+        return new ModelAndView("reserve");
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.GET)

@@ -25,6 +25,7 @@ public class NetPromoterScoreTest extends UserJourneyBase {
                 .there_is_a_user(username, password);
     }
 
+    @Ignore
     @Test
     public void testSurveyPopUp() throws InterruptedException {
         user

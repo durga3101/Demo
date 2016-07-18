@@ -47,6 +47,8 @@ public class SurveyControllerTest {
 
     private Principal principal = new BasicUserPrincipal(USERNAME);
     private Account userAccount = new Account();
+    private MockHttpServletResponse mockResponse = new MockHttpServletResponse();
+
 
     @Before
     public void setUp() {
@@ -67,7 +69,6 @@ public class SurveyControllerTest {
 
     @Test
     public void shouldSetCookie() {
-        MockHttpServletResponse mockResponse = new MockHttpServletResponse();
         surveyController.get(mockResponse);
 
         Cookie surveyCookie = mockResponse.getCookie("SurveyTaken");
@@ -80,16 +81,16 @@ public class SurveyControllerTest {
         BindingResult bindingResult = mock(BindingResult.class);
         given(bindingResult.hasErrors()).willReturn(false);
         ModelAndView modelAndView = surveyController.post(principal, new SurveyEntryForm(SURVEY_ENTRY_RATING, COMMENT),
-                                                          bindingResult);
+                                                          bindingResult,mockResponse);
 
-        assertThat(modelAndView.getViewName(), is("survey/confirmation"));
+        assertThat(modelAndView.getViewName(), is("reserve"));
         verify(surveyService).submitSurvey(eq(userAccount.getAccount_id()), aSurveyEntry(SURVEY_ENTRY_RATING, COMMENT));
     }
 
     @Test
     public void shouldHaveMandatoryFieldErrorIfSurveyRatingIsInvalid() {
         SurveyEntryForm surveyEntryFormWithoutRating = new SurveyEntryForm(null, COMMENT);
-        ModelAndView modelAndView = surveyController.post(principal, surveyEntryFormWithoutRating, getBindingResultWithError());
+        ModelAndView modelAndView = surveyController.post(principal, surveyEntryFormWithoutRating, getBindingResultWithError(),mockResponse);
         ModelMap modelMap = (ModelMap) modelAndView.getModelMap().get("validation");
         Boolean mandatoryFieldMissing = (Boolean) modelMap.get("mandatoryFieldMissing");
 
@@ -100,7 +101,7 @@ public class SurveyControllerTest {
     public void shouldReturnToTheFormPageWhenSurveyEntryFormIsInvalid() {
         SurveyEntryForm invalidSurveyEntryForm = new SurveyEntryForm(null, COMMENT);
 
-        ModelAndView modelAndView = surveyController.post(principal, invalidSurveyEntryForm, getBindingResultWithError());
+        ModelAndView modelAndView = surveyController.post(principal, invalidSurveyEntryForm, getBindingResultWithError(),mockResponse);
 
         assertThat(modelAndView.getViewName(), is("survey/form"));
     }
@@ -109,7 +110,7 @@ public class SurveyControllerTest {
     public void shouldNotCallValidationServiceWhenThereAreFormErrors() {
         SurveyEntryForm invalidSurveyEntryForm = new SurveyEntryForm(null, COMMENT);
 
-        surveyController.post(principal, invalidSurveyEntryForm, getBindingResultWithError());
+        surveyController.post(principal, invalidSurveyEntryForm, getBindingResultWithError(),mockResponse);
 
         verify(surveyService, never()).submitSurvey(anyLong(), any(SurveyEntry.class));
     }

@@ -6,7 +6,7 @@ describe("survey pop up", function () {
             .getFixtures()
             .set('\
                 <div id="modal" style="display: none"> \
-                    <button id="modal-close">Close</button> \
+                       <button type="button" class="button" id="closeButton">Close</button>\
                 </div>'
             );
     }
@@ -44,7 +44,7 @@ describe("survey pop up", function () {
     it("should hide modal when click close button" , function () {
         document.getElementById('modal').style.display = 'block';
 
-        document.getElementById('modal-close').click();
+        document.getElementById('closeButton').click();
 
         expect(document.getElementById('modal').style.display).toEqual('none');
     })

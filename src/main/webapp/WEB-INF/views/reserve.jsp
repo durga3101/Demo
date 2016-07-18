@@ -30,7 +30,7 @@
 </table>
 
 <div id="modal" style="display: none">
-    <button id="modal-close">Close</button>
+    <%@ include file="survey/form.jsp" %>
 </div>
 
 <%@ include file="footer.jsp" %>

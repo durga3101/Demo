@@ -66,7 +66,10 @@ public class UserFlowTest extends UserJourneyBase{
                 .click_checkout_button()
                 .entersShippingAddressDetails(ADDRESS_1, ADDRESS_2, CITY, STATE, POSTAL_CODE);
         user
-                .click_proceed_to_payment_button()
+                .click_proceed_to_payment_button();
+        screen
+                .showsMessageInClass("100.00", "summary");
+        user
                 .entersPaymentDetails(VISA, INVALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
                 .click_payment_button();
 

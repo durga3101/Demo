@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -26,77 +27,56 @@ public class PaymentControllerTest {
     private PaymentController controller;
     private ItemService service;
     private String expected;
+    private Calculator calculator;
 
 
     @Before
     public void setUp() throws Exception {
         service = mock(ItemServiceImpl.class);
-        controller = new PaymentController(service);
+        calculator = mock(Calculator.class);
+        controller = new PaymentController(service, calculator);
         request = mock(HttpServletRequest.class);
         httpSession = mock(HttpSession.class);
         model = mock(Model.class);
         when(request.getSession()).thenReturn(httpSession);
-        expected = "payment";
 
     }
 
     @Test
-    public void shouldRedirectToPaymentBeforeCreatingItemModelWhenNoItemInCart() throws Exception {
+    public void shouldRedirectToHomeBeforeCreatingItemModelWhenNoItemInCart() throws Exception {
         when(httpSession.getAttribute(anyString())).thenReturn(null);
 
         String actual = controller.get(model,request);
-
+        expected = "redirect:/";
         assertEquals(expected, actual);
 
     }
 
     @Test
-    public void shouldRedirectToPaymentAfterCreatingItemModelWhenItemInCart() throws Exception {
-        Item item = mock(Item.class);
-        when(httpSession.getAttribute(anyString())).thenReturn(item);
-        when(service.get(anyLong())).thenReturn(item);
+    public void shouldReturnPaymentAfterCreatingItemModelWhenItemInCart() throws Exception {
+        HashMap<Item, Long> cart = mock(HashMap.class);
+        when(service.getItemHashMap(request)).thenReturn(cart);
+        when(cart.isEmpty()).thenReturn(false);
 
         String actual = controller.get(model,request);
 
+        expected = "payment";
         assertEquals(expected, actual);
 
     }
 
-    //Will be moved to calculator test class when merge conflicts resolved
     @Test
-    public void shouldComputeCorrectTotalPriceFromShoppingCart() {
-        Item item1 = mock(Item.class);
-        Item item2 = mock(Item.class);
-        when(item1.getPrice()).thenReturn(new BigDecimal(10.00));
-        when(item2.getPrice()).thenReturn(new BigDecimal(20.00));
-        HashMap<Item, Long> cartMap = new HashMap<>();
-        cartMap.put(item1, new Long(2));
-        cartMap.put(item2, new Long(3));
-
-        when(service.getItemHashMap(any(HashMap.class))).thenReturn(cartMap);
-
-        assertEquals(new BigDecimal("80.00"), controller.getTotalPriceFromCart(request));
-
-    }
-
-    @Test
-    public void shouldAddTotalPriceToModel() {
-        Item item = mock(Item.class);
-        when(httpSession.getAttribute(anyString())).thenReturn(item);
-        when(service.get(anyLong())).thenReturn(item);
-
-        Item item1 = mock(Item.class);
-        Item item2 = mock(Item.class);
-        when(item1.getPrice()).thenReturn(new BigDecimal(10.00));
-        when(item2.getPrice()).thenReturn(new BigDecimal(20.00));
-        HashMap<Item, Long> cartMap = new HashMap<>();
-        cartMap.put(item1, new Long(2));
-        cartMap.put(item2, new Long(3));
-
-        when(service.getItemHashMap(any(HashMap.class))).thenReturn(cartMap);
+    public void shouldAddSubtotalToModel() {
+        HashMap<Item, Long> cart = mock(HashMap.class);
+        when(cart.isEmpty()).thenReturn(false);
+        when(service.getItemHashMap(request)).thenReturn(cart);
+        BigDecimal subtotal = new BigDecimal(100.00);
+        subtotal.setScale(2, RoundingMode.CEILING);
+        when(calculator.getSubtotalFromCart(cart)).thenReturn(subtotal);
 
         controller.get(model, request);
-//        verify(model).addAttribute("totalAmount", totalPrice);
+
+        verify(model).addAttribute("subtotal", subtotal);
     }
 
 }

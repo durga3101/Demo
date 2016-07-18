@@ -53,15 +53,13 @@ public class CartController {
         HashMap<Item, Long> items = itemService.getItemHashMap(request);
         Account account = accountService.getAccountIdByName(decode(principal.getName()));
 
-        Country country = countryService.getByName(account.getCountry());
+        String countryName = account.getCountry();
+        if(countryName == null){
+            countryName = "UK";
+        }
+        Country country = countryService.getByName(countryName);
 
-        //temporary country.
-        Country country1 = new Country();
-        country1.setCountry_name("UK");
-        country1.setVat_rate(20.0);
-
-
-        BigDecimal vat = calculator.calculateVat(new BigDecimal(50),country1 );
+        BigDecimal vat = calculator.calculateVat(new BigDecimal(100),country);
 
         setVat(model,vat.toString());
 

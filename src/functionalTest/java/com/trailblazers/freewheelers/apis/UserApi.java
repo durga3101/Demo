@@ -286,6 +286,25 @@ public class UserApi {
 
     public UserApi clearCookies() {
         driver.manage().deleteAllCookies();
+
+        return this;
+    }
+    
+    public UserApi click_proceed_to_payment_button() {
+        driver.findElement(By.id("proceed_to_payment")).click();
+
+        return this;
+    }
+
+    public UserApi click_payment_button() {
+        driver.findElement(By.id("makePayment")).click();
+
+        return this;
+    }
+
+    public UserApi clicks_back_to_checkout_button() {
+        driver.findElement(By.id("back_to_checkout")).click();
+
         return this;
     }
 

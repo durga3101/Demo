@@ -5,9 +5,10 @@ function SurveyPopUp() {
     var surveyThankYou = document.getElementById('surveyThankYou');
     var survey = document.getElementById('survey');
     var closeMessageButton = document.getElementById('closeMessageButton');
-
+    var userName = document.getElementById('welcome').innerText;
+    
     this.showSurvey = function() {
-        if (!$.cookie("SurveyTaken")) {
+        if (!$.cookie(userName.substring(8,userName.length-1))) {
             this.show();
         }
     };

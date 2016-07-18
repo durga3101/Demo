@@ -5,6 +5,7 @@ describe("survey pop up", function () {
         jasmine
             .getFixtures()
             .set('\
+                   <li id="welcome" ></li>\
                 <div id="modal" style="display: none"> \
                        <button type="submit" class="button" id="surveySubmitButton">Submit</button>\
                        <button type="button" class="button" id="closeButton">Close</button>\

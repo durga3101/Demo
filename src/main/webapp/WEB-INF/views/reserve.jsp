@@ -34,5 +34,4 @@
     <%@ include file="survey/confirmation.jsp" %>
 
 </div>
-
 <%@ include file="footer.jsp" %>

@@ -53,7 +53,7 @@ public class SurveyController {
             return "error";
         }
 
-        Cookie cookie = new Cookie("SurveyTaken", "true");
+        Cookie cookie = new Cookie(principal.getName(), "true");
         cookie.setMaxAge(ONE_DAY);
         response.addCookie(cookie);
 

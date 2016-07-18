@@ -92,7 +92,7 @@ public class GatewayControllerTest {
         Account account = mock(Account.class);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
 
-        String expected = "reserve";
+        String expected = "redirect:/reserve";
         String actual = gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         assertEquals(expected, actual);
     }

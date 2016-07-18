@@ -89,11 +89,11 @@ public class UserFlowTest extends UserJourneyBase{
                 .clicks_back_to_checkout_button()
                 .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR);
 //REMOVING PAYMENT STEP OUT UNTIL SURVEY IS FIXED 
-//        user
-//                .click_payment_button();
-//
-//        screen
-//                .shouldSeePaymentSuccess();
+        user
+                .click_payment_button();
+
+        screen
+                .shouldSeePaymentSuccess();
 
         // TODO: Add tests for survey
 

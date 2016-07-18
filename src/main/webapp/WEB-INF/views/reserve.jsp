@@ -17,15 +17,22 @@
         <th>Price</th>
         <th>Description</th>
         <th>Type</th>
+        <th>Quantity</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>${item.name}</td>
-        <td>${item.price}</td>
-        <td>${item.description}</td>
-        <td>${item.type}</td>
-    </tr>
+    <c:forEach var="entry" items="${items}" varStatus="row">
+        <c:set var="item" value="${entry.key}" />
+
+        <tr>
+            <td><c:out value="${item.name}"/></td>
+            <td><c:out value="${item.price * entry.value}"/></td>
+            <td><c:out value="${item.description}"/></td>
+            <td><c:out value="${item.type}"/></td>
+            <td><c:out value="${entry.value}"/></td>
+            <td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
 

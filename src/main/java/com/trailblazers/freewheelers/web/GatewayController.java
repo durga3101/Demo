@@ -9,12 +9,14 @@ import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceIm
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.web.forms.SurveyEntryForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
@@ -60,7 +63,7 @@ public class GatewayController {
                        @RequestParam(value = "expiry_month", required = true) String expiry_month,
                        @RequestParam(value = "expiry_year", required = true) String expiry_year,
                        @RequestParam(value = "amount", required = true) String amount
-    ) {
+                       ) {
 
         HttpEntity<String> request = createRequest(cc_number,csc,expiry_month,expiry_year, amount);
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
@@ -84,7 +87,7 @@ public class GatewayController {
             }
         }
 
-        return "reserve";
+        return "redirect:/reserve";
     }
 
     @RequestMapping(value = "reserve-error", method = RequestMethod.GET)

@@ -1,5 +1,4 @@
 import com.trailblazers.freewheelers.UserJourneyBase;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
@@ -9,7 +8,6 @@ public class UserFlowTest extends UserJourneyBase{
 
     // Ignored until CI is ready for push
     // Save this for later commit
-    @Ignore
     @Test
     public void userFlowTest() throws Exception {
 
@@ -41,7 +39,11 @@ public class UserFlowTest extends UserJourneyBase{
 
         user
                 .logs_in_with(RAJU, SOME_PASSWORD);
+        screen
+                .should_list_item(SIMPLON_FRAME);
 
+        user
+                .visits_his_profile();
         screen
                 .shows_profile_for(RAJU);
 
@@ -62,19 +64,26 @@ public class UserFlowTest extends UserJourneyBase{
 
         user
                 .click_checkout_button()
-                .entersPaymentDetails(VISA, INVALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR);
+                .entersShippingAddressDetails(ADDRESS_1, ADDRESS_2, CITY, STATE, POSTAL_CODE);
+        user
+                .click_proceed_to_payment_button()
+                .entersPaymentDetails(VISA, INVALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
+                .click_payment_button();
 
         screen
                 .shows_error(ENTER_CARD_NO, CARD_NO_FIELD);
 
         user
-                .entersPaymentDetails(VISA, REVOKED_CARD_NO, CCV, EXP_MONTH, EXP_YEAR);
+                .entersPaymentDetails(VISA, REVOKED_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
+                .click_payment_button();
 
         screen
                 .shouldSeePaymentFailure();
 
         user
-                .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR);
+                .clicks_back_to_checkout_button()
+                .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
+                .click_payment_button();
 
         screen
                 .shouldSeePaymentSuccess();

@@ -7,7 +7,8 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class AccountTest extends UserJourneyBase {
 
-
+    //IGNORED because this flow is now tested in UserFlowTest
+    @Ignore
     @Test
     public void testCreateAccount() throws Exception {
         String jan = "Jan Plewka";

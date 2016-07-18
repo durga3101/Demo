@@ -279,6 +279,7 @@ public class UserApi {
         fillField(driver.findElement(By.id("fld_city")), city);
         fillField(driver.findElement(By.id("fld_state")), state);
         fillField(driver.findElement(By.id("fld_postcode")), postcode);
+        driver.findElement(By.id("proceedToPayment")).click();
 
         return this;
     }
@@ -290,7 +291,7 @@ public class UserApi {
     }
 
     public UserApi click_proceed_to_payment_button() {
-        driver.findElement(By.id("proceedToPayment")).click();
+        driver.findElement(By.id("proceed_to_payment")).click();
 
         return this;
     }

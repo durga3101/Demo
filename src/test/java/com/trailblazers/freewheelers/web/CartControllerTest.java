@@ -163,4 +163,20 @@ public class CartControllerTest {
 //
 //        verify(items,atLeast(1)).get(anyLong());
 //    }
+
+    @Test
+    public void shouldSetDutyRateAsSevenPointFiveIfCountryIsCanadaAndCartContainsMoreThanThreeItems(){
+        HashMap<Item,Long> items = mock(HashMap.class);
+        Account account = mock(Account.class);
+        Country canada = mock(Country.class);
+        when(itemService.getItemHashMap(request)).thenReturn(items);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(account.getCountry()).thenReturn("CANADA");
+        when(countryService.getByName("CANADA")).thenReturn(canada);
+        when(calculator.noOfItemsInCart(items)).thenReturn(3l);
+
+        String result = cartController.get(item,request, model, principal);
+
+        verify(canada).setDuty_rate(7.5);
+    }
 }

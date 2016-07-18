@@ -58,6 +58,11 @@ public class CartController {
             countryName = "UK";
         }
         Country country = countryService.getByName(countryName);
+        if(countryName.equals("CANADA")){
+            if(calculator.noOfItemsInCart(items)>2) {
+                country.setDuty_rate(7.5);
+            }
+        }
 
         setTax(model,country,items);
 

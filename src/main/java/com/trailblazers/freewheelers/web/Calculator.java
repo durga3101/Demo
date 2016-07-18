@@ -36,4 +36,12 @@ public class Calculator {
         BigDecimal duty = subtotal.multiply(duty_rate);
         return duty.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
+
+    public long noOfItemsInCart(HashMap<Item, Long> items) {
+        long noOfItemsInCart=0;
+        for (int index=0;index<items.size();index++) {
+            noOfItemsInCart+=items.get(index);
+        }
+        return noOfItemsInCart;
+    }
 }

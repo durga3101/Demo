@@ -6,14 +6,6 @@ public class Country {
     private double vat_rate;
     private double duty_rate;
 
-
-//    public Country(String country_name, double vat_rate, double duty_rate) {
-//        this.country_id = 0L;
-//        this.country_name = country_name;
-//        this.vat_rate = vat_rate;
-//        this.duty_rate = duty_rate;
-//    }
-
     public double getVat_rate() {
         return vat_rate;
     }

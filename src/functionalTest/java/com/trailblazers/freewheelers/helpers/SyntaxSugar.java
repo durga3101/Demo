@@ -28,6 +28,7 @@ public class SyntaxSugar {
     public static final String ADD_TO_CART_FAILURE = "Sorry, that item is temporarily out of stock. Please check back later!";
     public static final String ADD_TO_CART_SUCCESS_CLASS = "add-to-cart-success";
     public static final String ADD_TO_CART_FAILURE_CLASS = "add-to-cart-failure";
+    public static final String EMPTY_CART = "Oops, looks like your cart is empty. Add items";
     public static final String REALLY_EXPENSIVE = "2899.00";
     public static final String SOME_DESCRIPTION = "4 x red, curved Arrow shape, screw fastening";
     public static final String A_LOT = "1000";

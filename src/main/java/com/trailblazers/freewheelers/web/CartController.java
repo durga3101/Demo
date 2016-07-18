@@ -17,7 +17,15 @@ import java.util.HashMap;
 @RequestMapping("/cart")
 public class CartController {
 
+    private static final String REDIRECT_LOGIN = "redirect:/login";
+    private static final String ITEMS = "items";
+    private static final String CART = "cart";
+    private static final String EMPTY_CART = "isCartEmpty";
+    private static final String ITEM = "item";
+    private static final String SHOPPING_CART = "shoppingCart";
+
     private ItemService itemService;
+
 
     @Autowired
     public CartController(ItemService itemService) {
@@ -25,14 +33,20 @@ public class CartController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String get(@ModelAttribute("item") Item item, HttpServletRequest request, Model model, Principal principal) {
+    public String get(@ModelAttribute(ITEM) Item item, HttpServletRequest request, Model model, Principal principal) {
 
-        if (isPrincipalNull(principal)) return "redirect:/login";
+        if (isPrincipalNull(principal)) return REDIRECT_LOGIN;
 
         HashMap<Item, Long> items = getItemsFromCart(request);
-        model.addAttribute("items", items);
 
-        return "cart";
+        if (items.isEmpty()) {
+            model.addAttribute(EMPTY_CART, true);
+        } else {
+            model.addAttribute(EMPTY_CART, false);
+            model.addAttribute(ITEMS, items);
+        }
+
+        return CART;
     }
 
     private boolean isPrincipalNull(Principal principal) {
@@ -40,7 +54,7 @@ public class CartController {
     }
 
     private HashMap<Item, Long> getItemsFromCart(HttpServletRequest request) {
-        HashMap<Long, Long> cart = (HashMap<Long, Long>) request.getSession().getAttribute("shoppingCart");
+        HashMap<Long, Long> cart = (HashMap<Long, Long>) request.getSession().getAttribute(SHOPPING_CART);
         return itemService.getItemHashMap(cart);
     }
 }

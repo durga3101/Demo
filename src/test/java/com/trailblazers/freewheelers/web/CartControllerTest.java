@@ -16,6 +16,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class CartControllerTest {
+    private static final String EMPTY_CART = "isCartEmpty";
+    private static final String ITEMS = "items";
     private Model model;
     private Principal principal;
     private HttpServletRequest request;
@@ -25,6 +27,7 @@ public class CartControllerTest {
     private Item item;
     private String actual;
     private String expected;
+    private HashMap<Item, Long> emptyCart;
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +39,7 @@ public class CartControllerTest {
         httpSession = mock(HttpSession.class);
         item = mock(Item.class);
         when(request.getSession()).thenReturn(httpSession);
+        emptyCart = new HashMap<>();
     }
 
     @Test
@@ -66,9 +70,28 @@ public class CartControllerTest {
 
 
     @Test
-    public void shouldGetItemObjsFromServiceAndAddToModel() throws Exception {
+    public void getShouldGetItemObjsFromServiceAndAddToModel() throws Exception {
+        HashMap<Item, Long> fullCart = emptyCart;
+        fullCart.put(item, 1L);
+
+        when(itemService.getItemHashMap((HashMap<Long, Long>) anyMap())).thenReturn(fullCart);
+
         cartController.get(item, request, model, principal);
 
         verify(itemService).getItemHashMap((HashMap<Long, Long>) anyMap());
+        verify(model).addAttribute(ITEMS, fullCart);
+        verify(model).addAttribute(EMPTY_CART, false);
+        verify(model, never()).addAttribute(EMPTY_CART, true);
+
+    }
+
+    @Test
+    public void getShouldSetEmptyCartAttributeOnModelIfCartIsEmpty() throws Exception {
+        when(itemService.getItemHashMap((HashMap<Long, Long>) anyMap())).thenReturn(emptyCart);
+
+        cartController.get(item, request, model, principal);
+
+        verify(model).addAttribute(EMPTY_CART, true);
+        verify(model, never()).addAttribute(ITEMS, emptyCart);
     }
 }

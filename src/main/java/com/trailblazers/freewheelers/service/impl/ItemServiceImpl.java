@@ -97,6 +97,8 @@ public class ItemServiceImpl implements ItemService {
 
         HashMap<Item, Long> result = new HashMap<>();
 
+        if (map == null) return result;
+
         for (Map.Entry<Long, Long> entry : map.entrySet()) {
             Long id = entry.getKey();
             Long quantity = entry.getValue();

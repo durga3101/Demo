@@ -19,7 +19,14 @@ public class OrderTest extends UserJourneyBase {
                 .there_is_a_frame(SIMPLON_FRAME, ONLY_ONE_LEFT);
 
         user
+                .clearCookies()
                 .logs_in_with(Bob, SOME_PASSWORD)
+                .visits_cart_page();
+
+        screen
+                .showsMessageInClass(EMPTY_CART, "empty-cart");
+
+        user
                 .visits_home_page();
 
         screen

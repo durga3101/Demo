@@ -11,6 +11,7 @@
     <http auto-config="true">
         <intercept-url pattern="/admin" access="ROLE_ADMIN"/>
         <intercept-url pattern="/item" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/cart" access="ROLE_ADMIN,ROLE_USER"/>
         <intercept-url method = "POST" pattern="/" access="ROLE_ADMIN, ROLE_USER"/>
         <intercept-url pattern="/survey" access="ROLE_ADMIN, ROLE_USER"/>
         <intercept-url pattern="/survey/report" access="ROLE_ADMIN"/>

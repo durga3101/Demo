@@ -17,45 +17,55 @@
 </head>
 <body>
 <div class="page-action">Your Shopping Cart</div>
+<c:choose>
+    <c:when test = "${isCartEmpty}">
+        <div id="empty-cart" class="empty-cart page-action">
+            <p>Oops, looks like your cart is empty. <b><a href="/">Add items</a></b></p>
+            <img src="http://fe867b.medialib.glogster.com/media/a4/a4ef95c9cd527f82a9008124821afed35bc57f7ccdf8373d54a52be381ffb48b/empty.jpg" />
+        </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th></th>
-    </tr>
-    </thead>
+    </c:when>
+    <c:otherwise>
+        <table class="items-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
 
-    <c:forEach var="entry" items="${items}" varStatus="row">
-        <c:set var="item" value="${entry.key}" />
+            <c:forEach var="entry" items="${items}" varStatus="row">
+                <c:set var="item" value="${entry.key}" />
 
-        <tr>
-            <td><c:out value="${item.name}"/></td>
-            <td><c:out value="${item.description}"/></td>
-            <td><c:out value="${entry.value}"/></td>
-            <td><c:out value="${item.price}"/></td>
-            <td>
-        </tr>
-    </c:forEach>
+                <tr>
+                    <td><c:out value="${item.name}"/></td>
+                    <td><c:out value="${item.description}"/></td>
+                    <td><c:out value="${entry.value}"/></td>
+                    <td><c:out value="${item.price}"/></td>
+                    <td>
+                </tr>
+            </c:forEach>
 
-</table>
+        </table>
 
-<div style="display: flex; flex-direction: row ; justify-content: center">
-    <form:form action="/" method="get">
-        <button type="submit" id="cancel">
-            Continue Shopping
-        </button>
-    </form:form>
+        <div id="shopping-actions" style="display: flex; flex-direction: row ; justify-content: center">
+            <form:form action="/" method="get">
+                <button type="submit" id="cancel">
+                    Continue Shopping
+                </button>
+            </form:form>
 
-    <form:form action="/shippingAddress" method="get" modelAttribute="item">
-        <form:hidden path="itemId" value="${item.itemId}"/>
-        <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
-            Proceed to Checkout
-        </button>
-    </form:form>
-</div>
+            <form:form action="/shippingAddress" method="get" modelAttribute="item">
+                <form:hidden path="itemId" value="${item.itemId}"/>
+                <button class="checkout-button" type="submit" name="checkout" id="checkout" value="Reserve Item">
+                    Proceed to Checkout
+                </button>
+            </form:form>
+        </div>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

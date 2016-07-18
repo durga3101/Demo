@@ -290,4 +290,8 @@ public class UserApi {
         return this;
     }
 
+    public UserApi clearCookies() {
+        driver.manage().deleteAllCookies();
+        return this;
+    }
 }

@@ -42,7 +42,12 @@ public class ShippingAddressController {
 
         Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
 
-        model.addAttribute("country",userAccount.getCountry());
+        if(userAccount.getCountry() == null){
+            model.addAttribute("country","UK");
+        }
+        else {
+            model.addAttribute("country",userAccount.getCountry());
+        }
         return "shippingAddress";
     }
 

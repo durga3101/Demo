@@ -3,7 +3,6 @@
 CREATE TABLE shipping_address
 (
       shipping_address_id SERIAL PRIMARY KEY,
-      account_id BIGINT  NOT NULL,
       street_1 CHARACTER VARYING(255) NOT NULL,
       street_2 CHARACTER VARYING(255) NOT NULL,
       city CHARACTER VARYING(255) NOT NULL,

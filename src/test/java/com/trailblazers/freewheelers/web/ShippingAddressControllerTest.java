@@ -112,11 +112,33 @@ public class ShippingAddressControllerTest {
         when(itemService.get(anyLong())).thenReturn(item);
         when(principal.getName()).thenReturn("ABC");
         when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        when(account.getCountry()).thenReturn("USA");
+
 
         ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,accountService, itemService);
         shippingAddressController.get(model, request, principal);
 
-        verify(model).addAttribute(anyString(), (BigDecimal) any());
+        verify(model).addAttribute("country","USA");
 
+    }
+
+    @Test
+    public void shouldSetDefaultCountryAsUKWhenUserDoesNotHaveCountry() throws Exception {
+        request = mock(HttpServletRequest.class);
+        httpSession = mock(HttpSession.class);
+        model = mock(Model.class);
+        Item item = mock(Item.class);
+
+        when(request.getSession()).thenReturn(httpSession);
+        when(httpSession.getAttribute(anyString())).thenReturn(item);
+        when(itemService.get(anyLong())).thenReturn(item);
+        when(principal.getName()).thenReturn("ABC");
+        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        when(account.getCountry()).thenReturn(null);
+
+        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,accountService, itemService);
+        shippingAddressController.get(model, request, principal);
+
+        verify(model).addAttribute("country","UK");
     }
 }

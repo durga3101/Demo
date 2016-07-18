@@ -14,7 +14,7 @@ public class SyntaxSugar {
     public static final String INVAILD_PASSWORD = "password";
     public static final String SOME_EMAIL = "somebody@something.de";
     public static final String SOME_COUNTRY = "UK";
-    public static final BigDecimal SOME_PRICE = valueOf(49.99);
+    public static final BigDecimal SOME_PRICE = new BigDecimal(50);
     public static final String UNSELECTED_COUNTRY = "Choose A Country";
 
     public static final String EMPTY_PASSWORD = "";

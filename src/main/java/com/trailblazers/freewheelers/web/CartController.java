@@ -1,6 +1,10 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.Country;
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.service.AccountService;
+import com.trailblazers.freewheelers.service.CountryService;
 import com.trailblazers.freewheelers.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.HashMap;
 
@@ -26,12 +33,16 @@ public class CartController {
 
     private ItemService itemService;
     private TaxCalculator taxCalculator;
+    private AccountService accountService;
+    private CountryService countryService;
 
 
     @Autowired
-    public CartController(ItemService itemService, TaxCalculator taxCalculator) {
+    public CartController(ItemService itemService, TaxCalculator taxCalculator, AccountService accountService, CountryService countryService) {
         this.itemService = itemService;
         this.taxCalculator = taxCalculator;
+        this.accountService = accountService;
+        this.countryService = countryService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -40,6 +51,12 @@ public class CartController {
         if (isPrincipalNull(principal)) return REDIRECT_LOGIN;
 
         HashMap<Item, Long> items = getItemsFromCart(request);
+        Account account = accountService.getAccountIdByName(decode(principal.getName()));
+
+        Country country = countryService.getByName(account.getCountry());
+        BigDecimal vat = taxCalculator.calculateVat(item.getPrice(),country );
+
+        setVat(model,vat.toString());
 
         if (items.isEmpty()) {
             model.addAttribute(EMPTY_CART, true);
@@ -51,6 +68,11 @@ public class CartController {
         return CART;
     }
 
+    private void setVat(Model model, @ModelAttribute  String attributeValue) {
+        model.addAttribute("vat",attributeValue);
+
+    }
+
     private boolean isPrincipalNull(Principal principal) {
         return principal == null;
     }
@@ -58,5 +80,14 @@ public class CartController {
     private HashMap<Item, Long> getItemsFromCart(HttpServletRequest request) {
         HashMap<Long, Long> cart = (HashMap<Long, Long>) request.getSession().getAttribute(SHOPPING_CART);
         return itemService.getItemHashMap(cart);
+    }
+
+    private String decode(String userName) {
+        try {
+            return URLDecoder.decode(userName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("CATCH CATCH CATCH me if you can");
+            return userName;
+        }
     }
 }

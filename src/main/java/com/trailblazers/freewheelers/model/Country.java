@@ -60,4 +60,7 @@ public class Country {
 
     }
 
+    public String getName() {
+        return country_name;
+    }
 }

@@ -27,7 +27,7 @@ public class CountryMapperTest extends MapperTestBase {
 
         Country fetchedFromDB = countryMapper.getByName(SOME_COUNTRY);
 
-        assertEquals(fetchedFromDB.toString(), country.toString());
+        assertEquals(country,fetchedFromDB);
     }
 
     private Country someCountry() {

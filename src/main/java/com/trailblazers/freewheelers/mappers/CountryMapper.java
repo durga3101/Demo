@@ -15,7 +15,7 @@ public interface CountryMapper {
     Integer insert(Country country);
 
     @Select(
-            "SELECT country_name, vat_rate, duty_rate " +
+            "SELECT country_id,country_name, vat_rate, duty_rate " +
                     "FROM country " +
                     "WHERE country_name = #{country_name} "
     )

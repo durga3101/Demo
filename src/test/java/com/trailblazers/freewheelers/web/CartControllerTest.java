@@ -1,6 +1,10 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.Country;
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.service.AccountService;
+import com.trailblazers.freewheelers.service.CountryService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.junit.Before;
@@ -17,8 +21,12 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class CartControllerTest {
+<<<<<<< 3d58c66340391012ea6309bb43aa733ed226e4a2
     private static final String EMPTY_CART = "isCartEmpty";
     private static final String ITEMS = "items";
+=======
+    public static final String SOME_COUNTRY = "UK";
+>>>>>>> [Prajakta/Shil] [#197] Add country service implementation
     private Model model;
     private Principal principal;
     private HttpServletRequest request;
@@ -30,6 +38,11 @@ public class CartControllerTest {
     private String expected;
     private HashMap<Item, Long> emptyCart;
     private TaxCalculator taxCalculator;
+<<<<<<< 3d58c66340391012ea6309bb43aa733ed226e4a2
+=======
+    private AccountService accountService;
+    private CountryService countryService;
+>>>>>>> [Prajakta/Shil] [#197] Add country service implementation
 
     @Before
     public void setUp() throws Exception {
@@ -38,8 +51,9 @@ public class CartControllerTest {
         request = mock(HttpServletRequest.class);
         itemService = mock(ItemServiceImpl.class);
         taxCalculator = mock(TaxCalculator.class);
-
-        cartController = new CartController(itemService,taxCalculator);
+        accountService = mock(AccountService.class);
+        countryService = mock(CountryService.class);
+        cartController = new CartController(itemService,taxCalculator, accountService,countryService);
         httpSession = mock(HttpSession.class);
         item = mock(Item.class);
         when(request.getSession()).thenReturn(httpSession);
@@ -56,6 +70,7 @@ public class CartControllerTest {
         assertEquals(expected, actual);
     }
 
+    // currently ignored due to altered payment flow
     @Test
     public void getShouldRedirectToLoginWhenPrincipalIsNull() throws Exception {
         actual = cartController.get(item, request, model, null);
@@ -102,9 +117,25 @@ public class CartControllerTest {
     @Test
     public void shouldCalculateTaxWhenGetIsCalled() throws Exception {
         BigDecimal subTotal = new BigDecimal(50);
+        BigDecimal vat = new BigDecimal(10);
+        Country country = new Country();
+        country.setCountry_name(SOME_COUNTRY);
+        Account account = new Account();
+        account.setCountry(SOME_COUNTRY);
+
         when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
+        when(countryService.getByName(SOME_COUNTRY)).thenReturn(country);
+        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        when(taxCalculator.calculateVat(subTotal,country)).thenReturn(vat);
         when(item.getPrice()).thenReturn(subTotal);
-        cartController.get(item,request, model, principal);
-        verify(taxCalculator).calculateVat(subTotal);
+
+        when(principal.getName()).thenReturn("ABC");
+
+        String result = cartController.get(item,request, model, principal);
+        assertEquals("cart",result);
+        verify(taxCalculator).calculateVat(subTotal, country);
+        verify(accountService).getAccountIdByName("ABC");
+        verify(countryService).getByName(SOME_COUNTRY);
+        verify(model).addAttribute("vat",vat.toString());
     }
 }

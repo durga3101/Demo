@@ -145,7 +145,7 @@ public class OrderTest extends UserJourneyBase {
     }
 
     @Test
-    @Ignore
+    @Ignore // Ignored because still working on UI
     public void shouldShowTaxesOnCart(){
         String Arno = "Arno Admin";
         String Bob = "Bob Buyer";

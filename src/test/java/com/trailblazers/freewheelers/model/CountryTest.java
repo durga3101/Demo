@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 public class CountryTest {
 
-    public static final String COUNTRY_NAME = "UK";
-
     @Test
     public void shouldReturnTrueIfCountriesAreSame() {
         Country first = new Country();

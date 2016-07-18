@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
-public class PaymentTest extends UserJourneyBase{
+public class PaymentTest extends UserJourneyBase {
 
     public static final String STREET_NAME_1 = "Street 1";
     public static final String STREET_NAME_2 = "Street 2";
@@ -104,6 +104,13 @@ public class PaymentTest extends UserJourneyBase{
     public void shouldTestCountryDisplayedOnShippingAddressPage() throws Exception {
 
         String jan = "Jan Plewka";
+        String type = "Visa";
+        String card_no = "4111111111111111";
+        String invalid_card_no = "123";
+        String ccv = "534";
+
+        String exp_month = "11";
+        String exp_year = "2020";
 
         admin
                 .there_is_no_item(SIMPLON_FRAME)
@@ -116,11 +123,18 @@ public class PaymentTest extends UserJourneyBase{
                 .add_item_to_cart(SIMPLON_FRAME)
                 .visits_cart_page();
         user
+                .checksOutItem();
+        screen
+                .checkCountryFromDatabase(COUNTRY);
+        user
+                .back_to_shopping_cart_page();
+        screen
+                .shows_cart_page();
+        user
                 .checksOutItem()
                 .entersShippingAddressDetails(STREET_NAME_1, STREET_NAME_2, CITY_NAME, STATE_NAME, POST_CODE);
         screen
-                .checkCountryFromDatabase(COUNTRY);
-
+                .visits_payment_page();
 
     }
 }

@@ -287,11 +287,18 @@ public class UserApi {
         fillField(driver.findElement(By.id("fld_city")), city);
         fillField(driver.findElement(By.id("fld_state")), state);
         fillField(driver.findElement(By.id("fld_postcode")), postcode);
+        driver.findElement(By.id("proceedToPayment")).click();
+
         return this;
     }
 
     public UserApi clearCookies() {
         driver.manage().deleteAllCookies();
         return this;
+    }
+
+    public void back_to_shopping_cart_page() {
+        driver.findElement(By.id("back_to_cart")).click();
+
     }
 }

@@ -202,7 +202,13 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("vat")).getText(), containsString(tax));
     }
 
-    public void checkCountryFromDatabase(String country) {
+    public ScreenApi checkCountryFromDatabase(String country) {
         assertThat(driver.getPageSource(), containsString(country));
+        return this;
+    }
+
+    public void visits_payment_page() {
+        //driver.get(URLs.payment());
+        assertThat(driver.getCurrentUrl(), is(URLs.payment()));
     }
 }

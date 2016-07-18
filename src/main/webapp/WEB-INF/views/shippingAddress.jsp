@@ -69,7 +69,10 @@
     <div>
 
         <div class="controls">
-            <button type="submit" id="Proceed to Payment" value="Submit" onclick="showShippingAddressErrorMessage()">Proceed to Payment</button>
+            <button type="submit" onclick="location.href='/cart'" id="back_to_cart">
+                Back to Cart
+            </button>
+            <button type="submit" id="proceedToPayment" value="Submit" onclick="showShippingAddressErrorMessage()">Proceed to Payment</button>
         </div>
             <%--<form:form action="/shippingAddress" method="get" modelAttribute="item">--%>
                 <%--<form:hidden path="itemId" value="${item.itemId}"/>--%>
@@ -80,6 +83,12 @@
     </div>
 
 </form>
+
+<div style="display: flex; flex-direction: row ; justify-content: center">
+    <form:form action="/cart" method="get">
+
+    </form:form>
+</div>
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="<c:url value='/scripts/js/shippingAddress.js' />"></script>

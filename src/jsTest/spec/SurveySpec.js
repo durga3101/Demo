@@ -6,6 +6,7 @@ describe("survey pop up", function () {
             .getFixtures()
             .set('\
                 <div id="modal" style="display: none"> \
+                       <button type="submit" class="button" id="surveySubmitButton">Submit</button>\
                        <button type="button" class="button" id="closeButton">Close</button>\
                 </div>'
             );
@@ -47,5 +48,13 @@ describe("survey pop up", function () {
         document.getElementById('closeButton').click();
 
         expect(document.getElementById('modal').style.display).toEqual('none');
-    })
+    });
+
+    it("should hide modal when click submit button" , function () {
+        document.getElementById('modal').style.display = 'block';
+
+        document.getElementById('surveySubmitButton').click();
+
+        expect(document.getElementById('modal').style.display).toEqual('none');
+    });
 });

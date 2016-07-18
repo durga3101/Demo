@@ -1,10 +1,9 @@
-<%--<%@include file="header.jsp" %>--%>
 <script type="text/javascript">
     $(function () {
         new SurveyPopUp();
     })
 </script>
-<form:form id="survey" action="/survey" method="post" modelAttribute="survey" target="hiddenIFrame" >
+<form:form id="survey" action="/survey" method="post" modelAttribute="survey" >
 
     <div class="survey-form">
 
@@ -59,6 +58,4 @@
 
 </form:form>
 
-<iframe style="display: none" name="hiddenIFrame" id="hiddenIFrame"></iframe>
 
-<%--<%@ include file="../footer.jsp" %>--%>

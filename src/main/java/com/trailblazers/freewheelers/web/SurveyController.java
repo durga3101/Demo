@@ -31,7 +31,6 @@ public class SurveyController {
     @Autowired
     private AccountService accountService;
 
-
     @ModelAttribute("survey")
     public SurveyEntryForm getSurveyForm() {
         return new SurveyEntryForm();
@@ -46,13 +45,13 @@ public class SurveyController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView post(Principal principal,
+    public String post(Principal principal,
                              @ModelAttribute("survey")
                              @Valid
                              SurveyEntryForm surveyEntryForm,
                              BindingResult bindingResult,HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
-            return showValidationError();
+            return "error";
         }
 
         Cookie cookie = new Cookie("SurveyTaken", "true");
@@ -62,7 +61,7 @@ public class SurveyController {
         String username = principal.getName();
         Account account = accountService.getAccountIdByName(username);
         surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
-        return new ModelAndView("reserve");
+        return "success";
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.GET)

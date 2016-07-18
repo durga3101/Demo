@@ -19,8 +19,9 @@ public class ReserveController {
     public SurveyEntryForm getSurveyForm() {
         return new SurveyEntryForm();
     }
+
     @RequestMapping(method = RequestMethod.GET)
-    public void get(HttpServletRequest httpServletRequest, Model model) {
+    public void get(HttpServletRequest httpServletRequest, Model model ) {
         model.addAttribute("item", httpServletRequest.getSession().getAttribute("purchasedItem"));
         httpServletRequest.getSession().setAttribute("purchasedItem", null);
     }

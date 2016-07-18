@@ -1,8 +1,11 @@
-<%@ include file="header.jsp" %>
 
-<div id="surveyThankYou">
+<script type="text/javascript">
+    $(function () {
+        new SurveyPopUp();
+    })
+</script>
+<div id="surveyThankYou" style="display: none">
     <p> Thank you for filling out our survey!</p>
-    <button id="closeButton">Close</button>
+    <button id="closeMessageButton">Close</button>
 </div>
 
-<%@ include file="../footer.jsp" %>

@@ -31,6 +31,8 @@
 
 <div id="modal" style="display: none">
     <%@ include file="survey/form.jsp" %>
+    <%@ include file="survey/confirmation.jsp" %>
+
 </div>
 
 <%@ include file="footer.jsp" %>

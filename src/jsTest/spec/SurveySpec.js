@@ -8,13 +8,16 @@ describe("survey pop up", function () {
                 <div id="modal" style="display: none"> \
                        <button type="submit" class="button" id="surveySubmitButton">Submit</button>\
                        <button type="button" class="button" id="closeButton">Close</button>\
+                       <div id="surveyThankYou" style="display: none"></div>\
+                       <button id="closeMessageButton">Close</button>\
+                       <form:form id="survey" action="/survey" method="post" modelAttribute="survey" ></form:form>\
                 </div>'
             );
     }
 
+
     beforeEach(function () {
         setUpHTMLFixture();
-
         surveyPopUp = new SurveyPopUp();
     });
 
@@ -49,12 +52,36 @@ describe("survey pop up", function () {
 
         expect(document.getElementById('modal').style.display).toEqual('none');
     });
+    
+    
+    it("should hide modal when click closeMessageButton" , function () {
+        document.getElementById('modal').style.display = 'block';
 
-    it("should hide modal when click submit button" , function () {
+        document.getElementById('closeMessageButton').click();
+
+        expect(document.getElementById('modal').style.display).toEqual('none');
+    });
+    
+    it("should hide survey when click submit button" , function () {
+        $.ajax = jasmine.createSpy('ajax').and.returnValue(undefined);
+    
+        document.getElementById('modal').style.display = 'block';
+    
+        document.getElementById('surveySubmitButton').click();
+    
+        expect(document.getElementById('survey').style.display).toEqual('none');
+    });
+    
+    it("should show success message in modal when click submit button" , function () {
+        $.ajax = jasmine.createSpy('ajax').and.returnValue(undefined);
+
         document.getElementById('modal').style.display = 'block';
 
         document.getElementById('surveySubmitButton').click();
 
-        expect(document.getElementById('modal').style.display).toEqual('none');
+        expect(document.getElementById('surveyThankYou').style.display).toEqual('block');
     });
+    
+    
+    
 });

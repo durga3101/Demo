@@ -2,6 +2,9 @@ function SurveyPopUp() {
     var modal = document.getElementById('modal');
     var closeButton = document.getElementById('closeButton');
     var surveySubmitButton = document.getElementById('surveySubmitButton');
+    var surveyThankYou = document.getElementById('surveyThankYou');
+    var survey = document.getElementById('survey');
+    var closeMessageButton = document.getElementById('closeMessageButton');
 
     this.showSurvey = function() {
         if (!$.cookie("SurveyTaken")) {
@@ -13,31 +16,36 @@ function SurveyPopUp() {
         modal.style.display = 'block';
     };
 
-    function addModalCloseListener() {
+    function registerCloseButtonListener() {
         closeButton.onclick = function() {
             modal.style.display = 'none';
         }
-        
-        surveySubmitButton.onclick = function(e) {
-            var url = "/survey"; 
+        closeMessageButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+    }
 
+    function registerSubmitButtonListener(){
+        surveySubmitButton.onclick = function(e) {
+            var url = "/survey";
             $.ajax({
                 type: "POST",
                 url: url,
-                data: $("#survey").serialize(), 
+                data: $("#survey").serialize(),
                 success: function(data) {
-                    alert(data); 
-                    console.log(data);
                 }
             });
-            modal.style.display = 'none';
-            e.preventDefault(); 
+            survey.style.display = 'none';
+            surveyThankYou.style.display = 'block';
+            e.preventDefault();
         }
-
     }
+    
+
 
     function init() {
-        addModalCloseListener();
+        registerCloseButtonListener();
+        registerSubmitButtonListener();
     }
 
     init();

@@ -9,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -26,7 +24,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ItemServiceImplTest {
 
-    private static final String SHOPPING_CART = "shoppingCart";
     @Mock
     ItemMapper itemMapper;
 
@@ -36,21 +33,12 @@ public class ItemServiceImplTest {
     @Mock
     Item item;
 
-    @Mock
-    HttpSession session;
-
-    @Mock
-    HttpServletRequest request;
-
     ItemService itemService;
     private HashMap<Long, Long> map;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-
-        when(request.getSession()).thenReturn(session);
-
         when(sqlSession.getMapper(ItemMapper.class)).thenReturn(itemMapper);
         itemService = new ItemServiceImpl(sqlSession);
         map = new HashMap<>();
@@ -117,10 +105,7 @@ public class ItemServiceImplTest {
         HashMap<Item, Long> expectedMap = new HashMap<>();
         expectedMap.put(item, 2l);
 
-        when(session.getAttribute(SHOPPING_CART)).thenReturn(map);
-
-
-        HashMap<Item, Long> itemMap = itemService.getItemHashMap(request);
+        HashMap<Item, Long> itemMap = itemService.getItemHashMap(map);
 
         verify(itemMapper).getByItemId(anyLong());
         assertEquals(expectedMap, itemMap);
@@ -128,9 +113,8 @@ public class ItemServiceImplTest {
 
     @Test
     public void shouldReturnEmptyHashmapWhenShoppingCartIsNull() {
-        when(session.getAttribute(SHOPPING_CART)).thenReturn(null);
 
-        HashMap<Item, Long> expected = itemService.getItemHashMap(request);
+        HashMap<Item, Long> expected = itemService.getItemHashMap(null);
         assertEquals(expected, map);
     }
 

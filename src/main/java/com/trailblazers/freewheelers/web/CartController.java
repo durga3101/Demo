@@ -32,15 +32,15 @@ public class CartController {
     private static final String SHOPPING_CART = "shoppingCart";
 
     private ItemService itemService;
-    private Calculator calculator;
+    private TaxCalculator taxCalculator;
     private AccountService accountService;
     private CountryService countryService;
 
 
     @Autowired
-    public CartController(ItemService itemService, Calculator calculator, AccountService accountService, CountryService countryService) {
+    public CartController(ItemService itemService, TaxCalculator taxCalculator, AccountService accountService, CountryService countryService) {
         this.itemService = itemService;
-        this.calculator = calculator;
+        this.taxCalculator = taxCalculator;
         this.accountService = accountService;
         this.countryService = countryService;
     }
@@ -50,7 +50,7 @@ public class CartController {
 
         if (isPrincipalNull(principal)) return REDIRECT_LOGIN;
 
-        HashMap<Item, Long> items = itemService.getItemHashMap(request);
+        HashMap<Item, Long> items = getItemsFromCart(request);
         Account account = accountService.getAccountIdByName(decode(principal.getName()));
 
         Country country = countryService.getByName(account.getCountry());
@@ -61,7 +61,7 @@ public class CartController {
         country1.setVat_rate(20.0);
 
 
-        BigDecimal vat = calculator.calculateVat(new BigDecimal(50),country1 );
+        BigDecimal vat = taxCalculator.calculateVat(new BigDecimal(50),country1 );
 
         setVat(model,vat.toString());
 
@@ -84,6 +84,10 @@ public class CartController {
         return principal == null;
     }
 
+    private HashMap<Item, Long> getItemsFromCart(HttpServletRequest request) {
+        HashMap<Long, Long> cart = (HashMap<Long, Long>) request.getSession().getAttribute(SHOPPING_CART);
+        return itemService.getItemHashMap(cart);
+    }
 
     private String decode(String userName) {
         try {

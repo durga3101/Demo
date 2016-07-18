@@ -2,7 +2,6 @@ package com.trailblazers.freewheelers.service;
 
 import com.trailblazers.freewheelers.model.Item;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,5 +27,5 @@ public interface ItemService {
 
     Item saveItem(Item item);
 
-    HashMap<Item, Long> getItemHashMap(HttpServletRequest request);
+    HashMap<Item, Long> getItemHashMap( HashMap<Long,Long> map);
 }

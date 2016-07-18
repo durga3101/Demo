@@ -21,24 +21,38 @@ public class PaymentController {
     private static final String SHOPPING_CART = "shoppingCart";
 
     ItemService itemService;
-    Calculator calculator;
 
     @Autowired
-    public PaymentController(ItemService itemService, Calculator calculator) {
+    public PaymentController(ItemService itemService) {
         this.itemService = itemService;
-        this.calculator = calculator;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, HttpServletRequest request) {
-        HashMap<Item, Long> cart = itemService.getItemHashMap(request);
-        if(cart.isEmpty()){
-            return "redirect:/";
+        if(request.getSession().getAttribute("itemOnConfirm") == null){
+            return "payment";
         }
-        BigDecimal subtotal = calculator.getSubtotalFromCart(cart);
-
-        model.addAttribute("subtotal", subtotal);
+//        model.addAttribute("totalAmount", ));
         return "payment";
     }
 
+    public BigDecimal getTotalPriceFromCart(HttpServletRequest request) {
+        HashMap<Item, Long> cart = getItemsFromCart(request);
+        BigDecimal totalPrice = new BigDecimal(0);
+        for (Map.Entry<Item, Long> entry : cart.entrySet()) {
+            BigDecimal itemPrice = entry.getKey().getPrice();
+
+            for(int quantity = 0; quantity < entry.getValue(); quantity++){
+                totalPrice = totalPrice.add(itemPrice);
+            }
+
+        }
+        totalPrice = totalPrice.setScale(2, RoundingMode.CEILING);
+        return totalPrice;
+    }
+
+    private HashMap<Item, Long> getItemsFromCart(HttpServletRequest request) {
+        HashMap<Long, Long> cart = (HashMap<Long, Long>) request.getSession().getAttribute(SHOPPING_CART);
+        return itemService.getItemHashMap(cart);
+    }
 }

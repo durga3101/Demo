@@ -21,27 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/gateway")
 public class GatewayController {
 
     private String url = "http://ops.freewheelers.bike:5000/authorise";
-    static final String SHOPPING_CART = "shoppingCart";
-    static final String PURCHASED_ITEMS = "purchasedItems";
-
 
     private final ReserveOrderService reserveOrderService;
     private final AccountService accountService;
     private RestTemplate restTemplate;
     private ItemService itemService;
     private PaymentRequestBuilderServiceImpl paymentBuilder;
-
 
     @Autowired
     public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder) {
@@ -66,30 +59,17 @@ public class GatewayController {
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         String responseString = response + "";
 
-        if (!responseString.contains("SUCCESS")) return "redirect:/gateway/reserve-error";
-        HttpSession session = servletRequest.getSession();
+        if (responseString.contains("SUCCESS")) {
+            Item item = (Item) servletRequest.getSession().getAttribute("itemOnConfirm");
+            Item itemToReserve = itemService.get(item.getItemId());
 
-        HashMap<Long, Long> purchasedItemsFromShoppingCart = (HashMap) session.getAttribute(SHOPPING_CART);
+            saveReservedOrderToDatabase(principal, itemToReserve);
 
-        session.setAttribute(PURCHASED_ITEMS, purchasedItemsFromShoppingCart);
-        session.setAttribute(SHOPPING_CART, null);
-
-        HashMap<Item, Long> items = itemService.getItemHashMap(servletRequest);
-
-        for (Map.Entry<Item, Long> entry : items.entrySet()) {
-            Item item = entry.getKey();
-            for(int quantity = 0; quantity < entry.getValue(); quantity++){
-                saveReservedOrderToDatabase(principal, item);
-                decreasePurchasedItemQuantityByOne(item);
-            }
+            decreasePurchasedItemQuantityByOne(servletRequest, itemToReserve);
+            return "redirect:/reserve";
         }
 
-        return "reserve";
-    }
-
-    @RequestMapping(value = "reserve-error", method = RequestMethod.GET)
-    public String get() {
-        return "reserve-error";
+        return "redirect:/gateway/reserve-error";
     }
 
     private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve) {
@@ -100,9 +80,16 @@ public class GatewayController {
         reserveOrderService.save(reserveOrder);
     }
 
-    private void decreasePurchasedItemQuantityByOne( Item itemToReserve) {
+    @RequestMapping(value = "reserve-error", method = RequestMethod.GET)
+    public String get() {
+        return "reserve-error";
+    }
+
+    private void decreasePurchasedItemQuantityByOne(HttpServletRequest servletRequest, Item itemToReserve) {
 
         itemService.decreaseQuantityByOne(itemToReserve);
+        servletRequest.getSession().setAttribute("itemOnConfirm", null);
+        servletRequest.getSession().setAttribute("purchasedItem", itemToReserve);
     }
 
     private HttpEntity<String> createRequest(String cc_number, String csc, String expiry_month, String expiry_year, String amount) {

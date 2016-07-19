@@ -57,13 +57,7 @@
     <div id="country_field">
         <label for="fld_country">Country</label>
         <div id="fld_country" class="controls">
-            <%--<form:options items="${itemTypes}"/>--%>
-            <%--<td>
 
-            <c:out value="${item.name}"/>
-            </td>--%>
-            <%--<input type="hidden" name="amount" value=${totalAmount}>--%>
-            <%--<input type="text" id="fld_country" name="country" value=${country}>--%>
             <input type="text" readonly="readonly" id="fld_country_2" name="country" value=" ${country} ">
         </div>
     </div>

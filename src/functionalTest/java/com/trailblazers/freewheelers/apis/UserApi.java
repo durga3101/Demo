@@ -300,6 +300,12 @@ public class UserApi {
 
         return this;
     }
+    public UserApi click_submit_button() {
+        driver.findElement(By.id("surveySubmitButton")).click();
+
+        return this;
+    }
+
 
     public UserApi clicks_back_to_checkout_button() {
         driver.findElement(By.id("back_to_checkout")).click();

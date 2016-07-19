@@ -109,9 +109,25 @@ public class UserFlowTest extends UserJourneyBase {
                 .click_payment_button();
 
         screen
+                .shouldSeePaymentSuccess()
+                .shouldSeeSurvey();
+
+        user
+                .click_submit_button();
+
+        screen
+
+                .shouldSeeConfirmation();
+
+        user
+                .click_cancel_button();
+
+        screen
+
                 .shouldSeePaymentSuccess();
 
-        // TODO: Add tests for survey
 
     }
+
+
 }

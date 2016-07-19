@@ -174,6 +174,16 @@ public class ScreenApi {
         return this;
     }
 
+    public ScreenApi shouldSeeSurvey(){
+        assertThat(driver.findElement(By.id("modal")).getText(), containsString("1. How likely is it that you would recommend Freewheelers to a friend or colleague?"));
+        return this;
+    }
+
+    public ScreenApi shouldSeeConfirmation(){
+        assertThat(driver.findElement(By.id("surveyThankYou")).getText(), containsString("Thank you for filling out our survey!"));
+        return this;
+    }
+
     public ScreenApi shouldSeePaymentFailure() {
         String failureMessage = "Oh no! There was an error processing your request. Please try again.";
         assertThat(driver.getPageSource(),containsString(failureMessage));

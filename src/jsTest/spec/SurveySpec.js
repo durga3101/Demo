@@ -10,7 +10,7 @@ describe("survey pop up", function () {
                        <button type="submit" class="button" id="surveySubmitButton">Submit</button>\
                        <button type="button" class="button" id="closeButton">Close</button>\
                        <div id="surveyThankYou" style="display: none"></div>\
-                       <button id="closeMessageButton">Close</button>\
+                       <button id="cancel">Close</button>\
                        <form:form id="survey" action="/survey" method="post" modelAttribute="survey" ></form:form>\
                 </div>'
             );
@@ -58,7 +58,7 @@ describe("survey pop up", function () {
     it("should hide modal when click closeMessageButton" , function () {
         document.getElementById('modal').style.display = 'block';
 
-        document.getElementById('closeMessageButton').click();
+        document.getElementById('cancel').click();
 
         expect(document.getElementById('modal').style.display).toEqual('none');
     });

@@ -20,13 +20,14 @@
         <label for="fld_street1">Street 1</label>
         <div class="controls">
             <input type="text" id="fld_street1" placeholder="Street" name="street1">
-            <span class="text-error">Must Enter Street Details</span>
+            <span class="text-error">Must enter street details</span>
         </div>
     </div>
     <div id="street2_field">
         <label for="fld_street2">Street 2</label>
         <div class="controls">
             <input type="text" id="fld_street2" placeholder="Street" name="street2">
+            <span class="text-error"></span>
         </div>
     </div>
 
@@ -34,7 +35,7 @@
         <label for="fld_city">City</label>
         <div class="controls">
             <input type="text" id="fld_city" placeholder="City" name="city">
-            <span class="text-error">Must Enter City</span>
+            <span class="text-error">Must enter city</span>
         </div>
     </div>
 
@@ -42,7 +43,7 @@
         <label for="fld_state">State/Province</label>
         <div class="controls">
             <input type="text" id="fld_state" placeholder="Your state/province" name="state">
-            <span class="text-error">Must Enter State/Province</span>
+            <span class="text-error">Must enter state/province</span>
         </div>
     </div>
 
@@ -50,7 +51,7 @@
         <label for="fld_postcode">Postal Code</label>
         <div class="controls">
             <input type="text" id="fld_postcode" placeholder="555-123456" name="postcode">
-            <span class="text-error">Must Enter Post Code</span>
+            <span class="text-error">Must enter post code</span>
         </div>
     </div>
     <div id="country_field">

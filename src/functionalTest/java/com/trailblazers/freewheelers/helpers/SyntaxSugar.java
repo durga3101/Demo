@@ -2,12 +2,11 @@ package com.trailblazers.freewheelers.helpers;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.valueOf;
-
 public class SyntaxSugar {
 
     public static final String SOME_PHONE_NUMBER = "555-123456";
     public static final String EMPTY_PHONE_NUMBER = "";
+    public static final String EMPTY_STRING = "";
 
     public static final String SOME_PASSWORD = "Password@1";
     public static final String DIFFERENT_PASSWORD = "Password@2";
@@ -50,6 +49,7 @@ public class SyntaxSugar {
     public static String CITY = "A city";
     public static String STATE = "A state";
     public static String POSTAL_CODE = "12345";
+    public static String FIELD_WITH_MORETHAN_255_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static String ENTER_CARD_NO = "Must enter a card number.";
     public static String CARD_NO_FIELD = "card_number_field";

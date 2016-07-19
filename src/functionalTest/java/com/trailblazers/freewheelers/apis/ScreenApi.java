@@ -16,7 +16,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ScreenApi {
@@ -30,8 +29,9 @@ public class ScreenApi {
         expectMessageWithClass(expectedMessage, "error");
     }
 
-    public void shows_error(String expectedMessage, String id) {
+    public ScreenApi shows_error(String expectedMessage, String id) {
         expectMessageWithField(expectedMessage, "text-error", id);
+        return this;
     }
 
 

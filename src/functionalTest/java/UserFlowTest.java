@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
-public class UserFlowTest extends UserJourneyBase{
+public class UserFlowTest extends UserJourneyBase {
 
     @Test
     public void userFlowTest() throws Exception {
@@ -62,6 +62,26 @@ public class UserFlowTest extends UserJourneyBase{
 
         user
                 .click_checkout_button();
+
+        user
+                .click_proceed_to_payment_button();
+
+        screen
+                .shows_error("Must enter street details", "street1_field")
+                .shows_error("Must enter city","city_field")
+                .shows_error("Must enter state/province","state_field")
+                .shows_error("Must enter post code","postcode_field");
+
+        user
+                .entersShippingAddressDetails(FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS)
+                .click_proceed_to_payment_button();
+        screen
+                .shows_error("Must enter valid street details", "street1_field")
+                .shows_error("Must enter valid street details", "street2_field")
+                .shows_error("Must enter valid city","city_field")
+                .shows_error("Must enter valid state/province","state_field")
+                .shows_error("Must enter valid postal code","postcode_field");
+
         user
                 .entersShippingAddressDetails(ADDRESS_1, ADDRESS_2, CITY, STATE, POSTAL_CODE);
         user

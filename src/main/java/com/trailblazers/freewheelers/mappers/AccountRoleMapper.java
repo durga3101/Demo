@@ -14,7 +14,7 @@ public interface AccountRoleMapper {
     void insert(AccountRole accountRole);
 
     @Select(
-            "select * from account_role where account_name = #{account_name}"
+            "select * from account_role where account_name = #{account_name} LIMIT 1"
     )
     AccountRole get(String loggedInUser);
 }

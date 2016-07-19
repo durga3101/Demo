@@ -20,7 +20,7 @@
 <c:choose>
     <c:when test="${isCartEmpty}">
         <div id="empty-cart" class="empty-cart page-action">
-            <p>Oops, looks like your cart is empty. <b><a href="/">Add items</a></b></p>
+            <p>Oops, looks like your cart is empty. <b><a id="add-items" href="/">Add items</a></b></p>
         </div>
 
     </c:when>

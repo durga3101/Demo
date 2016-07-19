@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.apis;
 
-import com.google.common.base.Function;
 import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
@@ -9,15 +8,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import static com.trailblazers.freewheelers.helpers.Controls.*;
 
@@ -320,5 +316,10 @@ public class UserApi {
 
     public void clicks_on_user_name_in_order_table(String userName) {
         driver.findElement(By.linkText(userName)).click();
+    }
+
+    public UserApi continueShopping() {
+        driver.findElement(By.id("add-items")).click();
+        return this;
     }
 }

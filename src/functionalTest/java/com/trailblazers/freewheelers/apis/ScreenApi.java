@@ -35,8 +35,9 @@ public class ScreenApi {
     }
 
 
-    public void shows_message(String expectedMessage) {
+    public ScreenApi shows_message(String expectedMessage) {
         expectMessageWithClass(expectedMessage, "page-action");
+        return this;
     }
 
     public void showsMessageInClass(String expectedMessage, String expectedClass) {
@@ -124,7 +125,7 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi shows_profile_for_country( String name,String country) {
+    public ScreenApi shows_profile_for_country(String country) {
         String userDetails = driver.findElement(By.id("user-details")).getText();
 
         assertThat(userDetails, containsString(country));

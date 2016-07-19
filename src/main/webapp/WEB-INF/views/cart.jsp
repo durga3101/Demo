@@ -43,7 +43,7 @@
                     <td><c:out value="${item.name}"/></td>
                     <td><c:out value="${item.description}"/></td>
                     <td><c:out value="${entry.value}"/></td>
-                    <td><c:out value="${item.price}"/></td>
+                    <td><c:out value="${item.price * entry.value}"/></td>
                     <td>
                 </tr>
             </c:forEach>

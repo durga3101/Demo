@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" scope="request" value="Reserve Item"/>
 <%@ include file="header.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <script type="text/javascript">
     $(function () {
@@ -26,7 +27,7 @@
 
         <tr>
             <td><c:out value="${item.name}"/></td>
-            <td><c:out value="${item.price * entry.value}"/></td>
+            <td>£ <c:out value="${item.price * entry.value}"/></td>
             <td><c:out value="${item.description}"/></td>
             <td><c:out value="${item.type}"/></td>
             <td><c:out value="${entry.value}"/></td>

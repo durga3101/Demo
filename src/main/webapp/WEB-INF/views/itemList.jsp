@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" scope="request" value="Manage Items"/>
 <%@ include file="header.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 		<script type="text/javascript" src="<c:url value='/scripts/js/extensions.js' />"></script>
 		<script type="text/javascript" src="<c:url value='/scripts/js/UpdateItemsCheckbox.js' />"></script>
@@ -37,7 +38,7 @@
                 </div>
 
                 <div id="price_field">
-                    <form:label for="price" path="price">Price</form:label>
+                    <form:label for="price" path="price">Price (£)</form:label>
                     <div class="controls">
                         <form:input path="price"/>
 
@@ -96,7 +97,7 @@
 			    <table class="table">
 				<thead><tr><th><input type="checkbox" class="toggleAll" /></th>
 				<th>Name</th>
-				<th>Price</th>
+				<th>Price (£)</th>
 				<th>Description</th>
 				<th>ItemType</th>
 				<th>Quantity</th>

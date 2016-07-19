@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" scope="request" value="Home"/>
 <%@ include file="header.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="page-action">Home</div>
 
 <c:if test="${isItemOutOfStock}">
@@ -30,7 +31,7 @@
     <c:forEach var="item" items="${items}" varStatus="row">
         <tr>
             <td><c:out value="${item.name}"/></td>
-            <td><c:out value="${item.price}"/></td>
+            <td>£ <c:out value="${item.price}"/></td>
             <td><c:out value="${item.description}"/></td>
             <td><c:out value="${item.type}"/></td>
             <td>

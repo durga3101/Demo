@@ -27,7 +27,7 @@
 
         <tr>
             <td><c:out value="${item.name}"/></td>
-            <td>£ <c:out value="${item.price * entry.value}"/></td>
+            <td>£<c:out value="${item.price * entry.value}"/></td>
             <td><c:out value="${item.description}"/></td>
             <td><c:out value="${item.type}"/></td>
             <td><c:out value="${entry.value}"/></td>

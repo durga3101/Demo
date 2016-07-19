@@ -44,8 +44,8 @@
                     <td><c:out value="${item.name}"/></td>
                     <td><c:out value="${item.description}"/></td>
                     <td><c:out value="${entry.value}"/></td>
-                    <td>£ <c:out value="${item.price}"/></td>
-                    <td>£ <c:out value="${item.price * entry.value}"/></td>
+                    <td>£<c:out value="${item.price}"/></td>
+                    <td>£<c:out value="${item.price * entry.value}"/></td>
                     <td>
                 </tr>
             </c:forEach>
@@ -59,19 +59,19 @@
         <table id="tax">
             <tr>
                 <td>Sub Total:</td>
-                <td>£ ${subTotal}</td>
+                <td>£${subTotal}</td>
             </tr>
             <tr>
                 <td >Vat (${vatRate}%):</td>
-                <td>£ ${vat}</td>
+                <td>£${vat}</td>
             </tr>
             <tr>
                 <td>Duty (${dutyRate}%):</td>
-                <td>£ ${duty}</td>
+                <td>£${duty}</td>
             </tr>
             <tr>
                 <td>Grand Total:</td>
-                <td id="grand_total">£ ${grandTotal}</td>
+                <td id="grand_total">£${grandTotal}</td>
             </tr>
 
         </table>

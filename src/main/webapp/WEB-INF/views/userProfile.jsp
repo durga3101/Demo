@@ -24,7 +24,7 @@
             <c:forEach var="item" items="${items}" varStatus="row">
                 <tr>
                     <td><c:out value="${item.name}"/></td>
-                    <td>£ <c:out value="${item.price}"/></td>
+                    <td>£<c:out value="${item.price}"/></td>
                     <td><c:out value="${item.description}"/></td>
                     <td><c:out value="${item.type}"/></td>
                 </tr>

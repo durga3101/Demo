@@ -38,8 +38,9 @@ public class HumansTxtTest {
                 "Sruti Sridhar",
                 "Raju",
                 "Sis Liu",
-                "prajakta",
-                "Julio Mariano"
+                "Prajakta Desai",
+                "Julio Mariano",
+                "Luke Belliveau"
                 };
         String[] split = element.getText().split("\n");
         assertThat(split, is(expectedTeamMembers));

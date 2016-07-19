@@ -17,19 +17,70 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .clearCookies()
-                .creates_an_account(RAJU, SOME_EMAIL, SOME_PASSWORD, EMPTY_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+                .logs_in_with(RAJU, SOME_PASSWORD);
 
         screen
-                .shows_error(PASSWORD_ERROR, PASSWORD_FIELD);
+                .shows_error_alert(UNSUCCESSFUL_LOGIN);
 
         user
-                .creates_an_account(RAJU, SOME_EMAIL, SOME_PASSWORD, SOME_PASSWORD, SOME_PHONE_NUMBER, SOME_COUNTRY);
+                .creates_an_account(RAJU,
+                                    SOME_EMAIL,
+                                    SOME_PASSWORD,
+                                    EMPTY_PASSWORD,
+                                    EMPTY_PHONE_NUMBER,
+                                    UNSELECTED_COUNTRY
+                );
+
+        screen
+                .shows_error(PASSWORD_ERROR, PASSWORD_FIELD)
+                .shows_error(PHONE_ERROR, PHONE_FIELD)
+                .shows_error(COUNTRY_ERROR, COUNTRY_FIELD);
+
+        user
+                .creates_an_account(RAJU,
+                                    SOME_EMAIL,
+                                    SOME_PASSWORD,
+                                    SOME_PASSWORD,
+                                    SOME_PHONE_NUMBER,
+                                    SOME_COUNTRY
+                );
 
         screen
                 .shows_message(ACCOUNT_CREATION_SUCCESS);
 
         user
-                .visits_home_page()
+                .is_logged_out()
+                .creates_an_account(DURGA,
+                                    SOME_EMAIL,
+                                    SOME_PASSWORD,
+                                    SOME_PASSWORD,
+                                    SOME_PHONE_NUMBER,
+                                    SOME_COUNTRY
+                );
+
+        screen
+                .shows_message(ACCOUNT_CREATION_ERROR);
+
+        user
+                .visits_home_page();
+
+        screen
+                .shouldNotShowAddToCartMessages();
+
+        user
+                .visits_cart_page();
+
+        screen
+                .shows_login();
+
+        user
+                .logs_in_with(RAJU, SOME_PASSWORD);
+
+        screen
+                .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
+
+        user
+                .is_logged_out()
                 .add_item_to_cart(SIMPLON_FRAME);
 
         screen
@@ -37,13 +88,17 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .logs_in_with(RAJU, SOME_PASSWORD);
+
         screen
-                .should_list_item(SIMPLON_FRAME);
+                .should_list_item(SIMPLON_FRAME)
+                .showsMessageInClass(ADD_TO_CART_SUCCESS, ADD_TO_CART_SUCCESS_CLASS);
 
         user
                 .visits_his_profile();
+
         screen
-                .shows_profile_for(RAJU);
+                .shows_profile_for(RAJU)
+                .shows_profile_for_country(SOME_COUNTRY);
 
         user
                 .visits_admin_profile();
@@ -54,6 +109,12 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .visits_home_page()
                 .add_item_to_cart(CHROME_FRAME)
+                .add_item_to_cart(SIMPLON_FRAME);
+
+        screen
+                .showsMessageInClass(ADD_TO_CART_FAILURE, ADD_TO_CART_FAILURE_CLASS);
+
+        user
                 .visits_cart_page();
 
         screen
@@ -67,45 +128,71 @@ public class UserFlowTest extends UserJourneyBase {
                 .click_proceed_to_payment_button();
 
         screen
-                .shows_error("Must enter street details", "street1_field")
-                .shows_error("Must enter city","city_field")
-                .shows_error("Must enter state/province","state_field")
-                .shows_error("Must enter postal code","postcode_field");
+                .shows_error(EMPTY_STREET_ERR, STREET_1_FIELD)
+                .shows_error(EMPTY_CITY_ERR, CITY_FIELD)
+                .shows_error(EMPTY_STATE_ERR, STATE_FIELD)
+                .shows_error(EMPTY_PC_ERR, PC_FIELD);
 
         user
-                .entersShippingAddressDetails(FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS)
+                .entersShippingAddressDetails(  FIELD_WITH_MORETHAN_255_CHARACTERS,
+                                                FIELD_WITH_MORETHAN_255_CHARACTERS,
+                                                FIELD_WITH_MORETHAN_255_CHARACTERS,
+                                                FIELD_WITH_MORETHAN_255_CHARACTERS,
+                                                FIELD_WITH_MORETHAN_255_CHARACTERS
+                )
                 .click_proceed_to_payment_button();
+
         screen
-                .shows_error("Must enter valid street details", "street1_field")
-                .shows_error("Must enter valid street details", "street2_field")
-                .shows_error("Must enter valid city","city_field")
-                .shows_error("Must enter valid state/province","state_field")
-                .shows_error("Must enter valid postal code","postcode_field");
+                .shows_error(INVALID_STREET_ERR, STREET_1_FIELD)
+                .shows_error(INVALID_STREET_ERR, STREET_2_FIELD)
+                .shows_error(INVALID_CITY_ERR, CITY_FIELD)
+                .shows_error(INVALID_STATE_ERR, STATE_FIELD)
+                .shows_error(INVALID_PC_ERR, PC_FIELD);
 
         user
-                .entersShippingAddressDetails(ADDRESS_1, ADDRESS_2, CITY, STATE, POSTAL_CODE);
-        user
+                .entersShippingAddressDetails(  ADDRESS_1,
+                                                ADDRESS_2,
+                                                CITY,
+                                                STATE,
+                                                POSTAL_CODE
+                )
                 .click_proceed_to_payment_button();
+
         screen
-                .showsMessageInClass("120.00", "summary");
+                .showsMessageInClass(BIG_DEC_120, SUMMARY_CLASS);
+
         user
-                .entersPaymentDetails(VISA, INVALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
+                .entersPaymentDetails(  VISA,
+                                        INVALID_CARD_NO,
+                                        CCV,
+                                        EXP_MONTH,
+                                        EXP_YEAR
+                )
                 .click_payment_button();
 
         screen
                 .shows_error(ENTER_CARD_NO, CARD_NO_FIELD);
 
         user
-                .entersPaymentDetails(VISA, REVOKED_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
+                .entersPaymentDetails(  VISA,
+                                        REVOKED_CARD_NO,
+                                        CCV,
+                                        EXP_MONTH,
+                                        EXP_YEAR
+                )
                 .click_payment_button();
 
         screen
                 .shouldSeePaymentFailure();
+
         user
                 .clicks_back_to_checkout_button()
-                .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR);
-//REMOVING PAYMENT STEP OUT UNTIL SURVEY IS FIXED 
-        user
+                .entersPaymentDetails(  VISA,
+                                        VALID_CARD_NO,
+                                        CCV,
+                                        EXP_MONTH,
+                                        EXP_YEAR
+                )
                 .click_payment_button();
 
         screen
@@ -128,6 +215,4 @@ public class UserFlowTest extends UserJourneyBase {
 
 
     }
-
-
 }

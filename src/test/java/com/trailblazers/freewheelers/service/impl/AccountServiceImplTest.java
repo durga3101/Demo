@@ -45,6 +45,24 @@ public class AccountServiceImplTest {
     }
 
     @Test
+    public void shouldNotCreateAccountWhenCountryIsIndia() {
+        Account account = getAccountWithCountryErrors("India");
+
+        accountService.createAccount(account);
+
+        verify(accountMapper, times(0)).insert(account);
+    }
+
+    @Test
+    public void shouldNotCreateAccountWhenCountryIsBlank() {
+        Account account = getAccountWithCountryErrors("");
+
+        accountService.createAccount(account);
+
+        verify(accountMapper, times(0)).insert(account);
+    }
+
+    @Test
     public void shouldReturnRoleForGivenUser() throws Exception {
         String user = "abc";
         when(accountRoleMapper.get(user)).thenReturn(mock(AccountRole.class));
@@ -53,6 +71,10 @@ public class AccountServiceImplTest {
     }
 
     private Account getAccountWithoutErrors() {
-        return new Account("example", true, "example@example.com", "1234567890", "India", "Example Person");
+        return new Account("example", true, "example@example.com", "1234567890", "UK", "Example Person");
+    }
+
+    private Account getAccountWithCountryErrors(String error) {
+        return new Account("example", true, "example@example.com", "1234567890", error, "Example Person");
     }
 }

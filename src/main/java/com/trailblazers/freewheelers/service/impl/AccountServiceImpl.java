@@ -6,6 +6,7 @@ import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountRole;
 import com.trailblazers.freewheelers.service.AccountService;
+import com.trailblazers.freewheelers.service.CountryList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -72,9 +73,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void create(Account account, String role) {
-        accountMapper.insert(account);
-        accountRoleMapper.insert(roleFor(account, role));
-        sqlSession.commit();
+        CountryList countryList = new CountryList();
+        for (String country: countryList.getCountries()) {
+            if (account.getCountry().equals(country)){
+                accountMapper.insert(account);
+                accountRoleMapper.insert(roleFor(account, role));
+                sqlSession.commit();
+                return;
+            }
+        }
     }
 
     private AccountRole roleFor(Account account, String role) {

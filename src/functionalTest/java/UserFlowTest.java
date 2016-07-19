@@ -67,7 +67,7 @@ public class UserFlowTest extends UserJourneyBase{
         user
                 .click_proceed_to_payment_button();
         screen
-                .showsMessageInClass("100.00", "summary");
+                .showsMessageInClass("120.00", "summary");
         user
                 .entersPaymentDetails(VISA, INVALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
                 .click_payment_button();

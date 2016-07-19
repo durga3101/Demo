@@ -70,13 +70,15 @@ public class PaymentControllerTest {
         HashMap<Item, Long> cart = mock(HashMap.class);
         when(cart.isEmpty()).thenReturn(false);
         when(service.getItemHashMap(request)).thenReturn(cart);
-        BigDecimal subtotal = new BigDecimal(100.00);
-        subtotal.setScale(2, RoundingMode.CEILING);
-        when(calculator.getSubtotalFromCart(cart)).thenReturn(subtotal);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+        String grandTotal = "200.00";
+        when(session.getAttribute(anyString())).thenReturn(grandTotal);
 
         controller.get(model, request);
 
-        verify(model).addAttribute("subtotal", subtotal);
+
+        verify(model).addAttribute("grandTotal", grandTotal);
     }
 
 }

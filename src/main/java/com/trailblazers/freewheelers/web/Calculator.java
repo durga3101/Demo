@@ -48,6 +48,6 @@ public class Calculator {
     public BigDecimal getGrandTotal(HashMap<Item, Long> items, Country country) {
         BigDecimal subtotal = this.getSubtotalFromCart(items);
 
-        return subtotal.add(calculateVat(subtotal,country)).add(calculateDuty(subtotal,country));
+        return subtotal.add(calculateVat(subtotal,country)).add(calculateDuty(subtotal,country)).setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 }

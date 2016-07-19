@@ -35,9 +35,8 @@ public class PaymentController {
         if(cart.isEmpty()){
             return "redirect:/";
         }
-        BigDecimal subtotal = calculator.getSubtotalFromCart(cart);
-
-        model.addAttribute("subtotal", subtotal);
+        String grandTotal = (String) request.getSession().getAttribute("GRAND_TOTAL");
+        model.addAttribute("grandTotal", grandTotal);
         return "payment";
     }
 

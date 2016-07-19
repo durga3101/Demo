@@ -5,9 +5,6 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class UserFlowTest extends UserJourneyBase{
 
-
-    // Ignored until CI is ready for push
-    // Save this for later commit
     @Test
     public void userFlowTest() throws Exception {
 

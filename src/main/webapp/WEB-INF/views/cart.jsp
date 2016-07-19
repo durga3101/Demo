@@ -21,7 +21,6 @@
     <c:when test="${isCartEmpty}">
         <div id="empty-cart" class="empty-cart page-action">
             <p>Oops, looks like your cart is empty. <b><a href="/">Add items</a></b></p>
-            <img src="http://fe867b.medialib.glogster.com/media/a4/a4ef95c9cd527f82a9008124821afed35bc57f7ccdf8373d54a52be381ffb48b/empty.jpg"/>
         </div>
 
     </c:when>

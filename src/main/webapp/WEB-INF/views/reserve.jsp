@@ -8,6 +8,8 @@
         new SurveyPopUp().showSurvey();
     })
 </script>
+<script type="text/javascript" src="<c:url value='/scripts/js/modal.js' />"></script>
+<link rel="stylesheet" href="<c:url value='/scripts/css/surver-modal.css' />" type="text/css"/>
 
 <div class="page-action">Thank you. Your order will be delivered in ten days!</div>
 
@@ -37,9 +39,13 @@
     </tbody>
 </table>
 
-<div id="modal" style="display: none">
-    <%@ include file="survey/form.jsp" %>
-    <%@ include file="survey/confirmation.jsp" %>
+<%--<div class="modal-bg">--%>
 
-</div>
+    <%--<div id="modal" class="modal-content" style="display: block;">--%>
+    <div id="modal" style="display: block;">
+        <%@ include file="survey/form.jsp" %>
+        <%@ include file="survey/confirmation.jsp" %>
+        <%--<button type="button" class="modal-close" onclick="console.log('HI'); new Modal().closeModal()">Close</button>--%>
+    </div>
+<%--</div>--%>
 <%@ include file="footer.jsp" %>

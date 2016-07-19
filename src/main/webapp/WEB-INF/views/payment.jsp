@@ -94,7 +94,7 @@
         <input type="hidden" name="amount" value=${grandTotal}>
 
         <div id="cancel" class="controls">
-            <button id="cancelButton" onclick="location.href = '/';">Cancel</button>
+            <button id="cancelButton" type="button" onclick="location.href = '/';">Cancel</button>
         </div>
 
         <div id="submit" class="controls">

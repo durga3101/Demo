@@ -84,9 +84,18 @@ public class UserFlowTest extends UserJourneyBase{
 
         user
                 .clicks_back_to_checkout_button()
-                .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR);
+                .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
+                .click_cancel_button();
+        screen
+                .shows_home_page();
 //REMOVING PAYMENT STEP OUT UNTIL SURVEY IS FIXED 
         user
+                .visits_cart_page();
+        user
+                .click_checkout_button()
+                .entersShippingAddressDetails(ADDRESS_1, ADDRESS_2, CITY, STATE, POSTAL_CODE)
+                .click_proceed_to_payment_button()
+                .entersPaymentDetails(VISA, VALID_CARD_NO, CCV, EXP_MONTH, EXP_YEAR)
                 .click_payment_button();
 
         screen

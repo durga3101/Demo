@@ -19,8 +19,8 @@ public class CountryServiceImplTest {
     public void setUp() throws Exception {
         countryMapper = mock(CountryMapper.class);
         sqlSession = mock(SqlSession.class);
-        countryService = new CountryServiceImpl(sqlSession);
         when(sqlSession.getMapper(CountryMapper.class)).thenReturn(countryMapper);
+        countryService = new CountryServiceImpl(sqlSession);
     }
 
     @Test

@@ -66,31 +66,21 @@
             <input type="text" readonly="readonly" id="fld_country_2" name="country" value=" ${country} ">
         </div>
     </div>
+
     <br>
-    <div>
 
-        <div class="controls" >
-            <%--<button type="submit" onclick="location.href='/cart'" id="back_to_cart">--%>
-                <%--Back to Cart--%>
-            <%--</button>--%>
-            <button type="submit" id="proceedToPayment" value="Submit" onclick="showShippingAddressErrorMessage()">
-                Proceed to Payment
+    <div class="controls">
+        <a href="/cart">
+            <button type="button" id="back_to_cart">
+                Back to Cart
             </button>
-        </div>
-
-
+        </a>
+        <button type="submit" id="proceedToPayment" value="Submit" onclick="showShippingAddressErrorMessage()">
+            Proceed to Payment
+        </button>
     </div>
 
 </form>
-
-<div class="controls" style="display: flex; flex-direction: row ; justify-content: left; ">
-<form:form action="/cart" method="get">
-    <button type="submit" id="back_to_cart">
-    Back to Cart
-    </button>
-
-</form:form>
-</div>
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="<c:url value='/scripts/js/shippingAddress.js' />"></script>

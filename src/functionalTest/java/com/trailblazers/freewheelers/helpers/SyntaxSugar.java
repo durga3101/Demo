@@ -31,7 +31,7 @@ public class SyntaxSugar {
     public static final String REALLY_EXPENSIVE = "2899.00";
     public static final String SOME_DESCRIPTION = "4 x red, curved Arrow shape, screw fastening";
     public static final String A_LOT = "1000";
-    public static String CHROME_FRAME = "Chrome Pavo 5 Ultra " + System.currentTimeMillis();
+    public static String CHROME_FRAME = "Chrome Pavo 5 Ultra ";
     public static String PASSWORD_ERROR = "Must enter a password!";
     public static String PASSWORD_FIELD = "confirmPassword_field";
     public static String RAJU = "Raju";

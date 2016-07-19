@@ -1,14 +1,15 @@
 package com.trailblazers.freewheelers.apis;
 
-import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.ItemType;
-import com.trailblazers.freewheelers.model.SurveyEntry;
+import com.trailblazers.freewheelers.model.*;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
+import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.SurveyService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
+
+import java.util.Date;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
@@ -18,11 +19,14 @@ public class AdminApi {
     private AccountService accountService;
     private ItemService itemService;
     private SurveyService surveyService;
+    private ReserveOrderService reserveOrderService;
 
     public AdminApi() {
         this.accountService = new AccountServiceImpl();
         this.itemService = new ItemServiceImpl();
         this.surveyService = new SurveyService();
+        this.reserveOrderService = new ReserveOrderServiceImpl();
+
     }
 
     public AdminApi there_are_no_survey_entries() {
@@ -70,15 +74,6 @@ public class AdminApi {
         return this;
     }
 
-    private Item itemFor(String itemName, Long quantity) {
-        return new Item()
-                .setName(itemName)
-                .setQuantity(quantity)
-                .setDescription("A very nice item.")
-                .setPrice(SOME_PRICE)
-                .setType(ItemType.FRAME);
-    }
-
     private Account account_for(String userName, String password) {
         return new Account(password, true, emailFor(userName), SOME_PHONE_NUMBER, SOME_COUNTRY, userName);
     }
@@ -94,4 +89,29 @@ public class AdminApi {
         return this;
     }
 
+    public AdminApi there_is_an_order(String customer, String itemName) {
+        Account userAccount = accountService.getAccountIdByName(customer);
+        Long account_Id =  userAccount.getAccount_id();
+
+        Item item = itemService.getByName(itemName);
+        Long item_Id = item.getItemId();
+        ReserveOrder order = reservedOrderFor(account_Id, item_Id);
+        reserveOrderService.save(order);
+
+        return this;
+
+    }
+
+    private Item itemFor(String itemName, Long quantity) {
+        return new Item()
+                .setName(itemName)
+                .setQuantity(quantity)
+                .setDescription("A very nice item.")
+                .setPrice(SOME_PRICE)
+                .setType(ItemType.FRAME);
+    }
+
+    private ReserveOrder reservedOrderFor(Long account_id, Long item_id) {
+        return new ReserveOrder(account_id, item_id, new Date());
+    }
 }

@@ -1,4 +1,5 @@
 import com.trailblazers.freewheelers.UserJourneyBase;
+import com.trailblazers.freewheelers.model.OrderStatus;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -26,7 +27,9 @@ public class AdminFlow extends UserJourneyBase {
                 .there_is_no_item(Simplon_Frame)
                 .there_is_no_item(Spoke_Reflectors)
                 .there_is_no_item(New_Simplon_Name)
-                .there_is_no_item(New_Spoke_Name);
+                .there_is_no_item(New_Spoke_Name)
+                .there_is_a_frame(CHROME_FRAME, 1l)
+                .there_is_an_order(Hugo, CHROME_FRAME);
         user
                 .visits_home_page()
                 .logs_in_with(Arno, SOME_PASSWORD)
@@ -37,6 +40,16 @@ public class AdminFlow extends UserJourneyBase {
                 .visits_profile_for(Hugo);
         screen
                 .shows_profile_for(Hugo);
+
+        //Manage Orders
+        user
+                .visits_admin_profile();
+
+        screen
+                .there_should_be_an_order(CHROME_FRAME, "NEW");
+
+
+        // Manage Items
         user
                 .wants_to_manage_items()
                 .creates_an_item(Simplon_Frame, "FRAME", NO_QUANTITY, REALLY_EXPENSIVE, SOME_DESCRIPTION);
@@ -83,6 +96,7 @@ public class AdminFlow extends UserJourneyBase {
         screen
                 .shows_in_manage_item_list(New_Spoke_Name)
                 .shows_not_in_manage_item_list(New_Simplon_Name);
+
 
     }
 

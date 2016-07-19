@@ -76,7 +76,6 @@ public class GatewayControllerTest {
         items.put(item2, 2L);
         when(item1.getItemId()).thenReturn(6L);
         when(item2.getItemId()).thenReturn(7L);
-        
     }
 
     @Test

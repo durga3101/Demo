@@ -93,13 +93,15 @@
 
         <input type="hidden" name="amount" value=${grandTotal}>
 
+        <div id="cancel" class="controls">
+            <button id="cancelButton" onclick="location.href = '/';">Cancel</button>
+        </div>
+
         <div id="submit" class="controls">
             <button type="submit" id="makePayment" value="Submit" onclick="return showCardErrorMessage()">Make Payment
             </button>
         </div>
-        <div id="cancel" class="controls">
-            <button id="cancelButton" onclick="location.href = '/';">Cancel</button>
-        </div>
+
 
     </form>
 

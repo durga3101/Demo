@@ -14,7 +14,8 @@
     </div>
 </c:if>
 
-<form id="shippingAddress_form" action="/shippingAddress/addShippingAddress" model="account" method="post" onsubmit="return  validateShippingAddressForm();">
+<form id="shippingAddress_form" action="/shippingAddress/addShippingAddress" model="account" method="post"
+      onsubmit="return  validateShippingAddressForm();">
     <div id="street1_field">
         <label for="fld_street1">Street 1</label>
         <div class="controls">
@@ -32,7 +33,7 @@
     <div id="city_field">
         <label for="fld_city">City</label>
         <div class="controls">
-            <input type="text" id="fld_city" placeholder="city" name="city">
+            <input type="text" id="fld_city" placeholder="City" name="city">
             <span class="text-error">Must Enter City</span>
         </div>
     </div>
@@ -56,31 +57,39 @@
         <label for="fld_country">Country</label>
         <div id="fld_country" class="controls">
             <%--<form:options items="${itemTypes}"/>--%>
-                <%--<td>
+            <%--<td>
 
-                <c:out value="${item.name}"/>
-                </td>--%>
-                <%--<input type="hidden" name="amount" value=${totalAmount}>--%>
+            <c:out value="${item.name}"/>
+            </td>--%>
+            <%--<input type="hidden" name="amount" value=${totalAmount}>--%>
             <%--<input type="text" id="fld_country" name="country" value=${country}>--%>
-                <input type="text" readonly="readonly" id="fld_country_2" name="country" value= " ${country} " >
+            <input type="text" readonly="readonly" id="fld_country_2" name="country" value=" ${country} ">
         </div>
     </div>
     <br>
     <div>
 
-        <div class="controls">
-            <button type="submit" onclick="location.href='/cart'" id="back_to_cart">
-                Back to Cart
+        <div class="controls" >
+            <%--<button type="submit" onclick="location.href='/cart'" id="back_to_cart">--%>
+                <%--Back to Cart--%>
+            <%--</button>--%>
+            <button type="submit" id="proceedToPayment" value="Submit" onclick="showShippingAddressErrorMessage()">
+                Proceed to Payment
             </button>
-            <button type="submit" id="proceedToPayment" value="Submit" onclick="showShippingAddressErrorMessage()">Proceed to Payment</button>
+        </div>
+
+
     </div>
 
 </form>
 
-<div style="display: flex; flex-direction: row ; justify-content: center">
-    <form:form action="/cart" method="get">
+<div class="controls" style="display: flex; flex-direction: row ; justify-content: left; ">
+<form:form action="/cart" method="get">
+    <button type="submit" id="back_to_cart">
+    Back to Cart
+    </button>
 
-    </form:form>
+</form:form>
 </div>
 
 <%@ include file="footer.jsp" %>

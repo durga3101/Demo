@@ -54,6 +54,16 @@ public class CartController {
         if (isPrincipalNull(principal)) return REDIRECT_LOGIN;
 
         HashMap<Item, Long> items = itemService.getItemHashMap(request);
+
+
+
+        if (items.isEmpty()) {
+            model.addAttribute(EMPTY_CART, true);
+        } else {
+            model.addAttribute(EMPTY_CART, false);
+            model.addAttribute(ITEMS, items);
+        }
+
         Account account = accountService.getAccountIdByName(decode(principal.getName()));
 
         String countryName = account.getCountry();
@@ -66,15 +76,7 @@ public class CartController {
                 country.setDuty_rate(7.5);
             }
         }
-
         setTax(model,country,items);
-
-        if (items.isEmpty()) {
-            model.addAttribute(EMPTY_CART, true);
-        } else {
-            model.addAttribute(EMPTY_CART, false);
-            model.addAttribute(ITEMS, items);
-        }
 
         return CART;
     }

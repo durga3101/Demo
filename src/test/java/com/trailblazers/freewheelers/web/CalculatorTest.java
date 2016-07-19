@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.matches;
@@ -99,11 +100,15 @@ public class CalculatorTest {
 
     @Test
     public void shouldReturnThreeIfCartContainsThreeItems(){
-        HashMap<Item, Long> cartMap = mock(HashMap.class);
-        when(cartMap.size()).thenReturn(3);
-        when(cartMap.get(any())).thenReturn(1l).thenReturn(1l).thenReturn(1l);
+        HashMap<Item, Long> cartMap = new HashMap<>();
+        Item item1 = mock(Item.class);
+        Item item2 = mock(Item.class);
+        Item item3 = mock(Item.class);
+        cartMap.put(item1,1l);
+        cartMap.put(item2,1l);
+        cartMap.put(item3,1l);
 
-        calculator.noOfItemsInCart(cartMap);
-        verify(cartMap,times(3)).get(any());
+        assertEquals(3l, calculator.noOfItemsInCart(cartMap));
+
     }
 }

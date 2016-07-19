@@ -37,12 +37,14 @@ public class HomeControllerTest {
     private String actual;
     private HashMap<Long, Long> emptyCart;
     private Principal principal;
-    private HashMap<Long, Long> singleItemCart;
+    private HashMap<Item, Long> singleItemCart;
+    private Session session;
 
     @Before
     public void setUp() throws Exception {
         itemService = mock(ItemServiceImpl.class);
-        homeController = new HomeController(itemService);
+        session = mock(Session.class);
+        homeController = new HomeController(itemService, session);
         principal = mock(Principal.class);
         model = mock(Model.class);
         request = mock(HttpServletRequest.class);
@@ -50,7 +52,7 @@ public class HomeControllerTest {
         item = mock(Item.class);
         emptyCart = new HashMap();
         singleItemCart = new HashMap<>();
-        singleItemCart.put(123L, 1L);
+        singleItemCart.put(item, 1L);
         ITEMS = asList(item);
 
         when(request.getSession()).thenReturn(httpSession);
@@ -60,6 +62,7 @@ public class HomeControllerTest {
         when(itemService.get(anyLong())).thenReturn(item);
         when(httpSession.getAttribute(CAME_FROM_POST)).thenReturn(true);
         when(itemService.getItemsWithNonZeroQuantity()).thenReturn(ITEMS);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(emptyCart);
     }
 
     @Test
@@ -117,20 +120,23 @@ public class HomeControllerTest {
     @Test
     public void postShouldAddItemToCartIfItemIsNotYetInCart() throws Exception {
         HashMap mockCart = mock(HashMap.class);
-        when(httpSession.getAttribute(SHOPPING_CART)).thenReturn(mockCart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(mockCart);
         when(mockCart.containsKey(anyLong())).thenReturn(false);
 
         homeController.post(item, request, principal);
 
-        verify(mockCart).put(123L, 1L);
+        verify(mockCart).put(item, 1L);
     }
 
     @Test
     public void postShouldIncreaseTheQuantityOfItemWhenTheItemIsAlreadyInCart() {
-        HashMap<Long, Long> expectedCart = new HashMap<>();
-        expectedCart.put(123L, 2L);
+        HashMap<Item, Long> expectedCart = new HashMap<>();
+        singleItemCart = new HashMap<Item, Long>();
+        item = new Item();
+        singleItemCart.put(item, 1L);
+        expectedCart.put(item, 2L);
 
-        when(httpSession.getAttribute(SHOPPING_CART)).thenReturn(singleItemCart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(singleItemCart);
 
         homeController.post(item, request, principal);
 

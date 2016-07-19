@@ -25,12 +25,12 @@ public class SessionTest {
     @Before
     public void setUp() throws Exception {
         httpSession = mock(HttpSession.class);
-        session = new Session(httpSession);
+        session = new Session();
     }
 
     @Test
     public void ShouldNotReturnNull() throws Exception {
-        assertNotNull(session.getItemHashMap(attribute));
+        assertNotNull(session.getItemHashMap(attribute, httpSession));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class SessionTest {
         itemLongHashMap.put(new Item(),1l);
         when(httpSession.getAttribute(anyString())).thenReturn(itemLongHashMap);
         attribute = "Items";
-        assertEquals(itemLongHashMap,session.getItemHashMap(attribute));
+        assertEquals(itemLongHashMap,session.getItemHashMap(attribute, httpSession));
 
         verify(httpSession).getAttribute(attribute);
     }
@@ -48,6 +48,6 @@ public class SessionTest {
     public void shouldReturnEmptyHashMapIfReturnedAttributeIsNotHashMap() {
         when(httpSession.getAttribute(anyString())).thenReturn(new Object());
 
-        assertEquals(new HashMap<Item, Long>(), session.getItemHashMap(attribute));
+        assertEquals(new HashMap<Item, Long>(), session.getItemHashMap(attribute, httpSession));
     }
 }

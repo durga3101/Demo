@@ -1,21 +1,18 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
+@Component
 public class Session {
 
     private Object items;
     private HttpSession httpSession;
 
-    public Session(HttpSession httpSession) {
-
-        this.httpSession = httpSession;
-    }
-
-    public HashMap getItemHashMap(String attribute) {
+    public HashMap getItemHashMap(String attribute, HttpSession httpSession) {
         HashMap<Item, Long> itemHashMap = new HashMap<>();
         try{
             HashMap<Item, Long> itemAttribute = (HashMap<Item, Long>) httpSession.getAttribute(attribute);

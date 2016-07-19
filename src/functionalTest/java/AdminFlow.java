@@ -13,9 +13,6 @@ public class AdminFlow extends UserJourneyBase {
         String Hugo = "User Huser";
         String Arno = "Admin Admin";
 
-        String Simplon_Frame = "Simplon Pavo 3 Ultra";
-        String Spoke_Reflectors = "Spoke - Reflectors Arrow red";
-
         String New_Simplon_Name = "NEW - Simplon Pavo 3 Ultra";
         String New_Spoke_Name = "NEW - Spoke - Reflectors Arrow red";
 
@@ -24,8 +21,8 @@ public class AdminFlow extends UserJourneyBase {
                 .there_is_no_account_for(Arno)
                 .there_is_a_user(Hugo, SOME_PASSWORD)
                 .there_is_an_admin(Arno, SOME_PASSWORD)
-                .there_is_no_item(Simplon_Frame)
-                .there_is_no_item(Spoke_Reflectors)
+                .there_is_no_item(SIMPLON_FRAME)
+                .there_is_no_item(SPOKE_REFLECTORS)
                 .there_is_no_item(New_Simplon_Name)
                 .there_is_no_item(New_Spoke_Name)
                 .there_is_a_frame(CHROME_FRAME, 1l)
@@ -47,27 +44,34 @@ public class AdminFlow extends UserJourneyBase {
 
         screen
                 .there_should_be_an_order(CHROME_FRAME, "NEW");
-
+        user
+                .changes_order_status(CHROME_FRAME, "IN_PROGRESS");
+        screen
+                .there_should_be_an_order(CHROME_FRAME, "IN_PROGRESS");
+        user
+                .clicks_on_user_name_in_order_table(Hugo);
+        screen
+                .shows_profile_for(Hugo);
 
         // Manage Items
         user
                 .wants_to_manage_items()
-                .creates_an_item(Simplon_Frame, "FRAME", NO_QUANTITY, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+                .creates_an_item(SIMPLON_FRAME, "FRAME", NO_QUANTITY, REALLY_EXPENSIVE, SOME_DESCRIPTION);
 
         screen
                 .shows_error("Please enter Item Quantity", "quantity_field");
 
         user
-                .creates_an_item(Simplon_Frame, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+                .creates_an_item(SIMPLON_FRAME, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
         screen
-                .shows_in_manage_item_list(Simplon_Frame);
+                .shows_in_manage_item_list(SIMPLON_FRAME);
 
         user
-                .creates_an_item(Spoke_Reflectors, "ACCESSORIES", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+                .creates_an_item(SPOKE_REFLECTORS, "ACCESSORIES", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
 
         screen
-                .shows_in_manage_item_list(Simplon_Frame)
-                .shows_in_manage_item_list(Spoke_Reflectors);
+                .shows_in_manage_item_list(SIMPLON_FRAME)
+                .shows_in_manage_item_list(SPOKE_REFLECTORS);
         user
                 .changes_item_quantity(from(A_LOT), to("-10"))
                 .changes_item_price(from(REALLY_EXPENSIVE), to("-10.00"));
@@ -83,8 +87,8 @@ public class AdminFlow extends UserJourneyBase {
 
 
         user
-                .changes_item_name(from(Simplon_Frame), to(New_Simplon_Name))
-                .changes_item_name(from(Spoke_Reflectors), to(New_Spoke_Name));
+                .changes_item_name(from(SIMPLON_FRAME), to(New_Simplon_Name))
+                .changes_item_name(from(SPOKE_REFLECTORS), to(New_Spoke_Name));
 
         screen
                 .shows_in_manage_item_list(New_Simplon_Name)

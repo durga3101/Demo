@@ -23,6 +23,7 @@ public class SyntaxSugar {
     public static final String ADDED_ITEM = "addedItemName";
     public static final String HAS_ITEM_BEEN_ADDED = "hasItemBeenAdded";
     public static String SIMPLON_FRAME = "Simplon Pavo 3 Ultra " + System.currentTimeMillis();
+    public static String SPOKE_REFLECTORS = "Spoke - Reflectors Arrow red " + System.currentTimeMillis();
     public static final String ADD_TO_CART_SUCCESS = "Awesome, you added " + SIMPLON_FRAME + " to your cart! You can keep shopping, or view my cart.";
     public static final String ADD_TO_CART_FAILURE = "Sorry, that item is temporarily out of stock. Please check back later!";
     public static final String ADD_TO_CART_SUCCESS_CLASS = "add-to-cart-success";

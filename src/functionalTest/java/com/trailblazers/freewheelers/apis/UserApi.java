@@ -311,4 +311,8 @@ public class UserApi {
         driver.findElement(By.id("back_to_cart")).click();
 
     }
+
+    public void clicks_on_user_name_in_order_table(String userName) {
+        driver.findElement(By.linkText(userName)).click();
+    }
 }

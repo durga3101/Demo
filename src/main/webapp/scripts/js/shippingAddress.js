@@ -21,30 +21,43 @@ function showShippingAddressErrorMessage() {
     });
 }
 function isNotNull(selector) {
-    if ($(selector).val() === "" && (selector) !== "#fld_street2") {
-        return false;
-    }
     if ((selector) === "#fld_street1") {
+        if ($(selector).val() === ""){
+            changeErrorMessage("street1", "Must enter street details");
+            return false;
+        }
         if ($(selector).val().length > 255) {
-            $(errorSelector("street1")).html("Must enter valid street details");
+            changeErrorMessage("street1", "Must enter valid street details");
             return false;
         }
     }
     if ((selector) === "#fld_street2") {
+        if ($(selector).val() === ""){
+            changeErrorMessage("street2","");
+            return false;
+        }
         if ($(selector).val().length > 255) {
-            $(errorSelector("street2")).html("Must enter valid street details");
+            changeErrorMessage("street2","Must enter valid street details");
             return false;
         }
     }
     if ((selector) === "#fld_city") {
+        if ($(selector).val() === ""){
+            changeErrorMessage("city","Must enter city");
+            return false;
+        }
         if ($(selector).val().length > 100) {
-            $(errorSelector("city")).html("Must enter valid city");
+            changeErrorMessage("city","Must enter valid city");
             return false;
         }
     }
     if ((selector) === "#fld_state") {
+        if ($(selector).val() === ""){
+            changeErrorMessage("state","Must enter state/province");
+            return false;
+        }
         if ($(selector).val().length > 100) {
-            $(errorSelector("state")).html("Must enter valid state/province");
+            changeErrorMessage("state","Must enter valid state/province");
             return false;
         }
     }
@@ -54,14 +67,22 @@ function isNotNull(selector) {
         if (!(format.test(postalcode))) {
             return false;
         }
+        if ($(selector).val() === ""){
+            changeErrorMessage("postcode","Must enter postal code");
+            return false;
+        }
         if ($(selector).val().length < 4) {
-            $(errorSelector("postcode")).html("Must enter valid postal code");
+            changeErrorMessage("postcode","Must enter valid postal code");
             return false
         }
         if ($(selector).val().length > 20) {
-            $(errorSelector("postcode")).html("Must enter valid postal code");
+            changeErrorMessage("postcode","Must enter valid postal code");
             return false;
         }
     }
     return true;
+}
+
+function changeErrorMessage(field,message) {
+    $(errorSelector(field)).html(message);
 }

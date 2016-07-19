@@ -70,7 +70,7 @@ public class UserFlowTest extends UserJourneyBase {
                 .shows_error("Must enter street details", "street1_field")
                 .shows_error("Must enter city","city_field")
                 .shows_error("Must enter state/province","state_field")
-                .shows_error("Must enter post code","postcode_field");
+                .shows_error("Must enter postal code","postcode_field");
 
         user
                 .entersShippingAddressDetails(FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS, FIELD_WITH_MORETHAN_255_CHARACTERS)

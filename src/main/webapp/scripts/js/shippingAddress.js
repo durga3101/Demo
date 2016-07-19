@@ -62,13 +62,14 @@ function isNotNull(selector) {
         }
     }
     if ((selector) === "#fld_postcode") {
+        if ($(selector).val() === ""){
+            changeErrorMessage("postcode","Must enter postal code");
+            return false;
+        }
         var format = /^[a-zA-Z0-9]*\-?\ ?[a-zA-Z0-9]*$/;
         var postalcode = $(selector).val();
         if (!(format.test(postalcode))) {
-            return false;
-        }
-        if ($(selector).val() === ""){
-            changeErrorMessage("postcode","Must enter postal code");
+            changeErrorMessage("postcode","Must enter valid postal code");
             return false;
         }
         if ($(selector).val().length < 4) {

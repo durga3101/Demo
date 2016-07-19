@@ -74,10 +74,10 @@ public class GatewayController {
 
         HashMap<Long, Long> purchasedItemsFromShoppingCart = (HashMap) session.getAttribute(SHOPPING_CART);
 
+        HashMap<Item, Long> items = itemService.getItemHashMap(servletRequest);
         session.setAttribute(PURCHASED_ITEMS, purchasedItemsFromShoppingCart);
         session.setAttribute(SHOPPING_CART, null);
 
-        HashMap<Item, Long> items = itemService.getItemHashMap(servletRequest);
 
         for (Map.Entry<Item, Long> entry : items.entrySet()) {
             Item item = entry.getKey();

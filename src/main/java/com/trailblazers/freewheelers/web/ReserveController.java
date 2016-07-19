@@ -42,7 +42,6 @@ public class ReserveController {
             result.put(item, quantity);
         }
 
-
         model.addAttribute("items", result);
     }
 

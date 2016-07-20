@@ -45,12 +45,15 @@ public class ManageItemsTest extends UserJourneyBase {
                 .shows_in_manage_item_list(Simplon_Frame)
                 .shows_in_manage_item_list(Spoke_Reflectors);
         user
-                .changes_item_quantity(from(A_LOT), to("-10"))
+                .changes_item_quantity(from(A_LOT), to("-10"));
+
+        screen
+                .pageElementContainsMessage("Please enter valid Item Quantity");
+
+        user
                 .changes_item_price(from(REALLY_EXPENSIVE), to("-10.00"));
 
         screen
-
-                .pageElementContainsMessage("Please enter valid Item Quantity")
                 .pageElementContainsMessage("Please enter valid Item Price");
 
         user

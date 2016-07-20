@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.web;
 
-
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -21,7 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 
 @Controller
 @RequestMapping("/gateway")
@@ -33,10 +30,10 @@ public class GatewayController {
     private final AccountService accountService;
     private ItemService itemService;
     private Session session;
-    private LiveGatewayClient client;
+    private GatewayClient client;
 
     @Autowired
-    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, ItemServiceImpl itemService, LiveGatewayClient client, Session session) {
+    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
         this.reserveOrderService = reserveOrderService;
         this.accountService = accountService;
         this.itemService = itemService;

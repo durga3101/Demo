@@ -96,6 +96,18 @@ dependencies {
     testCompile 'com.github.detro:phantomjsdriver:1.2.0'
 }
 
+task setEnv(type: Exec) {
+
+    if (System.getProperty("GO_STAGE_NAME") == null) {
+        println "setting app env to LOCAL"
+        System.setProperty("spring.profiles.active", "local")
+    } else {
+        println "running in LIVE env"
+        System.setProperty("spring.profiles.active", "live")
+    }
+
+}
+
 task createDB(type: Exec) {
     workingDir 'db'
     commandLine './create.sh'

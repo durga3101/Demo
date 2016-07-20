@@ -59,10 +59,14 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-
         Item item = (Item) o;
 
-        return (itemId != null ? !itemId.equals(item.itemId) : item.itemId != null);
+        if (itemId != null ? !itemId.equals(item.itemId) : item.itemId != null) return false;
+        if (name != null ? !name.equals(item.name) : item.name != null) return false;
+        if (price != null ? !price.equals(item.price) : item.price != null) return false;
+        if (description != null ? !description.equals(item.description) : item.description != null) return false;
+        if (type != item.type) return false;
+        return quantity != null ? quantity.equals(item.quantity) : item.quantity == null;
 
     }
 

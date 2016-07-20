@@ -38,9 +38,9 @@ function SurveyPopUp() {
             });
             survey.style.display = 'none';
             modal.style.display = 'block';
-            setInterval( function () {
-                modal.style.display = 'none';
-            },10000);
+            // setInterval( function () {
+            //     modal.style.display = 'none';
+            // },10000);
             surveyThankYou.style.display = 'block';
 
             e.preventDefault();

@@ -199,17 +199,17 @@ public class UserFlowTest extends UserJourneyBase {
                 .shouldSeePaymentSuccess()
                 .shouldSeeSurvey();
 
-        user
-                .click_submit_button();
+//        user
+//                .click_submit_button();
 
 //        screen
 //                .shouldSeeConfirmation();
 
-        user
-                .click_cancel_button();
-
-        screen
-                .shouldSeePaymentSuccess();
+//        user
+//                .click_cancel_button();
+//
+//        screen
+//                .shouldSeePaymentSuccess();
 
     }
 }

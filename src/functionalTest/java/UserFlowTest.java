@@ -202,8 +202,8 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .click_submit_button();
 
-        screen
-                .shouldSeeConfirmation();
+//        screen
+//                .shouldSeeConfirmation();
 
         user
                 .click_cancel_button();

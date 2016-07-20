@@ -3,6 +3,7 @@ package com.trailblazers.freewheelers.web;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.web.forms.SurveyEntryForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,11 +16,19 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.web.Session.PURCHASED_ITEMS;
+
 @Controller
 @RequestMapping(ReserveController.URL)
 public class ReserveController {
 
     static final String URL = "/reserve";
+    private Session session;
+
+    @Autowired
+    public ReserveController(Session session){
+        this.session = session;
+    }
 
     @ModelAttribute("survey")
     public SurveyEntryForm getSurveyForm() {
@@ -27,20 +36,11 @@ public class ReserveController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public void get(HttpServletRequest httpServletRequest, Model model, Principal principal ) {
-        HttpSession session = httpServletRequest.getSession();
+    public void get(HttpServletRequest httpServletRequest, Model model, Principal principal, Session session) {
+        HttpSession httpSession = httpServletRequest.getSession();
         ItemServiceImpl itemService = new ItemServiceImpl();
 
-        HashMap<Long, Long> map = (HashMap) session.getAttribute("purchasedItems");
-
-        HashMap<Item, Long> result = new HashMap<>();
-
-        for (Map.Entry<Long, Long> entry : map.entrySet()) {
-            Long id = entry.getKey();
-            Long quantity = entry.getValue();
-            Item item = itemService.get(id);
-            result.put(item, quantity);
-        }
+        HashMap<Item, Long> result = session.getItemHashMap(PURCHASED_ITEMS, httpSession);
 
         model.addAttribute("items", result);
     }

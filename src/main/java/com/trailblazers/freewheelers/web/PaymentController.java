@@ -9,29 +9,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
+
 
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
-    private static final String SHOPPING_CART = "shoppingCart";
 
     ItemService itemService;
     Calculator calculator;
+    Session session;
 
     @Autowired
-    public PaymentController(ItemService itemService, Calculator calculator) {
+    public PaymentController(ItemService itemService, Calculator calculator, Session session) {
         this.itemService = itemService;
         this.calculator = calculator;
+        this.session = session;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, HttpServletRequest request) {
-        HashMap<Item, Long> cart = itemService.getItemHashMap(request);
+        HttpSession httpSession = request.getSession();
+        HashMap<Item, Long> cart = session.getItemHashMap(SHOPPING_CART, httpSession);
         if(cart.isEmpty()){
             return "redirect:/";
         }

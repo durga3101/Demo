@@ -13,13 +13,13 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class HomeControllerTest {
 
-    private static final String SHOPPING_CART = "shoppingCart";
     private static final String OUT_OF_STOCK = "isItemOutOfStock";
     private static final String HAS_ITEM_BEEN_ADDED = "hasItemBeenAdded";
     private static final String ITEM_NAME = "a very nice item";
@@ -130,17 +130,16 @@ public class HomeControllerTest {
 
     @Test
     public void postShouldIncreaseTheQuantityOfItemWhenTheItemIsAlreadyInCart() {
-        HashMap<Item, Long> expectedCart = new HashMap<>();
-        singleItemCart = new HashMap<Item, Long>();
-        item = new Item();
-        singleItemCart.put(item, 1L);
-        expectedCart.put(item, 2L);
+        HashMap shoppingCart = mock(HashMap.class);
+        when(request.getSession()).thenReturn(httpSession);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(shoppingCart);
+        when(shoppingCart.containsKey(item)).thenReturn(true);
+        when(shoppingCart.get(item)).thenReturn(1L);
 
-        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(singleItemCart);
-
+        homeController = new HomeController(itemService, session);
         homeController.post(item, request, principal);
 
-        assertEquals(expectedCart, singleItemCart);
+        verify(shoppingCart).put(item, 2L);
     }
 
     @Test

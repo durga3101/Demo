@@ -36,24 +36,26 @@ public class CartController {
     private Calculator calculator;
     private AccountService accountService;
     private CountryService countryService;
-    private HttpSession session;
+    private HttpSession httpSession;
+    private Session session;
 
 
     @Autowired
-    public CartController(ItemService itemService, Calculator calculator, AccountService accountService, CountryService countryService) {
+    public CartController(ItemService itemService, Calculator calculator, AccountService accountService, CountryService countryService, Session session) {
         this.itemService = itemService;
         this.calculator = calculator;
         this.accountService = accountService;
         this.countryService = countryService;
+        this.session = session;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(@ModelAttribute(ITEM) Item item, HttpServletRequest request, Model model, Principal principal) {
-        session = request.getSession();
+        httpSession = request.getSession();
 
         if (isPrincipalNull(principal)) return REDIRECT_LOGIN;
 
-        HashMap<Item, Long> items = itemService.getItemHashMap(request);
+        HashMap<Item, Long> items = session.getItemHashMap(SHOPPING_CART, httpSession);
 
 
 
@@ -93,7 +95,7 @@ public class CartController {
         model.addAttribute("subTotal",subtotal.toString());
         model.addAttribute("grandTotal",grandTotal.toString());
 
-        session.setAttribute("GRAND_TOTAL",grandTotal.toString());
+        httpSession.setAttribute("GRAND_TOTAL",grandTotal.toString());
 
     }
 

@@ -8,7 +8,6 @@ import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +18,10 @@ import javax.servlet.http.HttpSession;
 
 
 import java.security.Principal;
-import java.util.Collections;
 import java.util.HashMap;
 
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
-import static com.trailblazers.freewheelers.web.GatewayController.SHOPPING_CART;
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -38,13 +36,14 @@ public class GatewayControllerTest {
     private Principal principal;
     private AccountService accountService;
     private ReserveOrderService reserveOrderService;
-    private HttpSession session;
+    private HttpSession httpSession;
     private HttpServletRequest request;
     private Account account;
     private HashMap<Item, Long> fullCart;
     private Item item1;
     private Item item2;
     private HashMap<Item, Long> items;
+    private Session session;
 
 
     @Before
@@ -52,17 +51,18 @@ public class GatewayControllerTest {
         restTemplate= mock(RestTemplate.class);
         itemService = mock(ItemServiceImpl.class);
         builder = mock(PaymentRequestBuilderServiceImpl.class);
-        session = mock(HttpSession.class);
+        httpSession = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
         account = mock(Account.class);
+        session = mock(Session.class);
 
         when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
 
         accountService = mock(AccountService.class);
         reserveOrderService = mock(ReserveOrderService.class);
         principal = mock(Principal.class);
-        gatewayController = new GatewayController(reserveOrderService, accountService, restTemplate, itemService, builder);
-        when(request.getSession()).thenReturn(session);
+        gatewayController = new GatewayController(reserveOrderService, accountService, restTemplate, itemService, builder, session);
+        when(request.getSession()).thenReturn(httpSession);
         when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
@@ -99,24 +99,21 @@ public class GatewayControllerTest {
     @Test
     public void postShouldUpdateSessionAttributes() throws Exception {
 
-        HashMap<Long, Long> fullCart = new HashMap<>();
-        fullCart.put(1L, 2L);
+        HashMap<Item, Long> fullCart = new HashMap<>();
+        fullCart.put(new Item(), 2L);
 
-        when(session.getAttribute(SHOPPING_CART)).thenReturn(fullCart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(fullCart);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
-        verify(session).setAttribute(SHOPPING_CART, null);
-        verify(session).setAttribute(PURCHASED_ITEMS, fullCart);
+        verify(httpSession).setAttribute(SHOPPING_CART, null);
+        verify(httpSession).setAttribute(PURCHASED_ITEMS, fullCart);
 
     }
 
     @Test
     public void postShouldUpdateDatabaseToDecrementItems() throws Exception {
-
-        when(session.getAttribute(SHOPPING_CART)).thenReturn(fullCart);
-        when(itemService.getItemHashMap(request)).thenReturn(items);
-       
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
@@ -126,9 +123,7 @@ public class GatewayControllerTest {
 
     @Test
     public void postShouldUpdateDatabaseToAddItemsToOrder() throws Exception {
-
-        when(session.getAttribute(SHOPPING_CART)).thenReturn(fullCart);
-        when(itemService.getItemHashMap(request)).thenReturn(items);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 

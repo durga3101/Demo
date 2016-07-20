@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
 
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -22,7 +24,6 @@ public class HomeController {
     private static final String OUT_OF_STOCK = "isItemOutOfStock";
     private static final String ADDED_ITEM = "addedItemName";
     private static final String HAS_ITEM_BEEN_ADDED = "hasItemBeenAdded";
-    private static final String SHOPPING_CART = "shoppingCart";
     private static final String ITEMS = "items";
     private static final String ITEM = "item";
     private static final String HOME = "home";
@@ -41,7 +42,6 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, @ModelAttribute(ITEM) Item item, HttpServletRequest request) {
-        System.out.println("ITEM NAME: " + item.getName());
         httpSession = request.getSession();
         if ( httpSession.getAttribute(CAME_FROM_POST) != null && (boolean) httpSession.getAttribute(CAME_FROM_POST) ==false) hideItemMessages(httpSession);
 
@@ -53,9 +53,9 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String post(@ModelAttribute(ITEM) Item item, HttpServletRequest request, Principal principal) {
-        System.out.println("ITEM NAME 1: " + item.getName());
-        httpSession = request.getSession();
         Long itemId = item.getItemId();
+        item = itemService.get(itemId);
+        httpSession = request.getSession();
         HashMap<Item, Long> shoppingCart = createCartIfNull(session);
 
         httpSession.setAttribute(CAME_FROM_POST, true);
@@ -100,6 +100,7 @@ public class HomeController {
     }
 
     private long incrementQuantityInCart(Item item, HashMap<Item, Long> shoppingCart) {
+        boolean containsItem = shoppingCart.containsKey(item);
         return shoppingCart.containsKey(item)
                 ?
                 1L + shoppingCart.get(item) : 1L;

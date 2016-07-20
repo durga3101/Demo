@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
@@ -28,13 +29,15 @@ public class PaymentControllerTest {
     private ItemService service;
     private String expected;
     private Calculator calculator;
+    private Session session;
 
 
     @Before
     public void setUp() throws Exception {
         service = mock(ItemServiceImpl.class);
         calculator = mock(Calculator.class);
-        controller = new PaymentController(service, calculator);
+        session = mock(Session.class);
+        controller = new PaymentController(service, calculator, session);
         request = mock(HttpServletRequest.class);
         httpSession = mock(HttpSession.class);
         model = mock(Model.class);
@@ -55,7 +58,7 @@ public class PaymentControllerTest {
     @Test
     public void shouldReturnPaymentAfterCreatingItemModelWhenItemInCart() throws Exception {
         HashMap<Item, Long> cart = mock(HashMap.class);
-        when(service.getItemHashMap(request)).thenReturn(cart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(cart);
         when(cart.isEmpty()).thenReturn(false);
 
         String actual = controller.get(model,request);
@@ -69,14 +72,13 @@ public class PaymentControllerTest {
     public void shouldAddSubtotalToModel() {
         HashMap<Item, Long> cart = mock(HashMap.class);
         when(cart.isEmpty()).thenReturn(false);
-        when(service.getItemHashMap(request)).thenReturn(cart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(cart);
         HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
+        when(request.getSession()).thenReturn(httpSession);
         String grandTotal = "200.00";
-        when(session.getAttribute(anyString())).thenReturn(grandTotal);
+        when(httpSession.getAttribute(anyString())).thenReturn(grandTotal);
 
         controller.get(model, request);
-
 
         verify(model).addAttribute("grandTotal", grandTotal);
     }

@@ -9,8 +9,11 @@ import java.util.HashMap;
 @Component
 public class Session {
 
+
     private Object items;
     private HttpSession httpSession;
+    public static final String SHOPPING_CART = "shoppingCart";
+    public static final String PURCHASED_ITEMS = "purchasedItems";
 
     public HashMap getItemHashMap(String attribute, HttpSession httpSession) {
         HashMap<Item, Long> itemHashMap = new HashMap<>();

@@ -13,6 +13,7 @@ import java.util.Set;
 @Component
 public class Calculator {
     public BigDecimal getSubtotalFromCart(HashMap<Item, Long> cart) {
+
         BigDecimal totalPrice = new BigDecimal(0);
         for (Map.Entry<Item, Long> entry : cart.entrySet()) {
             BigDecimal itemPrice = entry.getKey().getPrice();

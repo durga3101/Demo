@@ -54,4 +54,26 @@ public class Item {
         return this;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+
+        Item item = (Item) o;
+
+        return (itemId != null ? !itemId.equals(item.itemId) : item.itemId != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = itemId != null ? itemId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        return result;
+    }
 }

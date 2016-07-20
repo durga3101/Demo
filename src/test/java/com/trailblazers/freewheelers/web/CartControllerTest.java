@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashMap;
 
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -41,6 +42,7 @@ public class CartControllerTest {
     private BigDecimal subTotal;
     private BigDecimal vat;
     private BigDecimal duty;
+    private Session session;
 
     @Before
     public void setUp() throws Exception {
@@ -51,7 +53,9 @@ public class CartControllerTest {
         calculator = mock(Calculator.class);
         accountService = mock(AccountService.class);
         countryService = mock(CountryService.class);
-        cartController = new CartController(itemService, calculator, accountService,countryService);
+        session = mock(Session.class);
+
+        cartController = new CartController(itemService, calculator, accountService,countryService, session);
         httpSession = mock(HttpSession.class);
         item = mock(Item.class);
 
@@ -116,11 +120,11 @@ public class CartControllerTest {
         HashMap<Item, Long> fullCart = emptyCart;
         fullCart.put(item, 1L);
 
-        when(itemService.getItemHashMap(any(HttpServletRequest.class))).thenReturn(fullCart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(fullCart);
 
         cartController.get(item, request, model, principal);
 
-        verify(itemService).getItemHashMap(any(HttpServletRequest.class));
+        verify(session).getItemHashMap(SHOPPING_CART, httpSession);
         verify(model).addAttribute(ITEMS, fullCart);
         verify(model).addAttribute(EMPTY_CART, false);
         verify(model, never()).addAttribute(EMPTY_CART, true);
@@ -129,7 +133,7 @@ public class CartControllerTest {
 
     @Test
     public void getShouldSetEmptyCartAttributeOnModelIfCartIsEmpty() throws Exception {
-        when(itemService.getItemHashMap(any(HttpServletRequest.class))).thenReturn(emptyCart);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(emptyCart);
 
         cartController.get(item, request, model, principal);
 
@@ -170,7 +174,7 @@ public class CartControllerTest {
         HashMap<Item,Long> items = mock(HashMap.class);
         Account account = mock(Account.class);
         Country canada = mock(Country.class);
-        when(itemService.getItemHashMap(request)).thenReturn(items);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("CANADA");
         when(countryService.getByName("CANADA")).thenReturn(canada);

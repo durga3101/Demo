@@ -30,12 +30,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
+
 @Controller
 @RequestMapping("/gateway")
 public class GatewayController {
 
     private String url = "http://ops.freewheelers.bike:5000/authorise";
-    static final String SHOPPING_CART = "shoppingCart";
     static final String PURCHASED_ITEMS = "purchasedItems";
 
 
@@ -44,15 +45,17 @@ public class GatewayController {
     private RestTemplate restTemplate;
     private ItemService itemService;
     private PaymentRequestBuilderServiceImpl paymentBuilder;
+    private Session session;
 
 
     @Autowired
-    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder) {
+    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder, Session session) {
         this.reserveOrderService = reserveOrderService;
         this.accountService = accountService;
         this.restTemplate = restTemplate;
         this.itemService = itemService;
         this.paymentBuilder = paymentBuilder;
+        this.session = session;
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -70,16 +73,14 @@ public class GatewayController {
         String responseString = response + "";
 
         if (!responseString.contains("SUCCESS")) return "redirect:/gateway/reserve-error";
-        HttpSession session = servletRequest.getSession();
+        HttpSession httpSession = servletRequest.getSession();
 
-        HashMap<Long, Long> purchasedItemsFromShoppingCart = (HashMap) session.getAttribute(SHOPPING_CART);
+        HashMap<Item, Long> purchasedItems = session.getItemHashMap(SHOPPING_CART, httpSession);
 
-        HashMap<Item, Long> items = itemService.getItemHashMap(servletRequest);
-        session.setAttribute(PURCHASED_ITEMS, purchasedItemsFromShoppingCart);
-        session.setAttribute(SHOPPING_CART, null);
+        httpSession.setAttribute(PURCHASED_ITEMS, purchasedItems);
+        httpSession.setAttribute(SHOPPING_CART, null);
 
-
-        for (Map.Entry<Item, Long> entry : items.entrySet()) {
+        for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
             for(int quantity = 0; quantity < entry.getValue(); quantity++){
                 saveReservedOrderToDatabase(principal, item);

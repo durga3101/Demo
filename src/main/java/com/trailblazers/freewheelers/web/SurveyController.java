@@ -60,6 +60,7 @@ public class SurveyController {
         String username = principal.getName();
         Account account = accountService.getAccountIdByName(username);
         surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
+        System.out.println("dfhdffhdjh,bfdjh");
         return "success";
     }
 

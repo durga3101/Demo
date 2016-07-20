@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
     $(function () {
-        new SurveyPopUp();
+//        new SurveyPopUp();
     })
 </script>
 <div id="surveyThankYou" style="display: none" class="modal-bg">

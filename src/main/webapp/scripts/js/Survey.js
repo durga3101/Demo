@@ -38,6 +38,8 @@ function SurveyPopUp() {
             });
             survey.style.display = 'none';
             surveyThankYou.style.display = 'block';
+            modal.style.display = 'none';
+
             e.preventDefault();
         }
     }

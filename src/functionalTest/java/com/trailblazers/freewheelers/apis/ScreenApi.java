@@ -212,4 +212,13 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("grand_total")).getText(), containsString(grandtotal));
         return this;
     }
+
+    public ScreenApi shows_shipping_address(String address1, String address2, String city, String state, String postalCode) {
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(address1));
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(address2));
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(city));
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(state));
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(postalCode));
+        return this;
+    }
 }

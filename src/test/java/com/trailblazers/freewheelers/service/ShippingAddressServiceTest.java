@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,6 +38,15 @@ public class ShippingAddressServiceTest {
 
         verify(shippingAddressMapper, times(1)).insert(shippingAddress);
         verify(sqlSession,times(1)).commit();
+
+    }
+
+    @Test
+    public void shouldReturnAValidShippingAddressWhenGetAddressIsCalled() throws Exception {
+        //test get address retrun valid shipping address
+
+        //actions
+        ShippingAddress address = shippingAddressService.getAddress(anyLong());
 
     }
 

@@ -26,4 +26,8 @@ public class ShippingAddressService {
         shippingAddressMapper.insert(shippingAddress);
         sqlSession.commit();
     }
+
+    public ShippingAddress getAddress(long account_id) {
+        return null;
+    }
 }

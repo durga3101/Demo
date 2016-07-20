@@ -211,5 +211,14 @@ public class UserFlowTest extends UserJourneyBase {
 //        screen
 //                .shouldSeePaymentSuccess();
 
+        user
+                .visits_his_profile();
+        screen
+                .shows_shipping_address(ADDRESS_1,
+                        ADDRESS_2,
+                        CITY,
+                        STATE,
+                        POSTAL_CODE);
+
     }
 }

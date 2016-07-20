@@ -8,6 +8,12 @@
         <div id="user-details" >
             ${userDetail.account_name} - ${userDetail.email_address} - ${userDetail.country}<br />
         </div>
+        <div id = "shipping_address">
+            ${address.street_1}<br>
+            ${address.street_2}<br>
+            ${address.city}, ${address.state}, ${address.postcode}<br>
+
+        </div>
 
 		<div class="page-action">Your Orders</div>
 		<table class="table">

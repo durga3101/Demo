@@ -1,12 +1,11 @@
 package com.trailblazers.freewheelers.web;
 
 
-import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.*;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +29,14 @@ public class UserProfileController {
     AccountService accountService;
     ReserveOrderService reserveOrderService;
     ItemService itemService;
+    ShippingAddressService shippingAddressService;
 
     @Autowired
-    public UserProfileController(AccountService accountService, ReserveOrderService reserveOrderService, ItemService itemService) {
+    public UserProfileController(AccountService accountService, ReserveOrderService reserveOrderService, ItemService itemService, ShippingAddressService shippingAddressService) {
         this.accountService = accountService;
         this.reserveOrderService = reserveOrderService;
         this.itemService = itemService;
+        this.shippingAddressService = shippingAddressService;
     }
 
     @RequestMapping(value = "/{nameFromURL:.*}", method = RequestMethod.GET)
@@ -72,6 +73,8 @@ public class UserProfileController {
         List<Item> items = getItemsOrderByUser(account);
         model.addAttribute("items", items);
         model.addAttribute("userDetail", account);
+
+        ShippingAddress address = shippingAddressService.getAddress(account.getAccount_id());
         return model;
     }
 

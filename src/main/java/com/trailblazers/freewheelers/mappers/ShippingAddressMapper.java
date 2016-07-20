@@ -3,6 +3,7 @@ package com.trailblazers.freewheelers.mappers;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 
 public interface ShippingAddressMapper {
     @Insert(
@@ -11,4 +12,9 @@ public interface ShippingAddressMapper {
     )
     @Options(keyProperty = "shipping_address_id", useGeneratedKeys = true)
     Integer insert(ShippingAddress shippingAddress);
+
+    @Select(
+            ""
+    )
+    ShippingAddress getFromAccountId(long l);
 }

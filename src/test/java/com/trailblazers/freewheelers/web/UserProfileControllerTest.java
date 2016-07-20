@@ -5,6 +5,7 @@ import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.ShippingAddressService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
@@ -25,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class UserProfileControllerTest {
@@ -38,6 +40,7 @@ public class UserProfileControllerTest {
     private AccountService accountService;
     private ReserveOrderService reserveOrderService;
     private ItemService itemService;
+    private ShippingAddressService addressService;
 
     @Before
     public void setUp() throws Exception {
@@ -46,11 +49,12 @@ public class UserProfileControllerTest {
         request = mock(HttpServletRequest.class);
         httpSession = mock(HttpSession.class);
         accountService = mock(AccountServiceImpl.class);
+        addressService = mock(ShippingAddressService.class);
         reserveOrderService = mock(ReserveOrderServiceImpl.class);
         itemService = mock(ItemServiceImpl.class);
         account = mock(Account.class);
 
-        userProfileController = new UserProfileController(accountService, reserveOrderService, itemService);
+        userProfileController = new UserProfileController(accountService, reserveOrderService, itemService,addressService);
 
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("rufus");
@@ -78,5 +82,13 @@ public class UserProfileControllerTest {
         when(accountService.getRole(anyString())).thenReturn(USER);
         assertEquals("accessDenied", userProfileController.get("Ella", model, principal, request));
     }
+
+    @Test
+    public void shouldGetAddressWhenAddressFromServiceWhenAddressIsSaved() throws Exception {
+        when(accountService.getRole(anyString())).thenReturn(USER);
+        userProfileController.get(null, model, principal, request);
+        verify(addressService).getAddress(anyLong());
+    }
+
 
 }

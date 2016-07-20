@@ -6,33 +6,28 @@ import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-
 import java.security.Principal;
 import java.util.HashMap;
 
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class GatewayControllerTest {
 
     private GatewayController gatewayController;
-    private RestTemplate restTemplate;
+    private  LiveGatewayClient client;
     private ItemServiceImpl itemService;
-    private Item item;
-    private PaymentRequestBuilderServiceImpl builder;
     private Principal principal;
     private AccountService accountService;
     private ReserveOrderService reserveOrderService;
@@ -48,8 +43,9 @@ public class GatewayControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        restTemplate= mock(RestTemplate.class);
+        client = mock(LiveGatewayClient.class);
         itemService = mock(ItemServiceImpl.class);
+<<<<<<< 5f87499cc8246546465169bef98c36ca59abd39c
         builder = mock(PaymentRequestBuilderServiceImpl.class);
         httpSession = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
@@ -68,19 +64,35 @@ public class GatewayControllerTest {
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
         when(account.getAccount_id()).thenReturn(11L);
 
+=======
+        session = mock(HttpSession.class);
+        request = mock(HttpServletRequest.class);
+        account = mock(Account.class);
+        accountService = mock(AccountService.class);
+        reserveOrderService = mock(ReserveOrderService.class);
+        principal = mock(Principal.class);
+>>>>>>> [Rufus][QA] Create GatewayClient interface and refactor GatewayController to use it as dependency. Create and test MockGatewayClient for local building
         item1 = mock(Item.class);
         item2 = mock(Item.class);
+
+        gatewayController = new GatewayController(reserveOrderService, accountService, itemService, client);
         items = new HashMap<>();
         fullCart = new HashMap<>();
         items.put(item1, 3L);
         items.put(item2, 2L);
+
+        when(client.paymentRequest(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
+        when(request.getSession()).thenReturn(session);
+        when(principal.getName()).thenReturn("Luke");
+        when(accountService.getAccountIdByName("Luke")).thenReturn(account);
+        when(account.getAccount_id()).thenReturn(11L);
         when(item1.getItemId()).thenReturn(6L);
         when(item2.getItemId()).thenReturn(7L);
     }
 
     @Test
     public void shouldReturnRedirectToErrorWhenAPICallToPaymentGatewayFails() throws Exception {
-        when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("NET_ERR", HttpStatus.OK));
+        when(client.paymentRequest(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(new ResponseEntity<String>("NET_ERR", HttpStatus.OK));
         String expected = "redirect:/gateway/reserve-error";
         String actual = gatewayController.post(null, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         assertEquals(expected, actual);

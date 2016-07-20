@@ -41,6 +41,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, @ModelAttribute(ITEM) Item item, HttpServletRequest request) {
+        System.out.println("ITEM NAME: " + item.getName());
         httpSession = request.getSession();
         if ( httpSession.getAttribute(CAME_FROM_POST) != null && (boolean) httpSession.getAttribute(CAME_FROM_POST) ==false) hideItemMessages(httpSession);
 
@@ -52,6 +53,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String post(@ModelAttribute(ITEM) Item item, HttpServletRequest request, Principal principal) {
+        System.out.println("ITEM NAME 1: " + item.getName());
         httpSession = request.getSession();
         Long itemId = item.getItemId();
         HashMap<Item, Long> shoppingCart = createCartIfNull(session);

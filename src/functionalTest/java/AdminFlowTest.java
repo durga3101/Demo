@@ -1,13 +1,9 @@
 import com.trailblazers.freewheelers.UserJourneyBase;
-import com.trailblazers.freewheelers.model.OrderStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
-import static com.trailblazers.freewheelers.helpers.SyntaxSugar.from;
-import static com.trailblazers.freewheelers.helpers.SyntaxSugar.to;
 
-public class AdminFlow extends UserJourneyBase {
+public class AdminFlowTest extends UserJourneyBase {
     @Test
     public void adminFlowTest() {
         String Hugo = "User Huser";

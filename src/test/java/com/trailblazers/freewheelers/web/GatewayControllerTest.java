@@ -10,12 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
-
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static junit.framework.TestCase.assertEquals;
@@ -45,44 +43,25 @@ public class GatewayControllerTest {
     public void setUp() throws Exception {
         client = mock(LiveGatewayClient.class);
         itemService = mock(ItemServiceImpl.class);
-<<<<<<< 5f87499cc8246546465169bef98c36ca59abd39c
-        builder = mock(PaymentRequestBuilderServiceImpl.class);
         httpSession = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
         account = mock(Account.class);
         session = mock(Session.class);
-
-        when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
-
-        accountService = mock(AccountService.class);
-        reserveOrderService = mock(ReserveOrderService.class);
-        principal = mock(Principal.class);
-        gatewayController = new GatewayController(reserveOrderService, accountService, restTemplate, itemService, builder, session);
-        when(request.getSession()).thenReturn(httpSession);
-        when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
-        when(principal.getName()).thenReturn("Luke");
-        when(accountService.getAccountIdByName("Luke")).thenReturn(account);
-        when(account.getAccount_id()).thenReturn(11L);
-
-=======
-        session = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
         account = mock(Account.class);
         accountService = mock(AccountService.class);
         reserveOrderService = mock(ReserveOrderService.class);
         principal = mock(Principal.class);
->>>>>>> [Rufus][QA] Create GatewayClient interface and refactor GatewayController to use it as dependency. Create and test MockGatewayClient for local building
         item1 = mock(Item.class);
         item2 = mock(Item.class);
-
-        gatewayController = new GatewayController(reserveOrderService, accountService, itemService, client);
+        gatewayController = new GatewayController(reserveOrderService, accountService, itemService, client, session);
         items = new HashMap<>();
         fullCart = new HashMap<>();
         items.put(item1, 3L);
         items.put(item2, 2L);
 
         when(client.paymentRequest(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
-        when(request.getSession()).thenReturn(session);
+        when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
         when(account.getAccount_id()).thenReturn(11L);

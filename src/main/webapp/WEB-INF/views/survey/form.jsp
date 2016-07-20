@@ -58,14 +58,15 @@
 
             </div>
 
+            <button type="button" class="button" id="closeButton" onclick="new Modal().closeModal()">
+                Close
+            </button>
 
             <form:button class="button" id="surveySubmitButton" type="submit" value="Submit"
                          onclick="new Modal().closeModal()">Submit</form:button>
             <%--<button id = "surveySubmitButton" type="button" class="modal-close" onclick="console.log('HI'); new Modal().closeModal()">Submit--%>
-            </button>
-            <button type="button" class="button" id="closeButton" onclick="new Modal().closeModal()">
-                Close
-            </button>
+            <%--</button>--%>
+
         </div>
 
     </form:form>

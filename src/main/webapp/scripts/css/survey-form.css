@@ -5,17 +5,20 @@
     width: 70%;
     text-align: left;
     border-radius: 4px;
+
 }
 
 .survey-form label {
     width: 100%;
     padding-bottom: 10px;
+
 }
 
 .survey-form > div{
     padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom: 20px;
+
 }
 
 .survey-form table {
@@ -44,11 +47,13 @@
     color: #34495e;
     border: 2px solid #bdc3c7;
     border-radius: 6px;
+
 }
 
 .survey-form textarea:focus {
     outline: none;
     border: 2px solid #DEDEDE;
+
 }
 
 #survey .button,
@@ -58,6 +63,7 @@
     margin: 10px;
     height: 40px;
     width: 100px;
+
 }
 
 #survey .button:hover,
@@ -69,11 +75,14 @@
 #survey {
     text-align: center;
     color: #34495e;
+
+
 }
 
 #surveyThankYou {
     text-align: center;
     color: #34495e;
+
 }
 #survey tbody input[type=radio]:hover {
     cursor: pointer;

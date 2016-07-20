@@ -10,6 +10,17 @@
 .modal-content{
     background: white;
     width: 50vw;
-    height: 50vh;
+    height: 65vh;
+    margin: 19vh 25vw;
+}
+
+.modal-content-success{
+    background: white;
+    /*width: 50vw;*/
+    height: 30vh;
     margin: 25vh 25vw;
+}
+.modal-content-success p{
+    padding-top: 10vh;
+    padding-bottom: 5vh;
 }

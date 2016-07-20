@@ -37,8 +37,11 @@ function SurveyPopUp() {
                 }
             });
             survey.style.display = 'none';
+            modal.style.display = 'block';
+            setInterval( function () {
+                modal.style.display = 'none';
+            },10000);
             surveyThankYou.style.display = 'block';
-            modal.style.display = 'none';
 
             e.preventDefault();
         }

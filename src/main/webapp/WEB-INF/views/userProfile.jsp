@@ -9,10 +9,16 @@
             ${userDetail.account_name} - ${userDetail.email_address} - ${userDetail.country}<br />
         </div>
         <div id = "shipping_address">
-            ${address.street_1}<br>
-            ${address.street_2}<br>
-            ${address.city}, ${address.state}, ${address.postcode}<br>
-
+            <c:choose>
+                <c:when test = "${addressAvailable}">
+                    ${address.street_1}<br>
+                    ${address.street_2}<br>
+                    ${address.city}, ${address.state}, ${address.postcode}<br>
+                </c:when>
+                <c:otherwise>
+                    Sorry,no saved address.
+                </c:otherwise>
+            </c:choose>
         </div>
 
 		<div class="page-action">Your Orders</div>

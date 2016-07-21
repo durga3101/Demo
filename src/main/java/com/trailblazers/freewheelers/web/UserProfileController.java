@@ -1,7 +1,10 @@
 package com.trailblazers.freewheelers.web;
 
 
-import com.trailblazers.freewheelers.model.*;
+import com.trailblazers.freewheelers.model.Account;
+import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
@@ -61,8 +64,6 @@ public class UserProfileController {
     }
 
 
-
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String get(Model model, Principal principal, HttpServletRequest request) {
         return get(null, model, principal, request);
@@ -75,7 +76,13 @@ public class UserProfileController {
         model.addAttribute("userDetail", account);
 
         ShippingAddress address = shippingAddressService.getAddress(account.getAccount_id());
-        model.addAttribute("address",address);
+        if (address == null) {
+            model.addAttribute("addressAvailable", false);
+        }
+        else {
+            model.addAttribute("addressAvailable", true);
+            model.addAttribute("address", address);
+        }
         return model;
     }
 
@@ -93,7 +100,6 @@ public class UserProfileController {
             return userName;
         }
     }
-
 
 
     private List<Item> getItemsOrderByUser(Account account) {

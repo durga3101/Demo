@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
@@ -25,9 +26,7 @@ import static com.trailblazers.freewheelers.service.impl.AccountServiceImpl.USER
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class UserProfileControllerTest {
     private Model model;
@@ -99,6 +98,36 @@ public class UserProfileControllerTest {
         userProfileController.get(null, model, principal, request);
 
         verify(addressService).getAddress(1l);
+
+    }
+
+    @Test
+    public void shouldShowMessageIfAddressNotFound(){
+
+        Model  model = mock(Model.class);
+        when(accountService.getRole(anyString())).thenReturn(USER);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(account.getAccount_id()).thenReturn(1l);
+        when(addressService.getAddress(anyLong())).thenReturn(null);
+
+        userProfileController.get(model,principal,request);
+
+        verify(model,atLeastOnce()).addAttribute("addressAvailable",false);
+
+    }
+    @Test
+    public void shouldShowAddressIfAddressIsFound(){
+
+        Model  model = mock(Model.class);
+        ShippingAddress address = mock(ShippingAddress.class);
+        when(accountService.getRole(anyString())).thenReturn(USER);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(account.getAccount_id()).thenReturn(1l);
+        when(addressService.getAddress(anyLong())).thenReturn(address);
+
+        userProfileController.get(model,principal,request);
+
+        verify(model,atLeastOnce()).addAttribute("addressAvailable",true);
 
     }
 

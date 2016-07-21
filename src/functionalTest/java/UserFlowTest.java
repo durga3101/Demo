@@ -135,8 +135,8 @@ public class UserFlowTest extends UserJourneyBase {
                 .should_list_item(SPOKE_REFLECTORS);
         user
                 .click_remove_from_cart_button(SPOKE_REFLECTORS);
-//        screen
-//                .should_not_list_item(SPOKE_REFLECTORS);
+        screen
+                .should_not_list_item(SPOKE_REFLECTORS);
         user
                 .click_checkout_button();
 
@@ -175,7 +175,7 @@ public class UserFlowTest extends UserJourneyBase {
                 .click_proceed_to_payment_button();
 
         screen
-                .showsMessageInClass(BIG_DEC_180, SUMMARY_CLASS);
+                .showsMessageInClass(BIG_DEC_120, SUMMARY_CLASS);
 
         user
                 .entersPaymentDetails(VISA,

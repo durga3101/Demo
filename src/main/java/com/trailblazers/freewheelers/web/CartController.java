@@ -114,7 +114,7 @@ public class CartController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.POST)
     public String delete(@ModelAttribute(ITEM) Item item, HttpServletRequest request) {
         httpSession = request.getSession();
         Long itemId = item.getItemId();

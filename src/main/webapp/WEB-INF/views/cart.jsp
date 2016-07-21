@@ -47,17 +47,17 @@
                     <td>£<c:out value="${item.price}"/></td>
                     <td>£<c:out value="${item.price * entry.value}"/></td>
                     <td>
-                        <button type="submit" id="remove${item.name}">Remove from cart</button>
+                        <form:form action="/cart" method="post" modelAttribute="item">
+                            <form:hidden path="itemId" value="${item.itemId}"/>
+                            <button type="submit" id="remove${item.name}">
+                                Remove from cart
+                            </button>
+                        </form:form>
                     </td>
                 </tr>
             </c:forEach>
         </table>
 
-        <%--<div id ="tax">--%>
-        <%--VAT: <div id="vat"> ${vat}</div>--%>
-        <%--<br>--%>
-        <%--Duty: <div>${duty}</div>--%>
-        <%--</div>--%>
         <table id="tax">
             <tr>
                 <td>Sub Total:</td>

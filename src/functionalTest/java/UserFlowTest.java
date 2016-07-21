@@ -77,6 +77,14 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .logs_in_with(RAJU, SOME_PASSWORD);
+        screen
+                .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
+        user
+                .visits_home_page()
+                .add_item_to_cart(CHROME_FRAME)
+                .visits_cart_page();
+        user
+                .click_remove_from_cart_button(CHROME_FRAME);
 
         screen
                 .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
@@ -132,11 +140,13 @@ public class UserFlowTest extends UserJourneyBase {
         screen
                 .should_list_item(SIMPLON_FRAME)
                 .should_list_item(CHROME_FRAME)
-                .should_list_item(SPOKE_REFLECTORS);
+                .should_list_item(SPOKE_REFLECTORS)
+                .show_grand_total_on_cart_page(BIG_DEC_180);
         user
                 .click_remove_from_cart_button(SPOKE_REFLECTORS);
         screen
-                .should_not_list_item(SPOKE_REFLECTORS);
+                .should_not_list_item(SPOKE_REFLECTORS)
+                .show_grand_total_on_cart_page(BIG_DEC_120);
         user
                 .click_checkout_button();
 

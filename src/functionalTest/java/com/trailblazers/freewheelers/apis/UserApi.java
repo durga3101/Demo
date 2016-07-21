@@ -264,8 +264,10 @@ public class UserApi {
         return this;
     }
 
-    public void visits_cart_page() {
+    public UserApi visits_cart_page() {
         driver.get(URLs.shoppingCart());
+
+        return this;
     }
 
 

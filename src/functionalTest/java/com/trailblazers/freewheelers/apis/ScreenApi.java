@@ -232,4 +232,9 @@ public class ScreenApi {
 
         return this;
     }
+
+    public ScreenApi showsInvoice() {
+        assertThat(driver.findElement(By.id("customer-invoice")).getText(), containsString("Invoice"));
+        return this;
+    }
 }

@@ -334,4 +334,19 @@ public class UserApi {
         driver.findElement(By.id(id)).click();
         return this;
     }
+
+    public UserApi switchesWindow() {
+        try {
+            String oldWinHandle = driver.getWindowHandle();
+
+            for(String newWinHandle : driver.getWindowHandles()){
+                if (!oldWinHandle.equals(newWinHandle)) driver.switchTo().window(newWinHandle);
+            }
+
+        } catch(Exception e) {
+            System.out.println("Unable to Switch Window:\n" + e.getMessage());
+        }
+
+    return this;
+    }
 }

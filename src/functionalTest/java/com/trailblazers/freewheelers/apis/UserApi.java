@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 import static com.trailblazers.freewheelers.helpers.Controls.*;
 
@@ -298,7 +297,6 @@ public class UserApi {
         return this;
     }
     public UserApi click_submit_button() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.id("surveySubmitButton")).click();
 
         return this;

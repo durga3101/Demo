@@ -16,6 +16,7 @@
 
 .modal-content-success{
     background: white;
+    /*width: 50vw;*/
     height: 30vh;
     margin: 25vh 25vw;
 }

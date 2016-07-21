@@ -208,13 +208,13 @@ public class UserFlowTest extends UserJourneyBase {
         screen
                 .shouldSeePaymentSuccess()
                 .shouldSeeSurvey();
-
+//
 //        user
 //                .click_submit_button();
-//
+
 //        screen
 //                .shouldSeeConfirmation();
-//
+////
 //        user
 //                .click_cancel_button();
 //
@@ -223,6 +223,8 @@ public class UserFlowTest extends UserJourneyBase {
         
         if(FeatureToggels.DISPLAY_ADDRESS_ON_USER_PROFILE) {
             user
+                    .click_submit_button()
+                    .click_cancel_button()
                     .visits_his_profile();
             screen
                     .shows_shipping_address(ADDRESS_1,

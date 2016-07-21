@@ -39,13 +39,8 @@
     </tbody>
 </table>
 
-<%--<div class="modal-bg">--%>
-
-    <%--<div id="modal" class="modal-content" style="display: block;">--%>
     <div id="modal" style="display: block;">
         <%@ include file="survey/form.jsp" %>
         <%@ include file="survey/confirmation.jsp" %>
-        <%--<button type="button" class="modal-close" onclick="console.log('HI'); new Modal().closeModal()">Close</button>--%>
     </div>
-<%--</div>--%>
 <%@ include file="footer.jsp" %>

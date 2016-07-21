@@ -108,7 +108,7 @@ task setEnv(type: Exec) {
     }
 }
 
-jettyRun dependsOn: setEnv
+//jettyRun.dependsOn setEnv
 
 task createDB(type: Exec) {
     workingDir 'db'

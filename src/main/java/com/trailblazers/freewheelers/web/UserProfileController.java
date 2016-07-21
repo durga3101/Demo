@@ -77,7 +77,7 @@ public class UserProfileController {
         model.addAttribute("userDetail", account);
 
         if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
-            ShippingAddress address = shippingAddressService.getAddress(account.getAccount_id());
+            ShippingAddress address = shippingAddressService.getLatestAddress(account.getAccount_id());
             if (address == null) {
                 model.addAttribute("addressAvailable", false);
             } else {

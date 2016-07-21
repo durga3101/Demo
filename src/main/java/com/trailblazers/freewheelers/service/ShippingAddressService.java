@@ -6,6 +6,8 @@ import com.trailblazers.freewheelers.model.ShippingAddress;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShippingAddressService {
 
@@ -27,8 +29,11 @@ public class ShippingAddressService {
         sqlSession.commit();
     }
 
-    public ShippingAddress getAddress(long account_id) {
-        return shippingAddressMapper.getFromAccountId(account_id);
+    public ShippingAddress getLatestAddress(long account_id) {
+         List<ShippingAddress> shippingAddressList = shippingAddressMapper.getFromAccountId(account_id);
+        if(shippingAddressList.size() == 0)
+            return null;
+        return shippingAddressList.get(shippingAddressList.size()-1);
     }
 }
 

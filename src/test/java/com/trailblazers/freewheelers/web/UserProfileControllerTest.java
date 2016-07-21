@@ -90,7 +90,7 @@ public class UserProfileControllerTest {
         if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
             when(accountService.getRole(anyString())).thenReturn(USER);
             userProfileController.get(null, model, principal, request);
-            verify(addressService).getAddress(anyLong());
+            verify(addressService).getLatestAddress(anyLong());
         }
     }
 
@@ -103,7 +103,7 @@ public class UserProfileControllerTest {
 
             userProfileController.get(null, model, principal, request);
 
-            verify(addressService).getAddress(1l);
+            verify(addressService).getLatestAddress(1l);
         }
     }
 
@@ -115,7 +115,7 @@ public class UserProfileControllerTest {
             when(accountService.getRole(anyString())).thenReturn(USER);
             when(accountService.getAccountIdByName(anyString())).thenReturn(account);
             when(account.getAccount_id()).thenReturn(1l);
-            when(addressService.getAddress(anyLong())).thenReturn(null);
+            when(addressService.getLatestAddress(anyLong())).thenReturn(null);
 
             userProfileController.get(model, principal, request);
 
@@ -133,7 +133,7 @@ public class UserProfileControllerTest {
             when(accountService.getRole(anyString())).thenReturn(USER);
             when(accountService.getAccountIdByName(anyString())).thenReturn(account);
             when(account.getAccount_id()).thenReturn(1l);
-            when(addressService.getAddress(anyLong())).thenReturn(address);
+            when(addressService.getLatestAddress(anyLong())).thenReturn(address);
 
             userProfileController.get(model, principal, request);
 

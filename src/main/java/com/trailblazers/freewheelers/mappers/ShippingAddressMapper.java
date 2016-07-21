@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 public interface ShippingAddressMapper {
     @Insert(
             "INSERT INTO shipping_address (account_id, street_1, street_2, city, state, postcode, country) " +
@@ -18,5 +20,5 @@ public interface ShippingAddressMapper {
                     "FROM shipping_address " +
                     "WHERE account_id = #{account_id}"
     )
-    ShippingAddress getFromAccountId(long account_id);
+    List<ShippingAddress> getFromAccountId(long account_id);
 }

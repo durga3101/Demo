@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ShippingAddressServiceTest {
@@ -22,6 +22,12 @@ public class ShippingAddressServiceTest {
 
     @Mock
     ShippingAddressMapper shippingAddressMapper;
+
+    private ShippingAddress someShippingAddress(){
+        return new ShippingAddress(1L, "Some Street 1","Some Street 2", "Some City",
+                "Some State", "Some PostCode");
+
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -46,14 +52,26 @@ public class ShippingAddressServiceTest {
         //test get address retrun valid shipping address
         Long account_id  = 1l;
         //actions
-       shippingAddressService.getAddress(account_id);
+       shippingAddressService.getLatestAddress(account_id);
         verify(shippingAddressMapper).getFromAccountId(account_id);
 
     }
 
-    private ShippingAddress someShippingAddress(){
-        return new ShippingAddress(1L, "Some Street 1","Some Street 2", "Some City",
-                "Some State", "Some PostCode");
+    @Test
+    public void shouldReturnNullAddressIfUserDontHaveAnyAddress(){
+        long account_id_with_no_address = 55l;
+        assertEquals(shippingAddressService.getLatestAddress(account_id_with_no_address),null);
+    }
 
+    @Test
+    public void shouldReturnLatestShippingAddressWhenGetAddressIsCalled() throws Exception {
+        Long account_id  = 1l;
+        List<ShippingAddress> addresses = mock(List.class);
+        when(shippingAddressMapper.getFromAccountId(1l)).thenReturn(addresses);
+        when(addresses.size()).thenReturn(1);
+
+       shippingAddressService.getLatestAddress(account_id);
+
+        verify(addresses, atLeastOnce()).get(addresses.size()-1);
     }
 }

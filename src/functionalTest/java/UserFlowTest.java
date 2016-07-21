@@ -238,6 +238,9 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .shouldSeePaymentSuccess();
+
+        user
+                .clicksButtonWithId(VIEW_INVOICE_BUTTON);
         
         if(FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
 

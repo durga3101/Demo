@@ -329,4 +329,9 @@ public class UserApi {
         driver.findElement(By.id("remove"+itemName)).click();
         return this;
     }
+
+    public UserApi clicksButtonWithId(String id) {
+        driver.findElement(By.id(id)).click();
+        return this;
+    }
 }

@@ -5,6 +5,8 @@
 
 <div class="page-action">Thank you. Your order will be delivered in ten days!</div>
 
+<button id="view-invoice">View invoice</button>
+
 <table class="table">
     <thead>
     <tr>
@@ -20,12 +22,11 @@
         <c:set var="item" value="${entry.key}" />
 
         <tr>
-            <td><c:out value="${item.name}"/></td>
-            <td>£<c:out value="${item.price * entry.value}"/></td>
-            <td><c:out value="${item.description}"/></td>
-            <td><c:out value="${item.type}"/></td>
-            <td><c:out value="${entry.value}"/></td>
-            <td>
+            <td style="width: 30%"><c:out value="${item.name}"/></td>
+            <td style="width: 10%">£<c:out value="${item.price * entry.value}"/></td>
+            <td style="width: 40%"><c:out value="${item.description}"/></td>
+            <td style="width: 15%"><c:out value="${item.type}"/></td>
+            <td style="width: 5%"><c:out value="${entry.value}"/></td>
         </tr>
     </c:forEach>
     </tbody>

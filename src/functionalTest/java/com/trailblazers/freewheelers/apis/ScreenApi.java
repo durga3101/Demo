@@ -221,4 +221,10 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(postalCode));
         return this;
     }
+
+    public ScreenApi show_message_for_no_address() {
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString("Sorry,no saved address."));
+
+        return this;
+    }
 }

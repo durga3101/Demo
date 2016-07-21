@@ -25,11 +25,11 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .creates_an_account(RAJU,
-                                    SOME_EMAIL,
-                                    SOME_PASSWORD,
-                                    EMPTY_PASSWORD,
-                                    EMPTY_PHONE_NUMBER,
-                                    UNSELECTED_COUNTRY
+                        SOME_EMAIL,
+                        SOME_PASSWORD,
+                        EMPTY_PASSWORD,
+                        EMPTY_PHONE_NUMBER,
+                        UNSELECTED_COUNTRY
                 );
 
         screen
@@ -39,11 +39,11 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .creates_an_account(RAJU,
-                                    SOME_EMAIL,
-                                    SOME_PASSWORD,
-                                    SOME_PASSWORD,
-                                    SOME_PHONE_NUMBER,
-                                    SOME_COUNTRY
+                        SOME_EMAIL,
+                        SOME_PASSWORD,
+                        SOME_PASSWORD,
+                        SOME_PHONE_NUMBER,
+                        SOME_COUNTRY
                 );
 
         screen
@@ -52,11 +52,11 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .is_logged_out()
                 .creates_an_account(DURGA,
-                                    SOME_EMAIL,
-                                    SOME_PASSWORD,
-                                    SOME_PASSWORD,
-                                    SOME_PHONE_NUMBER,
-                                    SOME_COUNTRY
+                        SOME_EMAIL,
+                        SOME_PASSWORD,
+                        SOME_PASSWORD,
+                        SOME_PHONE_NUMBER,
+                        SOME_COUNTRY
                 );
 
         screen
@@ -98,7 +98,16 @@ public class UserFlowTest extends UserJourneyBase {
                 .visits_his_profile();
 
         screen
-                .shows_profile_for(RAJU)
+                .shows_profile_for(RAJU);
+
+        if (FeatureToggels.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+
+            screen
+                    .show_message_for_no_address();
+
+        }
+
+        screen
                 .shows_profile_for_country(SOME_COUNTRY);
 
         user
@@ -135,11 +144,11 @@ public class UserFlowTest extends UserJourneyBase {
                 .shows_error(EMPTY_PC_ERR, PC_FIELD);
 
         user
-                .entersShippingAddressDetails(  FIELD_WITH_MORETHAN_255_CHARACTERS,
-                                                FIELD_WITH_MORETHAN_255_CHARACTERS,
-                                                FIELD_WITH_MORETHAN_255_CHARACTERS,
-                                                FIELD_WITH_MORETHAN_255_CHARACTERS,
-                                                FIELD_WITH_MORETHAN_255_CHARACTERS
+                .entersShippingAddressDetails(FIELD_WITH_MORETHAN_255_CHARACTERS,
+                        FIELD_WITH_MORETHAN_255_CHARACTERS,
+                        FIELD_WITH_MORETHAN_255_CHARACTERS,
+                        FIELD_WITH_MORETHAN_255_CHARACTERS,
+                        FIELD_WITH_MORETHAN_255_CHARACTERS
                 )
                 .click_proceed_to_payment_button();
 
@@ -151,11 +160,11 @@ public class UserFlowTest extends UserJourneyBase {
                 .shows_error(INVALID_PC_ERR, PC_FIELD);
 
         user
-                .entersShippingAddressDetails(  ADDRESS_1,
-                                                ADDRESS_2,
-                                                CITY,
-                                                STATE,
-                                                POSTAL_CODE
+                .entersShippingAddressDetails(ADDRESS_1,
+                        ADDRESS_2,
+                        CITY,
+                        STATE,
+                        POSTAL_CODE
                 )
                 .click_proceed_to_payment_button();
 
@@ -163,11 +172,11 @@ public class UserFlowTest extends UserJourneyBase {
                 .showsMessageInClass(BIG_DEC_120, SUMMARY_CLASS);
 
         user
-                .entersPaymentDetails(  VISA,
-                                        INVALID_CARD_NO,
-                                        CCV,
-                                        EXP_MONTH,
-                                        EXP_YEAR
+                .entersPaymentDetails(VISA,
+                        INVALID_CARD_NO,
+                        CCV,
+                        EXP_MONTH,
+                        EXP_YEAR
                 )
                 .click_payment_button();
 
@@ -175,11 +184,11 @@ public class UserFlowTest extends UserJourneyBase {
                 .shows_error(ENTER_CARD_NO, CARD_NO_FIELD);
 
         user
-                .entersPaymentDetails(  VISA,
-                                        REVOKED_CARD_NO,
-                                        CCV,
-                                        EXP_MONTH,
-                                        EXP_YEAR
+                .entersPaymentDetails(VISA,
+                        REVOKED_CARD_NO,
+                        CCV,
+                        EXP_MONTH,
+                        EXP_YEAR
                 )
                 .click_payment_button();
 
@@ -188,11 +197,11 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .clicks_back_to_checkout_button()
-                .entersPaymentDetails(  VISA,
-                                        VALID_CARD_NO,
-                                        CCV,
-                                        EXP_MONTH,
-                                        EXP_YEAR
+                .entersPaymentDetails(VISA,
+                        VALID_CARD_NO,
+                        CCV,
+                        EXP_MONTH,
+                        EXP_YEAR
                 )
                 .click_payment_button();
 

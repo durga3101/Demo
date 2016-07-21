@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers.persistence.persistence;
 
+import com.trailblazers.freewheelers.FeatureToggels;
 import com.trailblazers.freewheelers.mappers.ShippingAddressMapper;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import org.junit.Before;
@@ -23,8 +24,8 @@ public class ShippingAddressMapperTest extends MapperTestBase {
         shippingAddress = someShippingAddress();
         shippingAddressMapper.insert(shippingAddress);
 
-        ShippingAddress address = shippingAddressMapper.getFromAccountId(1l);
-        assertEquals(address.getStreet_1(),"Some Street 1");
+            ShippingAddress address = shippingAddressMapper.getFromAccountId(1l);
+            assertEquals(address.getStreet_1(), "Some Street 1");
     }
 
 

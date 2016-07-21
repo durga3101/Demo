@@ -75,6 +75,7 @@ public class UserProfileController {
         model.addAttribute("userDetail", account);
 
         ShippingAddress address = shippingAddressService.getAddress(account.getAccount_id());
+        model.addAttribute("address",address);
         return model;
     }
 
@@ -89,7 +90,6 @@ public class UserProfileController {
         try {
             return URLDecoder.decode(userName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            System.out.println("CATCH CATCH CATCH me if you can");
             return userName;
         }
     }

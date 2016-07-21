@@ -14,7 +14,9 @@ public interface ShippingAddressMapper {
     Integer insert(ShippingAddress shippingAddress);
 
     @Select(
-            ""
+            "SELECT street_1, street_2, city, state, postcode " +
+                    "FROM shipping_address " +
+                    "WHERE account_id = #{account_id}"
     )
-    ShippingAddress getFromAccountId(long l);
+    ShippingAddress getFromAccountId(long account_id);
 }

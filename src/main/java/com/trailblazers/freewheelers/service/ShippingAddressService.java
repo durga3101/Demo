@@ -28,6 +28,10 @@ public class ShippingAddressService {
     }
 
     public ShippingAddress getAddress(long account_id) {
-        return null;
+        return shippingAddressMapper.getFromAccountId(account_id);
     }
 }
+
+
+
+

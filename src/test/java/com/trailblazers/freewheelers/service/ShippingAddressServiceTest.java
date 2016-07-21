@@ -44,9 +44,10 @@ public class ShippingAddressServiceTest {
     @Test
     public void shouldReturnAValidShippingAddressWhenGetAddressIsCalled() throws Exception {
         //test get address retrun valid shipping address
-
+        Long account_id  = 1l;
         //actions
-        ShippingAddress address = shippingAddressService.getAddress(anyLong());
+       shippingAddressService.getAddress(account_id);
+        verify(shippingAddressMapper).getFromAccountId(account_id);
 
     }
 

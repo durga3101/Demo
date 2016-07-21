@@ -22,6 +22,10 @@ public class ShippingAddress {
         this.country = "";
     }
 
+    public ShippingAddress(){
+        this.shipping_address_id = 0L;
+    }
+
     public void setAccount_id(long account_id) {
         this.account_id = account_id;
     }

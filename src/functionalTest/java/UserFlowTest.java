@@ -1,3 +1,4 @@
+import com.trailblazers.freewheelers.FeatureToggels;
 import com.trailblazers.freewheelers.UserJourneyBase;
 import org.junit.Test;
 
@@ -210,15 +211,16 @@ public class UserFlowTest extends UserJourneyBase {
 //
 //        screen
 //                .shouldSeePaymentSuccess();
-
-        user
-                .visits_his_profile();
-        screen
-                .shows_shipping_address(ADDRESS_1,
-                        ADDRESS_2,
-                        CITY,
-                        STATE,
-                        POSTAL_CODE);
-
+        
+        if(FeatureToggels.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+            user
+                    .visits_his_profile();
+            screen
+                    .shows_shipping_address(ADDRESS_1,
+                            ADDRESS_2,
+                            CITY,
+                            STATE,
+                            POSTAL_CODE);
+        }
     }
 }

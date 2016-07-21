@@ -84,11 +84,22 @@ public class UserProfileControllerTest {
     }
 
     @Test
-    public void shouldGetAddressWhenAddressFromServiceWhenAddressIsSaved() throws Exception {
+    public void shouldGetAddressFromServiceWhenAddressIsSaved() throws Exception {
         when(accountService.getRole(anyString())).thenReturn(USER);
         userProfileController.get(null, model, principal, request);
         verify(addressService).getAddress(anyLong());
     }
 
+    @Test
+    public void shouldGetAddressOfRightAccountProfileWhenProfileHasAddress(){
+        when(accountService.getRole(anyString())).thenReturn(USER);
+        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(account.getAccount_id()).thenReturn(1l);
+
+        userProfileController.get(null, model, principal, request);
+
+        verify(addressService).getAddress(1l);
+
+    }
 
 }

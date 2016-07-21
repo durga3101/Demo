@@ -11,6 +11,8 @@
         <div id = "shipping_address">
             <c:choose>
                 <c:when test = "${addressAvailable}">
+                    <br>
+                    Shipping Address: <br/>
                     ${address.street_1}<br>
                     ${address.street_2}<br>
                     ${address.city}, ${address.state}, ${address.postcode}<br>

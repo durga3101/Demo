@@ -322,4 +322,9 @@ public class UserApi {
         driver.findElement(By.id("add-items")).click();
         return this;
     }
+
+    public UserApi click_remove_from_cart_button(String itemName){
+        driver.findElement(By.id("remove"+itemName)).click();
+        return this;
+    }
 }

@@ -47,6 +47,8 @@
                     <td>£<c:out value="${item.price}"/></td>
                     <td>£<c:out value="${item.price * entry.value}"/></td>
                     <td>
+                        <button type="submit" id="remove${item.name}">Remove from cart</button>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

@@ -34,7 +34,6 @@ public class ScreenApi {
         return this;
     }
 
-
     public ScreenApi shows_message(String expectedMessage) {
         expectMessageWithClass(expectedMessage, "page-action");
         return this;
@@ -227,4 +226,5 @@ public class ScreenApi {
 
         return this;
     }
+
 }

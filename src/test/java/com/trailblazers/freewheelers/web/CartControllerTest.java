@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 
 public class CartControllerTest {
@@ -184,4 +185,24 @@ public class CartControllerTest {
 
         verify(canada).setDuty_rate(7.5);
     }
+
+    @Test
+    public void shouldReturnCartViewWhenDeleteIsCalled() {
+        String returned = cartController.delete(item, request);
+        assertEquals("redirect:/cart", returned);
+    }
+
+    @Test
+    public void shouldRemoveTheItemFromShoppingCartWhenWeDeletedThatItem(){
+        HashMap<Item,Long> items = new HashMap<>();
+        items.put(item,1l);
+        when(itemService.get(item.getItemId())).thenReturn(item);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+
+        cartController.delete(item,request);
+
+        assertFalse(items.containsKey(item));
+        verify(itemService).get(eq(item.getItemId()));
+    }
+
 }

@@ -13,9 +13,10 @@ public class UserFlowTest extends UserJourneyBase {
                 .there_is_no_account_for(RAJU)
                 .there_is_no_item(SIMPLON_FRAME)
                 .there_is_no_item(CHROME_FRAME)
+                .there_is_no_item(SPOKE_REFLECTORS)
                 .there_is_a_frame(SIMPLON_FRAME, ONLY_ONE_LEFT)
-                .there_is_a_frame(CHROME_FRAME, ONLY_TWO_LEFT);
-
+                .there_is_a_frame(CHROME_FRAME, ONLY_TWO_LEFT)
+                .there_is_a_frame(SPOKE_REFLECTORS, ONLY_TWO_LEFT);
         user
                 .clearCookies()
                 .logs_in_with(RAJU, SOME_PASSWORD);
@@ -119,18 +120,23 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .visits_home_page()
                 .add_item_to_cart(CHROME_FRAME)
+                .add_item_to_cart(SIMPLON_FRAME)
                 .add_item_to_cart(SIMPLON_FRAME);
-
         screen
                 .showsMessageInClass(ADD_TO_CART_FAILURE, ADD_TO_CART_FAILURE_CLASS);
 
         user
+                .add_item_to_cart(SPOKE_REFLECTORS)
                 .visits_cart_page();
 
         screen
                 .should_list_item(SIMPLON_FRAME)
-                .should_list_item(CHROME_FRAME);
-
+                .should_list_item(CHROME_FRAME)
+                .should_list_item(SPOKE_REFLECTORS);
+        user
+                .click_remove_from_cart_button(SPOKE_REFLECTORS);
+//        screen
+//                .should_not_list_item(SPOKE_REFLECTORS);
         user
                 .click_checkout_button();
 
@@ -169,7 +175,7 @@ public class UserFlowTest extends UserJourneyBase {
                 .click_proceed_to_payment_button();
 
         screen
-                .showsMessageInClass(BIG_DEC_120, SUMMARY_CLASS);
+                .showsMessageInClass(BIG_DEC_180, SUMMARY_CLASS);
 
         user
                 .entersPaymentDetails(VISA,

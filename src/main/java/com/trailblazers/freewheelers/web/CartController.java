@@ -31,6 +31,7 @@ public class CartController {
     private static final String EMPTY_CART = "isCartEmpty";
     private static final String ITEM = "item";
     private static final String SHOPPING_CART = "shoppingCart";
+    private static final String REDIRECT_CART = "redirect:/cart";
 
     private ItemService itemService;
     private Calculator calculator;
@@ -111,5 +112,17 @@ public class CartController {
             System.out.println("CATCH CATCH CATCH me if you can");
             return userName;
         }
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String delete(@ModelAttribute(ITEM) Item item, HttpServletRequest request) {
+        httpSession = request.getSession();
+        Long itemId = item.getItemId();
+        item = itemService.get(itemId);
+        HashMap<Item, Long> shoppingCart = session.getItemHashMap(SHOPPING_CART, httpSession);
+
+        shoppingCart.remove(item);
+
+        return REDIRECT_CART;
     }
 }

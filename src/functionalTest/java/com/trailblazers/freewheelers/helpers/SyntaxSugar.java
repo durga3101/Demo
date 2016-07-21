@@ -85,6 +85,7 @@ public class SyntaxSugar {
 
     public static final String SUMMARY_CLASS = "summary";
     public static final String BIG_DEC_120 = "120.00";
+    public static final String BIG_DEC_180 = "180.00";
 
 
     public static String emailFor(String userName) {

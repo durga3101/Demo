@@ -16,11 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import java.security.Principal;
 import java.util.ArrayList;
 
@@ -55,25 +53,11 @@ public class SurveyControllerTest {
         given(accountService.getAccountIdByName(USERNAME)).willReturn(userAccount);
     }
 
-    @Test
-    public void shouldReturnFormViewName() {
-        String viewName = surveyController.get(new MockHttpServletResponse());
-        assertThat(viewName, is("survey/form"));
-    }
 
     @Test
     public void shouldReturnSurveyReportViewName() {
         ModelAndView reportModelAndView = surveyController.getReport();
         assertThat(reportModelAndView.getViewName(), is("survey/report"));
-    }
-
-    @Test
-    public void shouldSetCookie() {
-        surveyController.get(mockResponse);
-
-        Cookie surveyCookie = mockResponse.getCookie("SurveyTaken");
-        assertThat(surveyCookie.getValue(), is("true"));
-        assertThat(surveyCookie.getMaxAge(), is(A_DAY_IN_SECONDS));
     }
 
     @Test

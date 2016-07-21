@@ -11,13 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.xml.ws.RequestWrapper;
 import java.security.Principal;
 
 @Controller
@@ -35,19 +37,10 @@ public class SurveyController {
         return new SurveyEntryForm();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String get(HttpServletResponse response) {
-        Cookie cookie = new Cookie("SurveyTaken", "true");
-        cookie.setMaxAge(ONE_DAY);
-        response.addCookie(cookie);
-        return "survey/form";
-    }
-
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody String  post(Principal principal,
                       @ModelAttribute("survey")
-                             @Valid
-                             SurveyEntryForm surveyEntryForm,
+                             @Valid SurveyEntryForm surveyEntryForm,
                       BindingResult bindingResult, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "error";
@@ -56,11 +49,9 @@ public class SurveyController {
         Cookie cookie = new Cookie(principal.getName(), "true");
         cookie.setMaxAge(ONE_DAY);
         response.addCookie(cookie);
-
         String username = principal.getName();
         Account account = accountService.getAccountIdByName(username);
         surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
-        System.out.println("dfhdffhdjh,bfdjh");
         return "success";
     }
 

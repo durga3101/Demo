@@ -9,6 +9,7 @@ function SurveyPopUp() {
     
     this.showSurvey = function() {
         if (!$.cookie(userName.substring(8,userName.length-1))) {
+            
             this.show();
         }
     };

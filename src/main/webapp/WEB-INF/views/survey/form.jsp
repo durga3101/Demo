@@ -1,10 +1,3 @@
-<script type="text/javascript">
-    $(function () {
-        new SurveyPopUp();
-    })
-</script>
-
-<script type="text/javascript" src="<c:url value='/scripts/js/modal.js' />"></script>
 <div class="modal-bg">
     <form:form id="survey" action="/survey" method="post" modelAttribute="survey">
 
@@ -58,14 +51,11 @@
 
             </div>
 
-            <button type="button" class="button" id="closeButton" onclick="new Modal().closeModal()">
+            <button type="button" class="button" id="closeButton">
                 Close
             </button>
 
-            <form:button class="button" id="surveySubmitButton" type="submit" value="Submit"
-                         onclick="new Modal().closeModal()">Submit</form:button>
-            <%--<button id = "surveySubmitButton" type="button" class="modal-close" onclick="console.log('HI'); new Modal().closeModal()">Submit--%>
-            <%--</button>--%>
+            <form:button class="button" id="surveySubmitButton" type="submit" value="Submit">Submit</form:button>
 
         </div>
 

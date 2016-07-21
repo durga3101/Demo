@@ -96,19 +96,19 @@ dependencies {
     testCompile 'com.github.detro:phantomjsdriver:1.2.0'
 }
 
-// TODO: fix env var setting for pipeline
 
-//task setEnv(type: Exec) {
-//
-//    if (System.getProperty("GO_STAGE_NAME") == null) {
-//        println "setting app env to LOCAL"
-//        System.setProperty("spring.profiles.active", "local")
-//    } else {
-//        println "running in LIVE env"
-//        System.setProperty("spring.profiles.active", "live")
-//    }
-//
-//}
+task setEnv(type: Exec) {
+
+    if (System.getProperty("GO_STAGE_NAME") == null) {
+        println "gradle --> setting app env to LOCAL"
+        println System.setProperty("spring.profiles.active", "local")
+    } else {
+        println "gradle --> running in LIVE env"
+        println System.setProperty("spring.profiles.active", "live")
+    }
+}
+
+jettyRun dependsOn: setEnv
 
 task createDB(type: Exec) {
     workingDir 'db'

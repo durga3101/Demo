@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,9 @@ public class UserJourneyBase {
         // NPS Pages
         npsSurveyForm = new NetPromoterScoreSurveyForm(driver);
         npsReportPage = new NetPromoterScoreReportPage(driver);
+
+        // set screen size
+        driver.manage().window().setSize(new Dimension(1400, 600));
     }
 
     @AfterClass

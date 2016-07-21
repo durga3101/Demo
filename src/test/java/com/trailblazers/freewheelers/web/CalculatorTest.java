@@ -73,7 +73,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void shouldReturnDutyOf54IfInputIs1000WhenCountryNameIsCanada() {
+    public void shouldReturnDutyOf9IfInputIs100WhenCountryNameIsCanada() {
         BigDecimal expected = new BigDecimal(9.00);
         country.setCountry_name("CANADA");
         country.setDuty_rate(9);

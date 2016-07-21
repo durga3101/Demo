@@ -227,4 +227,9 @@ public class ScreenApi {
         return this;
     }
 
+    public ScreenApi show_tax_on_cart_page(String grandTotal) {
+        assertThat(driver.findElement(By.id("grand_total")).getText(), containsString(grandTotal));
+
+        return this;
+    }
 }

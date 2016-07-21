@@ -146,7 +146,9 @@ public class UserFlowTest extends UserJourneyBase {
                 .click_remove_from_cart_button(SPOKE_REFLECTORS);
         screen
                 .should_not_list_item(SPOKE_REFLECTORS)
-                .show_grand_total_on_cart_page(BIG_DEC_120);
+                .show_grand_total_on_cart_page(BIG_DEC_120)
+                .show_tax_on_cart_page("£120.00");
+
         user
                 .click_checkout_button();
 

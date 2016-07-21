@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.persistence.persistence;
 
-import com.trailblazers.freewheelers.FeatureToggels;
 import com.trailblazers.freewheelers.mappers.ShippingAddressMapper;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import org.junit.Before;

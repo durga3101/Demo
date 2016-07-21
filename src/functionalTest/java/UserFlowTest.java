@@ -1,4 +1,4 @@
-import com.trailblazers.freewheelers.FeatureToggels;
+import com.trailblazers.freewheelers.FeatureToggles;
 import com.trailblazers.freewheelers.UserJourneyBase;
 import org.junit.Test;
 
@@ -109,7 +109,7 @@ public class UserFlowTest extends UserJourneyBase {
         screen
                 .shows_profile_for(RAJU);
 
-        if (FeatureToggels.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
 
             screen
                     .show_message_for_no_address();
@@ -237,7 +237,7 @@ public class UserFlowTest extends UserJourneyBase {
         screen
                 .shouldSeePaymentSuccess();
         
-        if(FeatureToggels.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+        if(FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
 
             user
                     .visits_his_profile();

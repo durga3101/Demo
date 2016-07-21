@@ -1,6 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 
+import com.trailblazers.freewheelers.FeatureToggles;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
@@ -75,13 +76,14 @@ public class UserProfileController {
         model.addAttribute("items", items);
         model.addAttribute("userDetail", account);
 
-        ShippingAddress address = shippingAddressService.getAddress(account.getAccount_id());
-        if (address == null) {
-            model.addAttribute("addressAvailable", false);
-        }
-        else {
-            model.addAttribute("addressAvailable", true);
-            model.addAttribute("address", address);
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+            ShippingAddress address = shippingAddressService.getAddress(account.getAccount_id());
+            if (address == null) {
+                model.addAttribute("addressAvailable", false);
+            } else {
+                model.addAttribute("addressAvailable", true);
+                model.addAttribute("address", address);
+            }
         }
         return model;
     }

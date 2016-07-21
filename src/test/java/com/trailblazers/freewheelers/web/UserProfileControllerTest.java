@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.FeatureToggles;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.model.ShippingAddress;
@@ -53,7 +54,7 @@ public class UserProfileControllerTest {
         itemService = mock(ItemServiceImpl.class);
         account = mock(Account.class);
 
-        userProfileController = new UserProfileController(accountService, reserveOrderService, itemService,addressService);
+        userProfileController = new UserProfileController(accountService, reserveOrderService, itemService,addressService );
 
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("rufus");
@@ -63,6 +64,8 @@ public class UserProfileControllerTest {
         List<ReserveOrder> emptyList = new ArrayList<>();
         when(reserveOrderService.findAllOrdersByAccountId(anyLong())).thenReturn(emptyList);
     }
+
+
 
     @Test
     public void shouldReturnUserProfileWhenUserIsAdmin() {
@@ -84,51 +87,60 @@ public class UserProfileControllerTest {
 
     @Test
     public void shouldGetAddressFromServiceWhenAddressIsSaved() throws Exception {
-        when(accountService.getRole(anyString())).thenReturn(USER);
-        userProfileController.get(null, model, principal, request);
-        verify(addressService).getAddress(anyLong());
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+            when(accountService.getRole(anyString())).thenReturn(USER);
+            userProfileController.get(null, model, principal, request);
+            verify(addressService).getAddress(anyLong());
+        }
     }
 
     @Test
-    public void shouldGetAddressOfRightAccountProfileWhenProfileHasAddress(){
-        when(accountService.getRole(anyString())).thenReturn(USER);
-        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
-        when(account.getAccount_id()).thenReturn(1l);
+    public void shouldGetAddressOfRightAccountProfileWhenProfileHasAddress() {
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+            when(accountService.getRole(anyString())).thenReturn(USER);
+            when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+            when(account.getAccount_id()).thenReturn(1l);
 
-        userProfileController.get(null, model, principal, request);
+            userProfileController.get(null, model, principal, request);
 
-        verify(addressService).getAddress(1l);
+            verify(addressService).getAddress(1l);
+        }
+    }
+
+    @Test
+    public void shouldShowMessageIfAddressNotFound() {
+
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+            Model model = mock(Model.class);
+            when(accountService.getRole(anyString())).thenReturn(USER);
+            when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+            when(account.getAccount_id()).thenReturn(1l);
+            when(addressService.getAddress(anyLong())).thenReturn(null);
+
+            userProfileController.get(model, principal, request);
+
+            verify(model, atLeastOnce()).addAttribute("addressAvailable", false);
+        }
 
     }
 
     @Test
-    public void shouldShowMessageIfAddressNotFound(){
+    public void shouldShowAddressIfAddressIsFound() {
 
-        Model  model = mock(Model.class);
-        when(accountService.getRole(anyString())).thenReturn(USER);
-        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
-        when(account.getAccount_id()).thenReturn(1l);
-        when(addressService.getAddress(anyLong())).thenReturn(null);
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+            Model model = mock(Model.class);
+            ShippingAddress address = mock(ShippingAddress.class);
+            when(accountService.getRole(anyString())).thenReturn(USER);
+            when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+            when(account.getAccount_id()).thenReturn(1l);
+            when(addressService.getAddress(anyLong())).thenReturn(address);
 
-        userProfileController.get(model,principal,request);
+            userProfileController.get(model, principal, request);
 
-        verify(model,atLeastOnce()).addAttribute("addressAvailable",false);
-
-    }
-    @Test
-    public void shouldShowAddressIfAddressIsFound(){
-
-        Model  model = mock(Model.class);
-        ShippingAddress address = mock(ShippingAddress.class);
-        when(accountService.getRole(anyString())).thenReturn(USER);
-        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
-        when(account.getAccount_id()).thenReturn(1l);
-        when(addressService.getAddress(anyLong())).thenReturn(address);
-
-        userProfileController.get(model,principal,request);
-
-        verify(model,atLeastOnce()).addAttribute("addressAvailable",true);
+            verify(model, atLeastOnce()).addAttribute("addressAvailable", true);
+        }
 
     }
+
 
 }

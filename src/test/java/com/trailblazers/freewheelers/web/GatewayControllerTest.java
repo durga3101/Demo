@@ -4,8 +4,11 @@ import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
+import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
+import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -38,7 +41,7 @@ public class GatewayControllerTest {
     private Item item2;
     private HashMap<Item, Long> items;
     private Session session;
-    private Order order;
+    private OrderService orderService;
 
 
     @Before
@@ -49,13 +52,21 @@ public class GatewayControllerTest {
         request = mock(HttpServletRequest.class);
         account = mock(Account.class);
         session = mock(Session.class);
-        order = mock(Order.class);
+        orderService = mock(OrderService.class);
 
         when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
 
         accountService = mock(AccountService.class);
         reserveOrderService = mock(ReserveOrderService.class);
         principal = mock(Principal.class);
+
+        gatewayController = new GatewayController(orderService, reserveOrderService, accountService, restTemplate, itemService, builder, session);
+        when(request.getSession()).thenReturn(httpSession);
+        when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
+        when(principal.getName()).thenReturn("Luke");
+        when(accountService.getAccountIdByName("Luke")).thenReturn(account);
+        when(account.getAccount_id()).thenReturn(11L);
+
         item1 = mock(Item.class);
         item2 = mock(Item.class);
         gatewayController = new GatewayController(reserveOrderService, accountService, itemService, client, session);
@@ -118,31 +129,20 @@ public class GatewayControllerTest {
     }
 
     @Test
-    public void postShouldUpdateDatabaseToAddItemsToOrder() throws Exception {
+    public void shouldCreateANewOrderWhenPaymentIsSuccessful(){
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
-        verify(reserveOrderService, times(5)).save(any(ReserveOrder.class));
+        verify(orderService).createOrder(account);
     }
 
-    @Test
-    public void postShouldSaveOrderInDataBase() throws Exception {
-        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-
-        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-
-        verify(reserveOrderService).saveOrder(any(Order.class));
-    }
-
-    @Test
-    public void postShouldGetOrderInDataBase() throws Exception {
-        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-
-        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-
-        verify(reserveOrderService).getAllOrders(anyLong());
-    }
-
+//    @Test
+//    public void shouldSaveAllPurchasedItemsWithOrderID(){
+//
+//        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+//
+//        verify(reserveOrderService).save((ReserveOrder) any(), anyLong());
+//    }
 
 }

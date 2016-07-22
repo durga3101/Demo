@@ -2,10 +2,10 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
+import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 //import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +31,7 @@ public class GatewayController {
     public static final String ORDER_ID = "order_id";
 
 
+    private OrderService orderService;
     private final ReserveOrderService reserveOrderService;
     private final AccountService accountService;
     private ItemService itemService;
@@ -40,7 +40,8 @@ public class GatewayController {
     private Date rightNow;
 
     @Autowired
-    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
+    public GatewayController(OrderService orderService, ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder, Session session) {
+        this.orderService = orderService;
         this.reserveOrderService = reserveOrderService;
         this.accountService = accountService;
         this.itemService = itemService;
@@ -78,15 +79,14 @@ public class GatewayController {
         String userName = principal.getName();
         Account account =  accountService.getAccountIdByName(userName);
 
-        Order order = reserveOrderService.saveOrder(new Order(account.getAccount_id(), rightNow, OrderStatus.NEW));
-        httpSession.setAttribute(ORDER_ID, order.getOrder_id());
+        orderService.createOrder(account);
 
         //save in db table
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
             for(int quantity = 0; quantity < entry.getValue(); quantity++){
-                saveReservedOrderToDatabase(principal, item, account);
-                decreasePurchasedItemQuantityByOne(item);
+                    saveReservedOrderToDatabase(principal, item, account);
+                    decreasePurchasedItemQuantityByOne(item);
             }
         }
 

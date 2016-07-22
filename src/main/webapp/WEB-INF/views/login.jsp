@@ -18,7 +18,7 @@
 
 	<form name='f' action="<c:url value='j_spring_security_check' />" method="post">
         <div id="login_email_field">
-            <label>User</label>
+            <label>Email</label>
             <div class="controls">
                 <input type='text' name='j_username' id="login_email" placeholder="Username"></td>
                 <span class="text-error" id="login-error-message">Must enter a valid email!</span>

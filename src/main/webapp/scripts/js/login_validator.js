@@ -9,11 +9,9 @@ function showLoginMessage() {
     function init() {
         submit.onclick = function (e) {
             if (!isLoginValid("#login_email")){
-                console.log("display message")
                 loginErrorMessage.style.display = 'inline-block';
                 e.preventDefault();
             } else {
-                console.log("hide message")
                 loginErrorMessage.style.display = 'none';
             } 
             

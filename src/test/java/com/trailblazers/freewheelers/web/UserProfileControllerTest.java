@@ -66,6 +66,7 @@ public class UserProfileControllerTest {
 
         List<PurchasedItem> emptyList = new ArrayList<>();
         when(purchasedItemService.findAllPurchasedItemsByAccountId(anyLong())).thenReturn(emptyList);
+        emptyList = new ArrayList<>();
     }
 
 
@@ -99,6 +100,17 @@ public class UserProfileControllerTest {
             userProfileController.get(null, model, principal, request);
             verify(addressService).getLatestAddress(anyLong());
         }
+    }
+
+    @Test
+    public void shouldAddItemsAndUserDetailToModelAttributesWhenGetIsCalledForAdmin() {
+        when(accountService.getRole(anyString())).thenReturn(ADMIN);
+        model = mock(ExtendedModelMap.class);
+
+        userProfileController.get("Luke", model, principal, request);
+
+        verify(model).addAttribute(eq("items"), any(List.class));
+        verify(model).addAttribute("userDetail", account);
     }
 
     @Test

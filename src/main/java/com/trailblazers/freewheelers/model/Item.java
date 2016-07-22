@@ -10,6 +10,7 @@ public class Item {
     private String description;
     private ItemType type;
     private Long quantity;
+    private String imageURL;
 
     public Long getItemId() {
         return itemId;
@@ -52,6 +53,14 @@ public class Item {
     public Item setQuantity(Long quantity) {
         this.quantity = quantity;
         return this;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Override

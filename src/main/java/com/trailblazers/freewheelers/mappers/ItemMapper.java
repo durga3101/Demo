@@ -22,7 +22,7 @@ public interface ItemMapper {
 
     @Update(
         "UPDATE item " +
-        "SET description=#{description}, name=#{name}, price=#{price}, type=#{type}, quantity=#{quantity} " +
+        "SET description=#{description}, name=#{name}, price=#{price}, type=#{type}, quantity=#{quantity}" +
         "WHERE item_id=#{itemId}"
     )
     void update(Item item);

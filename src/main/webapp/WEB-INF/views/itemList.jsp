@@ -101,6 +101,7 @@
 				<th>Description</th>
 				<th>ItemType</th>
 				<th>Quantity</th>
+                <%--<th>Image URL</th>--%>
 				</tr></thead>
 				<tbody >
 					<c:forEach var="itemEntry" items="${itemGrid.itemMap}" varStatus="row" >
@@ -132,6 +133,9 @@
                                 <form:input path="itemMap[${itemEntry.key}].quantity" disabled="true" class="quantity" id="quantity${itemEntry.key}"/>
                                 <span class="text-error" id="empty_quantity${itemEntry.key}" >Please enter valid Item Quantity</span>
                             </td>
+                            <%--<td>--%>
+                                <%--<form:input path="" id="image_url${itemEntry.value.name}"/>--%>
+                            <%--</td>--%>
 						</tr>
 					</c:forEach>
 				</tbody>

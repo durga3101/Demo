@@ -354,4 +354,17 @@ public class UserApi {
         driver.close();
         return this;
     }
+
+    public UserApi changes_item_image_url(String itemName, String imageUrl) {
+        check(driver.findElement(ManageItemTable.toggleAll()));
+
+
+        WebElement input = driver.findElement(By.id("image_url"+itemName));
+
+        fillField(input, imageUrl);
+
+        driver.findElement(By.name("update")).click();
+
+        return this;
+    }
 }

@@ -11,7 +11,7 @@
         </c:when>
         <c:otherwise>
             <div id="TrailBlazers - Login" class="page-action">
-                Login with Username and Password
+                Login with your Email ID and Password
             </div>
         </c:otherwise>
     </c:choose>

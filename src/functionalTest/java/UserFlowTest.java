@@ -78,6 +78,12 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .logs_in_with(RAJU, SOME_PASSWORD);
         screen
+                .shows_error_alert(UNSUCCESSFUL_LOGIN);
+
+        user
+                .logs_in_with(SOME_EMAIL, SOME_PASSWORD);
+
+        screen
                 .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
         user
                 .visits_home_page()
@@ -97,7 +103,7 @@ public class UserFlowTest extends UserJourneyBase {
                 .shows_login();
 
         user
-                .logs_in_with(RAJU, SOME_PASSWORD);
+                .logs_in_with(SOME_EMAIL, SOME_PASSWORD);
 
         screen
                 .should_list_item(SIMPLON_FRAME)

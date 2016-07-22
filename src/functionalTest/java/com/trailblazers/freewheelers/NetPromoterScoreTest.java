@@ -1,6 +1,7 @@
 package com.trailblazers.freewheelers;
 
 import com.trailblazers.freewheelers.helpers.FeedbackType;
+import com.trailblazers.freewheelers.helpers.SyntaxSugar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -29,7 +30,7 @@ public class NetPromoterScoreTest extends UserJourneyBase {
     @Test
     public void testSurveyPopUp() throws InterruptedException {
         user
-                .logs_in_with(username, password)
+                .logs_in_with(SyntaxSugar.emailFor(username), password)
                 .visits_home_page()
                 .add_to_cart_and_check_out(frame)
                 .entersPaymentDetails("Visa", "4111111111111111", "534", "11", "2020")
@@ -72,7 +73,7 @@ public class NetPromoterScoreTest extends UserJourneyBase {
         //show survey report
         user
                 .is_logged_out()
-                .logs_in_with(adminUser, password)
+                .logs_in_with(SyntaxSugar.emailFor(adminUser), password)
                 .visits_nps_report_page_by_link();
 
         assertTrue(npsReportPage.totalResponsesCorrect("4"));

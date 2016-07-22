@@ -12,6 +12,9 @@ public class AdminFlowTest extends UserJourneyBase {
         String Hugo = "User Huser";
         String Arno = "Admin Admin";
 
+        String ArnoEmail = emailFor(Arno);
+        String HugoEmail = emailFor(Hugo);
+
         String New_Simplon_Name = "NEW - Simplon Pavo 3 Ultra";
         String New_Spoke_Name = "NEW - Spoke - Reflectors Arrow red";
 
@@ -28,7 +31,7 @@ public class AdminFlowTest extends UserJourneyBase {
                 .there_is_an_order(Hugo, CHROME_FRAME);
         user
                 .visits_home_page()
-                .logs_in_with(Arno, SOME_PASSWORD)
+                .logs_in_with(ArnoEmail, SOME_PASSWORD)
                 .visits_admin_profile();
         screen
                 .shows_admin_profile();

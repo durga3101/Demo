@@ -12,14 +12,14 @@
         <intercept-url pattern="/admin" access="ROLE_ADMIN"/>
         <intercept-url pattern="/item" access="ROLE_ADMIN"/>
         <intercept-url pattern="/cart" access="ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url method = "POST" pattern="/" access="ROLE_ADMIN, ROLE_USER"/>
+        <intercept-url method="POST" pattern="/" access="ROLE_ADMIN, ROLE_USER"/>
         <intercept-url pattern="/survey" access="ROLE_ADMIN, ROLE_USER"/>
         <intercept-url pattern="/survey/report" access="ROLE_ADMIN"/>
         <intercept-url pattern="/userProfile/**" access="ROLE_ADMIN, ROLE_USER"/>
         <form-login login-page="/login" default-target-url="/userProfile"
-                    authentication-failure-url="/loginfailed" />
-        <logout logout-success-url="/" />
-        <access-denied-handler error-page="/403" />
+                    authentication-failure-url="/loginfailed"/>
+        <logout logout-success-url="/"/>
+        <access-denied-handler error-page="/403"/>
     </http>
 
     <authentication-manager>
@@ -28,17 +28,17 @@
             <jdbc-user-service data-source-ref="myDataSource"
                                users-by-username-query="select account_name, password, enabled
                                                         from account
-                                                        where ? in (account_name, email_address)"
+                                                        where ? in ( email_address)"
                                authorities-by-username-query=
                                        "select a.account_name, ar.role
                                         from account a, account_role ar
                                         where
                                             a.account_name = ar.account_name and
                                             ? in (a.account_name, a.email_address)"
-                    />
+            />
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 </beans:beans>

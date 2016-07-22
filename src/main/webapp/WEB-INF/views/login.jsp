@@ -42,6 +42,7 @@
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="<c:url value='/scripts/js/login_validator.js' />"></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/field_validator.js' />"></script>
 <script type="text/javascript">
     $(function () {
         new showLoginMessage();

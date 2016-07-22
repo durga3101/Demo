@@ -11,7 +11,6 @@ var validator = {
 
     hideErrorMessage: function (selector) {
         $(selector).css("display", "none")
-    
     },
     
     validatePassword: function(val) {

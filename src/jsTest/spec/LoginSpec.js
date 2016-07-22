@@ -14,5 +14,11 @@ describe("validate login form", function () {
 
         expect(isLoginValid("#login_email")).toBeFalsy();
     });
+    it("should return true when email is valid", function () {
+        var invalidEmail = "user@example.com";
+        $("#login_email").val(invalidEmail);
+
+        expect(isLoginValid("#login_email")).toBeTruthy();
+    });
     
 })

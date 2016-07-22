@@ -7,8 +7,7 @@ import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
-import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -42,6 +41,7 @@ public class GatewayControllerTest {
     private HashMap<Item, Long> items;
     private Session session;
     private OrderService orderService;
+
 
 
     @Before
@@ -135,5 +135,15 @@ public class GatewayControllerTest {
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
         verify(orderService).createOrder(account);
+        verify(reserveOrderService, times(5)).save(any(ReserveOrder.class));
     }
+
+//    @Test
+//    public void shouldSaveAllPurchasedItemsWithOrderID(){
+//
+//        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+//
+//        verify(reserveOrderService).save((ReserveOrder) any(), anyLong());
+//    }
+
 }

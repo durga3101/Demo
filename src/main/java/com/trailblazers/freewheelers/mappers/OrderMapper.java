@@ -18,14 +18,14 @@ public interface OrderMapper {
     @Options(keyProperty = "order_id", useGeneratedKeys = true)
     Integer insert(Order order);
 
-    @Select(
-            "select * from order_table " +
-                    "where account_id = #{account_id}"
-    )
-    List<Order> getAllOrdersByAccountId(Long account_id);
-
-    @Select(
-            "select * from order_table where order_id = #{orderId}"
-    )
-    Order getOrderByOrderId(Integer orderId);
+//    @Select(
+//            "select * from order_table " +
+//                    "where account_id = #{account_id}"
+//    )
+//    List<Order> getAllOrdersByAccountId(Long account_id);
+//
+//    @Select(
+//            "select * from order_table where order_id = #{orderId}"
+//    )
+//    Order getOrderByOrderId(Long orderId);
 }

@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -41,8 +40,7 @@ public class GatewayController {
     private Date rightNow;
 
     @Autowired
-    public GatewayController(OrderService orderService, ReserveOrderService reserveOrderService, AccountService accountService, RestTemplate restTemplate, ItemServiceImpl itemService, PaymentRequestBuilderServiceImpl paymentBuilder, Session session) {
-        this.orderService = orderService;
+    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
         this.reserveOrderService = reserveOrderService;
         this.accountService = accountService;
         this.itemService = itemService;

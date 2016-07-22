@@ -46,4 +46,30 @@ public class ReserveOrderServiceImplTest {
         verify(reserveOrderMapper).update(reserveOrder);
 
     }
+
+//    @Test
+//    public void shouldInvokeOrderMapperWhenSavingAnOrder() throws Exception {
+//        OrderMapper orderMapper = mock(OrderMapper.class);
+//        Order order = mock(Order.class);
+//        when(sqlSession.getMapper(OrderMapper.class)).thenReturn(orderMapper);
+//
+//        ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
+//        reserveOrderService.saveOrder(order);
+//
+//        verify(orderMapper).insert(order);
+//
+//    }
+//
+//    @Test
+//    public void shouldInvokeOrderMapperWhenGettingAnOrder() throws Exception {
+//        SqlSession sqlSession = mock(SqlSession.class);
+//        OrderMapper orderMapper = mock(OrderMapper.class);
+//        when(sqlSession.getMapper(OrderMapper.class)).thenReturn(orderMapper);
+//
+//        ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
+//
+//        reserveOrderService.getAllOrders(anyLong());
+//
+//        verify(orderMapper).getAllOrdersByAccountId(anyLong());
+//    }
 }

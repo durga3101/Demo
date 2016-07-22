@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.apis;
 
-import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
 import com.trailblazers.freewheelers.helpers.URLs;
@@ -175,8 +174,7 @@ public class UserApi {
     }
 
     public UserApi add_item_to_cart(String name) {
-        driver.findElement(HomeTable.cartButtonFor(name)).click();
-
+        driver.findElement(By.id("add_item"+name)).click();
         return this;
     }
 

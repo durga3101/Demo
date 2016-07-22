@@ -20,33 +20,31 @@
 <table>
     <thead>
     <tr>
-        <%--<th>Image</th>--%>
         <th>Name</th>
         <th>Price</th>
         <th>Description</th>
         <th>Type</th>
+        <th>Image</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="item" items="${items}" varStatus="row">
         <tr>
-            <%--<td>--%>
-                <%--&lt;%&ndash;<img src="<c:url value="${item.imageURL}"/>" />&ndash;%&gt;--%>
-                <%--Hello--%>
-            <%--</td>--%>
             <td><c:out value="${item.name}"/></td>
             <td>£<c:out value="${item.price}"/></td>
             <td><c:out value="${item.description}"/></td>
             <td><c:out value="${item.type}"/></td>
+            <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
             <td>
                 <form:form action="/" method="post" modelAttribute="item">
                     <form:hidden path="itemId" value="${item.itemId}"/>
-                    <button class="reserve-button add-to-cart" type="submit">
+                    <button class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
                         Add to cart
                     </button>
                 </form:form>
             </td>
+
         </tr>
     </c:forEach>
     </tbody>

@@ -126,23 +126,23 @@ public class GatewayControllerTest {
         verify(reserveOrderService, times(5)).save(any(ReserveOrder.class));
     }
 
-//    @Test
-//    public void postShouldSaveOrderInDataBase() throws Exception {
-//        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-//
-//        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-//
-//        verify(reserveOrderService).saveOrder(any(Order.class));
-//    }
-//
-//    @Test
-//    public void postShouldGetOrderInDataBase() throws Exception {
-//        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-//
-//        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-//
-//        verify(reserveOrderService).getAllOrders(anyLong());
-//    }
+    @Test
+    public void postShouldSaveOrderInDataBase() throws Exception {
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(reserveOrderService).saveOrder(any(Order.class));
+    }
+
+    @Test
+    public void postShouldGetOrderInDataBase() throws Exception {
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(reserveOrderService).getAllOrders(anyLong());
+    }
 
 
 }

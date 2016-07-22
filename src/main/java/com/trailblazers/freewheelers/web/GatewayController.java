@@ -73,21 +73,22 @@ public class GatewayController {
         httpSession.setAttribute(PURCHASED_ITEMS, purchasedItems);
         httpSession.setAttribute(SHOPPING_CART, null);
 
-//        rightNow = new Date();
+        rightNow = new Date();
 
         String userName = principal.getName();
         Account account =  accountService.getAccountIdByName(userName);
-//
-//        Order order = reserveOrderService.saveOrder(new Order(account.getAccount_id(), rightNow, OrderStatus.NEW));
-//        httpSession.setAttribute(ORDER_ID, order.getOrder_id());
-//
-//        for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
-//            Item item = entry.getKey();
-//            for(int quantity = 0; quantity < entry.getValue(); quantity++){
-//                saveReservedOrderToDatabase(principal, item, account);
-//                decreasePurchasedItemQuantityByOne(item);
-//            }
-//        }
+
+        Order order = reserveOrderService.saveOrder(new Order(account.getAccount_id(), rightNow, OrderStatus.NEW));
+        httpSession.setAttribute(ORDER_ID, order.getOrder_id());
+
+        //save in db table
+        for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
+            Item item = entry.getKey();
+            for(int quantity = 0; quantity < entry.getValue(); quantity++){
+                saveReservedOrderToDatabase(principal, item, account);
+                decreasePurchasedItemQuantityByOne(item);
+            }
+        }
 
         return "redirect:/reserve";
     }

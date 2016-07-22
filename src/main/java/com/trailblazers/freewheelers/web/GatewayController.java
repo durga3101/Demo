@@ -2,11 +2,13 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+//import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +28,16 @@ public class GatewayController {
 
     static final String SHOPPING_CART = "shoppingCart";
     static final String PURCHASED_ITEMS = "purchasedItems";
+    public static final String ORDER_ID = "order_id";
+
+
     private final ReserveOrderService reserveOrderService;
     private final AccountService accountService;
     private ItemService itemService;
     private Session session;
     private GatewayClient client;
+    private Date rightNow;
+    private Order order;
 
     @Autowired
     public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
@@ -65,10 +72,21 @@ public class GatewayController {
         httpSession.setAttribute(PURCHASED_ITEMS, purchasedItems);
         httpSession.setAttribute(SHOPPING_CART, null);
 
+        rightNow = new Date();
+
+        String userName = principal.getName();
+        Account account =  accountService.getAccountIdByName(userName);
+
+        order = new Order(account.getAccount_id(), rightNow, OrderStatus.NEW);
+        reserveOrderService.saveOrder(order);
+        order = reserveOrderService.getOrder(account.getAccount_id());
+        httpSession.setAttribute(ORDER_ID,order.getOrder_id());
+
+        //save in db table
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
-            for (int quantity = 0; quantity < entry.getValue(); quantity++) {
-                saveReservedOrderToDatabase(principal, item);
+            for(int quantity = 0; quantity < entry.getValue(); quantity++){
+                saveReservedOrderToDatabase(principal, item, account);
                 decreasePurchasedItemQuantityByOne(item);
             }
         }
@@ -76,10 +94,7 @@ public class GatewayController {
         return "redirect:/reserve";
     }
 
-    private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve) {
-        String userName = principal.getName();
-        Account account = accountService.getAccountIdByName(userName);
-        Date rightNow = new Date();
+    private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve, Account account) {
         ReserveOrder reserveOrder = new ReserveOrder(account.getAccount_id(), itemToReserve.getItemId(), rightNow);
         reserveOrderService.save(reserveOrder);
     }

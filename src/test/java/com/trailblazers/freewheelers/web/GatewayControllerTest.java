@@ -37,6 +37,7 @@ public class GatewayControllerTest {
     private Item item2;
     private HashMap<Item, Long> items;
     private Session session;
+    private Order order;
 
 
     @Before
@@ -47,8 +48,10 @@ public class GatewayControllerTest {
         request = mock(HttpServletRequest.class);
         account = mock(Account.class);
         session = mock(Session.class);
-        request = mock(HttpServletRequest.class);
-        account = mock(Account.class);
+        order = mock(Order.class);
+
+        when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
+
         accountService = mock(AccountService.class);
         reserveOrderService = mock(ReserveOrderService.class);
         principal = mock(Principal.class);
@@ -81,6 +84,7 @@ public class GatewayControllerTest {
     public void shouldReturnRedirectToReservePageWhenAPICallToPaymentGatewaySucceeds() throws Exception {
         Account account = mock(Account.class);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
 
         String expected = "redirect:/reserve";
         String actual = gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
@@ -119,6 +123,24 @@ public class GatewayControllerTest {
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
         verify(reserveOrderService, times(5)).save(any(ReserveOrder.class));
+    }
+
+    @Test
+    public void postShouldSaveOrderInDataBase() throws Exception {
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(reserveOrderService).saveOrder(any(Order.class));
+    }
+
+    @Test
+    public void postShouldGetOrderInDataBase() throws Exception {
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(reserveOrderService).getOrder(anyLong());
     }
 
 

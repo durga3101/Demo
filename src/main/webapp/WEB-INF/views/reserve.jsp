@@ -11,14 +11,17 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Quantity</th>
-        </tr>
+
+    <tr>
+        <th>Order ID</th>
+        <td>Name</td>
+        <td>Price</td>
+        <td>Description</td>
+        <td>Type</td>
+        <td>Quantity</td>
+    </tr>
     </thead>
+
     <tbody>
         <c:forEach var="entry" items="${items}" varStatus="row">
             <c:set var="item" value="${entry.key}" />

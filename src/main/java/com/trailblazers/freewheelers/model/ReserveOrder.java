@@ -11,7 +11,9 @@ public class ReserveOrder {
     private OrderStatus status = OrderStatus.NEW;
     private String note = "";
 
-    public ReserveOrder(){}
+    public ReserveOrder(){
+
+    }
 
     public ReserveOrder(Long account_id, Long item_id, Date rightNow) {
         this.account_id = account_id;

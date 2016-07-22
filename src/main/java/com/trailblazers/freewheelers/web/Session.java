@@ -12,6 +12,7 @@ public class Session {
 
     private Object items;
     private HttpSession httpSession;
+//    public static final String ORDER_ID = "order_id";
     public static final String SHOPPING_CART = "shoppingCart";
     public static final String PURCHASED_ITEMS = "purchasedItems";
 

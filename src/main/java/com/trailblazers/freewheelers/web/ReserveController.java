@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.Map;
 
 import static com.trailblazers.freewheelers.web.Session.PURCHASED_ITEMS;
 
@@ -40,9 +39,10 @@ public class ReserveController {
         HttpSession httpSession = httpServletRequest.getSession();
         ItemServiceImpl itemService = new ItemServiceImpl();
 
+        Long order_id= (Long) httpSession.getAttribute("order_id");
         HashMap<Item, Long> result = session.getItemHashMap(PURCHASED_ITEMS, httpSession);
-
         model.addAttribute("items", result);
+        model.addAttribute("orderId",order_id);
     }
 
 }

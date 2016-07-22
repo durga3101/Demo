@@ -27,16 +27,19 @@ public class ReserveOrderTest {
 
     @Test
     public void shouldReturnItemIdFromConstructorWhenGetItemIdIsCalled() {
+        reserveOrder.setItem_id(itemId);
         assertEquals(itemId, reserveOrder.getItem_id());
     }
 
     @Test
     public void shouldReturnDateFromConstructorWhenGetDateIsCalled() {
+        reserveOrder.setReservation_timestamp(date);
         assertEquals(date, reserveOrder.getReservation_timestamp());
     }
 
     @Test
     public void shouldReturnAccountIdFromConstructorWhenGetAccountIdIsCalled() {
+        reserveOrder.setAccount_id(accountId);
         assertEquals(accountId, reserveOrder.getAccount_id());
     }
 

@@ -213,6 +213,14 @@ public class ScreenApi {
         return this;
     }
 
+    public ScreenApi shouldSeeOrderDetails(String ... orderNames) {
+        for( String orderName : orderNames){
+            assertThat(driver.getPageSource(), containsString(orderName));
+        }
+//        assertNotNull(driver.findElement(By.id("order_id")).getText());
+        return this;
+    }
+
     public ScreenApi shows_shipping_address(String address1, String address2, String city, String state, String postalCode) {
         assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(address1));
         assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString(address2));

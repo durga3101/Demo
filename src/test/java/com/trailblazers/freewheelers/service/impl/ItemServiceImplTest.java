@@ -12,14 +12,11 @@ import org.mockito.Mock;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -74,6 +71,22 @@ public class ItemServiceImplTest {
 
         verify(itemMapper, times(1)).insert(item);
         verify(sqlSession, times(1)).commit();
+    }
+
+    @Test
+    public void checkwhetherTheDeleteItemIsCalledOrNotWhenThereAreNoValidationErrors() {
+        Item item = getItemWithoutError();
+        itemService.delete(item);
+
+        verify(itemMapper, times(1)).delete(item);
+        verify(sqlSession, times(1)).commit();
+    }
+
+    @Test
+    public void checkwhetherTheFindAllItemReturnsAllItemsOrNotItemIsCalledOrNot() {
+        itemService.findAll();
+
+        verify(itemMapper, times(1)).getAllItems();
     }
 
     @Test

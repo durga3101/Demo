@@ -20,6 +20,7 @@
 <table>
     <thead>
     <tr>
+        <%--<th>Image</th>--%>
         <th>Name</th>
         <th>Price</th>
         <th>Description</th>
@@ -30,6 +31,10 @@
     <tbody>
     <c:forEach var="item" items="${items}" varStatus="row">
         <tr>
+            <%--<td>--%>
+                <%--&lt;%&ndash;<img src="<c:url value="${item.imageURL}"/>" />&ndash;%&gt;--%>
+                <%--Hello--%>
+            <%--</td>--%>
             <td><c:out value="${item.name}"/></td>
             <td>£<c:out value="${item.price}"/></td>
             <td><c:out value="${item.description}"/></td>

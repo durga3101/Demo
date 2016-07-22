@@ -86,7 +86,7 @@ form label {
 
 form input[type=text], [type=password] {
     padding: 4px;
-    width: 14em;
+    /*width: 14em;*/
     font-size: 12pt;
 }
 
@@ -104,8 +104,10 @@ button {
 }
 
 table th {
-    width: 100px;
+    /*width: 100vw;*/
+    /*width: auto;*/
     text-align: left;
+
 }
 
 table {
@@ -113,6 +115,26 @@ table {
     border-collapse: separate;
     align-content: center;
     width: 100%;
+}
+
+.table #name{
+    /*border: 1px solid red;*/
+    width: 26vw;
+}
+.table .price{
+    width: 7vw;
+}
+
+.table #description{
+    width: 25vw;
+}
+
+.table #type{
+    width: 9vw;
+}
+
+.table .quantity{
+    width: 5vw;
 }
 
 .checkout-button {

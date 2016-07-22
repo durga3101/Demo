@@ -101,8 +101,7 @@
 				<th>Description</th>
 				<th>ItemType</th>
 				<th>Quantity</th>
-                        <%--STORY #153: COMMENTING THIS TO PUSH TO CI - RAJU/ARCHANAA WILL WORK ON THIS - Luke--%>
-                <%--<th>Image URL</th>--%>
+                <th>Image URL</th>
 				</tr></thead>
 				<tbody >
 					<c:forEach var="itemEntry" items="${itemGrid.itemMap}" varStatus="row" >

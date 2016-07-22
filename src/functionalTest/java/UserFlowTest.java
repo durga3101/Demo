@@ -19,7 +19,7 @@ public class UserFlowTest extends UserJourneyBase {
                 .there_is_a_frame(SPOKE_REFLECTORS, ONLY_TWO_LEFT);
         user
                 .clearCookies()
-                .logs_in_with(RAJU, SOME_PASSWORD);
+                .logs_in_with("Raju@gmail.com", SOME_PASSWORD);
 
         screen
                 .shows_error_alert(UNSUCCESSFUL_LOGIN);
@@ -78,8 +78,7 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .logs_in_with(RAJU, SOME_PASSWORD);
         screen
-                .shows_error_alert(UNSUCCESSFUL_LOGIN);
-
+                .shows_error("Must enter a valid email!", "login_email_field");
         user
                 .logs_in_with(SOME_EMAIL, SOME_PASSWORD);
 
@@ -257,8 +256,8 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .shouldSeePaymentSuccess();
-        
-        if(FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
+
+        if (FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
 
             user
                     .visits_his_profile();

@@ -17,10 +17,11 @@
     </c:choose>
 
 	<form name='f' action="<c:url value='j_spring_security_check' />" method="post">
-        <div>
+        <div id="login_email_field">
             <label>User</label>
             <div class="controls">
-                <input type='text' name='j_username' placeholder="Username"></td>
+                <input type='text' name='j_username' id="login_email" placeholder="Username"></td>
+                <span class="text-error" id="login-error-message">Must enter a valid email!</span>
             </div>
         </div>
 
@@ -33,10 +34,17 @@
 
         <div>
             <div class="controls">
-                <button type="submit" name="submit">Sign in</button>
+                <button type="submit" id = "login-submit" name="submit">Sign in</button>
             </div>
         </div>
 
 	</form>
 
 <%@ include file="footer.jsp" %>
+<script type="text/javascript" src="<c:url value='/scripts/js/login_validator.js' />"></script>
+<script type="text/javascript">
+    $(function () {
+        new showLoginMessage();
+    })
+</script>
+

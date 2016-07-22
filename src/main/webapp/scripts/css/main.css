@@ -133,6 +133,7 @@ table {
 
 #shippingAddress_form .text-error,
 #add_item .text-error,
+#login-error-message,
 #update_item .text-error,
 #register_form .text-error,
 #credit_card_form .text-error {

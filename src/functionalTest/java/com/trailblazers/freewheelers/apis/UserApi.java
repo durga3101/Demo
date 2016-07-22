@@ -45,7 +45,7 @@ public class UserApi {
         return this;
     }
 
-    public UserApi creates_an_account(String name, String email, String password,String confirmPassword, String phoneNumber, String country) {
+    public UserApi creates_an_account(String name, String email, String password, String confirmPassword, String phoneNumber, String country) {
         driver.get(URLs.home());
         driver.findElement(By.linkText("Create Account")).click();
 
@@ -141,6 +141,7 @@ public class UserApi {
 
         return this;
     }
+
     public UserApi changes_item_price(String from, String to) {
         check(driver.findElement(ManageItemTable.toggleAll()));
 
@@ -151,7 +152,6 @@ public class UserApi {
 
         return this;
     }
-
 
 
     public UserApi delete_item(String itemName) {
@@ -298,6 +298,7 @@ public class UserApi {
 
         return this;
     }
+
     public UserApi click_submit_button() {
         driver.findElement(By.id("surveySubmitButton")).click();
 
@@ -325,8 +326,8 @@ public class UserApi {
         return this;
     }
 
-    public UserApi click_remove_from_cart_button(String itemName){
-        driver.findElement(By.id("remove"+itemName)).click();
+    public UserApi click_remove_from_cart_button(String itemName) {
+        driver.findElement(By.id("remove" + itemName)).click();
         return this;
     }
 
@@ -335,19 +336,16 @@ public class UserApi {
         return this;
     }
 
-    public UserApi switchesWindow() {
+    public UserApi switchToInvoiceWindow() {
         try {
             String oldWinHandle = driver.getWindowHandle();
-
-            for(String newWinHandle : driver.getWindowHandles()){
+            for (String newWinHandle : driver.getWindowHandles()) {
                 if (!oldWinHandle.equals(newWinHandle)) driver.switchTo().window(newWinHandle);
             }
-
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Unable to Switch Window:\n" + e.getMessage());
         }
-
-    return this;
+        return this;
     }
 
     public UserApi closesWindow() {
@@ -355,15 +353,33 @@ public class UserApi {
         return this;
     }
 
+
     public UserApi changes_item_image_url(String itemName, String imageUrl) {
         check(driver.findElement(ManageItemTable.toggleAll()));
 
 
-        WebElement input = driver.findElement(By.id("image_url"+itemName));
+        WebElement input = driver.findElement(By.id("image_url" + itemName));
 
         fillField(input, imageUrl);
 
         driver.findElement(By.name("update")).click();
+        return this;
+    }
+
+    public UserApi switchToReservePage() {
+
+        try {
+            String oldWinHandle = driver.getWindowHandle();
+            System.out.println(driver.getWindowHandle() + "\n\n\n\n\n\n\n\nWin&");
+            if (driver.getCurrentUrl().equals(URLs.invoice())) {
+                driver.findElement(By.id("close-invoice")).click();
+            }
+            for (String newWinHandle : driver.getWindowHandles()) {
+                if (!oldWinHandle.equals(newWinHandle)) driver.switchTo().window(newWinHandle);
+            }
+        } catch (Exception e) {
+            System.out.println("Unable to Switch Window:\n" + e.getMessage());
+        }
 
         return this;
     }

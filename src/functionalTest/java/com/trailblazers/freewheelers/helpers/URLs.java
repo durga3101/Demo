@@ -28,7 +28,7 @@ public class URLs {
         return BASE + "/survey/report";
     }
 
-    public static String shoppingCart(){
+    public static String shoppingCart() {
         return BASE + "/cart";
     }
 
@@ -37,6 +37,10 @@ public class URLs {
     }
 
     public static String payment() {
-        return  BASE +"/payment";
+        return BASE + "/payment";
+    }
+
+    public static String invoice() {
+        return BASE + "/invoice";
     }
 }

@@ -241,13 +241,13 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .clicksButtonWithId(VIEW_INVOICE_BUTTON)
-                .switchesWindow();
+                .switchToInvoiceWindow();
 
         screen
                 .showsInvoice();
 
         user
-                .switchesWindow();
+                .switchToReservePage();
 
         screen
                 .shouldSeePaymentSuccess();

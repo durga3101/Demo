@@ -237,7 +237,7 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("customer-invoice")).getText(), containsString("Invoice"));
         return this;
     }
-    
+
     public ScreenApi show_image_url_for_the_item(String itemName, String aUrl) {
         assertThat(driver.findElement(By.id("image_url"+itemName)).getText(), containsString(aUrl));
         return this;

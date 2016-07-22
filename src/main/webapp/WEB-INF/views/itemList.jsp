@@ -101,6 +101,7 @@
 				<th>Description</th>
 				<th>ItemType</th>
 				<th>Quantity</th>
+                        <%--STORY #153: COMMENTING THIS TO PUSH TO CI - RAJU/ARCHANAA WILL WORK ON THIS - Luke--%>
                 <%--<th>Image URL</th>--%>
 				</tr></thead>
 				<tbody >
@@ -133,6 +134,7 @@
                                 <form:input path="itemMap[${itemEntry.key}].quantity" disabled="true" class="quantity" id="quantity${itemEntry.key}"/>
                                 <span class="text-error" id="empty_quantity${itemEntry.key}" >Please enter valid Item Quantity</span>
                             </td>
+                            <%--STORY #153: COMMENTING THIS TO PUSH TO CI - RAJU/ARCHANAA WILL WORK ON THIS - Luke--%>
                             <%--<td>--%>
                                 <%--<form:input path="" id="image_url${itemEntry.value.name}"/>--%>
                             <%--</td>--%>

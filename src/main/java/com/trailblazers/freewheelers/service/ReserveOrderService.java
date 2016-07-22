@@ -18,9 +18,9 @@ public interface ReserveOrderService {
 
     void updateOrderDetails(Long order_id, OrderStatus status, String note);
 
-    void saveOrder(Order order);
+//    Order saveOrder(Order order);
 
-    Order getOrder(Long account_id);
+//    List<Order> getAllOrders(Long account_id);
 }
 
 

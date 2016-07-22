@@ -59,16 +59,15 @@ public class ReserveOrderServiceImpl implements ReserveOrderService {
         reserveOrderMapper.update(order);
         sqlSession.commit();
     }
-
-    @Override
-    public void saveOrder(Order order) {
-        orderMapper.insert(order);
-    }
-
-    @Override
-    public Order getOrder(Long account_id) {
-       return orderMapper.getOrderByAccountId(account_id);
-    }
-
-
+//
+//    @Override
+//    public Order saveOrder(Order order) {
+//        Integer orderId = orderMapper.insert(order);
+//        sqlSession.commit();
+//        return orderMapper.getOrderByOrderId(orderId);
+//    }
+//
+//    public List<Order> getAllOrders(Long account_id) {
+//       return orderMapper.getAllOrdersByAccountId(account_id);
+//    }
 }

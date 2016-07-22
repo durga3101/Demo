@@ -37,9 +37,7 @@ public class Order {
         this.status = status;
     }
 
-    public OrderStatus getStatus() {
-        return status;
-    }
+    public OrderStatus getStatus() { return status; }
 
     public Long getOrder_id() {
         return order_id;

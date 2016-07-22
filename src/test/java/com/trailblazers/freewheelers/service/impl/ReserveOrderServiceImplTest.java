@@ -7,6 +7,8 @@ import com.trailblazers.freewheelers.web.Order;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.mockito.Mockito.*;
 
 public class ReserveOrderServiceImplTest {
@@ -64,9 +66,9 @@ public class ReserveOrderServiceImplTest {
         when(sqlSession.getMapper(OrderMapper.class)).thenReturn(orderMapper);
 
         ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
-        reserveOrderService.getOrder(anyLong());
 
-        verify(orderMapper).getOrderByAccountId(anyLong());
+        reserveOrderService.getAllOrders(anyLong());
 
+        verify(orderMapper).getAllOrdersByAccountId(anyLong());
     }
 }

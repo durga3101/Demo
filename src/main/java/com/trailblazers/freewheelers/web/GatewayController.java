@@ -28,10 +28,6 @@ public class GatewayController {
 
     static final String SHOPPING_CART = "shoppingCart";
     static final String PURCHASED_ITEMS = "purchasedItems";
-    public static final String ORDER_ID = "order_id";
-
-
-    private OrderService orderService;
     private final ReserveOrderService reserveOrderService;
     private final AccountService accountService;
     private ItemService itemService;

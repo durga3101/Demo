@@ -7,7 +7,6 @@ import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.ReserveOrderService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -41,7 +40,6 @@ public class GatewayControllerTest {
     private HashMap<Item, Long> items;
     private Session session;
     private OrderService orderService;
-
 
 
     @Before

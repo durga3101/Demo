@@ -87,7 +87,7 @@
             </form:form>
 
             <form:form action="/shippingAddress" method="get" modelAttribute="item">
-                <form:hidden path="itemId" value="${item.itemId}"/>
+                <form:hidden value="${item.itemId}"  path="itemId"/>
                 <button type="submit" name="checkout" id="checkout" value="Reserve Item">
                     Proceed to Checkout
                 </button>

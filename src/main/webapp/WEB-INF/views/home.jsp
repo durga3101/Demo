@@ -16,38 +16,39 @@
         You can keep shopping, or <a href="/cart">view my cart</a>.
     </div>
 </c:if>
-
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>Image</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="item" items="${items}" varStatus="row">
+<div>
+    <table>
+        <thead>
         <tr>
-            <td><c:out value="${item.name}"/></td>
-            <td>£<c:out value="${item.price}"/></td>
-            <td><c:out value="${item.description}"/></td>
-            <td><c:out value="${item.type}"/></td>
-            <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
-            <td>
-                <form:form action="/" method="post" modelAttribute="item">
-                    <form:hidden path="itemId" value="${item.itemId}"/>
-                    <button class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
-                        Add to cart
-                    </button>
-                </form:form>
-            </td>
-
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th></th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="item" items="${items}" varStatus="row">
+            <tr>
+                <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
+                <td><c:out value="${item.name}"/></td>
+                <td>£<c:out value="${item.price}"/></td>
+                <td><c:out value="${item.description}"/></td>
+                <td><c:out value="${item.type}"/></td>
+                <td>
+                    <form:form action="/" method="post" modelAttribute="item">
+                        <form:hidden path="itemId" value="${item.itemId}"/>
+                        <button class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
+                            Add to cart
+                        </button>
+                    </form:form>
+                </td>
+
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 <%@ include file="footer.jsp" %>

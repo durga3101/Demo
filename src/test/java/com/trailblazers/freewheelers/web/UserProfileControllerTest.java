@@ -57,9 +57,12 @@ public class UserProfileControllerTest {
         userProfileController = new UserProfileController(accountService, purchasedItemService, itemService,addressService );
 
         when(request.getSession()).thenReturn(httpSession);
-        when(principal.getName()).thenReturn("rufus");
+        when(principal.getName()).thenReturn("rufus@gmail.com");
+        when(accountService.getAccountFromEmail(principal.getName())).thenReturn(account);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
         when(account.getAccount_id()).thenReturn(1l);
+        when(account.getAccount_name()).thenReturn("rufus");
+
 
         List<PurchasedItem> emptyList = new ArrayList<>();
         when(purchasedItemService.findAllPurchasedItemsByAccountId(anyLong())).thenReturn(emptyList);

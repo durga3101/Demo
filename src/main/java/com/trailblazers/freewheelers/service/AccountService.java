@@ -21,4 +21,6 @@ public interface AccountService {
     Account createAccount(Account account);
 
     String getRole(String loggedInUser);
+
+    Account getAccountFromEmail(String email);
 }

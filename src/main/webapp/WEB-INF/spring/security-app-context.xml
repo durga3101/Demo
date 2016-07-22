@@ -26,7 +26,7 @@
         <authentication-provider>
             <password-encoder ref="bcryptEncoder"/>
             <jdbc-user-service data-source-ref="myDataSource"
-                               users-by-username-query="select account_name, password, enabled
+                               users-by-username-query="select email_address, password, enabled
                                                         from account
                                                         where ? in ( email_address)"
                                authorities-by-username-query=

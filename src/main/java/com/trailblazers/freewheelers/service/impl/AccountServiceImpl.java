@@ -72,6 +72,11 @@ public class AccountServiceImpl implements AccountService {
         return accountRoleMapper.get(loggedInUser).getRole();
     }
 
+    @Override
+    public Account getAccountFromEmail(String email) {
+        return accountMapper.getFromEmail(email);
+    }
+
     private void create(Account account, String role) {
         CountryList countryList = new CountryList();
         for (String country: countryList.getCountries()) {

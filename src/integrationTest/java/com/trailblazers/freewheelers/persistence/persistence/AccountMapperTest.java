@@ -28,6 +28,16 @@ public class AccountMapperTest extends MapperTestBase {
 
     }
 
+    private AccountBuilder someAccount() {
+        return new AccountBuilder()
+
+                .setAccountName("Some Body")
+                .setAccountEmailAddress(randomUUID() + "some.body@gmail.com")
+                .setAccountCountry("UK")
+                .setAccountPhoneNumber("12345")
+                .setAccountPassword("V3ry S3cret");
+    }
+
     @Test
     public void shouldInsertAndGetAccount() throws Exception {
 
@@ -110,7 +120,6 @@ public class AccountMapperTest extends MapperTestBase {
         int emailCount = accountMapper.getEmailCount("Idon'texist@email.notreal");
         assertEquals(0, emailCount);
     }
-
     @Test
     public void shouldUpdatePassword(){
         account = someAccount().setAccountPassword("firstPassword").build();
@@ -130,14 +139,22 @@ public class AccountMapperTest extends MapperTestBase {
         //assertNotEquals(oldPassword,newAccount.getPassword());
 
     }
-    private AccountBuilder someAccount() {
-        return new AccountBuilder()
 
-                .setAccountName("Some Body")
-                .setAccountEmailAddress(randomUUID() + "some.body@gmail.com")
-                .setAccountCountry("UK")
-                .setAccountPhoneNumber("12345")
-                .setAccountPassword("V3ry S3cret");
+
+    @Test
+    public void shouldGetCorrectAccountIfValidEmailIsPassesdToGetAccountByEmailMethod(){
+        account = someAccount().build();
+        accountMapper.insert(account);
+        Account fetchedFromDb = accountMapper.getFromEmail(account.getEmail_address());
+        assertEquals(fetchedFromDb.getAccount_name(),account.getAccount_name());
+
+    }
+    @Test
+    public void shouldGetNullAccountIfInalidEmailIsPassesdToGetAccountByEmailMethod(){
+        account = someAccount().build();
+        Account fetchedFromDb = accountMapper.getFromEmail(account.getEmail_address());
+        assertEquals(fetchedFromDb,null);
+
     }
 
 }

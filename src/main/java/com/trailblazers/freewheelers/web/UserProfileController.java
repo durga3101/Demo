@@ -46,12 +46,16 @@ public class UserProfileController {
     @RequestMapping(value = "/{nameFromURL:.*}", method = RequestMethod.GET)
     public String get(@PathVariable String nameFromURL, Model model, Principal principal, HttpServletRequest request) {
 
+        System.out.println("Principle>email:::::::::::::"+principal.getName());
+
         nameFromURL = getUserNameIfNull(nameFromURL, principal);
-        String loggedInUser = decode(principal.getName());
+        System.out.println("name from URL::::::::::::::::::::::"+nameFromURL);
+        String loggedInUser = decode(accountService.getAccountFromEmail(principal.getName()).getAccount_name());
+
         String role = accountService.getRole(loggedInUser);
 
         if (role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
-            model = setModel(model, nameFromURL);
+            model = setModel(model, nameFromURL,principal);
             return "userProfile";
         }
 
@@ -59,7 +63,7 @@ public class UserProfileController {
             return "accessDenied";
         }
 
-        setModel(model, loggedInUser);
+        setModel(model, loggedInUser,principal);
         return "userProfile";
 
     }
@@ -70,8 +74,9 @@ public class UserProfileController {
         return get(null, model, principal, request);
     }
 
-    private Model setModel(Model model, String userName) {
-        Account account = accountService.getAccountIdByName(userName);
+    private Model setModel(Model model, String userName, Principal principal) {
+//        Account account = accountService.getAccountIdByName(userName);
+        Account account = accountService.getAccountFromEmail(principal.getName());
         List<Item> items = getItemsOrderByUser(account);
         model.addAttribute("items", items);
         model.addAttribute("userDetail", account);
@@ -90,7 +95,8 @@ public class UserProfileController {
 
     private String getUserNameIfNull(String userName, Principal principal) {
         if (userName == null) {
-            userName = principal.getName();
+            userName = accountService.getAccountFromEmail(principal.getName()).getAccount_name();
+
         }
         return decode(userName);
     }

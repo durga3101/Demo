@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers.mappers;
 
+import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountRole;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -17,4 +18,5 @@ public interface AccountRoleMapper {
             "select * from account_role where account_name = #{account_name} LIMIT 1"
     )
     AccountRole get(String loggedInUser);
+
 }

@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -23,6 +24,12 @@ public class AccountServiceImplTest {
     AccountMapper accountMapper;
     @Mock
     AccountRoleMapper accountRoleMapper;
+    @Mock
+    Account account;
+
+    private Account getAccountWithCountryErrors(String error) {
+        return new Account("example", true, "example@example.com", "1234567890", error, "Example Person");
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -31,6 +38,10 @@ public class AccountServiceImplTest {
         when(sqlSession.getMapper(AccountRoleMapper.class)).thenReturn(accountRoleMapper);
 
         accountService = new AccountServiceImpl(sqlSession);
+    }
+
+    private Account getAccountWithoutErrors() {
+        return new Account("example", true, "example@example.com", "1234567890", "UK", "Example Person");
     }
 
     @Test
@@ -70,11 +81,19 @@ public class AccountServiceImplTest {
         verify(accountRoleMapper, times(1)).get(user);
     }
 
-    private Account getAccountWithoutErrors() {
-        return new Account("example", true, "example@example.com", "1234567890", "UK", "Example Person");
+    @Test
+    public void shouldGetAccountIfEmailIsValid(){
+        String validEmail = "one@two.com";
+        accountService.getAccountFromEmail(validEmail);
+        verify(accountMapper).getFromEmail(validEmail);
+    }
+    @Test
+    public void shouldGetNullAccountIfEmailIsInvalid(){
+        String validEmail = "one@two.com";
+        when(accountMapper.getFromEmail(anyString())).thenReturn(null);
+        Account expected = accountService.getAccountFromEmail(validEmail);
+        assertEquals(expected,null);
     }
 
-    private Account getAccountWithCountryErrors(String error) {
-        return new Account("example", true, "example@example.com", "1234567890", error, "Example Person");
-    }
+
 }

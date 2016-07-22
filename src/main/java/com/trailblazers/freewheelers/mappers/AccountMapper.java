@@ -15,17 +15,17 @@ public interface AccountMapper {
     Integer insert(Account account);
 
     @Select(
-        "SELECT account_id, account_name, email_address, password, phone_number, enabled ,country " +
-        "FROM account " +
-        "WHERE account_id = #{account_id}"
+            "SELECT account_id, account_name, email_address, password, phone_number, enabled ,country " +
+                    "FROM account " +
+                    "WHERE account_id = #{account_id}"
     )
     Account getById(Long account_id);
 
     @Select(
-        "SELECT account_id, account_name, email_address, password, phone_number, enabled , country " +
-        "FROM account " +
-        "WHERE account_name = #{account_name} " +
-        "LIMIT 1"
+            "SELECT account_id, account_name, email_address, password, phone_number, enabled , country " +
+                    "FROM account " +
+                    "WHERE account_name = #{account_name} " +
+                    "LIMIT 1"
     )
     Account getByName(String account_name);
 
@@ -42,7 +42,7 @@ public interface AccountMapper {
     void update(Account account);
 
     @Select(
-        "SELECT account_id, account_name, email_address, password, phone_number, enabled, country FROM account"
+            "SELECT account_id, account_name, email_address, password, phone_number, enabled, country FROM account"
     )
     @Results(value = {
             @Result(property="account_id"),
@@ -57,7 +57,7 @@ public interface AccountMapper {
     List<Account> getAllAccounts();
 
     @Delete(
-        "DELETE FROM account WHERE account_id = #{account_id}"
+            "DELETE FROM account WHERE account_id = #{account_id}"
     )
     @Options(flushCache = true)
     void delete(Account account);
@@ -68,4 +68,10 @@ public interface AccountMapper {
                     "WHERE account_id=#{account_id}"
     )
     void updatePassword(Account account);
+
+    @Select(
+            "SELECT account_id, account_name, email_address, password, phone_number, enabled, country FROM account "+
+                    "WHERE email_address=#{email_address}"
+    )
+    Account getFromEmail(String email_address);
 }

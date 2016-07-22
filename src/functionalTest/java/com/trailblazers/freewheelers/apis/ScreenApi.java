@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ADD_TO_CART_FAILURE;
+import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -235,6 +236,7 @@ public class ScreenApi {
 
     public ScreenApi showsInvoice() {
         assertThat(driver.findElement(By.id("customer-invoice")).getText(), containsString("Invoice"));
+        assertThat(driver.findElement(By.id("item-list")).getText(), containsString(SIMPLON_FRAME));
         return this;
     }
 

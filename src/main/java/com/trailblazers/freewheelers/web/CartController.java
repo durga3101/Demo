@@ -79,8 +79,8 @@ public class CartController {
                 country.setDuty_rate(7.5);
             }
         }
+        httpSession.setAttribute("country",countryName);
         setTax(model,country,items);
-
         return CART;
     }
 

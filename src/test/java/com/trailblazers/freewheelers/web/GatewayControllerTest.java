@@ -137,12 +137,4 @@ public class GatewayControllerTest {
         verify(orderService).createOrder(account);
     }
 
-//    @Test
-//    public void shouldSaveAllPurchasedItemsWithOrderID(){
-//
-//        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-//
-//        verify(reserveOrderService).save((ReserveOrder) any(), anyLong());
-//    }
-
 }

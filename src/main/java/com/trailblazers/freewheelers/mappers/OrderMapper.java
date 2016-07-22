@@ -27,5 +27,5 @@ public interface OrderMapper {
 //    @Select(
 //            "select * from order_table where order_id = #{orderId}"
 //    )
-//    Order getOrderByOrderId(Long orderId);
+//    Order getOrderByOrderId(Integer orderId);
 }

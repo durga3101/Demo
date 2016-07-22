@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class SyntaxSugar {
 
-    public static final String VIEW_INVOICE = "View invoice";
     public static final String VIEW_INVOICE_BUTTON = "view-invoice";
+    public static final String CLOSE_INVOICE = "close-invoice";
 
     public static final String SOME_PHONE_NUMBER = "555-123456";
     public static final String EMPTY_PHONE_NUMBER = "";

@@ -1,5 +1,5 @@
 <div class="modal-bg">
-    <form:form id="survey" action="/survey" method="post" modelAttribute="survey">
+    <form:form id="survey" modelAttribute="survey">
 
         <div class="modal-content">
             <div class="survey-form">

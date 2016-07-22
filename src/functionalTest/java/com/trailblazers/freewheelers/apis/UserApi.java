@@ -349,4 +349,9 @@ public class UserApi {
 
     return this;
     }
+
+    public UserApi closesWindow() {
+        driver.close();
+        return this;
+    }
 }

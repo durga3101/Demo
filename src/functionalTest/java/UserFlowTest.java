@@ -248,6 +248,9 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .switchesWindow();
+
+        screen
+                .shouldSeePaymentSuccess();
         
         if(FeatureToggles.DISPLAY_ADDRESS_ON_USER_PROFILE) {
 

@@ -19,5 +19,9 @@
     <section id="customer-invoice">
         <h1>Invoice</h1>
     </section>
+
+    <button id="close-invoice" onclick="window.close();">
+        Close
+    </button>
 </body>
 </html>

@@ -35,13 +35,12 @@ function SurveyPopUp() {
                 url: url,
                 data: $("#survey").serialize(),
                 success: function(data) {
+                },
+                failure: function(data) {
                 }
             });
             survey.style.display = 'none';
             modal.style.display = 'block';
-            // setInterval( function () {
-            //     modal.style.display = 'none';
-            // },10000);
             surveyThankYou.style.display = 'block';
 
             e.preventDefault();

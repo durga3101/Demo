@@ -39,12 +39,12 @@ public interface ItemMapper {
     Item getByName(String name);
 
     @Select(
-            "SELECT item_id as itemId, description, name, price, type, quantity FROM item WHERE item_id = #{itemId}"
+            "SELECT item_id as itemId, description, name, price, type, quantity, imageURL FROM item WHERE item_id = #{itemId}"
     )
     Item getByItemId(Long itemId);
 
     @Select(
-        "SELECT item_id, name, price, type, quantity, description FROM item WHERE quantity > 0"
+        "SELECT item_id, name, price, type, quantity, description, imageURL FROM item WHERE quantity > 0"
     )
     @Results(value = {
             @Result(property="itemId", column = "item_id"),
@@ -52,7 +52,8 @@ public interface ItemMapper {
             @Result(property="price"),
             @Result(property="quantity"),
             @Result(property="type"),
-            @Result(property="description")
+            @Result(property="description"),
+            @Result(property="imageURL")
     })
     List<Item> getAvailableItems();
 

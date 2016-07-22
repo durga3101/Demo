@@ -69,7 +69,6 @@ public class GatewayController {
 
         if (!response.contains("SUCCESS")) return "redirect:/gateway/reserve-error";
 
-
         HttpSession httpSession = servletRequest.getSession();
         HashMap<Item, Long> purchasedItems = session.getItemHashMap(SHOPPING_CART, httpSession);
         httpSession.setAttribute(PURCHASED_ITEMS, purchasedItems);

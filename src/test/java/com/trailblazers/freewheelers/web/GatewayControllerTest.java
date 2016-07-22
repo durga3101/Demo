@@ -136,5 +136,4 @@ public class GatewayControllerTest {
 
         verify(orderService).createOrder(account);
     }
-
 }

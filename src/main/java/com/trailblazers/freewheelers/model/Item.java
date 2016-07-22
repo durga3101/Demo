@@ -59,8 +59,9 @@ public class Item {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
+    public Item setImageURL(String imageURL) {
         this.imageURL = imageURL;
+        return this;
     }
 
     @Override

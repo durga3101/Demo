@@ -4,8 +4,9 @@ import com.trailblazers.freewheelers.mappers.ItemMapper;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ItemType;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.List;
 
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.not;
@@ -13,7 +14,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class ItemMapperTest extends MapperTestBase {
 
@@ -81,12 +82,15 @@ public class ItemMapperTest extends MapperTestBase {
     }
 
     @Test
-    public void shouldFindAllItems() throws Exception {
-        int before = itemMapper.getAllItems().size();
+    public void shouldReturnItemDetailsWhenWeInsertedAnItem() throws Exception {
+        List<Item> allItems = itemMapper.getAllItems();
+        Item someItem = someItem();
+        itemMapper.insert(someItem);
 
-        itemMapper.insert(someItem());
+        List<Item> items = itemMapper.getAllItems();
 
-        assertThat(itemMapper.getAllItems().size(), is(before + 1));
+        assertEquals(items.size(), allItems.size() + 1);
+        assertTrue(isItemPresentInList(items, someItem));
     }
 
     @Test
@@ -100,23 +104,23 @@ public class ItemMapperTest extends MapperTestBase {
         assertThat(itemMapper.getAvailableItems().size(), is(before + 1));
     }
 
-    //STORY #153: IGNORING THIS TEST TO PUSH TO CI - RAJU/ARCHANAA WILL WORK ON THIS
-    //-LUKE
-    @Ignore
     @Test
     public void shouldUpdateImageURLForItem() {
         Item item = someItem();
         String itemName = item.getName();
 
         itemMapper.insert(item);
-        assertNull(itemMapper.getByName(itemName).getImageURL());
+        assertEquals(item.getImageURL(), itemMapper.getByName(itemName).getImageURL());
 
         String URL = "aURL";
 
         item.setImageURL(URL);
         itemMapper.update(item);
 
-        assertEquals(URL, itemMapper.getByName(itemName).getImageURL());
+        Item actualItem = itemMapper.getByName(itemName);
+        String imageURL = actualItem.getImageURL();
+
+        assertEquals(URL, imageURL);
     }
 
     private Item someItem() {
@@ -125,7 +129,23 @@ public class ItemMapperTest extends MapperTestBase {
                 .setDescription("... with a very nice description")
                 .setPrice(valueOf(9.99))
                 .setQuantity(100L)
-                .setType(ItemType.ACCESSORIES);
+                .setType(ItemType.ACCESSORIES)
+                .setImageURL("some link");
+    }
+
+    private boolean isItemPresentInList(List<Item> items, Item someItem) {
+        for (Item item : items) {
+            if (item.getDescription().equals(someItem.getDescription())
+                    && item.getImageURL().equals(someItem.getImageURL())
+                    && item.getItemId().equals(someItem.getItemId())
+                    && item.getName().equals(someItem.getName())
+                    && item.getPrice().equals(someItem.getPrice())
+                    && item.getQuantity().equals(someItem.getQuantity())
+                    && item.getType().equals(someItem.getType())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -89,7 +89,7 @@
     });
 </script>
 
-		<form:form action="" method="post" modelAttribute="itemGrid" id="update_item">
+		<form:form action="/item" method="post" modelAttribute="itemGrid" id="update_item">
 
             <div class="page-action">Update Items</div>
 
@@ -134,10 +134,9 @@
                                 <form:input path="itemMap[${itemEntry.key}].quantity" disabled="true" class="quantity" id="quantity${itemEntry.key}"/>
                                 <span class="text-error" id="empty_quantity${itemEntry.key}" >Please enter valid Item Quantity</span>
                             </td>
-                            <%--STORY #153: COMMENTING THIS TO PUSH TO CI - RAJU/ARCHANAA WILL WORK ON THIS - Luke--%>
-                            <%--<td>--%>
-                                <%--<form:input path="" id="image_url${itemEntry.value.name}"/>--%>
-                            <%--</td>--%>
+                            <td>
+                                <form:input path="itemMap[${itemEntry.key}].imageURL" id="image_url${itemEntry.value.name}" disabled="true"/>
+                            </td>
 						</tr>
 					</c:forEach>
 				</tbody>

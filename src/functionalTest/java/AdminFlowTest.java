@@ -17,6 +17,7 @@ public class AdminFlowTest extends UserJourneyBase {
 
         String New_Simplon_Name = "NEW - Simplon Pavo 3 Ultra";
         String New_Spoke_Name = "NEW - Spoke - Reflectors Arrow red";
+        String New_Item_Without_Spaces = "Pokemon";
 
         admin
                 .there_is_no_account_for(Hugo)
@@ -27,6 +28,7 @@ public class AdminFlowTest extends UserJourneyBase {
                 .there_is_no_item(SPOKE_REFLECTORS)
                 .there_is_no_item(New_Simplon_Name)
                 .there_is_no_item(New_Spoke_Name)
+                .there_is_no_item(New_Item_Without_Spaces)
                 .there_is_a_frame(CHROME_FRAME, 1l)
                 .there_is_an_order(Hugo, CHROME_FRAME);
         user
@@ -67,6 +69,10 @@ public class AdminFlowTest extends UserJourneyBase {
                 .creates_an_item(SIMPLON_FRAME, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
         screen
                 .shows_in_manage_item_list(SIMPLON_FRAME);
+        user
+                .creates_an_item(New_Item_Without_Spaces, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+        screen
+                .shows_in_manage_item_list(New_Item_Without_Spaces);
 
         user
                 .creates_an_item(SPOKE_REFLECTORS, "ACCESSORIES", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
@@ -95,13 +101,11 @@ public class AdminFlowTest extends UserJourneyBase {
         screen
                 .shows_in_manage_item_list(New_Simplon_Name)
                 .shows_in_manage_item_list(New_Spoke_Name);
-//        user
-//                .changes_item_image_url(New_Simplon_Name, A_URL);
+        user
+                .changes_item_image_url(New_Item_Without_Spaces, A_URL);
 
-        //STORY #153: IGNORING THIS TEST TO PUSH TO CI - RAJU/ARCHANAA WILL WORK ON THIS
-        //-LUKE
-//        screen
-//                .show_image_url_for_the_item(New_Simplon_Name, A_URL);
+        screen
+                .show_image_url_for_the_item(New_Item_Without_Spaces, A_URL);
 
         user
                 .delete_item(New_Simplon_Name);

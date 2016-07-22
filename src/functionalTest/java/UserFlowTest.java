@@ -255,6 +255,7 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,SOME_COUNTRY)
+                .showInvoiceDetails(EMPTY_STRING,EMPTY_STRING,EMPTY_STRING,GROSS_TOTAL)
                 .showPurchasedItemInformationOnInvoice(NET_TOTAL, TOTAL_VAT, TOTAL_DUTY, GROSS_TOTAL);
 
         user

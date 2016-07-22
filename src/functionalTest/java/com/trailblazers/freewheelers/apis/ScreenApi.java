@@ -258,4 +258,12 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("customer-someCountry")).getText(), containsString(""+someCountry));
         return this;
     }
+
+    public ScreenApi showInvoiceDetails(String invoiceNumber, String taxDate, String orderNumber, double grossTotal) {
+        assertThat(driver.findElement(By.id("invoice-number")).getText(), containsString(invoiceNumber));
+        assertThat(driver.findElement(By.id("tax-date")).getText(), containsString(taxDate));
+        assertThat(driver.findElement(By.id("order-number")).getText(), containsString(orderNumber));
+        assertThat(driver.findElement(By.id("payment")).getText(), containsString(""+grossTotal));
+        return this;
+    }
 }

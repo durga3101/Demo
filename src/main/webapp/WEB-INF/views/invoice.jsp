@@ -50,6 +50,23 @@
         </tr>
 
     </table>
+
+    <table id="invoice-details">
+        <tr>Invoice details</tr>
+        <tr>
+            <td>Invoice number: </td>
+            <td id="invoice-number"></td>
+            <td>Tax Date:</td>
+            <td id="tax-date"></td>
+        </tr>
+        <tr>
+            <td>Order number:</td>
+            <td id="order-number"></td>
+            <td>Payment: </td>
+            <td id="payment">${grossTotal}</td>
+        </tr>
+
+    </table>
     <table id="item-list" class="table">
         <thead>
         <tr>

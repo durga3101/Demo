@@ -6,6 +6,11 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class UserFlowTest extends UserJourneyBase {
 
+    public static final double NET_TOTAL = 100.0;
+    public static final double TOTAL_VAT = 20.0;
+    public static final double TOTAL_DUTY = 0.0;
+    public static final double GROSS_TOTAL = 120.0;
+
     @Test
     public void userFlowTest() throws Exception {
 
@@ -249,7 +254,8 @@ public class UserFlowTest extends UserJourneyBase {
                 .switchToInvoiceWindow();
 
         screen
-                .showsInvoice();
+                .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,SOME_COUNTRY)
+                .showPurchasedItemInformationOnInvoice(NET_TOTAL, TOTAL_VAT, TOTAL_DUTY, GROSS_TOTAL);
 
         user
                 .switchToReservePage();

@@ -2,6 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Country;
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.CountryService;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,25 +52,36 @@ public class InvoiceControllerTest {
     @Test
     public void getShouldReturnInvoicePage() throws Exception {
         expected = "invoice";
-
+        Country country= mock(Country.class);
+        ShippingAddress shippingAddress = mock(ShippingAddress.class);
         when(session.getItemHashMap(PURCHASED_ITEMS, httpSession)).thenReturn(items);
         when(request.getSession()).thenReturn(httpSession);
+        when(country.getName()).thenReturn("UK");
         when(httpSession.getAttribute("country")).thenReturn("UK");
-        when(countryService.getByName("UK")).thenReturn(mock(Country.class));
-        when(calculator.calculateDuty((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10.0));
-        when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10.0));
-        when(calculator.getGrandTotal((HashMap<Item, Long>) any(),(Country)any())).thenReturn(new BigDecimal(10.0));
-        when(calculator.getSubtotalFromCart((HashMap<Item, Long>) any())).thenReturn(new BigDecimal(10.0));
+        when(httpSession.getAttribute("shippingAddress")).thenReturn(shippingAddress);
+        when(countryService.getByName("UK")).thenReturn(country);
+        BigDecimal ten = new BigDecimal(10.0);
+        when(calculator.calculateDuty((BigDecimal)any(),(Country)any())).thenReturn(ten);
+        when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(ten);
+        when(calculator.getGrandTotal((HashMap<Item, Long>) any(),(Country)any())).thenReturn(ten);
+        when(calculator.getSubtotalFromCart((HashMap<Item, Long>) any())).thenReturn(ten);
 
 
         actual = invoiceController.get(request, model, principal);
 
         verify(session).getItemHashMap(PURCHASED_ITEMS, httpSession);
+        verify(model).addAttribute("userDetails",shippingAddress);
+        verify(model).addAttribute("totalVat", ten);
+        verify(model).addAttribute("totalDuty",ten);
+        verify(model).addAttribute("subTotal",ten.toString());
+        verify(model).addAttribute("grossTotal",ten.toString());
+
         verify(model).addAttribute("items", items);
         verify(model).addAttribute("vat_rate",0.0);
         verify(model).addAttribute("duty_rate",0.0);
         verify(httpSession).getAttribute("country");
         verify(countryService).getByName("UK");
+        verify(model).addAttribute("country","UK");
         assertEquals(expected, actual);
     }
 }

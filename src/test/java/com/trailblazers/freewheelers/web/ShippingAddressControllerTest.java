@@ -10,13 +10,11 @@ import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Matchers;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashMap;
 
@@ -64,12 +62,14 @@ public class ShippingAddressControllerTest {
         String userName = "ABC";
         when(principal.getName()).thenReturn(userName);
         when(accountService.getAccountIdByName(userName)).thenReturn(account);
+        when(request.getSession()).thenReturn(httpSession);
         shippingAddressController.getShippingAddress(request, principal);
 
         ArgumentCaptor<ShippingAddress> captor = ArgumentCaptor.forClass(ShippingAddress.class);
         verify(shippingAddressService).createShippingAddress(captor.capture());
         verify(shippingAddressService).createShippingAddress(any(ShippingAddress.class));
         verify(accountService).getAccountIdByName(userName);
+        verify(httpSession).setAttribute(anyString(), Matchers.any());
     }
 
     @Test

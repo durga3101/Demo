@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Principal;
-import java.util.HashMap;
 
 @Controller
 @RequestMapping("/shippingAddress")
@@ -63,6 +62,7 @@ public class ShippingAddressController {
 
         shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode);
         shippingAddressService.createShippingAddress(shippingAddress);
+        request.getSession().setAttribute("shippingAddress",shippingAddress);
         return "redirect:/payment";
     }
     private String decode(String userName) {

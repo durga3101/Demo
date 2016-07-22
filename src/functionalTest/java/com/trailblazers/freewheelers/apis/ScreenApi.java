@@ -234,14 +234,28 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi showsInvoice() {
+    public ScreenApi showPurchasedItemInformationOnInvoice(double netTotal, double totalVat, double totalDuty, double grossTotal) {
         assertThat(driver.findElement(By.id("customer-invoice")).getText(), containsString("Invoice"));
         assertThat(driver.findElement(By.id("item-list")).getText(), containsString(SIMPLON_FRAME));
+        assertThat(driver.findElement(By.id("net-total")).getText(), containsString(""+netTotal));
+        assertThat(driver.findElement(By.id("total-vat")).getText(), containsString(""+totalVat));
+        assertThat(driver.findElement(By.id("total-duty")).getText(), containsString(""+totalDuty));
+        assertThat(driver.findElement(By.id("gross-total")).getText(), containsString(""+grossTotal));
+
         return this;
     }
 
     public ScreenApi show_image_url_for_the_item(String itemName, String aUrl) {
         assertThat(driver.findElement(By.id("image_url"+itemName)).getText(), containsString(aUrl));
+        return this;
+    }
+
+    public ScreenApi showUserDetailsOnInvoice(String address1, String address2, String city, String postalCode, String someCountry) {
+        assertThat(driver.findElement(By.id("customer-address1")).getText(), containsString(address1));
+        assertThat(driver.findElement(By.id("customer-address2")).getText(), containsString(address2));
+        assertThat(driver.findElement(By.id("customer-city")).getText(), containsString(""+city));
+        assertThat(driver.findElement(By.id("customer-postalCode")).getText(), containsString(""+postalCode));
+        assertThat(driver.findElement(By.id("customer-someCountry")).getText(), containsString(""+someCountry));
         return this;
     }
 }

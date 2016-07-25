@@ -55,9 +55,14 @@ public class InvoiceController {
         model.addAttribute("totalVat",vat);
         model.addAttribute("totalDuty",duty);
         model.addAttribute("subTotal",subtotal.toString());
+        if(country.getVat_rate() == 0.0){
+            model.addAttribute("taxType","Duty");
+            model.addAttribute("tax_rate",country.getDuty_rate());
+        } else {
+            model.addAttribute("taxType","VAT");
+            model.addAttribute("tax_rate",country.getVat_rate());
+        }
         model.addAttribute("grossTotal",grandTotal.toString());
-        model.addAttribute("vat_rate",country.getVat_rate());
-        model.addAttribute("duty_rate",country.getDuty_rate());
         model.addAttribute("items", items);
         model.addAttribute("country",country.getName());
     }

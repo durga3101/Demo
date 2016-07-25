@@ -5,8 +5,8 @@
 
 <div class="page-action">Thank you. Your order will be delivered in ten days!</div>
 
-<a id="view-invoice" href="/invoice" target="_blank">
-    <button>View invoice</button>
+<a id="view-invoice" href="/invoice" style="color:#144d8a" target="_blank">
+    View invoice
 </a>
 
 <table class="table">

@@ -17,44 +17,56 @@
 </head>
 <body>
 <section id="customer-invoice">
-    <h1>Invoice</h1>
-    <table id="customer-details">
-        <div>To:</div>
+    <table>
         <tr>
-            <td>Client </td>
+            <td style="vertical-align: middle"><h1>Invoice</h1></td>
+            <td> <img width="50%;" src="<c:url value='/images/logo1.png' />"></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <table id="customer-details">
+
+        <th><b>To:</b></th>
+        <tr>
+            <td><security:authentication property="principal.username"/></td>
             <td>Freewheelers Ltd.</td>
         </tr>
         <tr>
-            <td>Company</td>
+            <td></td>
+            <td>85 Albert Embankment</td>
+        </tr>
+        <tr>
+            <td id="customer-address1">${userDetails.street_1}</td>
+            <td>London</td>
+        </tr>
+        <tr>
+            <td id="customer-address2">${userDetails.street_2}</td>
+            <td>SE1 7TP</td>
+        </tr>
+        <tr>
+            <td id="customer-city">${userDetails.city}</td>
             <td></td>
         </tr>
         <tr>
-            <td>Address line 1</td>
-            <td id = "customer-address1">${userDetails.street_1}</td>
-        </tr>
-        <tr>
-            <td>Address line 2 </td>
-            <td id = "customer-address2">${userDetails.street_2}</td>
-        </tr>
-        <tr>
-            <td>City</td>
-            <td id="customer-city">${userDetails.city}</td>
-        </tr>
-        <tr>
-            <td>Post Code</td>
             <td id="customer-postalCode">${userDetails.postcode}</td>
+            <td>Company reg.no: 98765686</td>
         </tr>
         <tr>
-            <td>Country</td>
             <td id="customer-someCountry">${country}</td>
+            <td>EU VAT No.: GB98765686</td>
         </tr>
-
     </table>
-
-    <table id="invoice-details">
-        <tr>Invoice details</tr>
+    <br>
+    <br>
+    <br>
+    <table id="invoice-details" class="invoice-details">
+        <caption>
+            Invoice details
+        </caption>
         <tr>
-            <td>Invoice number: </td>
+            <td>Invoice number:</td>
             <td id="invoice-number"></td>
             <td>Tax Date:</td>
             <td id="tax-date"></td>
@@ -62,20 +74,26 @@
         <tr>
             <td>Order number:</td>
             <td id="order-number"></td>
-            <td>Payment: </td>
+            <td>Payment:</td>
             <td id="payment">${grossTotal}</td>
         </tr>
 
     </table>
-    <table id="item-list" class="table">
+
+
+    <br>
+    <br>
+    <br>
+
+    <table id="item-list" class="item-list">
         <thead>
         <tr>
             <th>Name</th>
             <th>Unit Price</th>
             <th>Quantity</th>
             <th>Net</th>
-            <th>VAT%</th>
-            <th>VAT</th>
+            <th>${taxType}%</th>
+            <th>${taxType}</th>
             <th>Gross</th>
         </tr>
         </thead>
@@ -83,43 +101,45 @@
         <c:forEach var="entry" items="${items}" varStatus="row">
             <c:set var="item" value="${entry.key}"/>
             <c:set var="net" value="${item.price * entry.value}"></c:set>
-            <c:set var="vat" value="${vat_rate * net /100}"></c:set>
+            <c:set var="tax" value="${tax_rate * net /100}"></c:set>
             <tr>
                 <td style="width: 20%"><c:out value="${item.name}"/></td>
                 <td style="width: 10%"><c:out value="${item.price}"/></td>
                 <td style="width: 10%"><c:out value="${entry.value}"/></td>
                 <td style="width: 10%">£<c:out value="${net}"/></td>
-                <td style="width: 10%"><c:out value=""/>${vat_rate}%</td>
-                <td style="width: 10%">£<c:out value=""/>${vat}</td>
-                <td style="width: 10%">£<c:out value=""/>${net + vat}</td>
+                <td style="width: 10%"><c:out value=""/>${tax_rate}%</td>
+                <td style="width: 10%">£<c:out value=""/>${tax}</td>
+                <td style="width: 10%">£<c:out value=""/>${net + tax}</td>
             </tr>
         </c:forEach>
-        <table id="tax">
-            <tr>
-                <td>Net total:</td>
-                <td id="net-total">£${subTotal}</td>
-            </tr>
-            <tr>
-                <td>VAT total:</td>
-                <td id="total-vat">£${totalVat}</td>
-            </tr>
-            <tr>
-                <td>Duty Tax:</td>
-                <td id="total-duty">£${totalDuty}</td>
-            </tr>
-            <tr>
-                <td>Gross total:</td>
-                <td id="gross-total">£${grossTotal}</td>
-            </tr>
-
-        </table>
-
         </tbody>
     </table>
+    <br>
+    <br>
+    <table id="tax">
+        <tr>
+            <td>Net total:</td>
+            <td id="net-total">£${subTotal}</td>
+        </tr>
+        <tr>
+            <td>VAT total:</td>
+            <td id="total-vat">£${totalVat}</td>
+        </tr>
+        <tr>
+            <td>Duty Tax:</td>
+            <td id="total-duty">£${totalDuty}</td>
+        </tr>
+
+        <tr style="border-bottom: 1pt solid black;border-top:1pt solid black">
+            <td>Gross total:</td>
+            <td id="gross-total">£${grossTotal}</td>
+        </tr>
+    </table>
+    <button id="close-invoice" onclick="window.close();">
+        Close
+    </button>
 </section>
 
-<button id="close-invoice" onclick="window.close();">
-    Close
-</button>
+
 </body>
 </html>

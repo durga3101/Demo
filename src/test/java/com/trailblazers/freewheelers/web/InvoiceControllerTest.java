@@ -54,18 +54,9 @@ public class InvoiceControllerTest {
         expected = "invoice";
         Country country= mock(Country.class);
         ShippingAddress shippingAddress = mock(ShippingAddress.class);
-        when(session.getItemHashMap(PURCHASED_ITEMS, httpSession)).thenReturn(items);
-        when(request.getSession()).thenReturn(httpSession);
-        when(country.getName()).thenReturn("UK");
-        when(httpSession.getAttribute("country")).thenReturn("UK");
-        when(httpSession.getAttribute("shippingAddress")).thenReturn(shippingAddress);
-        when(countryService.getByName("UK")).thenReturn(country);
-        BigDecimal ten = new BigDecimal(10.0);
-        when(calculator.calculateDuty((BigDecimal)any(),(Country)any())).thenReturn(ten);
-        when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(ten);
-        when(calculator.getGrandTotal((HashMap<Item, Long>) any(),(Country)any())).thenReturn(ten);
-        when(calculator.getSubtotalFromCart((HashMap<Item, Long>) any())).thenReturn(ten);
-
+        String countryName = "UK";
+        BigDecimal ten = createStubs(country,countryName, shippingAddress);
+        when(country.getVat_rate()).thenReturn(20.0);
 
         actual = invoiceController.get(request, model, principal);
 
@@ -77,11 +68,42 @@ public class InvoiceControllerTest {
         verify(model).addAttribute("grossTotal",ten.toString());
 
         verify(model).addAttribute("items", items);
-        verify(model).addAttribute("vat_rate",0.0);
-        verify(model).addAttribute("duty_rate",0.0);
+        verify(model).addAttribute("taxType","VAT");
+        verify(model).addAttribute("tax_rate",20.0);
         verify(httpSession).getAttribute("country");
-        verify(countryService).getByName("UK");
-        verify(model).addAttribute("country","UK");
+        verify(countryService).getByName(countryName);
+        verify(model).addAttribute("country",countryName);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getShouldDisplayDutyForCanada() throws Exception {
+        expected = "invoice";
+        Country country= mock(Country.class);
+        ShippingAddress shippingAddress = mock(ShippingAddress.class);
+        String countryName = "Canada";
+        BigDecimal ten = createStubs(country,countryName, shippingAddress);
+        when(country.getVat_rate()).thenReturn(0.0);
+        when(country.getDuty_rate()).thenReturn(20.0);
+
+        actual = invoiceController.get(request, model, principal);
+        verify(model).addAttribute("taxType","Duty");
+        verify(model).addAttribute("tax_rate",20.0);
+        assertEquals(expected, actual);
+    }
+
+    private BigDecimal createStubs(Country country, String countryName, ShippingAddress shippingAddress) {
+        when(session.getItemHashMap(PURCHASED_ITEMS, httpSession)).thenReturn(items);
+        when(request.getSession()).thenReturn(httpSession);
+        when(country.getName()).thenReturn(countryName);
+        when(httpSession.getAttribute("country")).thenReturn(countryName);
+        when(httpSession.getAttribute("shippingAddress")).thenReturn(shippingAddress);
+        when(countryService.getByName(countryName)).thenReturn(country);
+        BigDecimal ten = new BigDecimal(10.0);
+        when(calculator.calculateDuty((BigDecimal)any(),(Country)any())).thenReturn(ten);
+        when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(ten);
+        when(calculator.getGrandTotal((HashMap<Item, Long>) any(),(Country)any())).thenReturn(ten);
+        when(calculator.getSubtotalFromCart((HashMap<Item, Long>) any())).thenReturn(ten);
+        return ten;
     }
 }

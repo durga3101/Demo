@@ -20,7 +20,7 @@
     <table>
         <tr>
             <td style="vertical-align: middle"><h1>Invoice</h1></td>
-            <td> <img width="50%;" src="<c:url value='/images/logo1.png' />"></td>
+            <td> <img width="50%;" src="<c:url value='/images/freewheelers-logo.png' />"></td>
         </tr>
     </table>
 

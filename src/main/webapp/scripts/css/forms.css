@@ -1,0 +1,38 @@
+form input[type=text], [type=password] {
+    padding: 4px;
+    width: 14em;
+    font-size: 12pt;
+}
+
+select {
+    border: 1px solid gray;
+    padding: 2px;
+    font-size: 12pt;
+}
+
+button {
+    font-size: 12pt;
+    padding: 5px;
+    background-color: lightgray;
+    border-radius: 4px;
+}
+form label {
+    display: inline-block;
+    width: 10em;
+}
+.text-error {
+    color: indianred;
+}
+
+#shippingAddress_form .text-error,
+#add_item .text-error,
+#login-error-message,
+#update_item .text-error,
+#register_form .text-error,
+#credit_card_form .text-error {
+    display: none;
+}
+
+.mandatory {
+    color: indianred;
+}

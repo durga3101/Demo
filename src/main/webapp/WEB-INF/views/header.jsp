@@ -9,8 +9,7 @@
 <head>
     <meta charset="utf-8">
     <title>${pageTitle}</title>
-    <link rel="stylesheet" href="<c:url value='/scripts/css/main.css' />" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value='/scripts/css/surver-modal.css' />" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value='/scripts/css/index.css' />" type="text/css"/>
     <script type="text/javascript" src="<c:url value='/scripts/lib/jquery-1.10.2.js' />"></script>
     <script type="text/javascript" src="<c:url value='/scripts/lib/jquery.cookie.js' />"></script>
     <script type="text/javascript" src="<c:url value='/scripts/js/Survey.js' />" ></script>
@@ -18,9 +17,11 @@
 </head>
 <body>
 
+<div class="width-restrictor centered">
+
 <div class="navbar">
     <a class="brand" href="<c:url value='/' />">
-        <img width="20px;" src="<c:url value='/images/logo.png' />">
+        <img width="20px;" src="<c:url value='/images/freewheelers-logo.png' />">
         Freewheelers
     </a>
     <ul class="nav">
@@ -52,3 +53,8 @@
     Safari, Chrome or Opera.
 </div>
 <![endif]-->
+
+</div><!-- end width-restrictor -->
+
+<article class="main">
+    <div class="width-restrictor centered">

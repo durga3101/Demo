@@ -3,7 +3,6 @@ import com.trailblazers.freewheelers.UserJourneyBase;
 import com.trailblazers.freewheelers.web.Order;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
@@ -317,7 +316,8 @@ public class UserFlowTest extends UserJourneyBase {
 
         user
                 .clicksButtonWithId(VIEW_INVOICE_BUTTON)
-                .switchToInvoiceWindow();
+                .switchToInvoiceWindow()
+                .waitsForSeconds(5L);
 
         screen
                 .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,SOME_COUNTRY)

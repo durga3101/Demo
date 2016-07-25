@@ -1,0 +1,23 @@
+.manage-items {
+    padding: 10px;
+    background-color: lightgray;
+    margin-bottom: 10px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+#added-to-cart {
+    background-color: #A8D469;
+}
+
+#view-my-cart {
+    color: #0586EA;
+}
+
+#out-of-stock {
+    background-color: #F56E6E;
+}
+
+#item-table-header thead tr th {
+    padding: 0 10px;
+}

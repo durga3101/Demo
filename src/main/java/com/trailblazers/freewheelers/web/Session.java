@@ -15,6 +15,7 @@ public class Session {
     public static final String ORDER = "order";
     public static final String SHOPPING_CART = "shoppingCart";
     public static final String PURCHASED_ITEMS = "purchasedItems";
+    public static final String RESERVATION_TIMESTAMP = "reservation_timestamp";
 
     public HashMap getItemHashMap(String attribute, HttpSession httpSession) {
         HashMap<Item, Long> itemHashMap = new HashMap<>();

@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
 import static com.trailblazers.freewheelers.web.Session.ORDER;
@@ -43,6 +44,8 @@ public class GatewayControllerTest {
     private Session session;
     private OrderService orderService;
     private ShippingAddressService shippingAddressService;
+    private Order order;
+    private Date date;
 
     @Before
     public void setUp() throws Exception {
@@ -53,6 +56,7 @@ public class GatewayControllerTest {
         account = mock(Account.class);
         session = mock(Session.class);
         orderService = mock(OrderService.class);
+        order = mock(Order.class);
 
 
         accountService = mock(AccountService.class);
@@ -81,6 +85,12 @@ public class GatewayControllerTest {
         when(account.getAccount_id()).thenReturn(11L);
         when(item1.getItemId()).thenReturn(6L);
         when(item2.getItemId()).thenReturn(7L);
+
+        date = mock(Date.class);
+        when(orderService.createOrder(account)).thenReturn(order);
+        when(order.getOrder_id()).thenReturn(1l);
+        when(order.getReservation_timestamp()).thenReturn(date);
+        when(date.toString()).thenReturn("10-10-2016");
     }
 
     @Test
@@ -96,7 +106,7 @@ public class GatewayControllerTest {
         Account account = mock(Account.class);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-        when(orderService.createOrder(account)).thenReturn(new Order());
+        when(orderService.createOrder(account)).thenReturn(order);
 
 
         String expected = "redirect:/reserve";
@@ -111,7 +121,7 @@ public class GatewayControllerTest {
         fullCart.put(new Item(), 2L);
 
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(fullCart);
-        when(orderService.createOrder(account)).thenReturn(new Order());
+        when(orderService.createOrder(account)).thenReturn(order);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
@@ -123,7 +133,7 @@ public class GatewayControllerTest {
     @Test
     public void postShouldUpdateDatabaseToDecrementItems() throws Exception {
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-        when(orderService.createOrder(account)).thenReturn(new Order());
+        when(orderService.createOrder(account)).thenReturn(order);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
@@ -134,7 +144,7 @@ public class GatewayControllerTest {
     @Test
     public void shouldCreateANewOrderWhenPaymentIsSuccessful(){
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-        when(orderService.createOrder(account)).thenReturn(new Order());
+        when(orderService.createOrder(account)).thenReturn(order);
 
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
@@ -145,14 +155,11 @@ public class GatewayControllerTest {
 
     @Test
     public void shouldSaveAllPurchasedInModelItemsWithOrderID(){
-        Order order = new Order();
-        long orderId = 123L;
-        order.setOrder_id(orderId);
         when(orderService.createOrder(any(Account.class))).thenReturn(order);
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
-        verify(httpSession).setAttribute(ORDER,orderId);
+        verify(httpSession).setAttribute(ORDER,1l);
 
     }
     public void postShouldStoreAddressInDatabaseIfPaymentIsSuccessful() throws Exception {

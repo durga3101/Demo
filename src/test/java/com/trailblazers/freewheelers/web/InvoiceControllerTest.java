@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 
+import static com.trailblazers.freewheelers.web.Session.ORDER;
 import static com.trailblazers.freewheelers.web.Session.PURCHASED_ITEMS;
+import static com.trailblazers.freewheelers.web.Session.RESERVATION_TIMESTAMP;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -31,6 +34,7 @@ public class InvoiceControllerTest {
     private HashMap<Item, Long> items;
     private CountryService countryService;
     private Calculator calculator;
+    private Date date;
 
     @Before
     public void setUp() throws Exception {
@@ -42,6 +46,7 @@ public class InvoiceControllerTest {
         httpSession = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
         principal = mock(Principal.class);
+        date = mock(Date.class);
         Item first =  mock(Item.class);
         Item second = mock(Item.class);
         items = new HashMap<>();
@@ -57,7 +62,8 @@ public class InvoiceControllerTest {
         String countryName = "UK";
         BigDecimal ten = createStubs(country,countryName, shippingAddress);
         when(country.getVat_rate()).thenReturn(20.0);
-
+        when(httpSession.getAttribute(RESERVATION_TIMESTAMP)).thenReturn(date);
+        when(httpSession.getAttribute(ORDER)).thenReturn(1);
         actual = invoiceController.get(request, model, principal);
 
         verify(session).getItemHashMap(PURCHASED_ITEMS, httpSession);
@@ -70,6 +76,7 @@ public class InvoiceControllerTest {
         verify(model).addAttribute("items", items);
         verify(model).addAttribute("taxType","VAT");
         verify(model).addAttribute("tax_rate",20.0);
+        verify(model).addAttribute(ORDER,1);
         verify(httpSession).getAttribute("country");
         verify(countryService).getByName(countryName);
         verify(model).addAttribute("country",countryName);

@@ -69,13 +69,13 @@
             <td>Invoice number:</td>
             <td id="invoice-number"></td>
             <td>Tax Date:</td>
-            <td id="tax-date"></td>
+            <td id="tax-date">${reservation_timestamp}</td>
         </tr>
         <tr>
             <td>Order number:</td>
-            <td id="order-number"></td>
+            <td id="order-number">${order}</td>
             <td>Payment:</td>
-            <td id="payment">${grossTotal}</td>
+            <td id="payment">£${grossTotal}</td>
         </tr>
 
     </table>
@@ -104,7 +104,7 @@
             <c:set var="tax" value="${tax_rate * net /100}"></c:set>
             <tr>
                 <td style="width: 20%"><c:out value="${item.name}"/></td>
-                <td style="width: 10%"><c:out value="${item.price}"/></td>
+                <td style="width: 10%"><c:out value="£${item.price}"/></td>
                 <td style="width: 10%"><c:out value="${entry.value}"/></td>
                 <td style="width: 10%">£<c:out value="${net}"/></td>
                 <td style="width: 10%"><c:out value=""/>${tax_rate}%</td>

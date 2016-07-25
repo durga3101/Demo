@@ -16,7 +16,9 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashMap;
 
+import static com.trailblazers.freewheelers.web.Session.ORDER;
 import static com.trailblazers.freewheelers.web.Session.PURCHASED_ITEMS;
+import static com.trailblazers.freewheelers.web.Session.RESERVATION_TIMESTAMP;
 
 @Controller
 @RequestMapping("/invoice")
@@ -50,11 +52,14 @@ public class InvoiceController {
         BigDecimal duty = calculator.calculateDuty(subtotal,country);
         BigDecimal grandTotal = calculator.getGrandTotal(items,country);
 
-        ShippingAddress shippingAddress = (ShippingAddress)request.getSession().getAttribute("shippingAddress");
+        HttpSession httpSession = request.getSession();
+        ShippingAddress shippingAddress = (ShippingAddress)httpSession.getAttribute("shippingAddress");
         model.addAttribute("userDetails",shippingAddress);
         model.addAttribute("totalVat",vat);
         model.addAttribute("totalDuty",duty);
         model.addAttribute("subTotal",subtotal.toString());
+        model.addAttribute(ORDER,httpSession.getAttribute(ORDER));
+        model.addAttribute(RESERVATION_TIMESTAMP,httpSession.getAttribute(RESERVATION_TIMESTAMP));
         if(country.getVat_rate() == 0.0){
             model.addAttribute("taxType","Duty");
             model.addAttribute("tax_rate",country.getDuty_rate());

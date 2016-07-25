@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.trailblazers.freewheelers.web.Session.ORDER;
+import static com.trailblazers.freewheelers.web.Session.RESERVATION_TIMESTAMP;
 
 
 @Controller
@@ -32,7 +33,7 @@ public class GatewayController {
 
     static final String SHOPPING_CART = "shoppingCart";
     static final String PURCHASED_ITEMS = "purchasedItems";
-    public static final String ORDER_ID = "order_id";
+
 
 
     private OrderService orderService;
@@ -84,7 +85,10 @@ public class GatewayController {
 
         String userName = principal.getName();
         Account account =  accountService.getAccountIdByName(userName);
-        Long orderId = orderService.createOrder(account).getOrder_id();
+        Order order = orderService.createOrder(account);
+        Long orderId = order.getOrder_id();
+        Date date =  order.getReservation_timestamp();
+        httpSession.setAttribute(RESERVATION_TIMESTAMP,date.toString());
         httpSession.setAttribute(ORDER, orderId);
         saveAddressToDatabase(httpSession);
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {

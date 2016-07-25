@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Principal;
@@ -34,6 +35,7 @@ public class UserProfileController {
     PurchasedItemService purchasedItemService;
     ItemService itemService;
     ShippingAddressService shippingAddressService;
+    HttpSession httpSession;
 
     @Autowired
     public UserProfileController(AccountService accountService, PurchasedItemService purchasedItemService, ItemService itemService, ShippingAddressService shippingAddressService) {
@@ -45,6 +47,7 @@ public class UserProfileController {
 
     @RequestMapping(value = "/{emailFromURL:.*}", method = RequestMethod.GET)
     public String get(@PathVariable String emailFromURL, Model model, Principal principal, HttpServletRequest request) {
+        httpSession = request.getSession();
 
         emailFromURL = getUserNameIfNull(emailFromURL,principal);
 

@@ -23,4 +23,5 @@
 	<bean id="itemServiceImpl" class="com.trailblazers.freewheelers.service.impl.ItemServiceImpl">
 	</bean>
 
+
 </beans>

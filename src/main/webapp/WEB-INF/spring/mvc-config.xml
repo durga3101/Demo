@@ -24,5 +24,12 @@
 		<property name="suffix" value=".jsp" />
 		<property name="contentType" value="text/html;charset=utf-8" />
 	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<bean class="com.trailblazers.freewheelers.UserNameInterceptor">
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

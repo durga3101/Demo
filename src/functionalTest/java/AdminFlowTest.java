@@ -5,7 +5,7 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class AdminFlowTest extends UserJourneyBase {
 
-    public static final String A_URL = "aURL";
+    public static final String A_URL = "https://s6.postimg.org/qopocyf41/product_image_coming_soon.png";
 
     @Test
     public void adminFlowTest() {

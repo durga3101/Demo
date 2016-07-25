@@ -28,6 +28,7 @@
         <table class="items-table">
             <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Quantity</th>
@@ -41,6 +42,7 @@
                 <c:set var="item" value="${entry.key}"/>
 
                 <tr>
+                    <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
                     <td><c:out value="${item.name}"/></td>
                     <td><c:out value="${item.description}"/></td>
                     <td><c:out value="${entry.value}"/></td>

@@ -26,6 +26,7 @@
             <th>Description</th>
             <th>Type</th>
             <th></th>
+
         </tr>
         </thead>
         <tbody>

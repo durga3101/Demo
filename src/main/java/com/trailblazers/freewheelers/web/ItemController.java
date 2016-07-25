@@ -56,6 +56,16 @@ public class ItemController{
 
     @RequestMapping(method = RequestMethod.POST, params="update=Update all enabled items")
 	public String updateItem(@ModelAttribute ItemGrid itemGrid) {
+		for (Item item: itemGrid.getItems()) {
+			if(item.getImageURL().equals("")){
+				item.setImageURL(EMPTY_IMAGE_URL);
+			}
+		}
+//		for (int i = 0;i<itemGrid.getItems().size();i++){
+//			if (itemGrid.getItems().get(i).getImageURL().equals("")){
+//				itemGrid.getItems().get(i).setImageURL(EMPTY_IMAGE_URL);
+//			}
+//		}
 		itemService.saveAll(itemGrid.getItems());
 		return REDIRECT + ITEM_PAGE;
 	}

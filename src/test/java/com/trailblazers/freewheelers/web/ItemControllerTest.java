@@ -103,9 +103,15 @@ public class ItemControllerTest {
     @Test
     public void shouldSetItemImageURLWithEmptyImageURLWhenImageURLIsEmpty() throws Exception {
         Item item = getItemWithoutError();
-//        item.setImageURL("");
         itemController.post(model,item);
         assertEquals(item.getImageURL(),EMPTY_IMAGE_URL);
+    }
+
+    @Test
+    public void shouldUpdateItemImageURLToEmptyURLImageWhenImageURLFieldIsEmpty() throws Exception {
+        itemGrid = new ItemGrid(asList(getItemWithoutError()));
+        itemController.updateItem(itemGrid);
+        assertEquals(itemGrid.getItems().get(0).getImageURL(),EMPTY_IMAGE_URL);
     }
 
     @Test

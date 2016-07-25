@@ -6,7 +6,7 @@ import com.trailblazers.freewheelers.model.OrderStatus;
 
 import java.util.Date;
 
-public class ReservedOrderDetail  {
+public class PurchasedItemDetail {
 
     private Item item;
     private Account account;
@@ -15,7 +15,7 @@ public class ReservedOrderDetail  {
     private String note;
     private Long orderId;
 
-    public ReservedOrderDetail(Long orderId, Account account, Item item, Date reserve_time, OrderStatus status, String note){
+    public PurchasedItemDetail(Long orderId, Account account, Item item, Date reserve_time, OrderStatus status, String note){
         this.orderId = orderId;
         this.item = item;
         this.account = account;
@@ -24,7 +24,7 @@ public class ReservedOrderDetail  {
         this.note = note;
     }
 
-    public ReservedOrderDetail() {
+    public PurchasedItemDetail() {
     }
 
     public Item getItem() {

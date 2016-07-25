@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface ReserveOrderService {
+public interface PurchasedItemService {
 
     void save(ReserveOrder reserveOrder);
 
-    List<ReserveOrder> findAllOrdersByAccountId(Long account_id);
+    List<ReserveOrder> findAllPurchasedItemsByAccountId(Long account_id);
 
-    List<ReserveOrder> getAllOrdersByAccount();
+    List<ReserveOrder> getAllPurchasedItemsByAccount();
 
-    void updateOrderDetails(Long order_id, OrderStatus status, String note);
-    
+
+    void updatePurchasedItemDetails(Long order_id, OrderStatus status, String note);
 }
 
 

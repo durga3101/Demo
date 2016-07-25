@@ -6,11 +6,11 @@ import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import com.trailblazers.freewheelers.service.ShippingAddressService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
+import com.trailblazers.freewheelers.service.impl.PurchasedItemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
@@ -38,7 +38,7 @@ public class UserProfileControllerTest {
     private Account account;
 
     private AccountService accountService;
-    private ReserveOrderService reserveOrderService;
+    private PurchasedItemService purchasedItemService;
     private ItemService itemService;
     private ShippingAddressService addressService;
 
@@ -50,11 +50,11 @@ public class UserProfileControllerTest {
         httpSession = mock(HttpSession.class);
         accountService = mock(AccountServiceImpl.class);
         addressService = mock(ShippingAddressService.class);
-        reserveOrderService = mock(ReserveOrderServiceImpl.class);
+        purchasedItemService = mock(PurchasedItemServiceImpl.class);
         itemService = mock(ItemServiceImpl.class);
         account = mock(Account.class);
 
-        userProfileController = new UserProfileController(accountService, reserveOrderService, itemService,addressService );
+        userProfileController = new UserProfileController(accountService, purchasedItemService, itemService,addressService );
 
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("rufus");
@@ -62,7 +62,7 @@ public class UserProfileControllerTest {
         when(account.getAccount_id()).thenReturn(1l);
 
         List<ReserveOrder> emptyList = new ArrayList<>();
-        when(reserveOrderService.findAllOrdersByAccountId(anyLong())).thenReturn(emptyList);
+        when(purchasedItemService.findAllPurchasedItemsByAccountId(anyLong())).thenReturn(emptyList);
     }
 
 

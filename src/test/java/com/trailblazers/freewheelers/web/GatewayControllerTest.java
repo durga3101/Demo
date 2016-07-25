@@ -5,7 +5,7 @@ import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.OrderService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.Date;
 import java.util.HashMap;
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
@@ -30,7 +29,7 @@ public class GatewayControllerTest {
     private ItemServiceImpl itemService;
     private Principal principal;
     private AccountService accountService;
-    private ReserveOrderService reserveOrderService;
+    private PurchasedItemService purchasedItemService;
     private HttpSession httpSession;
     private HttpServletRequest request;
     private Account account;
@@ -52,22 +51,20 @@ public class GatewayControllerTest {
         session = mock(Session.class);
         orderService = mock(OrderService.class);
 
-        when(builder.buildXMLRequestBody(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("fake XML");
 
         accountService = mock(AccountService.class);
-        reserveOrderService = mock(ReserveOrderService.class);
+        purchasedItemService = mock(PurchasedItemService.class);
         principal = mock(Principal.class);
 
-        gatewayController = new GatewayController(orderService, reserveOrderService, accountService, restTemplate, itemService, builder, session);
+        gatewayController = new GatewayController(orderService, purchasedItemService,accountService, itemService, client, session);
         when(request.getSession()).thenReturn(httpSession);
-        when(restTemplate.postForEntity(anyString(), any(), any(Class.class))).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
         when(account.getAccount_id()).thenReturn(11L);
 
         item1 = mock(Item.class);
         item2 = mock(Item.class);
-        gatewayController = new GatewayController(reserveOrderService, accountService, itemService, client, session);
+        gatewayController = new GatewayController(orderService, purchasedItemService, accountService, itemService, client, session);
         items = new HashMap<>();
         fullCart = new HashMap<>();
         items.put(item1, 3L);
@@ -133,7 +130,7 @@ public class GatewayControllerTest {
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
         verify(orderService).createOrder(account);
-        verify(reserveOrderService, times(5)).save(any(ReserveOrder.class));
+        verify(purchasedItemService, times(5)).save(any(ReserveOrder.class));
     }
 
 //    @Test
@@ -141,7 +138,7 @@ public class GatewayControllerTest {
 //
 //        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 //
-//        verify(reserveOrderService).save((ReserveOrder) any(), anyLong());
+//        verify(purchasedItemService).save((ReserveOrder) any(), anyLong());
 //    }
 
 }

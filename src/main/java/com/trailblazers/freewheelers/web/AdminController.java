@@ -6,10 +6,7 @@ import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
-import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,41 +24,41 @@ public class AdminController {
 
     static final String URL = "/admin";
 
-    private ReserveOrderService reserveOrderService;
+    private PurchasedItemService purchasedItemService;
     private ItemService itemService;
     private AccountService accountService;
 
     @Autowired
-    public AdminController(ReserveOrderService reserveOrderService, ItemService itemService, AccountService accountService) {
-        this.reserveOrderService = reserveOrderService;
+    public AdminController(PurchasedItemService purchasedItemService, ItemService itemService, AccountService accountService) {
+        this.purchasedItemService = purchasedItemService;
         this.itemService = itemService;
         this.accountService = accountService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
-        List<ReservedOrderDetail> reserveOrders = getAllOrders();
-        model.addAttribute("reserveOrders",reserveOrders);
+        List<PurchasedItemDetail> allPurchasedItemsFromAccount = getAllPurchasedItems();
+        model.addAttribute("reserveOrders",allPurchasedItemsFromAccount);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public void updateOrder(Model model, String state, String orderId, String note) {
         Long order_id = valueOf(orderId);
         OrderStatus status = OrderStatus.valueOf(state);
-        reserveOrderService.updateOrderDetails(order_id, status, note);
+        purchasedItemService.updatePurchasedItemDetails(order_id, status, note);
         get(model);
     }
 
-    protected List<ReservedOrderDetail> getAllOrders() {
-        List<ReserveOrder> reserveOrders = reserveOrderService.getAllOrdersByAccount();
+    protected List<PurchasedItemDetail> getAllPurchasedItems() {
+        List<ReserveOrder> reserveOrders = purchasedItemService.getAllPurchasedItemsByAccount();
 
-        List<ReservedOrderDetail> reservedOrderDetails = new ArrayList<>();
+        List<PurchasedItemDetail> purchasedItemDetails = new ArrayList<>();
 
         for (ReserveOrder reserveOrder : reserveOrders) {
             Account account = accountService.get(reserveOrder.getAccount_id());
             Item item = itemService.get(reserveOrder.getItem_id());
 
-            reservedOrderDetails.add(new ReservedOrderDetail(
+            purchasedItemDetails.add(new PurchasedItemDetail(
                     reserveOrder.getOrder_id(),
                     account,
                     item,
@@ -70,7 +67,7 @@ public class AdminController {
                     reserveOrder.getNote()));
 
         }
-        return reservedOrderDetails;
+        return purchasedItemDetails;
     }
 
 }

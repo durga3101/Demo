@@ -1,38 +1,35 @@
 package com.trailblazers.freewheelers.service.impl;
 
-import com.trailblazers.freewheelers.mappers.OrderMapper;
-import com.trailblazers.freewheelers.mappers.ReserveOrderMapper;
+import com.trailblazers.freewheelers.mappers.PurchasedItemMapper;
 import com.trailblazers.freewheelers.model.ReserveOrder;
-import com.trailblazers.freewheelers.web.Order;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import static org.mockito.Mockito.*;
 
-public class ReserveOrderServiceImplTest {
+public class PurchasedItemServiceImplTest {
 
     private ReserveOrder reserveOrder;
     private SqlSession sqlSession;
-    private ReserveOrderMapper reserveOrderMapper;
+    private PurchasedItemMapper purchasedItemMapper;
 
     @Before
     public void setUp() throws Exception {
         reserveOrder = mock(ReserveOrder.class);
         sqlSession = mock(SqlSession.class);
-        reserveOrderMapper = mock(ReserveOrderMapper.class);
-        when(sqlSession.getMapper(ReserveOrderMapper.class)).thenReturn(reserveOrderMapper);
+        purchasedItemMapper = mock(PurchasedItemMapper.class);
+        when(sqlSession.getMapper(PurchasedItemMapper.class)).thenReturn(purchasedItemMapper);
     }
 
     @Test
     public void shouldInsertOrderIntoDatabaseWhenOrderIsNotThere(){
         when(reserveOrder.getOrder_id()).thenReturn(null);
 
-        ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
+        PurchasedItemServiceImpl reserveOrderService = new PurchasedItemServiceImpl(sqlSession);
         reserveOrderService.save(reserveOrder);
 
-        verify(reserveOrderMapper).insert(reserveOrder);
+        verify(purchasedItemMapper).insert(reserveOrder);
 
     }
 
@@ -40,10 +37,10 @@ public class ReserveOrderServiceImplTest {
     public void shouldUpdateOrderIntoDatabaseWhenOrderExists(){
         when(reserveOrder.getOrder_id()).thenReturn(anyLong());
 
-        ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
+        PurchasedItemServiceImpl reserveOrderService = new PurchasedItemServiceImpl(sqlSession);
         reserveOrderService.save(reserveOrder);
 
-        verify(reserveOrderMapper).update(reserveOrder);
+        verify(purchasedItemMapper).update(reserveOrder);
 
     }
 
@@ -68,7 +65,7 @@ public class ReserveOrderServiceImplTest {
 //
 //        ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
 //
-//        reserveOrderService.getAllOrders(anyLong());
+//        reserveOrderService.getAllPurchasedItems(anyLong());
 //
 //        verify(orderMapper).getAllOrdersByAccountId(anyLong());
 //    }

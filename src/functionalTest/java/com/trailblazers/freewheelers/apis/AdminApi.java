@@ -3,11 +3,11 @@ package com.trailblazers.freewheelers.apis;
 import com.trailblazers.freewheelers.model.*;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import com.trailblazers.freewheelers.service.SurveyService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
-import com.trailblazers.freewheelers.service.impl.ReserveOrderServiceImpl;
+import com.trailblazers.freewheelers.service.impl.PurchasedItemServiceImpl;
 
 import java.util.Date;
 
@@ -19,13 +19,13 @@ public class AdminApi {
     private AccountService accountService;
     private ItemService itemService;
     private SurveyService surveyService;
-    private ReserveOrderService reserveOrderService;
+    private PurchasedItemService purchasedItemService;
 
     public AdminApi() {
         this.accountService = new AccountServiceImpl();
         this.itemService = new ItemServiceImpl();
         this.surveyService = new SurveyService();
-        this.reserveOrderService = new ReserveOrderServiceImpl();
+        this.purchasedItemService = new PurchasedItemServiceImpl();
 
     }
 
@@ -96,7 +96,7 @@ public class AdminApi {
         Item item = itemService.getByName(itemName);
         Long item_Id = item.getItemId();
         ReserveOrder order = reservedOrderFor(account_Id, item_Id);
-        reserveOrderService.save(order);
+        purchasedItemService.save(order);
 
         return this;
 

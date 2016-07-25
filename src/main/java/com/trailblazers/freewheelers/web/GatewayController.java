@@ -6,7 +6,7 @@ import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.OrderService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 //import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,11 @@ public class GatewayController {
 
     static final String SHOPPING_CART = "shoppingCart";
     static final String PURCHASED_ITEMS = "purchasedItems";
-    private final ReserveOrderService reserveOrderService;
+    public static final String ORDER_ID = "order_id";
+
+
+    private OrderService orderService;
+    private final PurchasedItemService purchasedItemService;
     private final AccountService accountService;
     private ItemService itemService;
     private Session session;
@@ -36,8 +40,10 @@ public class GatewayController {
     private Date rightNow;
 
     @Autowired
-    public GatewayController(ReserveOrderService reserveOrderService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
-        this.reserveOrderService = reserveOrderService;
+
+    public GatewayController(OrderService orderService, PurchasedItemService purchasedItemService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
+        this.orderService = orderService;
+        this.purchasedItemService = purchasedItemService;
         this.accountService = accountService;
         this.itemService = itemService;
         this.session = session;
@@ -89,7 +95,7 @@ public class GatewayController {
 
     private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve, Account account) {
         ReserveOrder reserveOrder = new ReserveOrder(account.getAccount_id(), itemToReserve.getItemId(), rightNow);
-        reserveOrderService.save(reserveOrder);
+        purchasedItemService.save(reserveOrder);
     }
 
     private void decreasePurchasedItemQuantityByOne(Item itemToReserve) {

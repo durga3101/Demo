@@ -4,7 +4,7 @@ import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class AdminControllerTest {
 
-    private ReserveOrderService reserveOrderService;
+    private PurchasedItemService purchasedItemService;
     private ItemService itemService;
     private AccountService accountService;
     private AdminController adminController;
@@ -26,11 +26,11 @@ public class AdminControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        reserveOrderService = mock(ReserveOrderService.class);
+        purchasedItemService = mock(PurchasedItemService.class);
         itemService = mock(ItemService.class);
         accountService = mock(AccountService.class);
         model = mock(Model.class);
-        adminController = new AdminController(reserveOrderService, itemService, accountService);
+        adminController = new AdminController(purchasedItemService, itemService, accountService);
     }
 
     @Test
@@ -45,11 +45,11 @@ public class AdminControllerTest {
         reserveOrders.add(mock(ReserveOrder.class));
         reserveOrders.add(mock(ReserveOrder.class));
         reserveOrders.add(mock(ReserveOrder.class));
-        when(reserveOrderService.getAllOrdersByAccount()).thenReturn(reserveOrders);
+        when(purchasedItemService.getAllPurchasedItemsByAccount()).thenReturn(reserveOrders);
 
         adminController.get(model);
 
-        verify(reserveOrderService).getAllOrdersByAccount();
+        verify(purchasedItemService).getAllPurchasedItemsByAccount();
         verify(accountService, atLeastOnce()).get((Long) any());
         verify(itemService, atLeastOnce()).get((Long) any());
     }
@@ -61,7 +61,7 @@ public class AdminControllerTest {
 
         adminController.updateOrder(model, OrderStatus.NEW.toString(), orderId.toString(), note);
 
-        verify(reserveOrderService).updateOrderDetails(valueOf(orderId), OrderStatus.NEW, note);
+        verify(purchasedItemService).updatePurchasedItemDetails(valueOf(orderId), OrderStatus.NEW, note);
 
     }
 

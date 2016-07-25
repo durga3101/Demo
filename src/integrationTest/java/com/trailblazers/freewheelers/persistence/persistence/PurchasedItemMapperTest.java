@@ -1,6 +1,6 @@
 package com.trailblazers.freewheelers.persistence.persistence;
 
-import com.trailblazers.freewheelers.mappers.ReserveOrderMapper;
+import com.trailblazers.freewheelers.mappers.PurchasedItemMapper;
 import com.trailblazers.freewheelers.model.ReserveOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +13,14 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class ReserveOrderMapperTest extends MapperTestBase {
+public class PurchasedItemMapperTest extends MapperTestBase {
 
-    private ReserveOrderMapper reserveOrderMapper;
+    private PurchasedItemMapper purchasedItemMapper;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        reserveOrderMapper = getSqlSession().getMapper(ReserveOrderMapper.class);
+        purchasedItemMapper = getSqlSession().getMapper(PurchasedItemMapper.class);
     }
 
     private ReserveOrder someOrder() {
@@ -34,8 +34,8 @@ public class ReserveOrderMapperTest extends MapperTestBase {
     public void shouldInsertAndGetAnOrder() throws Exception {
         ReserveOrder tobeInserted = someOrder();
 
-        reserveOrderMapper.insert(tobeInserted);
-        ReserveOrder fetched = reserveOrderMapper.getOrderByOrderId(tobeInserted.getOrder_id());
+        purchasedItemMapper.insert(tobeInserted);
+        ReserveOrder fetched = purchasedItemMapper.getOrderByOrderId(tobeInserted.getOrder_id());
 
         assertThat(fetched, is(not(nullValue())));
     }
@@ -43,32 +43,32 @@ public class ReserveOrderMapperTest extends MapperTestBase {
     @Test
     public void shouldDeleteAnOrder() throws Exception {
         ReserveOrder tobeDeleted = someOrder();
-        reserveOrderMapper.insert(tobeDeleted);
+        purchasedItemMapper.insert(tobeDeleted);
 
-        reserveOrderMapper.delete(tobeDeleted);
+        purchasedItemMapper.delete(tobeDeleted);
 
-        ReserveOrder fetched = reserveOrderMapper.getOrderByOrderId(tobeDeleted.getOrder_id());
+        ReserveOrder fetched = purchasedItemMapper.getOrderByOrderId(tobeDeleted.getOrder_id());
         assertThat(fetched, is(nullValue()));
     }
 
     @Test
     public void shouldUpdateAnOrder() throws Exception {
         ReserveOrder toBeUpdated = someOrder().setNote("");
-        reserveOrderMapper.insert(toBeUpdated);
+        purchasedItemMapper.insert(toBeUpdated);
 
         toBeUpdated.setNote("A very important note.");
-        reserveOrderMapper.update(toBeUpdated);
+        purchasedItemMapper.update(toBeUpdated);
 
-        ReserveOrder fetched = reserveOrderMapper.getOrderByOrderId(toBeUpdated.getOrder_id());
+        ReserveOrder fetched = purchasedItemMapper.getOrderByOrderId(toBeUpdated.getOrder_id());
         assertThat(fetched.getNote(), is("A very important note."));
     }
 
     @Test
     public void shouldFindAllOrders() throws Exception {
-        int before = reserveOrderMapper.getAllOrders().size();
-        reserveOrderMapper.insert(someOrder());
+        int before = purchasedItemMapper.getAllPurchasedItems().size();
+        purchasedItemMapper.insert(someOrder());
 
-        List<ReserveOrder> all = reserveOrderMapper.getAllOrders();
+        List<ReserveOrder> all = purchasedItemMapper.getAllPurchasedItems();
 
         assertThat(all.size(), is(before + 1));
     }
@@ -77,13 +77,13 @@ public class ReserveOrderMapperTest extends MapperTestBase {
     public void shouldFindAllOrdersForAnAccount() throws Exception {
         long someAccount = (long) 42;
         long anotherAccount = (long) 43;
-        int before = reserveOrderMapper.getOrderByAccountId(someAccount).size();
+        int before = purchasedItemMapper.getOrderByAccountId(someAccount).size();
 
-        reserveOrderMapper.insert(someOrder().setAccount_id(someAccount));
-        reserveOrderMapper.insert(someOrder().setAccount_id(someAccount));
-        reserveOrderMapper.insert(someOrder().setAccount_id(anotherAccount));
+        purchasedItemMapper.insert(someOrder().setAccount_id(someAccount));
+        purchasedItemMapper.insert(someOrder().setAccount_id(someAccount));
+        purchasedItemMapper.insert(someOrder().setAccount_id(anotherAccount));
 
-        List<ReserveOrder> all = reserveOrderMapper.getOrderByAccountId(someAccount);
+        List<ReserveOrder> all = purchasedItemMapper.getOrderByAccountId(someAccount);
 
         assertThat(all.size(), is(before + 2));
     }

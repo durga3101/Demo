@@ -5,7 +5,6 @@ CREATE TABLE order_table
 (
   order_id SERIAL PRIMARY KEY,
   account_id BIGINT NOT NULL,
-  reserve_order_id BIGINT NOT NULL ,
   status CHARACTER VARYING(255) NOT NULL,
   reservation_timestamp TIMESTAMP without time zone NOT NULL
 );

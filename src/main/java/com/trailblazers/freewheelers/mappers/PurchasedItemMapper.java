@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-public interface ReserveOrderMapper {
+public interface PurchasedItemMapper {
 
     @Insert(
         "INSERT INTO reserve_order (account_id, item_id, status, note, reservation_timestamp) " +
@@ -39,7 +39,7 @@ public interface ReserveOrderMapper {
         @Result(property="note"),
         @Result(property="reservation_timestamp")
     })
-    List<ReserveOrder> getAllOrders();
+    List<ReserveOrder> getAllPurchasedItems();
 
     @Select(
             "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +

@@ -8,7 +8,7 @@ import com.trailblazers.freewheelers.model.ReserveOrder;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ReserveOrderService;
+import com.trailblazers.freewheelers.service.PurchasedItemService;
 import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,14 +31,14 @@ import static com.trailblazers.freewheelers.service.impl.AccountServiceImpl.ADMI
 public class UserProfileController {
 
     AccountService accountService;
-    ReserveOrderService reserveOrderService;
+    PurchasedItemService purchasedItemService;
     ItemService itemService;
     ShippingAddressService shippingAddressService;
 
     @Autowired
-    public UserProfileController(AccountService accountService, ReserveOrderService reserveOrderService, ItemService itemService, ShippingAddressService shippingAddressService) {
+    public UserProfileController(AccountService accountService, PurchasedItemService purchasedItemService, ItemService itemService, ShippingAddressService shippingAddressService) {
         this.accountService = accountService;
-        this.reserveOrderService = reserveOrderService;
+        this.purchasedItemService = purchasedItemService;
         this.itemService = itemService;
         this.shippingAddressService = shippingAddressService;
     }
@@ -105,7 +105,7 @@ public class UserProfileController {
 
 
     private List<Item> getItemsOrderByUser(Account account) {
-        List<ReserveOrder> reserveOrders = reserveOrderService.findAllOrdersByAccountId(account.getAccount_id());
+        List<ReserveOrder> reserveOrders = purchasedItemService.findAllPurchasedItemsByAccountId(account.getAccount_id());
         List<Item> items = new ArrayList<Item>();
         for (ReserveOrder reserveOrder : reserveOrders) {
             items.add(itemService.get(reserveOrder.getItem_id()));

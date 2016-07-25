@@ -14,6 +14,7 @@
 
     <tr>
         <th>Order ID</th>
+        <td></td>
         <td>Name</td>
         <td>Price</td>
         <td>Description</td>
@@ -27,6 +28,8 @@
             <c:set var="item" value="${entry.key}" />
 
             <tr>
+                <td></td>
+                <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
                 <td style="width: 30%"><c:out value="${item.name}"/></td>
                 <td style="width: 10%">£<c:out value="${item.price * entry.value}"/></td>
                 <td style="width: 40%"><c:out value="${item.description}"/></td>

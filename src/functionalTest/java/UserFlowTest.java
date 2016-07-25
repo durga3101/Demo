@@ -110,7 +110,6 @@ public class UserFlowTest extends UserJourneyBase {
                 .logs_in_with(SOME_EMAIL, SOME_PASSWORD);
 
         screen
-                //Add Collum to Imagens at CartPage
                 .should_list_item(SIMPLON_FRAME)
                 .showsMessageInClass(ADD_TO_CART_SUCCESS, ADD_TO_CART_SUCCESS_CLASS);
 

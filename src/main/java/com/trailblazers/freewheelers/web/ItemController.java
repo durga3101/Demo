@@ -21,6 +21,7 @@ public class ItemController{
 	static final String ITEM_PAGE = "/item";
 	static final String ITEM_LIST_PAGE = "/itemList";
 	public static final String REDIRECT = "redirect:";
+	public static final String EMPTY_IMAGE_URL = "https://s6.postimg.org/qopocyf41/product_image_coming_soon.png";
 
 
 	ItemService itemService = new ItemServiceImpl();
@@ -38,7 +39,9 @@ public class ItemController{
 		Map<String,String> errors = validateItem(item);
 
 		if (errors.isEmpty()) {
+			item.setImageURL(EMPTY_IMAGE_URL);
 			itemService.saveItem(item);
+
 		} else {
             model.addAttribute("errors", errors);
             ItemGrid itemGrid = new ItemGrid(itemService.findAll());

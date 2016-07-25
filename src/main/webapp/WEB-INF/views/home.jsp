@@ -37,12 +37,10 @@
                 <td style="width: 10%;"><c:out value="${item.price}"/></td>
                 <td style="width: 33%;"><c:out value="${item.description}"/></td>
                 <td style="width: 10%;"><c:out value="${item.type}"/></td>
-                <td style="width: 10%;">
+                <td style="width: 5%;">
                     <form:form action="/" method="post" modelAttribute="item">
                         <form:hidden path="itemId" value="${item.itemId}"/>
-                        <button class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
-                            Add to cart
-                        </button>
+                        <input title="Add to cart" alt="Add to cart" style="height:30px; width:30px;" type="image" name="submit" value="submit" src="../../images/add-to-cart.png" class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
                     </form:form>
                 </td>
 

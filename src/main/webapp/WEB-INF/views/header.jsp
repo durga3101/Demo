@@ -37,7 +37,7 @@
             <li><a href="<c:url value="j_spring_security_logout" />" class="header-link">Logout</a></li>
         </security:authorize>
         <security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-            <li id="welcome" class="navbar-text">Welcome <security:authentication property="principal.username"/>!</li>
+            <li style="text-shadow: none" id="welcome" class="navbar-text"><b>Welcome <security:authentication property="principal.username"/>!</b></li>
         </security:authorize>
     </ul>
 

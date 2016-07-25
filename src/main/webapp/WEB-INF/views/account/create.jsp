@@ -26,22 +26,22 @@
     <div id="password_field">
             <label for="fld_password">Password</label>
             <div class="controls">
-                <input type="password" id="fld_password" placeholder="secret password" name="password">
+                <input type="password" id="fld_password" placeholder="8-12 characters" name="password">
                 <span class="text-error">Must enter a password!</span>
             </div>
-            <div style="margin-left: 11em; margin-bottom: 0.7em">
-                Your Password must meet the following criteria:<br>
-                <li>8 to 20 characters long</li>
-                <li>At least 1 number</li>
-                <li>At least 1 special character</li>
-                <li>Combination of uppercase & lowercase letters</li>
-            </div>
+    </div>
+
+    <div>
+        <li>8 to 20 characters long</li>
+        <li>At least 1 number</li>
+        <li>At least 1 special character</li>
+        <li>Combination of uppercase & lowercase letters</li>
     </div>
 
     <div id="confirmPassword_field">
             <label for="fld_password">Reenter Password</label>
             <div class="controls">
-                <input type="password" id="fld_confirmPassword" placeholder="secret password" name="password">
+                <input type="password" id="fld_confirmPassword" placeholder="8-12 characters" name="password">
                 <span class="text-error">Must enter a password!</span>
             </div>
     </div>
@@ -49,7 +49,7 @@
     <div id="name_field">
         <label for="fld_name">Name</label>
         <div class="controls">
-            <input type="text" id="fld_name" placeholder="Your Name" name="name">
+            <input type="text" id="fld_name" placeholder="John Doe" name="name">
             <span class="text-error">Must enter a name!</span>
         </div>
     </div>
@@ -66,7 +66,7 @@
         <label for="fld_country">Country</label>
         <div class="controls">
             <select id="fld_country" name="country">
-                <option value="" >Choose A Country</option>
+                <option value="" >Choose a country</option>
                 <c:forEach var="ctry" items="${country}">
                     <option value=${ctry}>${ctry}</option>
                 </c:forEach>
@@ -75,8 +75,8 @@
         </div>
     </div>
     <br>
-    <div>
-        Note: If your country is not listed then we don't ship there. Please check back later.
+    <div style="margin: 0">
+        <b>Note:</b> If your country is not listed then we don't ship there. Please check back later.
     </div>
     <br>
     <div>

@@ -17,12 +17,12 @@
     </div>
 </c:if>
 <div>
-    <table>
+    <table id="home-table">
         <thead>
         <tr>
             <th></th>
             <th>Name</th>
-            <th>Price</th>
+            <th>Price (£)</th>
             <th>Description</th>
             <th>Type</th>
             <th></th>
@@ -32,12 +32,12 @@
         <tbody>
         <c:forEach var="item" items="${items}" varStatus="row">
             <tr>
-                <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
-                <td><c:out value="${item.name}"/></td>
-                <td>£<c:out value="${item.price}"/></td>
-                <td><c:out value="${item.description}"/></td>
-                <td><c:out value="${item.type}"/></td>
-                <td>
+                <td style="width: 12%"><img width="100%" height="same-as-width" src="<c:out value="${item.imageURL}"/>"/></td>
+                <td style="width: 25%;"><c:out value="${item.name}"/></td>
+                <td style="width: 10%;"><c:out value="${item.price}"/></td>
+                <td style="width: 33%;"><c:out value="${item.description}"/></td>
+                <td style="width: 10%;"><c:out value="${item.type}"/></td>
+                <td style="width: 10%;">
                     <form:form action="/" method="post" modelAttribute="item">
                         <form:hidden path="itemId" value="${item.itemId}"/>
                         <button class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">

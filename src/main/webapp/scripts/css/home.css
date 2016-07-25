@@ -21,3 +21,15 @@
 #item-table-header thead tr th {
     padding: 0 10px;
 }
+
+#home-table tbody tr td, #home-table thead tr th {
+    padding: 0 10px;
+}
+
+#home-table tbody tr td:first-child, #home-table thead tr th:first-child {
+    padding-left: 0;
+}
+
+#home-table tbody tr td:last-child, #home-table thead tr th:last-child {
+    padding-right: 0;
+}

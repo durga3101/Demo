@@ -6,18 +6,19 @@
 
 <div class="page-action">Your details</div>
         <div id="user-details" >
+
             <b>${userDetail.account_name}</b> <br />
-            ${userDetail.email_address} <br />
-            ${userDetail.country} <br />
-            ${userDetail.phone_number}<br /><br />
-            <b>Shipping address:</b> ${userDetail.country}
+            <i>Email:</i> ${userDetail.email_address} <br />
+            <i>Country:</i> ${userDetail.country} <br />
+            <i>Phone number:</i> ${userDetail.phone_number}<br /><br />
+            <b>Shipping address:</b>
         </div>
         <div id = "shipping_address">
             <c:choose>
                 <c:when test = "${addressAvailable}">
-                    <br>
-                    ${address.street_1}<br>
-                    ${address.street_2}<br>
+                    <br /><br />
+                    ${address.street_1}<br />
+                    ${address.street_2}<br />
                     ${address.city}, ${address.state}, ${address.postcode}<br>
                 </c:when>
                 <c:otherwise>

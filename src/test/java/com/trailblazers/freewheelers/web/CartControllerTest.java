@@ -72,6 +72,9 @@ public class CartControllerTest {
         when(httpSession.getAttribute("itemForReserve")).thenReturn(item);
         when(countryService.getByName(SOME_COUNTRY)).thenReturn(country);
         when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+
+        when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
+
         when(calculator.calculateVat((BigDecimal)any(),(Country)any())).thenReturn(new BigDecimal(10));
         when(calculator.getGrandTotal((HashMap)any(),(Country)any())).thenReturn(new BigDecimal(60));
 
@@ -148,7 +151,8 @@ public class CartControllerTest {
         String result = cartController.get(item,request, model, principal);
         assertEquals("cart",result);
         verify(calculator).calculateVat((BigDecimal)any(), (Country)any());
-        verify(accountService).getAccountIdByName("ABC");
+//        verify(accountService).getAccountIdByName("ABC");
+        verify(accountService).getAccountFromEmail(principal.getName());
         verify(countryService).getByName(SOME_COUNTRY);
         verify(model).addAttribute("vatRate",country.getVat_rate());
         verify(model).addAttribute("dutyRate",country.getDuty_rate());
@@ -176,7 +180,8 @@ public class CartControllerTest {
         Account account = mock(Account.class);
         Country canada = mock(Country.class);
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
-        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+//        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("CANADA");
         when(countryService.getByName("CANADA")).thenReturn(canada);
         when(calculator.noOfItemsInCart(items)).thenReturn(3l);

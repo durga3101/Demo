@@ -43,19 +43,18 @@ public class UserProfileController {
         this.shippingAddressService = shippingAddressService;
     }
 
-    @RequestMapping(value = "/{nameFromURL:.*}", method = RequestMethod.GET)
-    public String get(@PathVariable String nameFromURL, Model model, Principal principal, HttpServletRequest request) {
+    @RequestMapping(value = "/{emailFromURL:.*}", method = RequestMethod.GET)
+    public String get(@PathVariable String emailFromURL, Model model, Principal principal, HttpServletRequest request) {
 
-        System.out.println("Principle>email:::::::::::::"+principal.getName());
+        emailFromURL = getUserNameIfNull(emailFromURL,principal);
 
-        nameFromURL = getUserNameIfNull(nameFromURL, principal);
-        System.out.println("name from URL::::::::::::::::::::::"+nameFromURL);
+        String nameFromURL = accountService.getAccountFromEmail(emailFromURL).getAccount_name();
         String loggedInUser = decode(accountService.getAccountFromEmail(principal.getName()).getAccount_name());
 
         String role = accountService.getRole(loggedInUser);
 
         if (role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
-            model = setModel(model, nameFromURL,principal);
+            model = setModel(model, emailFromURL);
             return "userProfile";
         }
 
@@ -63,7 +62,7 @@ public class UserProfileController {
             return "accessDenied";
         }
 
-        setModel(model, loggedInUser,principal);
+        setModel(model, emailFromURL);
         return "userProfile";
 
     }
@@ -74,9 +73,8 @@ public class UserProfileController {
         return get(null, model, principal, request);
     }
 
-    private Model setModel(Model model, String userName, Principal principal) {
-//        Account account = accountService.getAccountIdByName(userName);
-        Account account = accountService.getAccountFromEmail(principal.getName());
+    private Model setModel(Model model, String userName) {
+        Account account = accountService.getAccountFromEmail(userName);
         List<Item> items = getItemsOrderByUser(account);
         model.addAttribute("items", items);
         model.addAttribute("userDetail", account);
@@ -95,8 +93,7 @@ public class UserProfileController {
 
     private String getUserNameIfNull(String userName, Principal principal) {
         if (userName == null) {
-            userName = accountService.getAccountFromEmail(principal.getName()).getAccount_name();
-
+            userName = principal.getName();
         }
         return decode(userName);
     }

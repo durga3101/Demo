@@ -28,7 +28,7 @@
             <jdbc-user-service data-source-ref="myDataSource"
                                users-by-username-query="select email_address, password, enabled
                                                         from account
-                                                        where ? in ( email_address)"
+                                                        where ? in (email_address)"
                                authorities-by-username-query=
                                        "select a.account_name, ar.role
                                         from account a, account_role ar

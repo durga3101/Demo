@@ -67,7 +67,8 @@ public class CartController {
             model.addAttribute(ITEMS, items);
         }
 
-        Account account = accountService.getAccountIdByName(decode(principal.getName()));
+//        Account account = accountService.getAccountIdByName(decode(principal.getName()));
+        Account account = accountService.getAccountFromEmail(principal.getName());
 
         String countryName = account.getCountry();
         if(countryName == null){

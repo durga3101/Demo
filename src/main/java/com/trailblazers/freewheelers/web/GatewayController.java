@@ -94,7 +94,7 @@ public class GatewayController {
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
             for(int quantity = 0; quantity < entry.getValue(); quantity++){
-                    saveReservedOrderToDatabase(principal, item, account);
+                    saveReservedOrderToDatabase(principal, item);
                     decreasePurchasedItemQuantityByOne(item);
             }
         }
@@ -107,7 +107,8 @@ public class GatewayController {
         shippingAddressService.createShippingAddress(shippingAddress);
     }
 
-    private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve, Account account) {
+    private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve) {
+        Account account = accountService.getAccountFromEmail(principal.getName());
         PurchasedItem purchasedItem = new PurchasedItem(account.getAccount_id(), itemToReserve.getItemId(), rightNow);
         purchasedItemService.save(purchasedItem);
     }

@@ -58,12 +58,11 @@ public class ShippingAddressControllerTest {
         request = getHttpServletRequest();
         String userName = "ABC";
         when(principal.getName()).thenReturn(userName);
-        when(accountService.getAccountIdByName(userName)).thenReturn(account);
-        when(request.getSession()).thenReturn(httpSession);
+        when(accountService.getAccountFromEmail(userName)).thenReturn(account);
         shippingAddressController.getShippingAddress(request, principal);
 
         ArgumentCaptor<ShippingAddress> captor = ArgumentCaptor.forClass(ShippingAddress.class);
-        verify(accountService).getAccountIdByName(userName);
+        verify(accountService).getAccountFromEmail(userName);
         verify(httpSession).setAttribute(anyString(), Matchers.any());
     }
 
@@ -74,13 +73,15 @@ public class ShippingAddressControllerTest {
         when(request.getSession()).thenReturn(httpSession);
         when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
         when(itemService.get((Long) any())).thenReturn(item);
-        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+//        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("UK");
         when(principal.getName()).thenReturn("ABC");
 
         shippingAddressController.get(model, request, principal);
 
-        verify(accountService).getAccountIdByName(anyString());
+//        verify(accountService).getAccountIdByName(anyString());
+        verify(accountService).getAccountFromEmail(anyString());
         verify(model).addAttribute("country", "UK");
 
     }
@@ -106,7 +107,8 @@ public class ShippingAddressControllerTest {
         when(httpSession.getAttribute(anyString())).thenReturn(item);
         when(itemService.get(anyLong())).thenReturn(item);
         when(principal.getName()).thenReturn("ABC");
-        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+//        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("USA");
         
         shippingAddressController.get(model, request, principal);
@@ -126,7 +128,8 @@ public class ShippingAddressControllerTest {
         when(httpSession.getAttribute(anyString())).thenReturn(item);
         when(itemService.get(anyLong())).thenReturn(item);
         when(principal.getName()).thenReturn("ABC");
-        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+//        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
+        when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn(null);
 
         shippingAddressController.get(model, request, principal);

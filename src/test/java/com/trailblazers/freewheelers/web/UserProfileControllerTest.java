@@ -84,8 +84,12 @@ public class UserProfileControllerTest {
 
     @Test
     public void shouldReturnAccessDeniedWhenUnauthorizedUserAndNotAdmin(){
+        Account userAccount =  mock(Account.class);
         when(accountService.getRole(anyString())).thenReturn(USER);
-        assertEquals("accessDenied", userProfileController.get("Ella", model, principal, request));
+        when(accountService.getAccountFromEmail("Ella@gmail.com")).thenReturn(userAccount);
+        when(accountService.getAccountFromEmail(principal.getName()).getAccount_name()).thenReturn("admin");
+        when(userAccount.getAccount_name()).thenReturn("Ella");
+        assertEquals("accessDenied", userProfileController.get("Ella@gmail.com", model, principal, request));
     }
 
     @Test

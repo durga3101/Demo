@@ -38,7 +38,7 @@ public class ShippingAddressController {
             return "shippingAddress";
         }
 
-        userAccount = accountService.getAccountIdByName(decode(principal.getName()));
+        Account userAccount = accountService.getAccountFromEmail(principal.getName());
 
         if(userAccount.getCountry() == null){
             country="UK";
@@ -59,7 +59,8 @@ public class ShippingAddressController {
         String state = request.getParameter("state");
         String postcode = request.getParameter("postcode");
 
-        Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
+//        Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
+        Account userAccount = accountService.getAccountFromEmail(principal.getName());
 
         shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode,country);
         request.getSession().setAttribute("shippingAddress",shippingAddress);

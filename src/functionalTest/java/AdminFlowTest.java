@@ -41,7 +41,7 @@ public class AdminFlowTest extends UserJourneyBase {
         screen
                 .shows_admin_profile();
         user
-                .visits_profile_for(Hugo);
+                .visits_profile_for(HugoEmail);
         screen
                 .shows_profile_for(Hugo);
 

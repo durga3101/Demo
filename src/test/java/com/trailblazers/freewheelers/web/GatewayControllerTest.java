@@ -82,6 +82,9 @@ public class GatewayControllerTest {
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
+
+        when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
+
         when(account.getAccount_id()).thenReturn(11L);
         when(item1.getItemId()).thenReturn(6L);
         when(item2.getItemId()).thenReturn(7L);

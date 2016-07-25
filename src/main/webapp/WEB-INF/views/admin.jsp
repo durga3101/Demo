@@ -16,7 +16,7 @@
         <tr>
             <form:form action="admin" method="post">
                 <td>
-                    <a href="/userProfile/${order.account.account_name}">
+                    <a href="/userProfile/${order.account.email_address}">
                         <c:out value="${order.account.account_name}"/>
                     </a>
                 </td>

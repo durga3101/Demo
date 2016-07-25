@@ -16,6 +16,7 @@ import java.util.Map;
 import static java.math.BigDecimal.valueOf;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -33,6 +34,8 @@ public class ItemControllerTest {
     ItemGrid itemGrid;
     Item item;
     ItemController itemController;
+
+    public static final String EMPTY_IMAGE_URL = "https://s6.postimg.org/qopocyf41/product_image_coming_soon.png";
 
     @Before
     public void setUp(){
@@ -98,6 +101,14 @@ public class ItemControllerTest {
     }
 
     @Test
+    public void shouldSetItemImageURLWithEmptyImageURLWhenImageURLIsEmpty() throws Exception {
+        Item item = getItemWithoutError();
+//        item.setImageURL("");
+        itemController.post(model,item);
+        assertEquals(item.getImageURL(),EMPTY_IMAGE_URL);
+    }
+
+    @Test
     public void shouldNotCallServiceWhenValidationFailed() throws Exception {
         itemController.post(model, getItemWithError());
 
@@ -110,8 +121,8 @@ public class ItemControllerTest {
                 .setPrice(valueOf(123.00))
                 .setDescription("example")
                 .setQuantity((long)123)
-                .setType(ItemType.ACCESSORIES);
-
+                .setType(ItemType.ACCESSORIES)
+                .setImageURL("");
         return item;
     }
 
@@ -122,7 +133,8 @@ public class ItemControllerTest {
                 .setPrice(valueOf(123.00))
                 .setDescription("example")
                 .setQuantity((long)123)
-                .setType(ItemType.ACCESSORIES);
+                .setType(ItemType.ACCESSORIES)
+                .setImageURL("");
         return item;
     }
 

@@ -74,6 +74,13 @@
                     </div>
                 </div>
 
+                <div id="imgURL_field">
+                    <form:label for="imageURL" path="imageURL">Image URL</form:label>
+                    <div class="controls">
+                        <form:input path="imageURL"/>
+                    </div>
+                </div>
+
                 <div>
                     <div class="controls">
                         <button type="submit" value="Create new item" id="createItem">Create Item</button>

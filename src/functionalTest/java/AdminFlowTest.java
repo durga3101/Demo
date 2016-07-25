@@ -5,7 +5,8 @@ import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class AdminFlowTest extends UserJourneyBase {
 
-    public static final String A_URL = "https://s6.postimg.org/qopocyf41/product_image_coming_soon.png";
+    public static final String EMPTY_IMAGE_URL = "https://s6.postimg.org/qopocyf41/product_image_coming_soon.png";
+    public static final String ITEM_IMAGE_URL = "https://s6.postimg.org/cahp7h3wh/Scattante_XRLComp_Road_Bike_small.jpg";
 
     @Test
     public void adminFlowTest() {
@@ -60,22 +61,25 @@ public class AdminFlowTest extends UserJourneyBase {
         // Manage Items
         user
                 .wants_to_manage_items()
-                .creates_an_item(SIMPLON_FRAME, "FRAME", NO_QUANTITY, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+                .creates_an_item(SIMPLON_FRAME, "FRAME", NO_QUANTITY, REALLY_EXPENSIVE, SOME_DESCRIPTION, ITEM_IMAGE_URL);
 
         screen
                 .shows_error("Please enter Item Quantity", "quantity_field");
 
         user
-                .creates_an_item(SIMPLON_FRAME, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+                .creates_an_item(SIMPLON_FRAME, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION, ITEM_IMAGE_URL);
         screen
-                .shows_in_manage_item_list(SIMPLON_FRAME);
-        user
-                .creates_an_item(New_Item_Without_Spaces, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
-        screen
-                .shows_in_manage_item_list(New_Item_Without_Spaces);
+                .shows_in_manage_item_list(SIMPLON_FRAME)
+                .show_image_url_for_the_item(SIMPLON_FRAME, ITEM_IMAGE_URL);
 
         user
-                .creates_an_item(SPOKE_REFLECTORS, "ACCESSORIES", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION);
+                .creates_an_item(New_Item_Without_Spaces, "FRAME", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION,  EMPTY_IMAGE_URL);
+        screen
+                .shows_in_manage_item_list(New_Item_Without_Spaces)
+                .show_image_url_for_the_item(New_Item_Without_Spaces,  EMPTY_IMAGE_URL);
+
+        user
+                .creates_an_item(SPOKE_REFLECTORS, "ACCESSORIES", A_LOT, REALLY_EXPENSIVE, SOME_DESCRIPTION, ITEM_IMAGE_URL);
 
         screen
                 .shows_in_manage_item_list(SIMPLON_FRAME)
@@ -102,10 +106,10 @@ public class AdminFlowTest extends UserJourneyBase {
                 .shows_in_manage_item_list(New_Simplon_Name)
                 .shows_in_manage_item_list(New_Spoke_Name);
         user
-                .changes_item_image_url(New_Item_Without_Spaces, A_URL);
+                .changes_item_image_url(New_Item_Without_Spaces, ITEM_IMAGE_URL);
 
         screen
-                .show_image_url_for_the_item(New_Item_Without_Spaces, A_URL);
+                .show_image_url_for_the_item(New_Item_Without_Spaces, ITEM_IMAGE_URL);
 
         user
                 .delete_item(New_Simplon_Name);

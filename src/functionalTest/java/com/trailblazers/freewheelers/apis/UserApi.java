@@ -63,7 +63,7 @@ public class UserApi {
         return this;
     }
 
-    public UserApi creates_an_item(String name, String type, String quantity, String price, String description) {
+    public UserApi creates_an_item(String name, String type, String quantity, String price, String description, String imgUrl) {
         fillField(driver.findElement(By.id("name")), name);
         fillField(driver.findElement(By.id("price")), price);
 
@@ -72,6 +72,7 @@ public class UserApi {
 
         fillField(driver.findElement(By.id("description")), description);
         fillField(driver.findElement(By.id("quantity")), quantity);
+        fillField(driver.findElement(By.id("imageURL")), imgUrl);
 
         driver.findElement(By.id("createItem")).click();
 

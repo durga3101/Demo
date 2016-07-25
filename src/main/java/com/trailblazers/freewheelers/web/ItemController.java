@@ -39,7 +39,9 @@ public class ItemController{
 		Map<String,String> errors = validateItem(item);
 
 		if (errors.isEmpty()) {
-			item.setImageURL(EMPTY_IMAGE_URL);
+			if(item.getImageURL().equals("")){
+				item.setImageURL(EMPTY_IMAGE_URL);
+			}
 			itemService.saveItem(item);
 
 		} else {

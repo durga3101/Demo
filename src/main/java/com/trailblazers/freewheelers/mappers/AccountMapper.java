@@ -9,7 +9,7 @@ public interface AccountMapper {
 
     @Insert(
         "INSERT INTO account (account_name, email_address, password, phone_number, enabled ,country) " +
-        "VALUES (#{account_name}, #{email_address}, #{password}, #{phoneNumber}, #{enabled} ,#{country})"
+        "VALUES (#{account_name}, #{email_address}, #{password}, #{phone_number}, #{enabled} ,#{country})"
     )
     @Options(keyProperty = "account_id", useGeneratedKeys = true)
     Integer insert(Account account);
@@ -36,7 +36,7 @@ public interface AccountMapper {
 
     @Update(
         "UPDATE account " +
-        "SET account_name=#{account_name}, email_address=#{email_address}, phone_number=#{phoneNumber}, enabled=#{enabled}" +
+        "SET account_name=#{account_name}, email_address=#{email_address}, phone_number=#{phone_number}, enabled=#{enabled}" +
         "WHERE account_id=#{account_id}"
     )
     void update(Account account);
@@ -49,7 +49,8 @@ public interface AccountMapper {
             @Result(property="account_name"),
             @Result(property="email_address"),
             @Result(property="password"),
-            @Result(property="phoneNumber", column="phone_number"),
+            @Result(property="phone_number"),
+//            @Result(property="phoneNumber", column="phone_number"),
             @Result(property="enabled"),
             @Result(property = "country")
     })

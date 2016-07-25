@@ -3,7 +3,6 @@ package com.trailblazers.freewheelers.persistence.persistence;
 import com.trailblazers.freewheelers.mappers.AccountMapper;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountBuilder;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,6 +37,7 @@ public class AccountMapperTest extends MapperTestBase {
         Account fetchedFromDB = accountMapper.getById(account.getAccount_id());
 
         assertThat(fetchedFromDB.getAccount_name(), is("Johnny Cash"));
+        assertThat(fetchedFromDB.getPhone_number(), is("12345"));
     }
 
     @Test

@@ -6,7 +6,8 @@
 
 <div class="page-action">Your details</div>
         <div id="user-details" >
-            ${userDetail.account_name} - ${userDetail.email_address} - ${userDetail.country}<br />
+            ${userDetail.account_name} - ${userDetail.email_address} - ${userDetail.country} - ${userDetail.phone_number}<br />
+
         </div>
         <div id = "shipping_address">
             <c:choose>

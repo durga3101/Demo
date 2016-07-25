@@ -19,7 +19,7 @@ public class AccountValidator {
             errors.put("name", "Must enter a name!");
         }
 
-        if(account.getPhoneNumber().isEmpty()) {
+        if(account.getPhone_number().isEmpty()) {
             errors.put("phoneNumber", "Must enter valid phone number!");
         }
 

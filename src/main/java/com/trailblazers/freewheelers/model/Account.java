@@ -9,7 +9,7 @@ public class Account {
     private String password;
     private boolean enabled;
     private String email_address;
-    private String phoneNumber;
+    private String phone_number;
     private String country;
 
 
@@ -23,7 +23,7 @@ public class Account {
         this.setPassword(password);
         this.enabled = enabled;
         this.email_address = email_address;
-        this.phoneNumber = phoneNumber;
+        this.phone_number = phoneNumber;
         this.country = country;
     }
 
@@ -51,8 +51,8 @@ public class Account {
         this.country = country;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_number(String phoneNumber) {
+        this.phone_number = phoneNumber;
     }
 
     public Account setPassword(String password) {
@@ -74,8 +74,8 @@ public class Account {
         return email_address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_number() {
+        return phone_number;
     }
 
     public void setAccountName(String accountName) {

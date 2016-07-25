@@ -82,7 +82,7 @@ public class AccountControllerTest {
         System.out.println(account.getPassword()+"FFff");
         assertThat(account.getPassword(), is(not("password")));
         assertThat(account.getAccount_name(), is("john smith"));
-        assertThat(account.getPhoneNumber(), is("123456789"));
+        assertThat(account.getPhone_number(), is("123456789"));
         assertThat(account.getCountry(),is("India"));
         assertThat(account.isEnabled(), is(true));
     }

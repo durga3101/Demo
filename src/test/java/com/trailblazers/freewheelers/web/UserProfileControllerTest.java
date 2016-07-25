@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.FeatureToggles;
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
@@ -61,7 +61,7 @@ public class UserProfileControllerTest {
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
         when(account.getAccount_id()).thenReturn(1l);
 
-        List<ReserveOrder> emptyList = new ArrayList<>();
+        List<PurchasedItem> emptyList = new ArrayList<>();
         when(purchasedItemService.findAllPurchasedItemsByAccountId(anyLong())).thenReturn(emptyList);
     }
 

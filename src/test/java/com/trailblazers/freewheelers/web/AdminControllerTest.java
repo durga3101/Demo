@@ -1,7 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.OrderStatus;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
@@ -41,11 +41,11 @@ public class AdminControllerTest {
 
     @Test
     public void getShouldInvokeAllDependencies() throws Exception {
-        List<ReserveOrder> reserveOrders = new ArrayList<>();
-        reserveOrders.add(mock(ReserveOrder.class));
-        reserveOrders.add(mock(ReserveOrder.class));
-        reserveOrders.add(mock(ReserveOrder.class));
-        when(purchasedItemService.getAllPurchasedItemsByAccount()).thenReturn(reserveOrders);
+        List<PurchasedItem> purchasedItems = new ArrayList<>();
+        purchasedItems.add(mock(PurchasedItem.class));
+        purchasedItems.add(mock(PurchasedItem.class));
+        purchasedItems.add(mock(PurchasedItem.class));
+        when(purchasedItemService.getAllPurchasedItemsByAccount()).thenReturn(purchasedItems);
 
         adminController.get(model);
 

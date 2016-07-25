@@ -3,7 +3,7 @@ package com.trailblazers.freewheelers.web;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.OrderStatus;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
@@ -38,7 +38,7 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
         List<PurchasedItemDetail> allPurchasedItemsFromAccount = getAllPurchasedItems();
-        model.addAttribute("reserveOrders",allPurchasedItemsFromAccount);
+        model.addAttribute("purchasedItems",allPurchasedItemsFromAccount);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -50,21 +50,21 @@ public class AdminController {
     }
 
     protected List<PurchasedItemDetail> getAllPurchasedItems() {
-        List<ReserveOrder> reserveOrders = purchasedItemService.getAllPurchasedItemsByAccount();
+        List<PurchasedItem> purchasedItems = purchasedItemService.getAllPurchasedItemsByAccount();
 
         List<PurchasedItemDetail> purchasedItemDetails = new ArrayList<>();
 
-        for (ReserveOrder reserveOrder : reserveOrders) {
-            Account account = accountService.get(reserveOrder.getAccount_id());
-            Item item = itemService.get(reserveOrder.getItem_id());
+        for (PurchasedItem purchasedItem : purchasedItems) {
+            Account account = accountService.get(purchasedItem.getAccount_id());
+            Item item = itemService.get(purchasedItem.getItem_id());
 
             purchasedItemDetails.add(new PurchasedItemDetail(
-                    reserveOrder.getOrder_id(),
+                    purchasedItem.getOrder_id(),
                     account,
                     item,
-                    reserveOrder.getReservation_timestamp(),
-                    reserveOrder.getStatus(),
-                    reserveOrder.getNote()));
+                    purchasedItem.getReservation_timestamp(),
+                    purchasedItem.getStatus(),
+                    purchasedItem.getNote()));
 
         }
         return purchasedItemDetails;

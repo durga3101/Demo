@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
@@ -130,7 +130,7 @@ public class GatewayControllerTest {
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
         verify(orderService).createOrder(account);
-        verify(purchasedItemService, times(5)).save(any(ReserveOrder.class));
+        verify(purchasedItemService, times(5)).save(any(PurchasedItem.class));
     }
 
 //    @Test
@@ -138,7 +138,7 @@ public class GatewayControllerTest {
 //
 //        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 //
-//        verify(purchasedItemService).save((ReserveOrder) any(), anyLong());
+//        verify(purchasedItemService).save((PurchasedItem) any(), anyLong());
 //    }
 
 }

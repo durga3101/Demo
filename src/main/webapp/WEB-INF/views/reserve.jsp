@@ -30,6 +30,8 @@
             <tr>
                 <td></td>
                 <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
+
+                <td style="width: 30%" id = "order_id"><c:out value="some id"/></td>
                 <td style="width: 30%"><c:out value="${item.name}"/></td>
                 <td style="width: 10%">£<c:out value="${item.price * entry.value}"/></td>
                 <td style="width: 40%"><c:out value="${item.description}"/></td>

@@ -12,7 +12,7 @@
 
 <table class="table">
     <tbody>
-    <c:forEach var="order" items="${reserveOrders}" varStatus="row">
+    <c:forEach var="order" items="${purchasedItems}" varStatus="row">
         <tr>
             <form:form action="admin" method="post">
                 <td>

@@ -1,6 +1,6 @@
 package com.trailblazers.freewheelers.mappers;
 
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -12,19 +12,19 @@ public interface PurchasedItemMapper {
         "VALUES (#{account_id}, #{item_id}, #{status}, #{note}, #{reservation_timestamp})"
     )
     @Options(keyProperty = "order_id", useGeneratedKeys = true)
-    Integer insert(ReserveOrder order);
+    Integer insert(PurchasedItem order);
 
     @Delete(
         "DELETE FROM reserve_order WHERE order_id = #{order_id}"
     )
-    void delete(ReserveOrder reserveOrder);
+    void delete(PurchasedItem purchasedItem);
 
     @Update(
         "UPDATE reserve_order " +
         "SET account_id=#{account_id}, item_id=#{item_id}, status=#{status}, note=#{note}, reservation_timestamp=#{reservation_timestamp} " +
         "WHERE order_id=#{order_id}"
     )
-    void update(ReserveOrder reserveOrder);
+    void update(PurchasedItem purchasedItem);
 
     @Select(
         "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +
@@ -39,14 +39,14 @@ public interface PurchasedItemMapper {
         @Result(property="note"),
         @Result(property="reservation_timestamp")
     })
-    List<ReserveOrder> getAllPurchasedItems();
+    List<PurchasedItem> getAllPurchasedItems();
 
     @Select(
             "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +
                     "FROM reserve_order " +
                     "WHERE order_id = #{order_id}"
     )
-    ReserveOrder getOrderByOrderId(Long order_id);
+    PurchasedItem getOrderByOrderId(Long order_id);
 
     @Select(
             "SELECT order_id, account_id, item_id, status, note, reservation_timestamp " +
@@ -61,6 +61,6 @@ public interface PurchasedItemMapper {
             @Result(property="note"),
             @Result(property="reservation_timestamp")
     })
-    List<ReserveOrder> getOrderByAccountId(Long account_id);
+    List<PurchasedItem> getOrderByAccountId(Long account_id);
 
 }

@@ -2,7 +2,8 @@ package com.trailblazers.freewheelers.model;
 
 import java.util.Date;
 
-public class ReserveOrder {
+//PurchasedItem
+public class PurchasedItem {
 
     private Long order_id;
     private Long account_id;
@@ -11,11 +12,11 @@ public class ReserveOrder {
     private OrderStatus status = OrderStatus.NEW;
     private String note = "";
 
-    public ReserveOrder(){
+    public PurchasedItem(){
 
     }
 
-    public ReserveOrder(Long account_id, Long item_id, Date rightNow) {
+    public PurchasedItem(Long account_id, Long item_id, Date rightNow) {
         this.account_id = account_id;
         this.item_id = item_id;
         this.reservation_timestamp = rightNow;
@@ -25,7 +26,7 @@ public class ReserveOrder {
         return item_id;
     }
 
-    public ReserveOrder setItem_id(Long item_id) {
+    public PurchasedItem setItem_id(Long item_id) {
         this.item_id = item_id;
         return this;
     }
@@ -34,7 +35,7 @@ public class ReserveOrder {
         return reservation_timestamp;
     }
 
-    public ReserveOrder setReservation_timestamp(Date reservation_timestamp) {
+    public PurchasedItem setReservation_timestamp(Date reservation_timestamp) {
         this.reservation_timestamp = reservation_timestamp;
         return this;
     }
@@ -47,7 +48,7 @@ public class ReserveOrder {
         return account_id;
     }
 
-    public ReserveOrder setAccount_id(Long account_id) {
+    public PurchasedItem setAccount_id(Long account_id) {
         this.account_id = account_id;
         return this;
     }
@@ -60,7 +61,7 @@ public class ReserveOrder {
         this.status = status;
     }
 
-    public ReserveOrder setNote(String note) {
+    public PurchasedItem setNote(String note) {
         this.note = note;
         return this;
     }

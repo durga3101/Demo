@@ -13,6 +13,7 @@ import java.util.List;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ADD_TO_CART_FAILURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
+import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -217,7 +218,7 @@ public class ScreenApi {
         for( String orderName : orderNames){
             assertThat(driver.getPageSource(), containsString(orderName));
         }
-//        assertNotNull(driver.findElement(By.id("order_id")).getText());
+        assertNotNull(driver.findElement(By.id("order_id")).getText());
         return this;
     }
 
@@ -260,7 +261,7 @@ public class ScreenApi {
     }
 
     public ScreenApi showUserDetailsOnInvoice(String address1, String address2, String city, String postalCode, String someCountry) {
-//        assertThat(driver.findElement(By.id("customer-address1")).getText(), containsString(address1));
+        assertThat(driver.findElement(By.id("customer-address1")).getText(), containsString(address1));
         assertThat(driver.findElement(By.id("customer-address2")).getText(), containsString(address2));
         assertThat(driver.findElement(By.id("customer-city")).getText(), containsString(""+city));
         assertThat(driver.findElement(By.id("customer-postalCode")).getText(), containsString(""+postalCode));

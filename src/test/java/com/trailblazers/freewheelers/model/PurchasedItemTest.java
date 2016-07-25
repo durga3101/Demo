@@ -8,12 +8,13 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-public class ReserveOrderTest {
+//PurchasedItemTest
+public class PurchasedItemTest {
 
     private Long accountId;
     private Long itemId;
     private Date date;
-    private ReserveOrder reserveOrder;
+    private PurchasedItem purchasedItem;
 
     @Before
     public void setUp() throws Exception {
@@ -21,40 +22,40 @@ public class ReserveOrderTest {
         itemId = new Long("10");
         date = mock(Date.class);
 
-        reserveOrder = new ReserveOrder(accountId, itemId, date);
+        purchasedItem = new PurchasedItem(accountId, itemId, date);
 
     }
 
     @Test
     public void shouldReturnItemIdFromConstructorWhenGetItemIdIsCalled() {
-        reserveOrder.setItem_id(itemId);
-        assertEquals(itemId, reserveOrder.getItem_id());
+        purchasedItem.setItem_id(itemId);
+        assertEquals(itemId, purchasedItem.getItem_id());
     }
 
     @Test
     public void shouldReturnDateFromConstructorWhenGetDateIsCalled() {
-        reserveOrder.setReservation_timestamp(date);
-        assertEquals(date, reserveOrder.getReservation_timestamp());
+        purchasedItem.setReservation_timestamp(date);
+        assertEquals(date, purchasedItem.getReservation_timestamp());
     }
 
     @Test
     public void shouldReturnAccountIdFromConstructorWhenGetAccountIdIsCalled() {
-        reserveOrder.setAccount_id(accountId);
-        assertEquals(accountId, reserveOrder.getAccount_id());
+        purchasedItem.setAccount_id(accountId);
+        assertEquals(accountId, purchasedItem.getAccount_id());
     }
 
     @Test
     public void shouldSetOrderStatusAndReturnNewStatus() {
-        reserveOrder.setStatus(OrderStatus.IN_PROGRESS);
+        purchasedItem.setStatus(OrderStatus.IN_PROGRESS);
 
-        assertEquals(OrderStatus.IN_PROGRESS, reserveOrder.getStatus());
+        assertEquals(OrderStatus.IN_PROGRESS, purchasedItem.getStatus());
     }
 
     @Test
     public void shouldSetNoteAndReturnNewNote() {
-        reserveOrder.setNote("Test note");
+        purchasedItem.setNote("Test note");
 
-        assertEquals("Test note", reserveOrder.getNote());
+        assertEquals("Test note", purchasedItem.getNote());
     }
 
 }

@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.OrderService;
@@ -81,7 +81,6 @@ public class GatewayController {
 
         orderService.createOrder(account);
 
-        //save in db table
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
             for(int quantity = 0; quantity < entry.getValue(); quantity++){
@@ -94,8 +93,8 @@ public class GatewayController {
     }
 
     private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve, Account account) {
-        ReserveOrder reserveOrder = new ReserveOrder(account.getAccount_id(), itemToReserve.getItemId(), rightNow);
-        purchasedItemService.save(reserveOrder);
+        PurchasedItem purchasedItem = new PurchasedItem(account.getAccount_id(), itemToReserve.getItemId(), rightNow);
+        purchasedItemService.save(purchasedItem);
     }
 
     private void decreasePurchasedItemQuantityByOne(Item itemToReserve) {

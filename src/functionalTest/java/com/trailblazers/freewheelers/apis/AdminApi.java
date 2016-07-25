@@ -95,7 +95,7 @@ public class AdminApi {
 
         Item item = itemService.getByName(itemName);
         Long item_Id = item.getItemId();
-        ReserveOrder order = reservedOrderFor(account_Id, item_Id);
+        PurchasedItem order = reservedOrderFor(account_Id, item_Id);
         purchasedItemService.save(order);
 
         return this;
@@ -111,7 +111,7 @@ public class AdminApi {
                 .setType(ItemType.FRAME);
     }
 
-    private ReserveOrder reservedOrderFor(Long account_id, Long item_id) {
-        return new ReserveOrder(account_id, item_id, new Date());
+    private PurchasedItem reservedOrderFor(Long account_id, Long item_id) {
+        return new PurchasedItem(account_id, item_id, new Date());
     }
 }

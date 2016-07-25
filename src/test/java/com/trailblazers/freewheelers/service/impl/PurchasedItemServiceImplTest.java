@@ -1,7 +1,7 @@
 package com.trailblazers.freewheelers.service.impl;
 
 import com.trailblazers.freewheelers.mappers.PurchasedItemMapper;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,13 +10,13 @@ import static org.mockito.Mockito.*;
 
 public class PurchasedItemServiceImplTest {
 
-    private ReserveOrder reserveOrder;
+    private PurchasedItem purchasedItem;
     private SqlSession sqlSession;
     private PurchasedItemMapper purchasedItemMapper;
 
     @Before
     public void setUp() throws Exception {
-        reserveOrder = mock(ReserveOrder.class);
+        purchasedItem = mock(PurchasedItem.class);
         sqlSession = mock(SqlSession.class);
         purchasedItemMapper = mock(PurchasedItemMapper.class);
         when(sqlSession.getMapper(PurchasedItemMapper.class)).thenReturn(purchasedItemMapper);
@@ -24,23 +24,23 @@ public class PurchasedItemServiceImplTest {
 
     @Test
     public void shouldInsertOrderIntoDatabaseWhenOrderIsNotThere(){
-        when(reserveOrder.getOrder_id()).thenReturn(null);
+        when(purchasedItem.getOrder_id()).thenReturn(null);
 
         PurchasedItemServiceImpl reserveOrderService = new PurchasedItemServiceImpl(sqlSession);
-        reserveOrderService.save(reserveOrder);
+        reserveOrderService.save(purchasedItem);
 
-        verify(purchasedItemMapper).insert(reserveOrder);
+        verify(purchasedItemMapper).insert(purchasedItem);
 
     }
 
     @Test
     public void shouldUpdateOrderIntoDatabaseWhenOrderExists(){
-        when(reserveOrder.getOrder_id()).thenReturn(anyLong());
+        when(purchasedItem.getOrder_id()).thenReturn(anyLong());
 
         PurchasedItemServiceImpl reserveOrderService = new PurchasedItemServiceImpl(sqlSession);
-        reserveOrderService.save(reserveOrder);
+        reserveOrderService.save(purchasedItem);
 
-        verify(purchasedItemMapper).update(reserveOrder);
+        verify(purchasedItemMapper).update(purchasedItem);
 
     }
 

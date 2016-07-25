@@ -4,7 +4,7 @@ package com.trailblazers.freewheelers.web;
 import com.trailblazers.freewheelers.FeatureToggles;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.ReserveOrder;
+import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
@@ -105,10 +105,10 @@ public class UserProfileController {
 
 
     private List<Item> getItemsOrderByUser(Account account) {
-        List<ReserveOrder> reserveOrders = purchasedItemService.findAllPurchasedItemsByAccountId(account.getAccount_id());
+        List<PurchasedItem> purchasedItems = purchasedItemService.findAllPurchasedItemsByAccountId(account.getAccount_id());
         List<Item> items = new ArrayList<Item>();
-        for (ReserveOrder reserveOrder : reserveOrders) {
-            items.add(itemService.get(reserveOrder.getItem_id()));
+        for (PurchasedItem purchasedItem : purchasedItems) {
+            items.add(itemService.get(purchasedItem.getItem_id()));
         }
         return items;
     }

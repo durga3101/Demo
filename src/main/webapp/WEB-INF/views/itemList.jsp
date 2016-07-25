@@ -101,15 +101,18 @@
             <div class="page-action">Update Items</div>
 
             <div>
-			    <table class="table">
-				<thead><tr><th><input type="checkbox" class="toggleAll" /></th>
-				<th>Name</th>
-				<th>Price (£)</th>
-				<th>Description</th>
-				<th>ItemType</th>
-				<th>Quantity</th>
-                <th>Image URL</th>
-				</tr></thead>
+			    <table id="manage-items-table" class="table">
+				<thead>
+                    <tr>
+                        <th style="width: 2%;"><input type="checkbox" class="toggleAll" /></th>
+                        <th style="width: 30%;">Name</th>
+                        <th style="width: 10%;">Price (£)</th>
+                        <th style="width: 38%;">Description</th>
+                        <th style="width: 15%;">Type</th>
+                        <th style="width: 10%;">Quantity</th>
+                        <th style="width: 10%;">Image URL</th>
+                    </tr>
+                </thead>
 				<tbody >
 					<c:forEach var="itemEntry" items="${itemGrid.itemMap}" varStatus="row" >
 						<tr>

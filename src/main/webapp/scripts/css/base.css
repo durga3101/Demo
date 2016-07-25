@@ -19,6 +19,7 @@ body {
 
 .main {
     padding: 20px 0 2% 0;
+    min-height: 450px;
     background-color: white;
     border-top: 5px solid grey;
     border-bottom: 5px solid grey;
@@ -132,12 +133,12 @@ nav {
     display: inline-block;
 }
 
-#name {
+#brand-name {
     margin-left: 2%;
     margin-right: 1%;
 }
 
-#logo {
+#brand-logo {
     margin-bottom: 10px;
 }
 
@@ -212,7 +213,6 @@ a:active {
 }
 
 table th {
-    width: 100px;
     text-align: left;
 }
 

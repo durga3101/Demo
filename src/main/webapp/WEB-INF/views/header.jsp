@@ -19,11 +19,8 @@
 
 <div class="width-restrictor centered">
 
-<div class="navbar">
-    <a class="brand" href="<c:url value='/' />">
-        <img width="20px;" src="<c:url value='/images/freewheelers-logo.png' />">
-        Freewheelers
-    </a>
+<nav class="navbar">
+
     <ul class="nav">
         <li><a href="<c:url value='/' />" class="header-link">Home</a></li>
         <security:authorize ifAnyGranted="ROLE_ADMIN">
@@ -44,7 +41,12 @@
         </security:authorize>
     </ul>
 
-</div>
+</nav>
+
+    <a class="brand" href="<c:url value='/' />">
+        <img id="brand-name" width="250px;" src="<c:url value='/images/freewheelers-name.png' />">
+        <img id="brand-logo" width="50px;" src="<c:url value='/images/freewheelers-logo.png' />">
+    </a>
 
 <!--[if lt IE 9]>
 <div class="alert">

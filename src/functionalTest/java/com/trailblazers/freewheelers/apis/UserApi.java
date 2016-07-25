@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 import static com.trailblazers.freewheelers.helpers.Controls.*;
 
@@ -385,10 +384,10 @@ public class UserApi {
     }
 
 
-    public UserApi waitsForSeconds(long seconds) {
-        WebDriverWait wait = new WebDriverWait(driver, seconds);
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("customer-invoice"))));
-        wait.withTimeout(seconds, TimeUnit.SECONDS);
+    public UserApi waitsForInvoice() {
+        WebDriverWait wait = new WebDriverWait(driver, 5L);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("customer-invoice"))));
+//        wait.withTimeout(seconds, TimeUnit.SECONDS);
         return this;
     }
 }

@@ -317,7 +317,7 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .clicksButtonWithId(VIEW_INVOICE_BUTTON)
                 .switchToInvoiceWindow()
-                .waitsForSeconds(5L);
+                .waitsForInvoice();
 
         screen
                 .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,SOME_COUNTRY)

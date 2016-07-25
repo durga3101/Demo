@@ -11,7 +11,7 @@ public class ShippingAddress {
     private String country;
 
 
-    public ShippingAddress(long account_id, String street1, String street2, String city, String state, String postcode) {
+    public ShippingAddress(long account_id, String street1, String street2, String city, String state, String postcode,String country) {
         this.account_id = account_id;
         this.shipping_address_id = 0L;
         this.street_1 = street1;
@@ -19,7 +19,7 @@ public class ShippingAddress {
         this.city = city;
         this.state = state;
         this.postcode = postcode;
-        this.country = "";
+        this.country = country;
     }
 
     public ShippingAddress(){

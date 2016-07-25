@@ -16,7 +16,7 @@ public class ShippingAddressMapperTest extends MapperTestBase {
 
     private ShippingAddress someShippingAddress() {
         return new ShippingAddress(1L, "Some Street 1", "Some Street 2", "Some City",
-                "Some State", "Some PostCode");
+                "Some State", "Some PostCode","Some Country");
 
     }
 

@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.web.Session.ORDER;
+
 
 @Controller
 @RequestMapping("/gateway")
@@ -79,7 +81,8 @@ public class GatewayController {
         String userName = principal.getName();
         Account account =  accountService.getAccountIdByName(userName);
 
-        orderService.createOrder(account);
+        Long orderId = orderService.createOrder(account).getOrder_id();
+        httpSession.setAttribute(ORDER, orderId);
 
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();

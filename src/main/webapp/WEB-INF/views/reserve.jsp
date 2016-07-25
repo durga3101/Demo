@@ -13,8 +13,8 @@
     <thead>
 
     <tr>
-        <th>Order ID</th>
         <td></td>
+        <td>Order ID</td>
         <td>Name</td>
         <td>Price</td>
         <td>Description</td>
@@ -31,10 +31,10 @@
                 <td></td>
                 <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
 
-                <td style="width: 30%" id = "order_id"><c:out value="some id"/></td>
+                <td style="width: 10%" id = "order_id"><c:out value="${order}"/></td>
                 <td style="width: 30%"><c:out value="${item.name}"/></td>
                 <td style="width: 10%">£<c:out value="${item.price * entry.value}"/></td>
-                <td style="width: 40%"><c:out value="${item.description}"/></td>
+                <td style="width: 20%"><c:out value="${item.description}"/></td>
                 <td style="width: 15%"><c:out value="${item.type}"/></td>
                 <td style="width: 5%"><c:out value="${entry.value}"/></td>
             </tr>

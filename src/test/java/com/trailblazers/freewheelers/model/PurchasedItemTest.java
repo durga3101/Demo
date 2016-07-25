@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 //PurchasedItemTest
@@ -32,7 +33,7 @@ public class PurchasedItemTest {
         assertEquals(itemId, purchasedItem.getItem_id());
     }
 
-    @Test
+        @Test
     public void shouldReturnDateFromConstructorWhenGetDateIsCalled() {
         purchasedItem.setReservation_timestamp(date);
         assertEquals(date, purchasedItem.getReservation_timestamp());

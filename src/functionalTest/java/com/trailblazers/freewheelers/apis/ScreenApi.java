@@ -4,6 +4,7 @@ import com.trailblazers.freewheelers.helpers.HomeTable;
 import com.trailblazers.freewheelers.helpers.ManageItemTable;
 import com.trailblazers.freewheelers.helpers.OrderTable;
 import com.trailblazers.freewheelers.helpers.URLs;
+import com.trailblazers.freewheelers.web.Order;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ScreenApi {
@@ -181,7 +183,7 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi shouldSeeConfirmation(){
+    public ScreenApi shouldSeeSurveyConfirmation(){
         assertThat(driver.findElement(By.id("surveyThankYou")).getText(), containsString("Thank you for filling out our survey!"));
         return this;
     }
@@ -214,11 +216,11 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi shouldSeeOrderDetails(String ... orderNames) {
+    public ScreenApi shouldSeeOrderDetails(List<Order> orderList, String... orderNames) {
         for( String orderName : orderNames){
             assertThat(driver.getPageSource(), containsString(orderName));
         }
-        assertNotNull(driver.findElement(By.id("order_id")).getText());
+        assertEquals(orderList.get(0).getOrder_id().toString(), driver.findElement(By.id("order_id")).getText());
         return this;
     }
 

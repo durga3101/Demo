@@ -52,13 +52,13 @@ public class OrderMapperTest extends MapperTestBase {
 //        assertNull(firstOrder.getOrder_id());
 //    }
 
-//    @Test
-//    public void shouldInsertAnOrderAndGetAListOfOrders() throws Exception {
-//        List<Order> fetchedFromDB = orderMapper.getAllOrdersByAccountId(accountId);
-//
-//        assertEquals(fetchedFromDB.size(), 2);
-//        assertEquals(fetchedFromDB.get(0).getStatus(), OrderStatus.NEW);
-//        assertEquals(fetchedFromDB.get(1).getStatus(), OrderStatus.IN_PROGRESS);
-//    }
+    @Test
+    public void shouldInsertAnOrderAndGetAListOfOrders() throws Exception {
+        List<Order> fetchedFromDB = orderMapper.getAllOrdersByAccountId(accountId);
+
+        assertEquals(fetchedFromDB.size(), 2);
+        assertEquals(fetchedFromDB.get(0).getStatus(), OrderStatus.NEW);
+        assertEquals(fetchedFromDB.get(1).getStatus(), OrderStatus.IN_PROGRESS);
+    }
 
 }

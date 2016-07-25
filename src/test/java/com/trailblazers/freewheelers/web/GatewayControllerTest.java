@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
+import static com.trailblazers.freewheelers.web.Session.ORDER;
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.any;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 public class GatewayControllerTest {
 
     private GatewayController gatewayController;
-    private  LiveGatewayClient client;
+    private LiveGatewayClient client;
     private ItemServiceImpl itemService;
     private Principal principal;
     private AccountService accountService;
@@ -92,6 +93,8 @@ public class GatewayControllerTest {
         Account account = mock(Account.class);
         when(accountService.getAccountIdByName(anyString())).thenReturn(account);
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+        when(orderService.createOrder(account)).thenReturn(new Order());
+
 
         String expected = "redirect:/reserve";
         String actual = gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
@@ -105,6 +108,7 @@ public class GatewayControllerTest {
         fullCart.put(new Item(), 2L);
 
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(fullCart);
+        when(orderService.createOrder(account)).thenReturn(new Order());
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
@@ -116,6 +120,7 @@ public class GatewayControllerTest {
     @Test
     public void postShouldUpdateDatabaseToDecrementItems() throws Exception {
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+        when(orderService.createOrder(account)).thenReturn(new Order());
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
@@ -126,6 +131,8 @@ public class GatewayControllerTest {
     @Test
     public void shouldCreateANewOrderWhenPaymentIsSuccessful(){
         when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+        when(orderService.createOrder(account)).thenReturn(new Order());
+
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
@@ -133,12 +140,17 @@ public class GatewayControllerTest {
         verify(purchasedItemService, times(5)).save(any(PurchasedItem.class));
     }
 
-//    @Test
-//    public void shouldSaveAllPurchasedItemsWithOrderID(){
-//
-//        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
-//
-//        verify(purchasedItemService).save((PurchasedItem) any(), anyLong());
-//    }
+    @Test
+    public void shouldSaveAllPurchasedInModelItemsWithOrderID(){
+        Order order = new Order();
+        long orderId = 123L;
+        order.setOrder_id(orderId);
+        when(orderService.createOrder(any(Account.class))).thenReturn(order);
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(httpSession).setAttribute(ORDER,orderId);
+
+    }
 
 }

@@ -1,15 +1,15 @@
 package com.trailblazers.freewheelers.apis;
 
 import com.trailblazers.freewheelers.model.*;
-import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.PurchasedItemService;
-import com.trailblazers.freewheelers.service.SurveyService;
+import com.trailblazers.freewheelers.service.*;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
 import com.trailblazers.freewheelers.service.impl.PurchasedItemServiceImpl;
+import com.trailblazers.freewheelers.web.Order;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
@@ -20,12 +20,14 @@ public class AdminApi {
     private ItemService itemService;
     private SurveyService surveyService;
     private PurchasedItemService purchasedItemService;
+    private OrderService orderService;
 
     public AdminApi() {
         this.accountService = new AccountServiceImpl();
         this.itemService = new ItemServiceImpl();
         this.surveyService = new SurveyService();
         this.purchasedItemService = new PurchasedItemServiceImpl();
+        this.orderService = new OrderServiceImpl();
 
     }
 
@@ -113,5 +115,18 @@ public class AdminApi {
 
     private PurchasedItem reservedOrderFor(Long account_id, Long item_id) {
         return new PurchasedItem(account_id, item_id, new Date());
+    }
+
+    public List<Order> get_all_order_id_for_user(String userEmail) {
+        List<Account> allAccounts = accountService.findAll();
+        Long account_id = 0l;
+        for(Account account : allAccounts){
+            if(account.getEmail_address().equals(userEmail)){
+                account_id = account.getAccount_id();
+                break;
+            }
+        }
+        return orderService.getOrders(account_id);
+
     }
 }

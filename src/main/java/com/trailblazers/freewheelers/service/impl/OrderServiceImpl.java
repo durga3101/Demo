@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -31,5 +32,10 @@ public class OrderServiceImpl implements OrderService{
         orderMapper.insert(newOrder);
         sqlSession.commit();
         return newOrder;
+    }
+
+    @Override
+    public List<Order> getOrders(Long account_id) {
+        return orderMapper.getAllOrdersByAccountId(account_id);
     }
 }

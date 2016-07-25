@@ -83,8 +83,8 @@ public class GatewayController {
 
         rightNow = new Date();
 
-        String userName = principal.getName();
-        Account account =  accountService.getAccountIdByName(userName);
+        String userEmail = principal.getName();
+        Account account =  accountService.getAccountFromEmail(userEmail);
         Order order = orderService.createOrder(account);
         Long orderId = order.getOrder_id();
         Date date =  order.getReservation_timestamp();

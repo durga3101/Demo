@@ -59,6 +59,7 @@ public class ShippingAddressControllerTest {
         String userName = "ABC";
         when(principal.getName()).thenReturn(userName);
         when(accountService.getAccountFromEmail(userName)).thenReturn(account);
+        when(request.getSession()).thenReturn(httpSession);
         shippingAddressController.getShippingAddress(request, principal);
 
         ArgumentCaptor<ShippingAddress> captor = ArgumentCaptor.forClass(ShippingAddress.class);

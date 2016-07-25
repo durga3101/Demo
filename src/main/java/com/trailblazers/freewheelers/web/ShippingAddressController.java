@@ -60,7 +60,7 @@ public class ShippingAddressController {
         String postcode = request.getParameter("postcode");
 
 //        Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
-        Account userAccount = accountService.getAccountFromEmail(principal.getName());
+        Account userAccount = accountService.getAccountFromEmail(decode(principal.getName()));
 
         shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode,country);
         request.getSession().setAttribute("shippingAddress",shippingAddress);

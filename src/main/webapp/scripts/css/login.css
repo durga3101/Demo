@@ -1,0 +1,17 @@
+
+#login-div form div {
+    margin: 10px;
+}
+
+#login-div form div:first-child {
+    margin-top: 30px;
+}
+
+#login-div input {
+    width: 100%;
+    margin: 0;
+}
+
+#login-div label {
+    margin-left: 9px;
+}

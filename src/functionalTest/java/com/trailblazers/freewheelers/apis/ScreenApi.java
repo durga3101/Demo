@@ -14,7 +14,6 @@ import java.util.List;
 
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ADD_TO_CART_FAILURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
-import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -238,7 +237,7 @@ public class ScreenApi {
     }
 
     public ScreenApi show_message_for_no_address() {
-        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString("Sorry,no saved address."));
+        assertThat(driver.findElement(By.id("shipping_address")).getText(), containsString("Sorry, no saved address."));
 
         return this;
     }

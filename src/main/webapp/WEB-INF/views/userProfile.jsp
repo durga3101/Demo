@@ -6,44 +6,53 @@
 
 <div class="page-action">Your details</div>
         <div id="user-details" >
-            ${userDetail.account_name} - ${userDetail.email_address} - ${userDetail.country} - ${userDetail.phone_number}<br />
-
+            <b>${userDetail.account_name}</b> <br />
+            ${userDetail.email_address} <br />
+            ${userDetail.country} <br />
+            ${userDetail.phone_number}<br /><br />
+            <b>Shipping address:</b> ${userDetail.country}
         </div>
         <div id = "shipping_address">
             <c:choose>
                 <c:when test = "${addressAvailable}">
                     <br>
-                    Shipping Address: <br/>
                     ${address.street_1}<br>
                     ${address.street_2}<br>
                     ${address.city}, ${address.state}, ${address.postcode}<br>
                 </c:when>
                 <c:otherwise>
-                    Sorry,no saved address.
+                    Sorry, no saved address.
                 </c:otherwise>
             </c:choose>
         </div>
 
 		<div class="page-action">Your Orders</div>
-		<table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
 
-            <tbody>
-            <c:forEach var="item" items="${items}" varStatus="row">
-                <tr>
-                    <td><c:out value="${item.name}"/></td>
-                    <td>£<c:out value="${item.price}"/></td>
-                    <td><c:out value="${item.description}"/></td>
-                    <td><c:out value="${item.type}"/></td>
-                </tr>
-             </c:forEach>
+        <c:choose>
+            <c:when test="${empty items}">
+                No orders yet.
+            </c:when>
+        <c:otherwise>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="item" items="${items}" varStatus="row">
+                        <tr>
+                            <td><c:out value="${item.name}"/></td>
+                            <td>£<c:out value="${item.price}"/></td>
+                            <td><c:out value="${item.description}"/></td>
+                            <td><c:out value="${item.type}"/></td>
+                        </tr>
+                     </c:forEach>
+                </c:otherwise>
+            </c:choose>
             </tbody>
         </table>
 

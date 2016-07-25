@@ -13,13 +13,13 @@
     <thead>
 
     <tr>
-        <td></td>
-        <td>Order ID</td>
-        <td>Name</td>
-        <td>Price</td>
-        <td>Description</td>
-        <td>Type</td>
-        <td>Quantity</td>
+        <th></th>
+        <th>Order ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Quantity</th>
     </tr>
     </thead>
 
@@ -28,7 +28,6 @@
             <c:set var="item" value="${entry.key}" />
 
             <tr>
-                <td></td>
                 <td><img  height="80px" width="100px" src="<c:out value="${item.imageURL}"/>"/></td>
 
                 <td style="width: 10%" id = "order_id"><c:out value="${order}"/></td>

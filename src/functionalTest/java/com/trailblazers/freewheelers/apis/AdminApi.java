@@ -91,7 +91,7 @@ public class AdminApi {
         return this;
     }
 
-    public AdminApi there_is_an_order(String customer, String itemName) {
+    public Long there_is_an_order(String customer, String itemName) {
         Account userAccount = accountService.getAccountIdByName(customer);
         Long account_Id =  userAccount.getAccount_id();
 
@@ -100,8 +100,9 @@ public class AdminApi {
         PurchasedItem order = reservedOrderFor(account_Id, item_Id);
         purchasedItemService.save(order);
 
-        return this;
+        Long orderId = orderService.createOrder(userAccount).getOrder_id();
 
+        return orderId;
     }
 
     private Item itemFor(String itemName, Long quantity) {

@@ -30,8 +30,10 @@ public class AdminFlowTest extends UserJourneyBase {
                 .there_is_no_item(New_Simplon_Name)
                 .there_is_no_item(New_Spoke_Name)
                 .there_is_no_item(New_Item_Without_Spaces)
-                .there_is_a_frame(CHROME_FRAME, 1l)
-                .there_is_an_order(Hugo, CHROME_FRAME);
+                .there_is_a_frame(CHROME_FRAME, 1l);
+
+        Long ORDER_ID = admin.there_is_an_order(Hugo, CHROME_FRAME);
+
         user
                 .visits_home_page()
                 .logs_in_with(ArnoEmail, SOME_PASSWORD)
@@ -48,11 +50,11 @@ public class AdminFlowTest extends UserJourneyBase {
                 .visits_admin_profile();
 
         screen
-                .there_should_be_an_order(CHROME_FRAME, "NEW");
+                .there_should_be_an_order(CHROME_FRAME, "NEW", ORDER_ID);
         user
                 .changes_order_status(CHROME_FRAME, "IN_PROGRESS");
         screen
-                .there_should_be_an_order(CHROME_FRAME, "IN_PROGRESS");
+                .there_should_be_an_order(CHROME_FRAME, "IN_PROGRESS", ORDER_ID);
         user
                 .clicks_on_user_name_in_order_table(Hugo);
         screen

@@ -38,7 +38,7 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
         List<PurchasedItemDetail> allPurchasedItemsFromAccount = getAllPurchasedItems();
-        model.addAttribute("purchasedItems",allPurchasedItemsFromAccount);
+        model.addAttribute("purchasedItems", allPurchasedItemsFromAccount);
     }
 
     @RequestMapping(method = RequestMethod.POST)

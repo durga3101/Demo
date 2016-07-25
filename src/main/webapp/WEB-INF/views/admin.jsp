@@ -34,6 +34,10 @@
                     <input type="hidden" value="${order.orderId}" name="orderId" />
                     <button type="submit" name="save" value="Save Changes">Save Changes</button>
                 </td>
+
+                <td class="order-id">
+                    ${order}
+                </td>
             </form:form>
         </tr>
     </c:forEach>

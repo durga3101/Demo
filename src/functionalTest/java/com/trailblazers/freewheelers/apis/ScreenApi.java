@@ -89,11 +89,15 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi there_should_be_an_order(String item, String state) {
+    public ScreenApi there_should_be_an_order(String item, String state, Long orderId) {
         WebElement select = driver.findElement(OrderTable.selectFor(item));
         String selected = new Select(select).getFirstSelectedOption().getText();
 
         assertThat(selected, is(state));
+
+        String foundOrderId = driver.findElement(By.cssSelector(".order-id")).getText();
+
+//        assertThat(foundOrderId, is(orderId.toString()));
 
         return this;
     }

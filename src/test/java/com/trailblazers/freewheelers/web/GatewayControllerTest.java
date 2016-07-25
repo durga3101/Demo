@@ -3,9 +3,11 @@ package com.trailblazers.freewheelers.web;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.PurchasedItem;
+import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
+import com.trailblazers.freewheelers.service.ShippingAddressService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +42,7 @@ public class GatewayControllerTest {
     private HashMap<Item, Long> items;
     private Session session;
     private OrderService orderService;
-
+    private ShippingAddressService shippingAddressService;
 
     @Before
     public void setUp() throws Exception {
@@ -55,9 +57,10 @@ public class GatewayControllerTest {
 
         accountService = mock(AccountService.class);
         purchasedItemService = mock(PurchasedItemService.class);
+        shippingAddressService = mock(ShippingAddressService.class);
         principal = mock(Principal.class);
 
-        gatewayController = new GatewayController(orderService, purchasedItemService,accountService, itemService, client, session);
+        gatewayController = new GatewayController(orderService, purchasedItemService,accountService, itemService, client, session,shippingAddressService);
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
@@ -65,7 +68,7 @@ public class GatewayControllerTest {
 
         item1 = mock(Item.class);
         item2 = mock(Item.class);
-        gatewayController = new GatewayController(orderService, purchasedItemService, accountService, itemService, client, session);
+        gatewayController = new GatewayController(orderService, purchasedItemService, accountService, itemService, client, session, shippingAddressService);
         items = new HashMap<>();
         fullCart = new HashMap<>();
         items.put(item1, 3L);
@@ -152,5 +155,10 @@ public class GatewayControllerTest {
         verify(httpSession).setAttribute(ORDER,orderId);
 
     }
-
+    public void postShouldStoreAddressInDatabaseIfPaymentIsSuccessful() throws Exception {
+        ShippingAddress shippingAddress = mock(ShippingAddress.class);
+        when(httpSession.getAttribute("shippingAddress")).thenReturn(shippingAddress);
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+        verify(shippingAddressService).createShippingAddress(shippingAddress);
+    }
 }

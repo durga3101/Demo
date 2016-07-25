@@ -4,7 +4,6 @@ import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +18,12 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/shippingAddress")
 public class ShippingAddressController {
-    ShippingAddressService shippingAddressService;
     private AccountService accountService;
     private ShippingAddress shippingAddress;
     private ItemService itemService;
 
     @Autowired
-    public ShippingAddressController(ShippingAddressService shippingAddressService, AccountService accountService, ItemService itemService) {
-        this.shippingAddressService = shippingAddressService;
+    public ShippingAddressController(AccountService accountService, ItemService itemService) {
         this.accountService = accountService;
         this.itemService = itemService;
     }
@@ -61,7 +58,6 @@ public class ShippingAddressController {
         Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
 
         shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode);
-        shippingAddressService.createShippingAddress(shippingAddress);
         request.getSession().setAttribute("shippingAddress",shippingAddress);
         return "redirect:/payment";
     }

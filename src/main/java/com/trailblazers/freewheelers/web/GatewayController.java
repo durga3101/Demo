@@ -7,6 +7,8 @@ import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
+import com.trailblazers.freewheelers.model.ShippingAddress;
+import com.trailblazers.freewheelers.service.*;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 //import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +41,19 @@ public class GatewayController {
     private ItemService itemService;
     private Session session;
     private GatewayClient client;
+    private ShippingAddressService shippingAddressService;
     private Date rightNow;
 
     @Autowired
 
-    public GatewayController(OrderService orderService, PurchasedItemService purchasedItemService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session) {
+    public GatewayController(OrderService orderService, PurchasedItemService purchasedItemService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session, ShippingAddressService shippingAddressService) {
         this.orderService = orderService;
         this.purchasedItemService = purchasedItemService;
         this.accountService = accountService;
         this.itemService = itemService;
         this.session = session;
         this.client = client;
+        this.shippingAddressService = shippingAddressService;
     }
 
     @RequestMapping(value = "reserve-error", method = RequestMethod.GET)
@@ -80,10 +84,9 @@ public class GatewayController {
 
         String userName = principal.getName();
         Account account =  accountService.getAccountIdByName(userName);
-
         Long orderId = orderService.createOrder(account).getOrder_id();
         httpSession.setAttribute(ORDER, orderId);
-
+        saveAddressToDatabase(httpSession);
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
             for(int quantity = 0; quantity < entry.getValue(); quantity++){
@@ -93,6 +96,11 @@ public class GatewayController {
         }
 
         return "redirect:/reserve";
+    }
+
+    private void saveAddressToDatabase(HttpSession httpSession) {
+        ShippingAddress shippingAddress = (ShippingAddress) httpSession.getAttribute("shippingAddress");
+        shippingAddressService.createShippingAddress(shippingAddress);
     }
 
     private void saveReservedOrderToDatabase(Principal principal, Item itemToReserve, Account account) {

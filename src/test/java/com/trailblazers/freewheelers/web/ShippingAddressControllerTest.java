@@ -6,7 +6,6 @@ import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.ShippingAddressService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -26,7 +25,6 @@ public class ShippingAddressControllerTest {
 
     private HttpServletRequest request;
     private HttpSession httpSession;
-    private ShippingAddressService shippingAddressService;
     private ShippingAddress shippingAddress;
     private AccountService accountService;
     private ShippingAddressController shippingAddressController;
@@ -37,7 +35,6 @@ public class ShippingAddressControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        shippingAddressService = mock(ShippingAddressService.class);
         shippingAddress = mock(ShippingAddress.class);
         accountService = mock(AccountService.class);
         model = mock(Model.class);
@@ -46,7 +43,7 @@ public class ShippingAddressControllerTest {
         principal = mock(Principal.class);
         itemService = mock(ItemService.class);
         account = mock(Account.class);
-        shippingAddressController = new ShippingAddressController(shippingAddressService, accountService, itemService);
+        shippingAddressController = new ShippingAddressController(accountService, itemService);
 
     }
 
@@ -66,8 +63,6 @@ public class ShippingAddressControllerTest {
         shippingAddressController.getShippingAddress(request, principal);
 
         ArgumentCaptor<ShippingAddress> captor = ArgumentCaptor.forClass(ShippingAddress.class);
-        verify(shippingAddressService).createShippingAddress(captor.capture());
-        verify(shippingAddressService).createShippingAddress(any(ShippingAddress.class));
         verify(accountService).getAccountIdByName(userName);
         verify(httpSession).setAttribute(anyString(), Matchers.any());
     }
@@ -113,9 +108,7 @@ public class ShippingAddressControllerTest {
         when(principal.getName()).thenReturn("ABC");
         when(accountService.getAccountIdByName("ABC")).thenReturn(account);
         when(account.getCountry()).thenReturn("USA");
-
-
-        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,accountService, itemService);
+        
         shippingAddressController.get(model, request, principal);
 
         verify(model).addAttribute("country","USA");
@@ -136,7 +129,6 @@ public class ShippingAddressControllerTest {
         when(accountService.getAccountIdByName("ABC")).thenReturn(account);
         when(account.getCountry()).thenReturn(null);
 
-        ShippingAddressController shippingAddressController = new ShippingAddressController(shippingAddressService,accountService, itemService);
         shippingAddressController.get(model, request, principal);
 
         verify(model).addAttribute("country","UK");

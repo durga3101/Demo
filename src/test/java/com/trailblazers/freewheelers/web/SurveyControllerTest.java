@@ -34,6 +34,7 @@ public class SurveyControllerTest {
     private static final int A_DAY_IN_SECONDS = 86400;
     private static final int SURVEY_ENTRY_RATING = 10;
     private static final String USERNAME = "john";
+    private static final String EMAIL = "john@example.com";
 
 
     @Mock
@@ -43,14 +44,14 @@ public class SurveyControllerTest {
     @InjectMocks
     private SurveyController surveyController;
 
-    private Principal principal = new BasicUserPrincipal(USERNAME);
+    private Principal principal = new BasicUserPrincipal(EMAIL);
     private Account userAccount = new Account();
     private MockHttpServletResponse mockResponse = new MockHttpServletResponse();
 
 
     @Before
     public void setUp() {
-        given(accountService.getAccountIdByName(USERNAME)).willReturn(userAccount);
+        given(accountService.getAccountFromEmail(EMAIL)).willReturn(userAccount);
     }
 
 

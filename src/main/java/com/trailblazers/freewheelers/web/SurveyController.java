@@ -50,7 +50,7 @@ public class SurveyController {
         cookie.setMaxAge(ONE_DAY);
         response.addCookie(cookie);
         String username = principal.getName();
-        Account account = accountService.getAccountIdByName(username);
+        Account account = accountService.getAccountFromEmail(username);
         surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
         return "success";
     }

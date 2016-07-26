@@ -3,6 +3,8 @@
 <%@ include file="header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<div class="page-action">Thank you. Your order will be delivered in ten days!</div>
+
 <table class="table">
     <thead>
 

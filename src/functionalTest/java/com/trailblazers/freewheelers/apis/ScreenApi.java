@@ -122,7 +122,7 @@ public class ScreenApi {
     }
 
     public ScreenApi should_show_access_denied() {
-        assertThat(driver.getPageSource(),containsString("403 Your access is denied"));
+        assertThat(driver.getPageSource(),containsString("Access denied"));
         return this;
     }
 

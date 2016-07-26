@@ -30,10 +30,10 @@
                                                         from account
                                                         where ? in (email_address)"
                                authorities-by-username-query=
-                                       "select a.account_name, ar.role
+                                       "select a.email_address, ar.role
                                         from account a, account_role ar
                                         where
-                                            a.account_name = ar.account_name and
+                                            a.email_address = ar.email_address and
                                             ? in (a.account_name, a.email_address)"
             />
         </authentication-provider>

@@ -386,7 +386,7 @@ public class UserApi {
 
 
     public UserApi waitsForInvoice() {
-        WebDriverWait wait = new WebDriverWait(driver, 5L);
+        WebDriverWait wait = new WebDriverWait(driver, 5000L);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("customer-invoice"))));
 //        wait.withTimeout(seconds, TimeUnit.SECONDS);
         return this;

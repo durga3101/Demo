@@ -54,8 +54,6 @@ public class UserProfileController {
         String nameFromURL = accountService.getAccountFromEmail(emailFromURL).getAccount_name();
         String loggedInUser = decode(accountService.getAccountFromEmail(principal.getName()).getAccount_name());
 
-        System.out.println("Email id::::::::::::::"+principal.getName());
-
         String role = accountService.getRole(principal.getName());
 
         if (role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
@@ -63,7 +61,8 @@ public class UserProfileController {
             return "userProfile";
         }
 
-        if (!role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
+        if (!role.equals(ADMIN) && !emailFromURL.equals(principal.getName())) {
+            System.out.println("access denied page");
             return "accessDenied";
         }
 

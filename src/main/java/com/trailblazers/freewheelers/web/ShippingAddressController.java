@@ -22,6 +22,7 @@ public class ShippingAddressController {
     private ShippingAddress shippingAddress;
     private ItemService itemService;
     private Account userAccount;
+    private String country;
 
     @Autowired
     public ShippingAddressController(AccountService accountService, ItemService itemService) {
@@ -40,9 +41,11 @@ public class ShippingAddressController {
         userAccount = accountService.getAccountIdByName(decode(principal.getName()));
 
         if(userAccount.getCountry() == null){
+            country="UK";
             model.addAttribute("country","UK");
         }
         else {
+            country=userAccount.getCountry();
             model.addAttribute("country", userAccount.getCountry());
         }
         return "shippingAddress";
@@ -58,7 +61,7 @@ public class ShippingAddressController {
 
         Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
 
-        shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode,userAccount.getCountry());
+        shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode,country);
         request.getSession().setAttribute("shippingAddress",shippingAddress);
         return "redirect:/payment";
     }

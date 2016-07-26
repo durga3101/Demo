@@ -10,7 +10,7 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top center;
+    background-position: 0px 0px;
 }
 
 .heading {
@@ -252,4 +252,8 @@ table {
 
 .align-center {
     text-align: center;
+}
+
+.hidden {
+    display: none;
 }

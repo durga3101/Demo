@@ -1,7 +1,7 @@
 .modal-bg{
-    background: rgba(0,0,0,.3);
+    background: rgba(0,0,0,.5);
     position: fixed;
-    top:0;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
@@ -9,18 +9,22 @@
 
 .modal-content{
     background: white;
-    width: 50vw;
-    height: 65vh;
+    width: 50%;
+    height: 70%;
     margin: 19vh 25vw;
+    padding: 30px 0;
 }
 
 .modal-content-success{
     background: white;
-    /*width: 50vw;*/
     height: 30vh;
     margin: 25vh 25vw;
 }
 .modal-content-success p{
     padding-top: 10vh;
     padding-bottom: 5vh;
+}
+
+#rating {
+    width:100%;
 }

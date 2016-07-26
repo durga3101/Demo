@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="pageTitle" scope="request" value="Shopping Cart"/>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 
 
@@ -21,8 +21,8 @@
                 <th class="padded-col">Name</th>
                 <th class="padded-col">Description</th>
                 <th class="padded-col">Qty</th>
-                <th class="padded-col">Unit price (&pound;)</th>
-                <th class="padded-col">Total price (&pound;)</th>
+                <th class="padded-col">Unit price</th>
+                <th class="padded-col">Total price</th>
                 <th></th>
             </tr>
             </thead>
@@ -32,15 +32,15 @@
 
                 <tr id="cart-tr-body">
                     <td style="width: 10%" class="padded-col"><img width="100%" height="same-as-width" src="<c:out value="${item.imageURL}"/>"/></td>
-                    <td style="width: 20%" class="padded-col"><c:out value="${item.name}"/></td>
+                    <td style="width: 22%" class="padded-col"><c:out value="${item.name}"/></td>
                     <td style="width: 35%" class="padded-col"><c:out value="${item.description}"/></td>
                     <td style="width: 2%" class="padded-col"><c:out value="${entry.value}"/></td>
-                    <td style="width: 14%" class="padded-col"><c:out value="${item.price}"/></td>
-                    <td style="width: 16%" class="padded-col"><c:out value="${item.price * entry.value}"/></td>
-                    <td style="width: 3%">
+                    <td style="width: 11%" class="padded-col"><c:out value="£${item.price}"/></td>
+                    <td style="width: 11%" class="padded-col"><c:out value="£${item.price * entry.value}"/></td>
+                    <td style="width: 9%">
                         <form:form action="/cart" method="post" modelAttribute="item">
                             <form:hidden path="itemId" value="${item.itemId}"/>
-                            <input title="Remove from cart" alt="Remove from cart" type="image" width="100%" height="same-as-width" src="../../images/remove-from-cart.png" value="submit" name="submit" id="remove${item.name}">
+                            <input title="Remove from cart" alt="Remove from cart" type="image" width="100%" src="../../images/remove-from-cart.png" value="submit" name="submit" id="remove${item.name}">
                             </input>
                         </form:form>
                     </td>

@@ -22,7 +22,7 @@
         <tr>
             <th></th>
             <th>Name</th>
-            <th>Price (£)</th>
+            <th>Price</th>
             <th>Description</th>
             <th>Type</th>
             <th></th>
@@ -33,14 +33,14 @@
         <c:forEach var="item" items="${items}" varStatus="row">
             <tr>
                 <td style="width: 12%"><img width="100%" height="same-as-width" src="<c:out value="${item.imageURL}"/>"/></td>
-                <td style="width: 25%;"><c:out value="${item.name}"/></td>
-                <td style="width: 10%;"><c:out value="${item.price}"/></td>
+                <td style="width: 22%;"><c:out value="${item.name}"/></td>
+                <td style="width: 10%;"><c:out value="£${item.price}"/></td>
                 <td style="width: 33%;"><c:out value="${item.description}"/></td>
                 <td style="width: 10%;"><c:out value="${item.type}"/></td>
-                <td style="width: 5%;">
+                <td style="width: 8%;">
                     <form:form action="/" method="post" modelAttribute="item">
                         <form:hidden path="itemId" value="${item.itemId}"/>
-                        <input title="Add to cart" alt="Add to cart" style="height:30px; width:30px;" type="image" name="submit" value="submit" src="../../images/add-to-cart.png" class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
+                        <input title="Add to cart" alt="Add to cart" style="width:100%;" type="image" name="submit" value="submit" src="../../images/add-to-cart.png" class="reserve-button add-to-cart" id="add_item${item.name}" type="submit">
                     </form:form>
                 </td>
 
@@ -49,5 +49,6 @@
         </tbody>
     </table>
 </div>
+
 
 <%@ include file="footer.jsp" %>

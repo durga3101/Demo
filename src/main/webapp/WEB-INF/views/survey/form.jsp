@@ -4,16 +4,16 @@
         <div class="modal-content">
             <div class="survey-form">
 
-                <div id="surveyRating">
+                <div id="surveyRating" class="align-center">
                     <form:label
                             path="rating">1. How likely is it that you would recommend Freewheelers to a friend or colleague?
                         <span class="mandatory">*</span>
 
                         <div><form:errors path="rating" class="text-error"/></div>
                     </form:label>
-                    <table>
+                    <table id="rating" class="align-center centered">
                         <tr>
-                            <td></td>
+                            <td class="hidden"></td>
                             <td>0 - Not at all likely</td>
                             <td>1</td>
                             <td>2</td>
@@ -27,7 +27,7 @@
                             <td>10 - Extremely likely</td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td class="hidden"></td>
                             <td><form:radiobutton id="rating_0" name="rating" value="0" path="rating"/></td>
                             <td><form:radiobutton id="rating_1" name="rating" value="1" path="rating"/></td>
                             <td><form:radiobutton id="rating_2" name="rating" value="2" path="rating"/></td>
@@ -43,7 +43,7 @@
                     </table>
                 </div>
 
-                <div>
+                <div class="align-center">
                     <form:label path="comment">2. How can we improve our offering?</form:label>
                     <form:textarea id="surveyComment" name="comment" path="comment"
                                    placeholder="I would like to say..."/>

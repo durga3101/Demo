@@ -36,7 +36,10 @@ public class AdminFlowTest extends UserJourneyBase {
 
         user
                 .visits_home_page()
-                .logs_in_with(ArnoEmail, SOME_PASSWORD)
+                .logs_in_with(ArnoEmail, SOME_PASSWORD);
+        screen
+                .should_contain_admin_profile_link_in_header();
+        user
                 .visits_admin_profile();
         screen
                 .shows_admin_profile();

@@ -149,6 +149,7 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .should_not_contain_create_account_link_in_header()
+                .should_not_contain_admin_profile_link_in_header()
                 .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
         user
                 .visits_home_page()
@@ -189,13 +190,6 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .shows_profile_for_country(SOME_COUNTRY);
-
-        user
-                .visits_admin_profile();
-
-        screen
-                .should_show_access_denied();
-
         user
                 .visits_home_page()
                 .add_item_to_cart(CHROME_FRAME)

@@ -95,7 +95,7 @@ public class ScreenApi {
 
         assertThat(selected, is(state));
 
-        if(ORDER_ID_CONNECT_FEATURE){
+        if (ORDER_ID_CONNECT_FEATURE) {
             String foundOrderId = driver.findElement(By.cssSelector(".order-id")).getText();
 
             assertThat(foundOrderId, is(orderId.toString()));
@@ -111,7 +111,7 @@ public class ScreenApi {
 
     public ScreenApi expectMessageWithClass(String expectedMessage, String messageClass) {
         String errorMessage = driver.findElement(By.className(messageClass)).getText();
-        System.out.println("error: "+errorMessage);
+        System.out.println("error: " + errorMessage);
         assertThat(errorMessage, containsString(expectedMessage));
         return this;
     }
@@ -125,7 +125,7 @@ public class ScreenApi {
     }
 
     public ScreenApi should_show_access_denied() {
-        assertThat(driver.getPageSource(),containsString("Access denied"));
+        assertThat(driver.getPageSource(), containsString("Access denied"));
         return this;
     }
 
@@ -180,23 +180,23 @@ public class ScreenApi {
 
     public ScreenApi shouldSeePaymentSuccess() {
         String successMessage = "Thank you. Your order will be delivered in ten days!";
-        assertThat(driver.getPageSource(),containsString(successMessage));
+        assertThat(driver.getPageSource(), containsString(successMessage));
         return this;
     }
 
-    public ScreenApi shouldSeeSurvey(){
+    public ScreenApi shouldSeeSurvey() {
         assertThat(driver.findElement(By.id("modal")).getText(), containsString("1. How likely is it that you would recommend Freewheelers to a friend or colleague?"));
         return this;
     }
 
-    public ScreenApi shouldSeeSurveyConfirmation(){
+    public ScreenApi shouldSeeSurveyConfirmation() {
         assertThat(driver.findElement(By.id("surveyThankYou")).getText(), containsString("Thank you for filling out our survey!"));
         return this;
     }
 
     public ScreenApi shouldSeePaymentFailure() {
         String failureMessage = "Oh no! There was an error processing your request. Please try again.";
-        assertThat(driver.getPageSource(),containsString(failureMessage));
+        assertThat(driver.getPageSource(), containsString(failureMessage));
         return this;
     }
 
@@ -223,7 +223,7 @@ public class ScreenApi {
     }
 
     public ScreenApi shouldSeeOrderDetails(List<Order> orderList, String... orderNames) {
-        for( String orderName : orderNames){
+        for (String orderName : orderNames) {
             assertThat(driver.getPageSource(), containsString(orderName));
         }
         assertEquals(orderList.get(0).getOrder_id().toString(), driver.findElement(By.id("order_id")).getText());
@@ -254,26 +254,26 @@ public class ScreenApi {
     public ScreenApi showPurchasedItemInformationOnInvoice(double netTotal, double totalVat, double totalDuty, double grossTotal) {
         assertThat(driver.findElement(By.id("customer-invoice")).getText(), containsString("Invoice"));
         assertThat(driver.findElement(By.id("item-list")).getText(), containsString(SIMPLON_FRAME));
-        assertThat(driver.findElement(By.id("net-total")).getText(), containsString(""+netTotal));
-        assertThat(driver.findElement(By.id("total-vat")).getText(), containsString(""+totalVat));
-        assertThat(driver.findElement(By.id("total-duty")).getText(), containsString(""+totalDuty));
-        assertThat(driver.findElement(By.id("gross-total")).getText(), containsString(""+grossTotal));
+        assertThat(driver.findElement(By.id("net-total")).getText(), containsString("" + netTotal));
+        assertThat(driver.findElement(By.id("total-vat")).getText(), containsString("" + totalVat));
+        assertThat(driver.findElement(By.id("total-duty")).getText(), containsString("" + totalDuty));
+        assertThat(driver.findElement(By.id("gross-total")).getText(), containsString("" + grossTotal));
 
         return this;
     }
 
     public ScreenApi show_image_url_for_the_item(String itemName, String aUrl) {
 
-        assertThat(driver.findElement(By.id("image_url"+itemName)).getAttribute("value"), containsString(aUrl));
+        assertThat(driver.findElement(By.id("image_url" + itemName)).getAttribute("value"), containsString(aUrl));
         return this;
     }
 
     public ScreenApi showUserDetailsOnInvoice(String address1, String address2, String city, String postalCode, String someCountry) {
         assertThat(driver.findElement(By.id("customer-address1")).getText(), containsString(address1));
         assertThat(driver.findElement(By.id("customer-address2")).getText(), containsString(address2));
-        assertThat(driver.findElement(By.id("customer-city")).getText(), containsString(""+city));
-        assertThat(driver.findElement(By.id("customer-postalCode")).getText(), containsString(""+postalCode));
-        assertThat(driver.findElement(By.id("customer-someCountry")).getText(), containsString(""+someCountry));
+        assertThat(driver.findElement(By.id("customer-city")).getText(), containsString("" + city));
+        assertThat(driver.findElement(By.id("customer-postalCode")).getText(), containsString("" + postalCode));
+        assertThat(driver.findElement(By.id("customer-someCountry")).getText(), containsString("" + someCountry));
         return this;
     }
 
@@ -281,12 +281,22 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("invoice-number")).getText(), containsString(invoiceNumber));
         assertThat(driver.findElement(By.id("tax-date")).getText(), containsString(taxDate));
         assertThat(driver.findElement(By.id("order-number")).getText(), containsString(orderNumber));
-        assertThat(driver.findElement(By.id("payment")).getText(), containsString(""+grossTotal));
+        assertThat(driver.findElement(By.id("payment")).getText(), containsString("" + grossTotal));
         return this;
     }
 
     public ScreenApi should_not_contain_create_account_link_in_header() {
         assertThat(driver.findElements(By.linkText("Create Account")).size(), is(0));
+        return this;
+    }
+
+    public ScreenApi should_contain_admin_profile_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Admin Profile")).size(), is(1));
+        return this;
+    }
+
+    public ScreenApi should_not_contain_admin_profile_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Admin Profile")).size(), is(0));
         return this;
     }
 }

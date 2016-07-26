@@ -6,11 +6,22 @@
 
 <div class="page-action">Your details</div>
         <div id="user-details" >
+            <table class="userProfile_Details">
+                <thread><b>${userDetail.account_name}</b></thread>
+                <tr>
+                    <td><i>Email</i></td>
+                    <td>${userDetail.email_address}</td>
+                </tr>
+                <tr>
+                    <td><i>Country</i></td>
+                    <td>${userDetail.country}</td>
+                </tr>
+                <tr>
+                    <td><i>Phone number</i></td>
+                    <td>${userDetail.phone_number}</td>
+                </tr>
+            </table>
 
-            <p><b>${userDetail.account_name}</b></p>
-            <p><i>Email:</i> ${userDetail.email_address}</p>
-            <p><i>Country:</i> ${userDetail.country}</p>
-            <p><i>Phone number:</i> ${userDetail.phone_number}</p>
             <b>Shipping address:</b>
         </div>
         <div id = "shipping_address">
@@ -54,6 +65,6 @@
                 </c:otherwise>
             </c:choose>
             </tbody>
-        </table>
+        </table>    
 
 <%@ include file="footer.jsp" %>

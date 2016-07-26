@@ -30,12 +30,16 @@
         <security:authorize ifAnyGranted="ROLE_ADMIN">
         <li><a href="<c:url value='/admin' />" class="header-link">Admin</a></li>
         </security:authorize>
-        <li><a href="<c:url value='/userProfile' />" class="header-link">Profile</a></li>
         <li>
-
             <a href="<c:url value='/cart' />" class="header-link"><img id="cart-header-image" src="http://image.flaticon.com/icons/png/512/2/2772.png" />Cart</a>
         </li>
+        <% if ((Boolean)session.getAttribute("isLoggedIn")) { %>
+        <li><a href="<c:url value='/userProfile' />" class="header-link">Profile</a></li>
+        <% } %>
 
+        <% if (!(Boolean)session.getAttribute("isLoggedIn")) { %>
+        <li><a href="<c:url value='/login' />" class="header-link">Login</a></li>
+        <% } %>
         <% if (!(Boolean)session.getAttribute("isLoggedIn")) { %>
         <li><a href="<c:url value='/account/create' />" class="header-link">Create Account</a></li>
         <% } %>

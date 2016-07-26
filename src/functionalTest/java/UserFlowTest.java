@@ -132,7 +132,10 @@ public class UserFlowTest extends UserJourneyBase {
                 .visits_home_page();
 
         screen
-                .shouldNotShowAddToCartMessages();
+                .shouldNotShowAddToCartMessages()
+                .should_not_contain_profile_link_in_header()
+                .should_contain_create_account_link_in_header()
+                .should_contain_login_link_in_header();
 
         user
                 .visits_cart_page();
@@ -149,6 +152,8 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .should_not_contain_create_account_link_in_header()
+                .should_contain_profile_link_in_header()
+                .should_not_contain_login_link_in_header()
                 .should_not_contain_admin_profile_link_in_header()
                 .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
         user

@@ -290,6 +290,11 @@ public class ScreenApi {
         return this;
     }
 
+    public ScreenApi should_contain_create_account_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Create Account")).size(), is(1));
+        return this;
+    }
+
     public ScreenApi should_contain_admin_profile_link_in_header() {
         assertThat(driver.findElements(By.linkText("Admin")).size(), is(1));
         return this;
@@ -297,6 +302,26 @@ public class ScreenApi {
 
     public ScreenApi should_not_contain_admin_profile_link_in_header() {
         assertThat(driver.findElements(By.linkText("Admin")).size(), is(0));
+        return this;
+    }
+
+    public ScreenApi should_contain_profile_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Profile")).size(), is(1));
+        return this;
+    }
+
+    public ScreenApi should_not_contain_profile_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Profile")).size(), is(0));
+        return this;
+    }
+
+    public ScreenApi should_contain_login_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Login")).size(), is(1));
+        return this;
+    }
+
+    public ScreenApi should_not_contain_login_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Login")).size(), is(0));
         return this;
     }
 }

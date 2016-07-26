@@ -6,6 +6,8 @@
 @import url("item-list.css");
 @import url("forms.css");
 @import url("cart.css");
+@import url("shipping-address.css");
+@import url("payment.css");
 @import url("survey-form.css");
 @import url("survey-report.css");
 @import url("survey-modal.css");

@@ -203,7 +203,7 @@ a:visited {
     color: black;
 }
 
-a:active {
+.nav a:active {
     border-bottom: 3px solid #0586EA;
 }
 

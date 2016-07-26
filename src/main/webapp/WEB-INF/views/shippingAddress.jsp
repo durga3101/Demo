@@ -5,8 +5,9 @@
 <%@ include file="header.jsp" %>
 
 <div class="page-action">
-    Shipping Address
+    Enter your shipping address
 </div>
+
 
 <c:if test="${not empty validationMessage.errors}">
     <div id="resultsMessage" class="page-action error">
@@ -19,14 +20,14 @@
     <div id="street1_field">
         <label for="fld_street1">Street 1</label>
         <div class="controls">
-            <input type="text" id="fld_street1" placeholder="Street" name="street1">
+            <input type="text" id="fld_street1" placeholder="Sesame St" name="street1">
             <span class="text-error"></span>
         </div>
     </div>
     <div id="street2_field">
         <label for="fld_street2">Street 2</label>
         <div class="controls">
-            <input type="text" id="fld_street2" placeholder="Street" name="street2">
+            <input type="text" id="fld_street2" placeholder="Street line 2" name="street2">
             <span class="text-error"></span>
         </div>
     </div>
@@ -34,7 +35,7 @@
     <div id="city_field">
         <label for="fld_city">City</label>
         <div class="controls">
-            <input type="text" id="fld_city" placeholder="City" name="city">
+            <input type="text" id="fld_city" placeholder="San Francisco" name="city">
             <span class="text-error"></span>
         </div>
     </div>
@@ -42,7 +43,7 @@
     <div id="state_field">
         <label for="fld_state">State/Province</label>
         <div class="controls">
-            <input type="text" id="fld_state" placeholder="Your state/province" name="state">
+            <input type="text" id="fld_state" placeholder="California" name="state">
             <span class="text-error"></span>
         </div>
     </div>
@@ -76,6 +77,7 @@
     </div>
 
 </form>
+
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="<c:url value='/scripts/js/shippingAddress.js' />"></script>

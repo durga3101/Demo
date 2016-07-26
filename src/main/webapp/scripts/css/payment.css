@@ -3,13 +3,13 @@
     position: relative;
     align: center;
     width: 50%;
-    margin: 0 auto;
+    margin: 20px 0;
     display: block;
     padding: 0;
 }
 
 .cardEntry {
-    margin-top: 5%;
+    margin-top: 3%;
     display: block;
 }
 
@@ -21,10 +21,19 @@
     margin-bottom: 1%;
 }
 
-#date {
+#submit {
+    margin-top: 1%;
     display: inline-block;
 }
 
-#submit {
-    margin-top: 1%;
+#cancel {
+    display: inline-block;
+}
+
+.cardEntry form div {
+     margin: 0 0 10px 0;
+ }
+
+#credit_card_form label{
+    margin: 2px 0;
 }

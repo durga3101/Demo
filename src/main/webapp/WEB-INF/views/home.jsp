@@ -13,7 +13,7 @@
     <div id="added-to-cart" class="add-to-cart-success page-action">
         Awesome, you added <b><c:out value="${addedItemName}"/></b> to your cart!
 
-        You can keep shopping, or <a href="/cart">view my cart</a>.
+        You can keep shopping, or <a href="/cart">view my cart</a>
     </div>
 </c:if>
 <div>

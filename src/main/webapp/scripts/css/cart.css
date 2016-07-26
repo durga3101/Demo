@@ -1,7 +1,16 @@
 #empty-cart {
     background-color: #ffffff;
-    color: #880000;
+    color: #F56E6E;
     text-align: center;
+    margin-top: 30px;
+}
+
+#empty-cart a {
+    color: #F56E6E;
+}
+
+#empty-cart a:hover {
+    color: grey;
 }
 
 #empty-cart img {

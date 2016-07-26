@@ -1,31 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<link rel="stylesheet" href="<c:url value='/scripts/css/payment.css' />" type="text/css"/>
-<link rel="stylesheet" href="<c:url value='/scripts/css/main.css' />" type="text/css"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="pageTitle" scope="request" value="Make Payment"/>
 <%@ include file="header.jsp" %>
 
-<html>
-<head>
-    <title>Payment</title>
+<div class="page-action">Make payment</div>
 
-</head>
-<body>
-
-<script type="text/javascript" src="<c:url value='/scripts/js/card_validator.js' />"></script>
-
-<h2 align="center">Payment Details</h2>
 <div class="summary">
-    <h3 align="center">Order Summary</h3>
+    <h3 align="center">Order total</h3>
     <p align="center">£<c:out value="${grandTotal}" /></p>
 </div>
 <div class="cardEntry">
-    <h3 id="details">Credit Card Details</h3>
+    <h3 id="details">Please enter your credit card details</h3>
     <form id="credit_card_form" action="/gateway" method="post" onsubmit="return validateCreditCardDetails()">
 
         <div id="card_type_field">
-            <label for="card_type">Card Type</label>
+            <label for="card_type">Card type</label>
             <div class="controls">
                 <select id="card_type" name="country">
                     <option value="NONE">Select a card</option>
@@ -39,7 +30,7 @@
         </div>
 
         <div id="card_number_field">
-            <label for="card_number">Card Number</label>
+            <label for="card_number">Card number</label>
             <div class="controls">
                 <input type="text" id="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" name="card_number">
                 <span class="text-error">Must enter a card number.</span>
@@ -49,13 +40,13 @@
         <div id="card_ccv_field">
             <label for="card_ccv">CCV</label>
             <div class="controls">
-                <input type="password" id="card_ccv" name="card_ccv">
+                <input type="password" placeholder="3 or 4 digits" id="card_ccv" name="card_ccv">
                 <span class="text-error">Must enter a valid CCV.</span>
             </div>
         </div>
 
         <div id="date_field">
-            <label for="date">Expiration Date</label>
+            <label for="date">Expiration date</label>
             <div id="date">
                 <select id="date_month" name="expiry_month">
                     <option value="NONE">Month</option>
@@ -107,6 +98,6 @@
     </form>
 
 </div>
-</body>
-</html>
+
+<script type="text/javascript" src="<c:url value='/scripts/js/card_validator.js' />"></script>
 

@@ -4,11 +4,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="page-action">Thank you. Your order will be delivered in ten days!</div>
-
-<a id="view-invoice" href="/invoice" style="color:#144d8a ;margin-left:45%; margin-bottom: 5%;" target="_blank">
-    View invoice
+<br>
+<a id="view-invoice" href="/invoice" style="color:#144d8a ;margin-left:45%; margin-bottom: 5%; text-decoration: underline;" target="_blank">
+    <b>View invoice</b>
 </a>
-
+<br>
+<br>
 <table class="table">
     <thead>
 

@@ -92,6 +92,7 @@ public class InvoiceControllerTest {
         BigDecimal ten = createStubs(country,countryName, shippingAddress);
         when(country.getVat_rate()).thenReturn(0.0);
         when(country.getDuty_rate()).thenReturn(20.0);
+        when(httpSession.getAttribute(RESERVATION_TIMESTAMP)).thenReturn(date);
 
         actual = invoiceController.get(request, model, principal);
         verify(model).addAttribute("taxType","Duty");

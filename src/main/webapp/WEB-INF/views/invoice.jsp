@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
     <table>
         <tr>
             <td style="vertical-align: middle"><h1>Invoice</h1></td>
-            <td> <img width="50%;" src="<c:url value='/images/freewheelers-logo.png' />"></td>
+            <td> <img width="50%;"  src="<c:url value='/images/logo1.png' />"></td>
         </tr>
     </table>
 
@@ -28,30 +29,27 @@
     <br>
     <table id="customer-details">
 
-        <th><b>To:</b></th>
+        <tr><th><b>To:</b></th></tr>
         <tr>
-            <td><security:authentication property="principal.username"/></td>
+            <td><%= session.getAttribute("UserName")%></td>
             <td>Freewheelers Ltd.</td>
         </tr>
         <tr>
-            <td></td>
+            <td id="customer-address1">${userDetails.street_1}</td>
             <td>85 Albert Embankment</td>
         </tr>
         <tr>
-            <td id="customer-address1">${userDetails.street_1}</td>
+            <td id="customer-address2">${userDetails.street_2}</td>
             <td>London</td>
         </tr>
         <tr>
-            <td id="customer-address2">${userDetails.street_2}</td>
-            <td>SE1 7TP</td>
-        </tr>
-        <tr>
             <td id="customer-city">${userDetails.city}</td>
-            <td></td>
+            <td>SE1 7TP</td>
         </tr>
         <tr>
             <td id="customer-postalCode">${userDetails.postcode}</td>
             <td>Company reg.no: 98765686</td>
+
         </tr>
         <tr>
             <td id="customer-someCountry">${country}</td>
@@ -88,7 +86,7 @@
     <table id="item-list" class="item-list">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>Item</th>
             <th>Unit Price</th>
             <th>Quantity</th>
             <th>Net</th>
@@ -101,15 +99,16 @@
         <c:forEach var="entry" items="${items}" varStatus="row">
             <c:set var="item" value="${entry.key}"/>
             <c:set var="net" value="${item.price * entry.value}"></c:set>
-            <c:set var="tax" value="${tax_rate * net /100}"></c:set>
+            <c:set var="tax"  value ="${tax_rate * net /100}"></c:set>
+          <fmt:formatNumber type="number" var = "tax1" value="${tax}" maxFractionDigits="2"/>
             <tr>
                 <td style="width: 20%"><c:out value="${item.name}"/></td>
                 <td style="width: 10%"><c:out value="£${item.price}"/></td>
                 <td style="width: 10%"><c:out value="${entry.value}"/></td>
                 <td style="width: 10%">£<c:out value="${net}"/></td>
-                <td style="width: 10%"><c:out value=""/>${tax_rate}%</td>
-                <td style="width: 10%">£<c:out value=""/>${tax}</td>
-                <td style="width: 10%">£<c:out value=""/>${net + tax}</td>
+                <td style="width: 10%"><c:out value="${tax_rate}%"/></td>
+                <td style="width: 10%">£<c:out value="${tax1}"/></td>
+                <td style="width: 10%">£<c:out value=""/>${net + tax1}</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -132,7 +131,7 @@
 
         <tr style="border-bottom: 1pt solid black;border-top:1pt solid black">
             <td>Gross total:</td>
-            <td id="gross-total">£${grossTotal}</td>
+            <td id="gross-total"><b>£${grossTotal}</b></td>
         </tr>
     </table>
     <button id="close-invoice" onclick="window.close();">

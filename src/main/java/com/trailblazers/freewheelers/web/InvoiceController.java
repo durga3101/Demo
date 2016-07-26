@@ -59,7 +59,9 @@ public class InvoiceController {
         model.addAttribute("totalDuty",duty);
         model.addAttribute("subTotal",subtotal.toString());
         model.addAttribute(ORDER,httpSession.getAttribute(ORDER));
-        model.addAttribute(RESERVATION_TIMESTAMP,httpSession.getAttribute(RESERVATION_TIMESTAMP));
+        String[] reservation_TimeStamp = httpSession.getAttribute(RESERVATION_TIMESTAMP).toString().split(" ");
+        String taxDate=""+reservation_TimeStamp[1]+" "+reservation_TimeStamp[2]+", "+reservation_TimeStamp[reservation_TimeStamp.length-1];
+        model.addAttribute(RESERVATION_TIMESTAMP, taxDate);
         if(country.getVat_rate() == 0.0){
             model.addAttribute("taxType","Duty");
             model.addAttribute("tax_rate",country.getDuty_rate());

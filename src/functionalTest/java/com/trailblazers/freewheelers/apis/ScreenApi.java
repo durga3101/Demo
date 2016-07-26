@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ADD_TO_CART_FAILURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
 import static org.hamcrest.CoreMatchers.is;
@@ -94,9 +95,11 @@ public class ScreenApi {
 
         assertThat(selected, is(state));
 
-        String foundOrderId = driver.findElement(By.cssSelector(".order-id")).getText();
+        if(ORDER_ID_CONNECT_FEATURE){
+            String foundOrderId = driver.findElement(By.cssSelector(".order-id")).getText();
 
-//        assertThat(foundOrderId, is(orderId.toString()));
+            assertThat(foundOrderId, is(orderId.toString()));
+        }
 
         return this;
     }

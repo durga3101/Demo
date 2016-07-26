@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class UserFlowTest extends UserJourneyBase {
@@ -305,10 +306,13 @@ public class UserFlowTest extends UserJourneyBase {
         user
                 .click_cancel_button();
 
-        List<Order> orders = admin.get_all_order_id_for_user(SOME_EMAIL);
+        if(ORDER_ID_CONNECT_FEATURE){
+            List<Order> orders = admin.get_all_order_id_for_user(SOME_EMAIL);
 
-        screen
-                .shouldSeeOrderDetails(orders, CHROME_FRAME, SIMPLON_FRAME);
+            screen
+                    .shouldSeeOrderDetails(orders, CHROME_FRAME, SIMPLON_FRAME);
+
+        }
 
 
         screen

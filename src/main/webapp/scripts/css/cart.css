@@ -30,20 +30,32 @@
     align-content: flex-end;
 }
 
-#shopping-actions {
-    display: flex;
-    flex-direction: row;
-}
-
-#shopping-actions form:first-of-type {
-    float: left;
-    margin: auto;
-}
-#shopping-actions form:last-of-type {
-    float: right;
-    margin: auto;
+#shopping-actions form{
+    display: inline-block;
 }
 
 .checkout-button {
     width: 120px;
+}
+
+.right-pad {
+    padding-right: 30px;
+}
+
+hr {
+    margin-bottom: 10px;
+    border: 1px solid #EE9654;
+}
+
+#cart-tr-head th {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#cart-tr-body td:first-child {
+    padding-left: 0;
+}
+
+#cart-tr-body td:last-child {
+    padding-right: 0;
 }

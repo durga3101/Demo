@@ -41,8 +41,16 @@ body {
     font-size: 19px;
 }
 
+.largeish {
+    font-size: 16px;
+}
+
 .normal {
     font-size: 14px;
+}
+
+.smallish {
+    font-size: 12px;
 }
 
 .small {
@@ -51,6 +59,14 @@ body {
 
 .x-small {
     font-size: 7px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
 }
 
 /****************************************/

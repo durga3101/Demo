@@ -13,6 +13,7 @@ public class UserFlowTest extends UserJourneyBase {
     public static final double NET_TOTAL = 100.0;
     public static final double TOTAL_VAT = 20.0;
     public static final double GROSS_TOTAL = 120.0;
+    public static final String DIFFERENT_EMAIL_ADDRESS = "different@gmail.com";
 
 
     @Test
@@ -58,6 +59,18 @@ public class UserFlowTest extends UserJourneyBase {
 
         screen
                 .shows_message(ACCOUNT_CREATION_SUCCESS);
+        user
+                .creates_an_account(RAJU,
+                        DIFFERENT_EMAIL_ADDRESS,
+                        SOME_PASSWORD, SOME_PASSWORD,
+                        SOME_PHONE_NUMBER,
+                        SOME_COUNTRY);
+        screen
+                .shows_message(ACCOUNT_CREATION_SUCCESS);
+        user
+                .logs_in_with(DIFFERENT_EMAIL_ADDRESS,SOME_PASSWORD);
+        screen
+                .shows_profile_for(DIFFERENT_EMAIL_ADDRESS);
 
         user
                 .is_logged_out()
@@ -271,7 +284,6 @@ public class UserFlowTest extends UserJourneyBase {
                 .showPurchasedItemInformationOnInvoice(NET_TOTAL, TOTAL_VAT, GROSS_TOTAL)
                 .shouldNotDisplayDutyWhenUserBelongsToTheCountryWhichDoesContainDuty()
                 .shouldDisplayVat();
-
 
         user
                 .switchToReservePage();

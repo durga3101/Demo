@@ -3,24 +3,9 @@
 <%@ include file="header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-		<script type="text/javascript" src="<c:url value='/scripts/js/extensions.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/UpdateItemsCheckbox.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/RowSelector.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-model.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-view.js' />"></script>
-		<script type="text/javascript" src="<c:url value='/scripts/js/item/item-update.js' />"></script>
-
-        <script type="text/javascript">
-            $(function () {
-                new ItemView($('#add_item'));
-            });
-        </script>
-
-		<h1>Manage Items</h1>
-
 		<form:form name="addItem" id="add_item" action="" method="post" modelAttribute="item">
 
-            <div class="page-action">New Item</div>
+            <div class="page-action">Create new item</div>
 
             <c:if test="${not empty errors}">
                 <div id="resultsMessage" class="page-action error">
@@ -28,7 +13,6 @@
                 </div>
             </c:if>
 
-            <div>
                 <div id="name_field">
                     <form:label for="name" path="name">Name</form:label>
                     <div class="controls">
@@ -45,7 +29,6 @@
                         <span class="text-error" id="price_empty">Please enter Item Price</span>
                         <span class="text-error" id="price_out_of_bounds">Must be less than or equal to 99999</span>
                     </div>
-                </div>
 
                 <div id="type_field">
                     <form:label for="type" path="type">Type</form:label>
@@ -90,15 +73,9 @@
                 </div>
 		</form:form>
 
-<script type="text/javascript">
-    $(function () {
-        new ItemViewUpdate($('#update_item'));
-    });
-</script>
-
 		<form:form action="/item" method="post" modelAttribute="itemGrid" id="update_item">
 
-            <div class="page-action">Update Items</div>
+            <div class="page-action">Update items</div>
 
             <div>
 			    <table id="manage-items-table" class="table">
@@ -159,3 +136,23 @@
             </div>
 		</form:form>
 <%@ include file="footer.jsp" %>
+
+
+<script type="text/javascript" src="<c:url value='/scripts/js/extensions.js' />"></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/UpdateItemsCheckbox.js' />"></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/RowSelector.js' />"></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/item/item-model.js' />"></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/item/item-view.js' />"></script>
+<script type="text/javascript" src="<c:url value='/scripts/js/item/item-update.js' />"></script>
+
+<script type="text/javascript">
+    $(function () {
+        new ItemView($('#add_item'));
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        new ItemViewUpdate($('#update_item'));
+    });
+</script>

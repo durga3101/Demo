@@ -31,7 +31,7 @@
             </div>
     </div>
 
-    <div>
+    <div class="smallish italic">
         <li>8 to 20 characters long</li>
         <li>At least 1 number</li>
         <li>At least 1 special character</li>

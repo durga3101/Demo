@@ -10,3 +10,20 @@
 #manage-items-table tbody tr td input{
     width: 100%;
 }
+
+#add_item div:not(.page-action) {
+    margin-bottom: 10px;
+}
+
+#add_item .controls {
+    margin: 0;
+}
+
+#add_item div label {
+    margin: 2px 0;
+}
+
+#add_item button, #update_item button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

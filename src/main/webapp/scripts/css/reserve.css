@@ -1,0 +1,24 @@
+#view-invoice {
+    color: #0586EA;
+}
+
+#view-invoice:hover {
+    color: grey;
+}
+
+#invoice-container {
+    margin: 20px 0;
+}
+
+#summary-table-head td {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#summary-table-body td:first-child, #summary-table-head td:first-child {
+    padding-left: 0;
+}
+
+#summary-table-body td:last-child, #summary-table-head td:last-child {
+    padding-right: 0;
+}

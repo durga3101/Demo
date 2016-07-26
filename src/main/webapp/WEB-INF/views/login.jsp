@@ -5,8 +5,7 @@
     <c:choose>
         <c:when test="${not empty error}">
             <div id="loginError" class="page-action error">
-                Your login attempt was not successful, try again.<br /> Caused :
-                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                Your login attempt was not successful - invalid username or password. Please try again.<br />
             </div>
         </c:when>
         <c:otherwise>

@@ -249,3 +249,7 @@ table {
     margin: 15px 1%;
     color: white;
 }
+
+.align-center {
+    text-align: center;
+}

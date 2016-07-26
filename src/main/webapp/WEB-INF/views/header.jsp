@@ -33,7 +33,11 @@
 
             <a href="<c:url value='/cart' />" class="header-link"><img id="cart-header-image" src="http://image.flaticon.com/icons/png/512/2/2772.png" />Cart</a>
         </li>
+
+        <% if (!(Boolean)session.getAttribute("isLoggedIn")) { %>
         <li><a href="<c:url value='/account/create' />" class="header-link">Create Account</a></li>
+        <% } %>
+
         <security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
             <li><a href="<c:url value="j_spring_security_logout" />" class="header-link">Logout</a></li>
         </security:authorize>

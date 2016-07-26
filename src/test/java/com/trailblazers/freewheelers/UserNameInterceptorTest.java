@@ -9,15 +9,10 @@ import org.mockito.Mock;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.security.Principal;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class UserNameInterceptorTest {
@@ -46,20 +41,21 @@ public class UserNameInterceptorTest {
     }
 
     @Test
-    public void shouldNotSetUserNameAsSessionAttributeWhenNoOneLoggedIn() throws Exception {
-        when(request.getUserPrincipal()).thenReturn(null);
-
-        interceptor.preHandle(request,response,handler);
-
-        verify(httpSession,never()).setAttribute(anyString(),any());
-    }
-    @Test
     public void shouldSetUserNameAsSessionAttributeWhenUserLoggedIn() throws Exception {
         when(request.getUserPrincipal()).thenReturn(principal);
 
         interceptor.preHandle(request,response,handler);
 
         verify(httpSession).setAttribute("UserName", accountService.getAccountFromEmail(principal.getName()).getAccount_name());
+        verify(httpSession).setAttribute("isLoggedIn",true);
+    }
+
+    @Test
+    public void shouldSetIsLoggedInUserToFalseWhenNoOneLoggedIn() throws Exception {
+        when(request.getUserPrincipal()).thenReturn(null);
+
+        interceptor.preHandle(request, response, handler);
+        verify(httpSession).setAttribute("isLoggedIn", false);
     }
 
 }

@@ -284,4 +284,9 @@ public class ScreenApi {
         assertThat(driver.findElement(By.id("payment")).getText(), containsString(""+grossTotal));
         return this;
     }
+
+    public ScreenApi should_not_contain_create_account_link_in_header() {
+        assertThat(driver.findElements(By.linkText("Create Account")).size(), is(0));
+        return this;
+    }
 }

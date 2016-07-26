@@ -12,6 +12,7 @@ import java.security.Principal;
 
 public class UserNameInterceptor extends HandlerInterceptorAdapter {
 
+    private static final String IS_LOGGED_IN = "isLoggedIn";
     AccountService accountService;
 
     @Autowired
@@ -28,6 +29,10 @@ public class UserNameInterceptor extends HandlerInterceptorAdapter {
         HttpSession httpSession = request.getSession();
         if (principal != null) {
             httpSession.setAttribute("UserName", accountService.getAccountFromEmail(principal.getName()).getAccount_name());
+            httpSession.setAttribute(IS_LOGGED_IN, true);
+        }
+        else{
+            httpSession.setAttribute(IS_LOGGED_IN,false);
         }
         return true;
     }

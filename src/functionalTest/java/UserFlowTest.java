@@ -148,6 +148,7 @@ public class UserFlowTest extends UserJourneyBase {
                 .logs_in_with(SOME_EMAIL, SOME_PASSWORD);
 
         screen
+                .should_not_contain_create_account_link_in_header()
                 .showsMessageInClass(EMPTY_CART, EMPTY_CART_CLASS);
         user
                 .visits_home_page()

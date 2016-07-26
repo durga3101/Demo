@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans" rel="stylesheet">
     <meta charset="utf-8">
     <title>${pageTitle}</title>
     <link rel="stylesheet" href="<c:url value='/scripts/css/index.css' />" type="text/css"/>

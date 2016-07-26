@@ -1,13 +1,10 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.PurchasedItem;
+import com.trailblazers.freewheelers.model.*;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
-import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.*;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 //import com.trailblazers.freewheelers.service.impl.PaymentRequestBuilderServiceImpl;
@@ -23,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_STORY;
 import static com.trailblazers.freewheelers.web.Session.ORDER;
 import static com.trailblazers.freewheelers.web.Session.RESERVATION_TIMESTAMP;
 
@@ -43,11 +41,18 @@ public class GatewayController {
     private Session session;
     private GatewayClient client;
     private ShippingAddressService shippingAddressService;
+    private OrderItemService orderItemService;
     private Date rightNow;
 
     @Autowired
 
-    public GatewayController(OrderService orderService, PurchasedItemService purchasedItemService, AccountService accountService, ItemServiceImpl itemService, GatewayClient client, Session session, ShippingAddressService shippingAddressService) {
+    public GatewayController(OrderService orderService,
+                             PurchasedItemService purchasedItemService,
+                             AccountService accountService,
+                             ItemServiceImpl itemService,
+                             GatewayClient client,
+                             Session session,
+                             ShippingAddressService shippingAddressService, OrderItemService orderItemService) {
         this.orderService = orderService;
         this.purchasedItemService = purchasedItemService;
         this.accountService = accountService;
@@ -55,6 +60,7 @@ public class GatewayController {
         this.session = session;
         this.client = client;
         this.shippingAddressService = shippingAddressService;
+        this.orderItemService = orderItemService;
     }
 
     @RequestMapping(value = "reserve-error", method = RequestMethod.GET)
@@ -78,28 +84,41 @@ public class GatewayController {
 
         HttpSession httpSession = servletRequest.getSession();
         HashMap<Item, Long> purchasedItems = session.getItemHashMap(SHOPPING_CART, httpSession);
-        httpSession.setAttribute(PURCHASED_ITEMS, purchasedItems);
-        httpSession.setAttribute(SHOPPING_CART, null);
+
+        String userName = principal.getName();
+        Account account =  accountService.getAccountIdByName(userName);
+
+        /****/
+        Order order = orderService.createOrder(account);
+        Long orderId = order.getOrder_id();
 
         rightNow = new Date();
 
-        String userEmail = principal.getName();
-        Account account =  accountService.getAccountFromEmail(userEmail);
-        Order order = orderService.createOrder(account);
-        Long orderId = order.getOrder_id();
-        Date date =  order.getReservation_timestamp();
-        httpSession.setAttribute(RESERVATION_TIMESTAMP,date.toString());
+        httpSession.setAttribute(PURCHASED_ITEMS, purchasedItems);
+        httpSession.setAttribute(SHOPPING_CART, null);
         httpSession.setAttribute(ORDER, orderId);
+
         saveAddressToDatabase(httpSession);
+
         for (Map.Entry<Item, Long> entry : purchasedItems.entrySet()) {
             Item item = entry.getKey();
             for(int quantity = 0; quantity < entry.getValue(); quantity++){
+                if(ORDER_ID_STORY == false){
                     saveReservedOrderToDatabase(principal, item);
+                }else{
+                    saveOrderedItemToDatabase(order, item);
+                }
                     decreasePurchasedItemQuantityByOne(item);
+                
             }
         }
 
         return "redirect:/reserve";
+    }
+
+    private void saveOrderedItemToDatabase(Order order, Item item) {
+        OrderedItem orderedItem = new OrderedItem(order, item);
+        orderItemService.save(orderedItem);
     }
 
     private void saveAddressToDatabase(HttpSession httpSession) {

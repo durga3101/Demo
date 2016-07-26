@@ -42,6 +42,7 @@
             </form:form>
         </tr>
     </c:forEach>
+
     </tbody>
     <thead>
     <tr>
@@ -54,6 +55,5 @@
     </tr>
     </thead>
 </table>
-
 
 <%@ include file="footer.jsp" %>

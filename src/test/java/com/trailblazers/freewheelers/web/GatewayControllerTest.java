@@ -1,14 +1,13 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.PurchasedItem;
-import com.trailblazers.freewheelers.model.ShippingAddress;
+import com.trailblazers.freewheelers.model.*;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
 import com.trailblazers.freewheelers.service.ShippingAddressService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+//import com.trailblazers.freewheelers.service.impl.OrderItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.OrderItemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -18,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
+
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_STORY;
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
 import static com.trailblazers.freewheelers.web.Session.ORDER;
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
@@ -45,40 +46,25 @@ public class GatewayControllerTest {
     private OrderService orderService;
     private ShippingAddressService shippingAddressService;
     private Order order;
-    private Date date;
+    private OrderItemService orderItemService;
+//    private OrderItemService orderItemMapperService;
 
     @Before
     public void setUp() throws Exception {
-        client = mock(LiveGatewayClient.class);
-        itemService = mock(ItemServiceImpl.class);
-        httpSession = mock(HttpSession.class);
-        request = mock(HttpServletRequest.class);
-        account = mock(Account.class);
-        session = mock(Session.class);
-        orderService = mock(OrderService.class);
-        order = mock(Order.class);
 
+        setUpMocks();
 
-        accountService = mock(AccountService.class);
-        purchasedItemService = mock(PurchasedItemService.class);
-        shippingAddressService = mock(ShippingAddressService.class);
-        principal = mock(Principal.class);
+        setUpStubs();
 
-        gatewayController = new GatewayController(orderService, purchasedItemService,accountService, itemService, client, session,shippingAddressService);
-        when(request.getSession()).thenReturn(httpSession);
-        when(principal.getName()).thenReturn("Luke");
-        when(accountService.getAccountIdByName("Luke")).thenReturn(account);
-        when(account.getAccount_id()).thenReturn(11L);
+        gatewayController = new GatewayController(orderService, purchasedItemService, accountService, itemService, client, session, shippingAddressService, orderItemService);
 
-        item1 = mock(Item.class);
-        item2 = mock(Item.class);
-        gatewayController = new GatewayController(orderService, purchasedItemService, accountService, itemService, client, session, shippingAddressService);
         items = new HashMap<>();
         fullCart = new HashMap<>();
         items.put(item1, 3L);
         items.put(item2, 2L);
+    }
 
-        when(client.paymentRequest(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
+    private void setUpStubs() {
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
@@ -88,12 +74,26 @@ public class GatewayControllerTest {
         when(account.getAccount_id()).thenReturn(11L);
         when(item1.getItemId()).thenReturn(6L);
         when(item2.getItemId()).thenReturn(7L);
+        when(client.paymentRequest(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(new ResponseEntity<String>("SUCCESS", HttpStatus.OK));
+    }
 
-        date = mock(Date.class);
-        when(orderService.createOrder(account)).thenReturn(order);
-        when(order.getOrder_id()).thenReturn(1l);
-        when(order.getReservation_timestamp()).thenReturn(date);
-        when(date.toString()).thenReturn("10-10-2016");
+    private void setUpMocks() {
+        client = mock(LiveGatewayClient.class);
+        itemService = mock(ItemServiceImpl.class);
+        httpSession = mock(HttpSession.class);
+        request = mock(HttpServletRequest.class);
+        account = mock(Account.class);
+        session = mock(Session.class);
+        orderService = mock(OrderService.class);
+        orderItemService = mock(OrderItemServiceImpl.class);
+
+        accountService = mock(AccountService.class);
+        purchasedItemService = mock(PurchasedItemService.class);
+        shippingAddressService = mock(ShippingAddressService.class);
+        principal = mock(Principal.class);
+
+        item1 = mock(Item.class);
+        item2 = mock(Item.class);
     }
 
     @Test
@@ -162,13 +162,28 @@ public class GatewayControllerTest {
 
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
 
-        verify(httpSession).setAttribute(ORDER,1l);
+        verify(httpSession).setAttribute(ORDER,anyLong());
+    }
+    
+    @Test
+    public void shouldSaveOrderedItemToDatabaseWhenPostIsCalled(){
+        ORDER_ID_STORY = true;
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+        when(orderService.createOrder(account)).thenReturn(new Order());
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(orderService).createOrder(account);
+        verify(orderItemService, times(5)).save(any(OrderedItem.class));
+        ORDER_ID_STORY = false;
 
     }
+
     public void postShouldStoreAddressInDatabaseIfPaymentIsSuccessful() throws Exception {
         ShippingAddress shippingAddress = mock(ShippingAddress.class);
         when(httpSession.getAttribute("shippingAddress")).thenReturn(shippingAddress);
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         verify(shippingAddressService).createShippingAddress(shippingAddress);
     }
+
 }

@@ -80,12 +80,12 @@ public class UserApi {
     }
 
     public UserApi visits_his_profile() {
-        driver.findElement(By.linkText("User Profile")).click();
+        driver.findElement(By.linkText("Profile")).click();
         return this;
     }
 
     public UserApi visits_admin_profile() {
-        driver.findElement(By.linkText("Admin Profile")).click();
+        driver.findElement(By.linkText("Admin")).click();
         return this;
     }
 

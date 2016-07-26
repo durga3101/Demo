@@ -28,9 +28,9 @@
             <li><a href="<c:url value="/survey/report" />" class="header-link">NPS Report</a></li>
         </security:authorize>
         <security:authorize ifAnyGranted="ROLE_ADMIN">
-        <li><a href="<c:url value='/admin' />" class="header-link">Admin Profile</a></li>
+        <li><a href="<c:url value='/admin' />" class="header-link">Admin</a></li>
         </security:authorize>
-        <li><a href="<c:url value='/userProfile' />" class="header-link">User Profile</a></li>
+        <li><a href="<c:url value='/userProfile' />" class="header-link">Profile</a></li>
         <li>
 
             <a href="<c:url value='/cart' />" class="header-link"><img id="cart-header-image" src="http://image.flaticon.com/icons/png/512/2/2772.png" />Cart</a>
@@ -45,7 +45,7 @@
         </security:authorize>
         <security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 
-            <li id="welcome" class="navbar-text">Welcome <%= session.getAttribute("UserName")%> !</li>
+            <li id="welcome" class="navbar-text">Welcome <%= session.getAttribute("UserName")%>!</li>
 
         </security:authorize>
     </ul>

@@ -2,7 +2,7 @@
 <c:set var="pageTitle" scope="request" value="Admin Profile"/>
 <%@ include file="header.jsp" %>
 
-<div class="page-action">Admin Profile</div>
+<div class="page-action">Admin</div>
 
 <div class="manage-items">
     <a href="item" id="manageItems">Manage items</a>

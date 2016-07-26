@@ -291,12 +291,12 @@ public class ScreenApi {
     }
 
     public ScreenApi should_contain_admin_profile_link_in_header() {
-        assertThat(driver.findElements(By.linkText("Admin Profile")).size(), is(1));
+        assertThat(driver.findElements(By.linkText("Admin")).size(), is(1));
         return this;
     }
 
     public ScreenApi should_not_contain_admin_profile_link_in_header() {
-        assertThat(driver.findElements(By.linkText("Admin Profile")).size(), is(0));
+        assertThat(driver.findElements(By.linkText("Admin")).size(), is(0));
         return this;
     }
 }

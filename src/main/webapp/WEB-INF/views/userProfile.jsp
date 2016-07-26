@@ -7,19 +7,18 @@
 <div class="page-action">Your details</div>
         <div id="user-details" >
 
-            <b>${userDetail.account_name}</b> <br />
-            <i>Email:</i> ${userDetail.email_address} <br />
-            <i>Country:</i> ${userDetail.country} <br />
-            <i>Phone number:</i> ${userDetail.phone_number}<br /><br />
+            <p><b>${userDetail.account_name}</b></p>
+            <p><i>Email:</i> ${userDetail.email_address}</p>
+            <p><i>Country:</i> ${userDetail.country}</p>
+            <p><i>Phone number:</i> ${userDetail.phone_number}</p>
             <b>Shipping address:</b>
         </div>
         <div id = "shipping_address">
             <c:choose>
                 <c:when test = "${addressAvailable}">
-                    <br /><br />
-                    ${address.street_1}<br />
-                    ${address.street_2}<br />
-                    ${address.city}, ${address.state}, ${address.postcode}<br>
+                    <p>${address.street_1}</p>
+                    <p>${address.street_2}</p>
+                    <p>${address.city}, ${address.state}, ${address.postcode}</p>
                 </c:when>
                 <c:otherwise>
                     Sorry, no saved address.

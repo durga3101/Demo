@@ -23,22 +23,28 @@ public class AccountRoleMapperTest extends MapperTestBase {
         accountRole = new AccountRole();
         accountRole.setAccount_name("Some Name");
         accountRole.setRole("Some Role");
+        accountRole.setEmail_address("some@gmail.com");
     }
 
     @Test
     public void shouldInsertAnAccountRole() throws Exception {
-
-
         accountRoleMapper.insert(accountRole);
 
         assertThat(accountRole.getRole_id(), is(not(nullValue())));
     }
 
     @Test
-    public void shouldReturnAccount() throws Exception {
+    public void shouldReturnAccountWhenGetByName() throws Exception {
         accountRoleMapper.insert(accountRole);
-        accountRole = accountRoleMapper.get("Some Name");
+        accountRole = accountRoleMapper.getByAccountName("Some Name");
         assertEquals("Some Role", accountRole.getRole());
-
     }
+
+    @Test
+    public void shouldReturnAccountWhenGetByEmail() throws Exception {
+        accountRoleMapper.insert(accountRole);
+        accountRole = accountRoleMapper.getByAccountEmail("some@gmail.com");
+        assertEquals("Some Role", accountRole.getRole());
+    }
+
 }

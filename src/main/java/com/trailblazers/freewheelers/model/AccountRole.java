@@ -7,6 +7,17 @@ public class AccountRole {
 
     private String role;
 
+    private String email_address;
+
+    public String getEmail_address() {
+        return email_address;
+    }
+
+    public AccountRole setEmail_address(String email_address) {
+        this.email_address = email_address;
+        return this;
+    }
+
     public Long getRole_id() {
         return role_id;
     }

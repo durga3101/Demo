@@ -36,8 +36,8 @@ SELECT pg_catalog.setval('account_account_id_seq', (SELECT MAX(account_id) FROM 
 -- Data for Name: account_role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO account_role VALUES (1, 'AdminCat', 'ROLE_ADMIN');
-INSERT INTO account_role VALUES (2, 'UserCat', 'ROLE_USER');
+INSERT INTO account_role VALUES (1, 'AdminCat', 'ROLE_ADMIN','admin@example.com');
+INSERT INTO account_role VALUES (2, 'UserCat', 'ROLE_USER','user@example.com');
 INSERT INTO account_role VALUES (4, 'Michael Stipe', 'ROLE_USER');
 INSERT INTO account_role VALUES (5, 'Scott McCaughey', 'ROLE_USER');
 INSERT INTO account_role VALUES (6, 'Peter Buck', 'ROLE_USER');

@@ -54,7 +54,9 @@ public class UserProfileController {
         String nameFromURL = accountService.getAccountFromEmail(emailFromURL).getAccount_name();
         String loggedInUser = decode(accountService.getAccountFromEmail(principal.getName()).getAccount_name());
 
-        String role = accountService.getRole(loggedInUser);
+        System.out.println("Email id::::::::::::::"+principal.getName());
+
+        String role = accountService.getRole(principal.getName());
 
         if (role.equals(ADMIN) && !nameFromURL.equals(loggedInUser)) {
             model = setModel(model, emailFromURL);

@@ -76,9 +76,9 @@ public class AccountServiceImplTest {
     @Test
     public void shouldReturnRoleForGivenUser() throws Exception {
         String user = "abc";
-        when(accountRoleMapper.get(user)).thenReturn(mock(AccountRole.class));
+        when(accountRoleMapper.getByAccountEmail(user)).thenReturn(mock(AccountRole.class));
         accountService.getRole(user);
-        verify(accountRoleMapper, times(1)).get(user);
+        verify(accountRoleMapper, times(1)).getByAccountEmail(user);
     }
 
     @Test

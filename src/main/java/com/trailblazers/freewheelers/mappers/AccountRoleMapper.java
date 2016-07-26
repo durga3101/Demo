@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 public interface AccountRoleMapper {
 
     @Insert(
-        "INSERT INTO account_role (account_name, role) VALUES (#{account_name}, #{role})"
+        "INSERT INTO account_role (account_name, role, email_address) VALUES (#{account_name}, #{role}, #{email_address})"
     )
     @Options(keyProperty = "role_id", useGeneratedKeys = true)
     void insert(AccountRole accountRole);
@@ -17,6 +17,10 @@ public interface AccountRoleMapper {
     @Select(
             "select * from account_role where account_name = #{account_name} LIMIT 1"
     )
-    AccountRole get(String loggedInUser);
+    AccountRole getByAccountName(String loggedInUser);
 
+    @Select(
+            "select * from account_role where email_address = #{email_address} LIMIT 1"
+    )
+    AccountRole getByAccountEmail(String email_address);
 }

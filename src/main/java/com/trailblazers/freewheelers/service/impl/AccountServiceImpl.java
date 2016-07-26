@@ -68,8 +68,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String getRole(String loggedInUser) {
-        return accountRoleMapper.get(loggedInUser).getRole();
+    public String getRole(String emailId) {
+        return accountRoleMapper.getByAccountEmail(emailId).getRole();
     }
 
     @Override
@@ -92,6 +92,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRole roleFor(Account account, String role) {
         return new AccountRole()
                 .setAccount_name(account.getAccount_name())
+                .setEmail_address(account.getEmail_address())
                 .setRole(role);
     }
 }

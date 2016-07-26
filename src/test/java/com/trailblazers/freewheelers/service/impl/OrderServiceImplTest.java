@@ -17,6 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class OrderServiceImplTest {
+
     private OrderServiceImpl orderService;
     private Account account;
     private OrderMapper orderMapper;
@@ -27,15 +28,15 @@ public class OrderServiceImplTest {
         orderMapper = mock(OrderMapper.class);
         sqlSession = mock(SqlSession.class);
         when(sqlSession.getMapper(OrderMapper.class)).thenReturn(orderMapper);
-
         orderService = new OrderServiceImpl(sqlSession);
-
         account = new Account();
         account.setAccount_id(1L);
+
     }
 
     @Test
     public void shouldReturnOrderWhenCreated(){
+
         Order returnedOrder = orderService.createOrder(account);
 
         assertNotNull(returnedOrder);
@@ -61,14 +62,4 @@ public class OrderServiceImplTest {
         verify(orderMapper).getAllOrdersByAccountId(account_id);
     }
 
-    @Test
-    public void shouldInvokeGetAllOrders() {
-        List<Order> expectedOrders = new ArrayList<>();
-        when(orderMapper.getAllOrders()).thenReturn(expectedOrders);
-
-        List<Order> orders = orderService.getAllOrders();
-
-        assertEquals(orders, expectedOrders);
-        verify(orderMapper).getAllOrders();
-    }
 }

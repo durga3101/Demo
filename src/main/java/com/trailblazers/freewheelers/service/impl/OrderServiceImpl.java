@@ -38,12 +38,4 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> getOrders(Long account_id) {
         return orderMapper.getAllOrdersByAccountId(account_id);
     }
-
-    @Override
-    public List<Order> getAllOrders() { return orderMapper.getAllOrders(); }
-
-    @Override
-    public void updateOrder(Long orderId, OrderStatus status, String note) {
-
-    }
 }

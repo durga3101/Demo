@@ -3,7 +3,6 @@ package com.trailblazers.freewheelers.persistence.persistence;
 import com.trailblazers.freewheelers.mappers.OrderMapper;
 import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.web.Order;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,24 +16,22 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class OrderMapperTest extends MapperTestBase {
+
     private OrderMapper orderMapper;
     private Order firstOrder;
     private Order secondOrder;
-    private Order thirdOrder;
     private Long accountId = Long.valueOf(2);
-    private Long anotherAccountId = Long.valueOf(3);
+    private Integer firstOrderId;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         firstOrder = new Order(accountId, new Date(), OrderStatus.NEW);
         secondOrder = new Order(accountId, new Date(), OrderStatus.IN_PROGRESS);
-        thirdOrder = new Order(anotherAccountId, new Date(), OrderStatus.READY_FOR_SHIPMENT);
-
         orderMapper = getSqlSession().getMapper(OrderMapper.class);
+
         orderMapper.insert(firstOrder);
         orderMapper.insert(secondOrder);
-        orderMapper.insert(thirdOrder);
     }
 
     @Test
@@ -43,8 +40,20 @@ public class OrderMapperTest extends MapperTestBase {
         assertNotNull(secondOrder.getOrder_id());
     }
 
+//    @Test
+//    public void shouldGetOrderFromId() throws Exception {
+//       Order fetchedFromDB = orderMapper.getOrderByOrderId(firstOrder.getOrder_id());
+//
+//
+//        assertEquals(firstOrder.getStatus(), fetchedFromDB.getStatus());
+//        assertEquals(firstOrder.getAccount_id(), fetchedFromDB.getAccount_id());
+//        assertEquals(firstOrder.getReservation_timestamp(), fetchedFromDB.getReservation_timestamp());
+//        assertNotNull(fetchedFromDB.getOrder_id());
+//        assertNull(firstOrder.getOrder_id());
+//    }
+
     @Test
-    public void shouldInsertAnOrderAndGetAListOfOrdersByAccountId() throws Exception {
+    public void shouldInsertAnOrderAndGetAListOfOrders() throws Exception {
         List<Order> fetchedFromDB = orderMapper.getAllOrdersByAccountId(accountId);
 
         assertEquals(fetchedFromDB.size(), 2);
@@ -52,13 +61,4 @@ public class OrderMapperTest extends MapperTestBase {
         assertEquals(fetchedFromDB.get(1).getStatus(), OrderStatus.IN_PROGRESS);
     }
 
-    @Test
-    public void shouldGetListOfAllOrders() throws Exception {
-        List<Order> fetchedFromDB = orderMapper.getAllOrders();
-
-        assertEquals(fetchedFromDB.size(), 3);
-        assertEquals(fetchedFromDB.get(0).getStatus(), OrderStatus.NEW);
-        assertEquals(fetchedFromDB.get(1).getStatus(), OrderStatus.IN_PROGRESS);
-        assertEquals(fetchedFromDB.get(2).getStatus(), OrderStatus.READY_FOR_SHIPMENT);
-    }
 }

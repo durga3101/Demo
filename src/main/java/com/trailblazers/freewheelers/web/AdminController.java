@@ -6,7 +6,6 @@ import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,20 +27,17 @@ public class AdminController {
     private PurchasedItemService purchasedItemService;
     private ItemService itemService;
     private AccountService accountService;
-    private OrderService orderService;
 
     @Autowired
-    public AdminController(PurchasedItemService purchasedItemService, ItemService itemService, AccountService accountService, OrderService orderService) {
+    public AdminController(PurchasedItemService purchasedItemService, ItemService itemService, AccountService accountService) {
         this.purchasedItemService = purchasedItemService;
         this.itemService = itemService;
         this.accountService = accountService;
-        this.orderService = orderService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
         List<PurchasedItemDetail> allPurchasedItemsFromAccount = getAllPurchasedItems();
-        List<Order> orders = orderService.getAllOrders();
         model.addAttribute("purchasedItems", allPurchasedItemsFromAccount);
     }
 
@@ -49,10 +45,7 @@ public class AdminController {
     public void updateOrder(Model model, String state, String orderId, String note) {
         Long order_id = valueOf(orderId);
         OrderStatus status = OrderStatus.valueOf(state);
-
         purchasedItemService.updatePurchasedItemDetails(order_id, status, note);
-        orderService.updateOrder(order_id, status, note);
-
         get(model);
     }
 

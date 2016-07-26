@@ -4,9 +4,7 @@ import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.PurchasedItem;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.OrderService;
 import com.trailblazers.freewheelers.service.PurchasedItemService;
-import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
@@ -25,7 +23,6 @@ public class AdminControllerTest {
     private AccountService accountService;
     private AdminController adminController;
     private Model model;
-    private OrderService orderService;
 
     @Before
     public void setUp() throws Exception {
@@ -33,8 +30,7 @@ public class AdminControllerTest {
         itemService = mock(ItemService.class);
         accountService = mock(AccountService.class);
         model = mock(Model.class);
-        orderService = mock(OrderServiceImpl.class);
-        adminController = new AdminController(purchasedItemService, itemService, accountService, orderService);
+        adminController = new AdminController(purchasedItemService, itemService, accountService);
     }
 
     @Test
@@ -58,7 +54,6 @@ public class AdminControllerTest {
         verify(itemService, atLeastOnce()).get((Long) any());
     }
 
-
     @Test
     public void updateOrderShouldCallUpdateOrderDetails() {
         String note = "note";
@@ -66,14 +61,8 @@ public class AdminControllerTest {
 
         adminController.updateOrder(model, OrderStatus.NEW.toString(), orderId.toString(), note);
 
-        verify(orderService).updateOrder(valueOf(orderId), OrderStatus.NEW, note);
+        verify(purchasedItemService).updatePurchasedItemDetails(valueOf(orderId), OrderStatus.NEW, note);
+
     }
 
-
-    @Test
-    public void shouldGetListOfAllOrders(){
-        adminController.get(model);
-
-        verify(orderService).getAllOrders();
-    }
 }

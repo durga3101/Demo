@@ -35,8 +35,9 @@
                     <button type="submit" name="save" value="Save Changes">Save Changes</button>
                 </td>
 
+                <%--Order Id is not proper, It is created but not come to admin page So Ella Working On That So We can Add Order Id In Admin Page Later--%>
                 <td class="order-id">
-                    ${order}
+                    <%--${order}--%>
                 </td>
             </form:form>
         </tr>

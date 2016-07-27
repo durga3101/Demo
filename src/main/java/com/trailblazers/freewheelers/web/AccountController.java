@@ -61,7 +61,7 @@ public class AccountController {
         try {
             return showSuccess(accountService.createAccount(account));
         } catch (Exception e) {
-            return showError(e.toString());
+            return showError();
         }
     }
 
@@ -71,10 +71,8 @@ public class AccountController {
         return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }
 
-    private ModelAndView showError(String exception) {
-        ModelMap model = new ModelMap();
-        model.put("errors", exception);
-        return new ModelAndView("account/createFailure",VALIDATION_MESSAGE,model);
+    private ModelAndView showError() {
+        return new ModelAndView("account/createFailure");
     }
 
     private ModelAndView showSuccess(Account account) {

@@ -308,12 +308,12 @@ public class UserFlowTest extends UserJourneyBase {
                 .there_is_a_frame(CHROME_FRAME, ONLY_TWO_LEFT);
 
         //Canada User
-//        user.create_user_login_and_buy_item_and_view_invoice_as_user("CanadaUser","canadauser@example.com",SOME_PASSWORD,"CANADA",CHROME_FRAME);
-//
-//        screen
-//                .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,"CANADA")
-//                .showInvoiceDetails(EMPTY_STRING,EMPTY_STRING,EMPTY_STRING,54.50)
-//                .shouldDisplayDuty()
-//                .shouldNotDisplayVat();
+        user.create_user_login_and_buy_item_and_view_invoice_as_user("CanadaUser","canadauser@example.com",SOME_PASSWORD,"CANADA",CHROME_FRAME);
+
+        screen
+                .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,"CANADA")
+                .showInvoiceDetails(EMPTY_STRING,EMPTY_STRING,EMPTY_STRING,54.50)
+                .shouldDisplayDuty()
+                .shouldNotDisplayVat();
     }
 }

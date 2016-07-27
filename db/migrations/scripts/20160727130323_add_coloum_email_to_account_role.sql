@@ -1,16 +1,12 @@
--- // update account_role table
+-- // add coloum email to account_role
 -- Migration SQL that makes the change goes here.
 
--- update account_role
--- set email_address = (
---   select account.email_address from account
---   where account_role.account_name = account.account_name limit 1)
--- where account_role.email_address is null;
-
+ALTER TABLE account_role
+ADD email_address CHARACTER VARYING(255);
 
 CREATE OR REPLACE FUNCTION migrateEmailFromAccount() RETURNS SETOF account AS $BODY$
 DECLARE
-	r account%rowtype;
+ r account%rowtype;
 BEGIN
 FOR r IN SELECT * FROM account
 LOOP
@@ -25,3 +21,9 @@ select * from migrateEmailFromAccount();
 
 -- //@UNDO
 -- SQL to undo the change goes here.
+
+ALTER TABLE account_role
+DROP email_address CHARACTER VARYING(255);
+
+
+

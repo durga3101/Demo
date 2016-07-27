@@ -100,7 +100,7 @@
             <c:set var="item" value="${entry.key}"/>
             <c:set var="net" value="${item.price * entry.value}"></c:set>
             <c:set var="tax"  value ="${tax_rate * net /100}"></c:set>
-          <fmt:formatNumber type="number" var = "tax1" value="${tax}" maxFractionDigits="2"/>
+          <fmt:formatNumber type="number" var = "tax1" value="${tax}" maxFractionDigits="2" minFractionDigits="2"/>
             <tr>
                 <td style="width: 20%"><c:out value="${item.name}"/></td>
                 <td style="width: 10%"><c:out value="£${item.price}"/></td>
@@ -128,7 +128,7 @@
         </c:if>
         <c:if test="${totalDuty>0}">
             <tr >
-            <td > Duty Tax:</td >
+            <td > Duty Tax:</td>
             <td id = "total-duty" > £${totalDuty}</td >
             </tr >
         </c:if>

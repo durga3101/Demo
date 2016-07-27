@@ -18,14 +18,14 @@
 <form id="shippingAddress_form" action="/shippingAddress/addShippingAddress" model="account" method="post"
       onsubmit="return  validateShippingAddressForm();">
     <div id="street1_field">
-        <label for="fld_street1">Street 1</label>
+        <label for="fld_street1">Street 1 <sup>*</sup></label>
         <div class="controls">
             <input type="text" id="fld_street1" placeholder="Sesame St" name="street1">
             <span class="text-error"></span>
         </div>
     </div>
     <div id="street2_field">
-        <label for="fld_street2">Street 2 <sup>*</sup></label>
+        <label for="fld_street2">Street 2</label>
         <div class="controls">
             <input type="text" id="fld_street2" placeholder="Street line 2" name="street2">
             <span class="text-error"></span>
@@ -33,7 +33,7 @@
     </div>
 
     <div id="city_field">
-        <label for="fld_city">City</label>
+        <label for="fld_city">City <sup>*</sup></label>
         <div class="controls">
             <input type="text" id="fld_city" placeholder="San Francisco" name="city">
             <span class="text-error"></span>
@@ -41,7 +41,7 @@
     </div>
 
     <div id="state_field">
-        <label for="fld_state">State/Province <sup>*</sup></label>
+        <label for="fld_state">State/Province</label>
         <div class="controls">
             <input type="text" id="fld_state" placeholder="California" name="state">
             <span class="text-error"></span>
@@ -49,7 +49,7 @@
     </div>
 
     <div id="postcode_field">
-        <label for="fld_postcode">Postal Code</label>
+        <label for="fld_postcode">Postal Code <sup>*</sup></label>
         <div class="controls">
             <input type="text" id="fld_postcode" placeholder="555-123456" name="postcode">
             <span class="text-error"></span>
@@ -63,8 +63,7 @@
         </div>
     </div>
 
-    <%--<br>--%>
-    <p><sup>*</sup>&nbsp;<small>Optional Field</small></p>
+    <br>
 
     <div class="controls">
         <a href="/cart">

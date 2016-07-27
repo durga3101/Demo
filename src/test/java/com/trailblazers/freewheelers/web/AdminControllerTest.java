@@ -1,5 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
+import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.Order;
 import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.PurchasedItem;
@@ -7,6 +8,7 @@ import com.trailblazers.freewheelers.service.*;
 import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
 import com.trailblazers.freewheelers.service.impl.OrderedItemServiceImpl;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
@@ -97,11 +99,6 @@ public class AdminControllerTest {
         adminController.get(model);
         verify(orderedItemService).getAllOrderedItemsByOrderId(1L);
         verify(orderedItemService).getAllOrderedItemsByOrderId(2L);
-    }
-    
-    @Test
-    public void shouldWhen(){
-    
     }
 
 }

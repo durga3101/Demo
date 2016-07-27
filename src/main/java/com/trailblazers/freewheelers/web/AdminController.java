@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static java.lang.Long.valueOf;
 
 @Controller
@@ -37,8 +38,12 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
-        List<PurchasedItemDetail> allPurchasedItemsFromAccount = getAllPurchasedItems();
-        model.addAttribute("purchasedItems", allPurchasedItemsFromAccount);
+        if(ORDER_ID_CONNECT_FEATURE){
+
+        }else{
+            List<PurchasedItemDetail> allPurchasedItems = getAllPurchasedItems();
+            model.addAttribute("purchasedItems", allPurchasedItems);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -50,7 +55,7 @@ public class AdminController {
     }
 
     protected List<PurchasedItemDetail> getAllPurchasedItems() {
-        List<PurchasedItem> purchasedItems = purchasedItemService.getAllPurchasedItemsByAccount();
+        List<PurchasedItem> purchasedItems = purchasedItemService.getAllPurchasedItemsSortedByAccount();
 
         List<PurchasedItemDetail> purchasedItemDetails = new ArrayList<>();
 

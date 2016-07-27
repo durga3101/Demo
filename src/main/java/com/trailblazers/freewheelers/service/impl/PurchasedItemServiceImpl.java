@@ -42,7 +42,7 @@ public class PurchasedItemServiceImpl implements PurchasedItemService {
         return purchasedItemMapper.getOrderByAccountId(account_id);
     }
 
-    public List<PurchasedItem> getAllPurchasedItemsByAccount() {
+    public List<PurchasedItem> getAllPurchasedItemsSortedByAccount() {
         sqlSession.clearCache();
         return purchasedItemMapper.getAllPurchasedItems();
     }

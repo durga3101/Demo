@@ -13,7 +13,7 @@ public interface PurchasedItemService {
 
     List<PurchasedItem> findAllPurchasedItemsByAccountId(Long account_id);
 
-    List<PurchasedItem> getAllPurchasedItemsByAccount();
+    List<PurchasedItem> getAllPurchasedItemsSortedByAccount();
 
 
     void updatePurchasedItemDetails(Long order_id, OrderStatus status, String note);

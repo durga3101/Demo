@@ -1,6 +1,7 @@
 import com.trailblazers.freewheelers.UserJourneyBase;
 import org.junit.Test;
 
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class AdminFlowTest extends UserJourneyBase {
@@ -30,9 +31,10 @@ public class AdminFlowTest extends UserJourneyBase {
                 .there_is_no_item(New_Simplon_Name)
                 .there_is_no_item(New_Spoke_Name)
                 .there_is_no_item(New_Item_Without_Spaces)
-                .there_is_a_frame(CHROME_FRAME, 1l);
+                .there_is_a_frame(CHROME_FRAME, 2l);
 
-        Long ORDER_ID = admin.there_is_an_order(Hugo, CHROME_FRAME);
+        Long hugoOrderId = admin.there_is_an_order(Hugo, CHROME_FRAME);
+        Long arnoOrderId = admin.there_is_an_order(Arno, CHROME_FRAME);
 
         user
                 .visits_home_page()
@@ -53,11 +55,17 @@ public class AdminFlowTest extends UserJourneyBase {
                 .visits_admin_profile();
 
         screen
-                .there_should_be_an_order(CHROME_FRAME, "NEW", ORDER_ID);
+                .there_should_be_an_order(CHROME_FRAME, "NEW", hugoOrderId)
+                .there_should_be_an_order(CHROME_FRAME, "NEW", arnoOrderId);
         user
                 .changes_order_status(CHROME_FRAME, "IN_PROGRESS");
         screen
-                .there_should_be_an_order(CHROME_FRAME, "IN_PROGRESS", ORDER_ID);
+                .there_should_be_an_order(CHROME_FRAME, "IN_PROGRESS", hugoOrderId);
+
+        if(ORDER_ID_CONNECT_FEATURE){
+            screen
+                    .there_should_be_an_order(CHROME_FRAME, "NEW", arnoOrderId);
+        }
         user
                 .clicks_on_user_name_in_order_table(Hugo);
         screen

@@ -1,7 +1,7 @@
 import com.trailblazers.freewheelers.UserJourneyBase;
 import org.junit.Test;
 
-import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
+import static com.trailblazers.freewheelers.config.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class AdminFlowTest extends UserJourneyBase {

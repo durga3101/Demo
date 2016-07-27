@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
+import static com.trailblazers.freewheelers.config.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.ADD_TO_CART_FAILURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.SIMPLON_FRAME;
 import static org.hamcrest.CoreMatchers.is;

@@ -10,10 +10,9 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
+import static com.trailblazers.freewheelers.config.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static java.lang.Long.valueOf;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;

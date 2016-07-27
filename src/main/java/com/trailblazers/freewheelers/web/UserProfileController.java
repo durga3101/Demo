@@ -1,7 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 
-import com.trailblazers.freewheelers.FeatureToggles;
+import com.trailblazers.freewheelers.config.FeatureToggles;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.PurchasedItem;

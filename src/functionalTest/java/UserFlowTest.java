@@ -1,11 +1,11 @@
-import com.trailblazers.freewheelers.FeatureToggles;
+import com.trailblazers.freewheelers.config.FeatureToggles;
 import com.trailblazers.freewheelers.UserJourneyBase;
 import com.trailblazers.freewheelers.web.Order;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
+import static com.trailblazers.freewheelers.config.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class UserFlowTest extends UserJourneyBase {

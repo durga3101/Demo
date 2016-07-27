@@ -1,9 +1,7 @@
 package com.trailblazers.freewheelers.mappers;
 
 import com.trailblazers.freewheelers.model.Order;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -20,4 +18,14 @@ public interface OrderMapper {
                     "where account_id = #{account_id}"
     )
     List<Order> getAllOrdersByAccountId(Long account_id);
+
+    @Select(
+            "SELECT * from order_table"
+    )
+    List<Order> getAllOrders();
+
+    @Delete(
+        "DELETE from order_table"
+    )
+    void removeAllOrders();
 }

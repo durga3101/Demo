@@ -8,6 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -38,5 +42,14 @@ public class OrderedItemServiceImplTest {
 
         verify(orderedItemMapper).insert(orderedItem);
         verify(sqlSession).commit();
+    }
+
+    @Test
+    public void shouldReturnListOfOrderedItemsForOrder(){
+        Long orderId = 1L;
+        List<OrderedItem> orderedItems = new ArrayList<>();
+        when(orderedItemMapper.getByOrderId(orderId)).thenReturn(orderedItems);
+
+        assertEquals(orderedItems, orderedItemService.getAllOrderedItemsByOrderId(orderId));
     }
 }

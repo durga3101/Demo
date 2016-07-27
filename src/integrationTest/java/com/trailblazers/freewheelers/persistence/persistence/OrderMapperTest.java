@@ -30,7 +30,6 @@ public class OrderMapperTest extends MapperTestBase {
         secondOrder = new Order(accountId, new Date(), OrderStatus.IN_PROGRESS);
         orderMapper = getSqlSession().getMapper(OrderMapper.class);
 
-
         orderMapper.insert(firstOrder);
         orderMapper.insert(secondOrder);
     }
@@ -39,6 +38,19 @@ public class OrderMapperTest extends MapperTestBase {
     public void shouldContainAOrderIdAfterInsertedIntoDataBase(){
         assertNotNull(firstOrder.getOrder_id());
         assertNotNull(secondOrder.getOrder_id());
+    }
+
+    @Test
+    public void shouldGetAllOrders(){
+        orderMapper.removeAllOrders();
+
+        orderMapper.insert(firstOrder);
+        orderMapper.insert(secondOrder);
+
+        List<Order> fetchedFromDB = orderMapper.getAllOrders();
+
+        assertEquals(2, fetchedFromDB.size());
+        assertEquals(fetchedFromDB.get(0).getAccount_id(), accountId);
     }
 
     @Test

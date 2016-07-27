@@ -1,12 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.OrderStatus;
-import com.trailblazers.freewheelers.model.PurchasedItem;
-import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.PurchasedItemService;
+import com.trailblazers.freewheelers.model.*;
+import com.trailblazers.freewheelers.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,18 +21,26 @@ public class AdminController {
     private PurchasedItemService purchasedItemService;
     private ItemService itemService;
     private AccountService accountService;
+    private OrderService orderService;
+    private OrderedItemService orderedItemService;
 
     @Autowired
-    public AdminController(PurchasedItemService purchasedItemService, ItemService itemService, AccountService accountService) {
+    public AdminController(PurchasedItemService purchasedItemService, ItemService itemService, AccountService accountService, OrderService orderService, OrderedItemService orderedItemService) {
         this.purchasedItemService = purchasedItemService;
         this.itemService = itemService;
         this.accountService = accountService;
+        this.orderService = orderService;
+        this.orderedItemService = orderedItemService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
         if(ORDER_ID_CONNECT_FEATURE){
+            List<Order> allOrders= orderService.getAllOrders();
+            for(Order order : allOrders){
+                List<OrderedItem> orderedItems = orderedItemService.getAllOrderedItemsByOrderId(order.getOrder_id());
 
+            }
         }else{
             List<PurchasedItemDetail> allPurchasedItems = getAllPurchasedItems();
             model.addAttribute("purchasedItems", allPurchasedItems);

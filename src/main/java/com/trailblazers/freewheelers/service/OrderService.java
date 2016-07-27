@@ -8,5 +8,7 @@ import java.util.List;
 public interface OrderService {
     Order createOrder(Account account);
 
-    List<Order> getOrders(Long account_id);
+    List<Order> getOrdersByAccountId(Long account_id);
+
+    List<Order> getAllOrders();
 }

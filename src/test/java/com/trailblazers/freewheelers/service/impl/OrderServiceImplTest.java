@@ -56,10 +56,23 @@ public class OrderServiceImplTest {
         Long account_id = account.getAccount_id();
         when(orderMapper.getAllOrdersByAccountId(account_id)).thenReturn(expectedOrders);
 
-        List<Order> orders = orderService.getOrders(account_id);
+        List<Order> orders = orderService.getOrdersByAccountId(account_id);
 
         assertEquals(orders, expectedOrders);
         verify(orderMapper).getAllOrdersByAccountId(account_id);
     }
+
+    @Test
+    public void shouldReturnAllOrdersWhenGetAllOrders(){
+        List<Order> expectedOrders = new ArrayList<>();
+        expectedOrders.add(new Order());
+        when(orderMapper.getAllOrders()).thenReturn(expectedOrders);
+
+        List<Order> orders = orderService.getAllOrders();
+
+        assertEquals(expectedOrders, orders);
+        verify(orderMapper).getAllOrders();
+    }
+
 
 }

@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService{
 
+
     private final SqlSession sqlSession;
     private final OrderMapper orderMapper;
 
@@ -35,7 +36,12 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<Order> getOrders(Long account_id) {
+    public List<Order> getOrdersByAccountId(Long account_id) {
         return orderMapper.getAllOrdersByAccountId(account_id);
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderMapper.getAllOrders();
     }
 }

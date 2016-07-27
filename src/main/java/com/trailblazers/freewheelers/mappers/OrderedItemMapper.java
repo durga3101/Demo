@@ -4,6 +4,8 @@ import com.trailblazers.freewheelers.model.OrderedItem;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 public interface OrderedItemMapper {
 
     @Insert(
@@ -17,5 +19,5 @@ public interface OrderedItemMapper {
                     "FROM ordered_items " +
                     "WHERE order_id = #{orderId}"
     )
-    OrderedItem getByOrderId(Long orderId);
+    List<OrderedItem> getByOrderId(Long orderId);
 }

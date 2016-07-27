@@ -2,14 +2,15 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.model.PurchasedItem;
-import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.ItemService;
-import com.trailblazers.freewheelers.service.PurchasedItemService;
+import com.trailblazers.freewheelers.service.*;
+import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
+import com.trailblazers.freewheelers.service.impl.OrderedItemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.trailblazers.freewheelers.config.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
@@ -24,6 +25,8 @@ public class AdminControllerTest {
     private AccountService accountService;
     private AdminController adminController;
     private Model model;
+    private OrderService orderService;
+    private OrderedItemService orderedItemService;
 
     @Before
     public void setUp() throws Exception {
@@ -32,7 +35,9 @@ public class AdminControllerTest {
         itemService = mock(ItemService.class);
         accountService = mock(AccountService.class);
         model = mock(Model.class);
-        adminController = new AdminController(purchasedItemService, itemService, accountService);
+        orderService = mock(OrderServiceImpl.class);
+        orderedItemService = mock(OrderedItemServiceImpl.class);
+        adminController = new AdminController(purchasedItemService, itemService, accountService, orderService, orderedItemService);
     }
 
     @Test
@@ -68,14 +73,29 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void shouldGetAllItemsByOrderAndAddToModelWhenGetIsCalled(){
+    public void shouldGetAllOrdersWhenGetIsCalled(){
         ORDER_ID_CONNECT_FEATURE = true;
-
 
         adminController.get(model);
 
+        verify(orderService).getAllOrders();
 
-        ORDER_ID_CONNECT_FEATURE = false;
+    }
+
+    @Test
+    public void shouldGetAllOrderedItemsByOrder(){
+        ORDER_ID_CONNECT_FEATURE = true;
+        List<Order> orderList = new ArrayList<Order>();
+        Order order1 = new Order();
+        Order order2 = new Order();
+        order1.setOrder_id(1L);
+        order2.setOrder_id(2L);
+        Collections.addAll(orderList, order1, order2);
+        when(orderService.getAllOrders()).thenReturn(orderList);
+
+        adminController.get(model);
+        verify(orderedItemService).getAllOrderedItemsByOrderId(1L);
+        verify(orderedItemService).getAllOrderedItemsByOrderId(2L);
     }
 
 }

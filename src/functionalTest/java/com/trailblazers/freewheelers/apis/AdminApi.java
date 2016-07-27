@@ -127,7 +127,7 @@ public class AdminApi {
                 break;
             }
         }
-        return orderService.getOrders(account_id);
+        return orderService.getOrdersByAccountId(account_id);
 
     }
 }

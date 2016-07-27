@@ -7,6 +7,8 @@ import com.trailblazers.freewheelers.service.OrderedItemService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderedItemServiceImpl implements OrderedItemService {
     private final OrderedItemMapper orderedItemMapper;
@@ -25,5 +27,10 @@ public class OrderedItemServiceImpl implements OrderedItemService {
     public void save(OrderedItem orderedItem) {
         orderedItemMapper.insert(orderedItem);
         sqlSession.commit();
+    }
+
+    @Override
+    public List<OrderedItem> getAllOrderedItemsByOrderId(Long orderId) {
+        return orderedItemMapper.getByOrderId(orderId);
     }
 }

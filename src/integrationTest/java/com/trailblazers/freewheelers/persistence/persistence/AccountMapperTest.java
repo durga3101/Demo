@@ -7,7 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.List;
+
 import static java.util.UUID.randomUUID;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -155,6 +158,15 @@ public class AccountMapperTest extends MapperTestBase {
         Account fetchedFromDb = accountMapper.getFromEmail(account.getEmail_address());
         assertEquals(fetchedFromDb,null);
 
+    }
+
+    @Test
+    public void shouldAllAccountsContainCountry(){
+        List<Account> accounts = accountMapper.getAllAccounts();
+        for (Account account:accounts) {
+            System.out.println(" account name:::"+account.getAccount_name());
+            assertNotNull(account.getCountry());
+        }
     }
 
 }

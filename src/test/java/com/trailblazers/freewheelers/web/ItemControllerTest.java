@@ -1,6 +1,7 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
+import com.trailblazers.freewheelers.model.ItemGrid;
 import com.trailblazers.freewheelers.model.ItemType;
 import com.trailblazers.freewheelers.service.ItemService;
 import org.apache.ibatis.session.SqlSession;

@@ -1,6 +1,6 @@
 import com.trailblazers.freewheelers.config.FeatureToggles;
 import com.trailblazers.freewheelers.UserJourneyBase;
-import com.trailblazers.freewheelers.web.Order;
+import com.trailblazers.freewheelers.model.Order;
 import org.junit.Test;
 
 import java.util.List;

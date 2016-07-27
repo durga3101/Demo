@@ -1,6 +1,5 @@
-package com.trailblazers.freewheelers.web;
+package com.trailblazers.freewheelers.model;
 
-import com.trailblazers.freewheelers.model.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,5 +33,4 @@ public class ItemGrid {
 	public void setItemMap(Map<Long, Item> items) {
 		this.itemMap = items;
 	}
-	
 }

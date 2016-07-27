@@ -1,6 +1,5 @@
-package com.trailblazers.freewheelers.web;
+package com.trailblazers.freewheelers.model;
 
-import com.trailblazers.freewheelers.model.OrderStatus;
 
 import java.util.Date;
 

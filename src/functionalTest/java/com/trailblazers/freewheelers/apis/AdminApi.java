@@ -6,7 +6,7 @@ import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
 import com.trailblazers.freewheelers.service.impl.PurchasedItemServiceImpl;
-import com.trailblazers.freewheelers.web.Order;
+import com.trailblazers.freewheelers.model.Order;
 
 import java.util.Date;
 import java.util.List;

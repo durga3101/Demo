@@ -2,7 +2,7 @@ package com.trailblazers.freewheelers.persistence.persistence;
 
 import com.trailblazers.freewheelers.mappers.OrderMapper;
 import com.trailblazers.freewheelers.model.OrderStatus;
-import com.trailblazers.freewheelers.web.Order;
+import com.trailblazers.freewheelers.model.Order;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,18 +40,6 @@ public class OrderMapperTest extends MapperTestBase {
         assertNotNull(firstOrder.getOrder_id());
         assertNotNull(secondOrder.getOrder_id());
     }
-
-//    @Test
-//    public void shouldGetOrderFromId() throws Exception {
-//       Order fetchedFromDB = orderMapper.getOrderByOrderId(firstOrder.getOrder_id());
-//
-//
-//        assertEquals(firstOrder.getStatus(), fetchedFromDB.getStatus());
-//        assertEquals(firstOrder.getAccount_id(), fetchedFromDB.getAccount_id());
-//        assertEquals(firstOrder.getReservation_timestamp(), fetchedFromDB.getReservation_timestamp());
-//        assertNotNull(fetchedFromDB.getOrder_id());
-//        assertNull(firstOrder.getOrder_id());
-//    }
 
     @Test
     public void shouldInsertAnOrderAndGetAListOfOrders() throws Exception {

@@ -1,12 +1,10 @@
 package com.trailblazers.freewheelers.mappers;
 
-import com.trailblazers.freewheelers.web.Order;
+import com.trailblazers.freewheelers.model.Order;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.Date;
 import java.util.List;
 
 public interface OrderMapper {

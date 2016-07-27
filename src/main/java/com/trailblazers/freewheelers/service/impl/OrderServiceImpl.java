@@ -5,7 +5,7 @@ import com.trailblazers.freewheelers.mappers.OrderMapper;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.OrderStatus;
 import com.trailblazers.freewheelers.service.OrderService;
-import com.trailblazers.freewheelers.web.Order;
+import com.trailblazers.freewheelers.model.Order;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 

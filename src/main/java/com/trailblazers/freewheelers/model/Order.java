@@ -1,7 +1,9 @@
 package com.trailblazers.freewheelers.model;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Order {
@@ -11,6 +13,7 @@ public class Order {
     private OrderStatus status;
     private String accountName;
     private String note;
+    List<Item> orderedItems = new ArrayList<>();
 
     public Order(){
         //Must have an empty constructor for mapper to build an Order
@@ -66,5 +69,13 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public List<Item> getOrderedItems() {
+        return orderedItems;
+    }
+
+    public void addToOrderedItems(Item orderedItem) {
+        orderedItems.add(orderedItem);
     }
 }

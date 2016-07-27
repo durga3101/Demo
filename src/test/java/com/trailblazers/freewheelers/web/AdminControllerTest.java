@@ -1,9 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.Order;
-import com.trailblazers.freewheelers.model.OrderStatus;
-import com.trailblazers.freewheelers.model.PurchasedItem;
+import com.trailblazers.freewheelers.model.*;
 import com.trailblazers.freewheelers.service.*;
 import com.trailblazers.freewheelers.service.impl.OrderServiceImpl;
 import com.trailblazers.freewheelers.service.impl.OrderedItemServiceImpl;
@@ -96,9 +93,68 @@ public class AdminControllerTest {
         Collections.addAll(orderList, order1, order2);
         when(orderService.getAllOrders()).thenReturn(orderList);
 
+        Account account = mock(Account.class);
+        when(account.getAccount_name()).thenReturn("accountName");
+        when(accountService.get(anyLong())).thenReturn(account);
+
         adminController.get(model);
         verify(orderedItemService).getAllOrderedItemsByOrderId(1L);
         verify(orderedItemService).getAllOrderedItemsByOrderId(2L);
+    }
+
+    @Test
+    public void shouldUpdateOrdersInAllOrdersWithAccountName(){
+        ORDER_ID_CONNECT_FEATURE = true;
+        List<Order> orderList = new ArrayList<Order>();
+        Order order1 = mock(Order.class);
+        Order order2 = mock(Order.class);
+        when(order1.getAccount_id()).thenReturn(1L);
+        when(order2.getAccount_id()).thenReturn(2L);
+        Collections.addAll(orderList, order1, order2);
+
+        Account account1 = mock(Account.class);
+        Account account2 = mock(Account.class);
+        String account1name = "account1";
+        String account2name = "account2";
+        when(account1.getAccount_name()).thenReturn(account1name);
+        when(account2.getAccount_name()).thenReturn(account2name);
+
+        when(orderService.getAllOrders()).thenReturn(orderList);
+        when(accountService.get(1L)).thenReturn(account1);
+        when(accountService.get(2L)).thenReturn(account2);
+
+        adminController.get(model);
+
+        verify(order1).setAccountName(account1name);
+        verify(order2).setAccountName(account2name);
+    }
+
+    @Test
+    public void shouldAddItemToOrder(){
+        ORDER_ID_CONNECT_FEATURE = true;
+        List<Order> orderList = new ArrayList<Order>();
+        Order order1 = mock(Order.class);
+        orderList.add(order1);
+        when(orderService.getAllOrders()).thenReturn(orderList);
+
+        OrderedItem orderedItem = mock(OrderedItem.class);
+        when(orderedItem.getItem_id()).thenReturn(1L);
+        List<OrderedItem> orderedItems = new ArrayList<>();
+        orderedItems.add(orderedItem);
+        when(orderedItemService.getAllOrderedItemsByOrderId(anyLong())).thenReturn(orderedItems);
+
+        Item item = mock(Item.class);
+        when(itemService.get(1L)).thenReturn(item);
+
+        Account account = mock(Account.class);
+        when(account.getAccount_name()).thenReturn("accountName");
+        when(accountService.get(anyLong())).thenReturn(account);
+
+        adminController.get(model);
+
+        verify(item).setQuantity(anyLong());
+        verify(order1).addToOrderedItems(item);
+
     }
 
 }

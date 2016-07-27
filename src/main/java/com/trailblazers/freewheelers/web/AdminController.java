@@ -37,14 +37,23 @@ public class AdminController {
     public void get(Model model) {
         if(ORDER_ID_CONNECT_FEATURE){
             List<Order> allOrders= orderService.getAllOrders();
+
             for(Order order : allOrders){
                 List<OrderedItem> orderedItems = orderedItemService.getAllOrderedItemsByOrderId(order.getOrder_id());
                 //get Item from OrderedItem
+                for(OrderedItem orderedItem : orderedItems){
+                    Item item = itemService.get(orderedItem.getItem_id());
+                    item.setQuantity(orderedItem.getQuantity());
+                    order.addToOrderedItems(item);
+                }
                 //get accountName from account_id
+                Long account_id = order.getAccount_id();
+                String accountName = accountService.get(account_id).getAccount_name();
                 //put both in Order
+                order.setAccountName(accountName);
             }
-        //add allOrders to attribute
-
+            //add allOrders to attribute
+            model.addAttribute("allOrders", allOrders );
         }else{
             List<PurchasedItemDetail> allPurchasedItems = getAllPurchasedItems();
             model.addAttribute("purchasedItems", allPurchasedItems);

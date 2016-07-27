@@ -34,25 +34,24 @@ public class ShippingAddressController {
 
     public String get(Model model, HttpServletRequest request, Principal principal) {
 
-        if(request.getSession().getAttribute("shoppingCart") == null){
+        if (request.getSession().getAttribute("shoppingCart") == null || request.getHeader("Referer") == null) {
             return "redirect:/";
         }
 
         Account userAccount = accountService.getAccountFromEmail(principal.getName());
 
-        if(userAccount.getCountry() == null){
-            country="UK";
-            model.addAttribute("country","UK");
-        }
-        else {
-            country=userAccount.getCountry();
+        if (userAccount.getCountry() == null) {
+            country = "UK";
+            model.addAttribute("country", "UK");
+        } else {
+            country = userAccount.getCountry();
             model.addAttribute("country", userAccount.getCountry());
         }
         return "shippingAddress";
     }
 
-    @RequestMapping(value = {"/addShippingAddress"},method = RequestMethod.POST)
-    public String getShippingAddress(HttpServletRequest request, Principal principal){
+    @RequestMapping(value = {"/addShippingAddress"}, method = RequestMethod.POST)
+    public String getShippingAddress(HttpServletRequest request, Principal principal) {
         String street1 = request.getParameter("street1");
         String street2 = request.getParameter("street2");
         String city = request.getParameter("city");
@@ -62,10 +61,11 @@ public class ShippingAddressController {
 //        Account userAccount = accountService.getAccountIdByName(decode(principal.getName()));
         Account userAccount = accountService.getAccountFromEmail(decode(principal.getName()));
 
-        shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1,street2,city,state,postcode,country);
-        request.getSession().setAttribute("shippingAddress",shippingAddress);
+        shippingAddress = new ShippingAddress(userAccount.getAccount_id(), street1, street2, city, state, postcode, country);
+        request.getSession().setAttribute("shippingAddress", shippingAddress);
         return "redirect:/payment";
     }
+
     private String decode(String userName) {
         try {
             return URLDecoder.decode(userName, "UTF-8");

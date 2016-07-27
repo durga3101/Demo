@@ -2,7 +2,6 @@ package com.trailblazers.freewheelers.web;
 
 
 import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.model.ShippingAddress;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.ItemService;
@@ -18,7 +17,6 @@ import java.security.Principal;
 import java.util.HashMap;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 public class ShippingAddressControllerTest {
@@ -32,6 +30,7 @@ public class ShippingAddressControllerTest {
     private Principal principal;
     private ItemService itemService;
     private Account account;
+    private HashMap<Long, Long> cart;
 
     @Before
     public void setUp() throws Exception {
@@ -45,6 +44,7 @@ public class ShippingAddressControllerTest {
         account = mock(Account.class);
         shippingAddressController = new ShippingAddressController(accountService, itemService);
 
+        cart = mock(HashMap.class);
     }
 
     @Test
@@ -73,19 +73,15 @@ public class ShippingAddressControllerTest {
 
     @Test
     public void shouldGetUserCountryFromAccountDatabase() throws Exception {
-        HashMap<Long, Long> cart = mock(HashMap.class);
-        Item item = mock(Item.class);
         when(request.getSession()).thenReturn(httpSession);
         when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
-        when(itemService.get((Long) any())).thenReturn(item);
-//        when(accountService.getAccountIdByName(anyString())).thenReturn(account);
+        when(request.getHeader("Referer")).thenReturn("some");
         when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("UK");
         when(principal.getName()).thenReturn("ABC");
 
         shippingAddressController.get(model, request, principal);
 
-//        verify(accountService).getAccountIdByName(anyString());
         verify(accountService).getAccountFromEmail(anyString());
         verify(model).addAttribute("country", "UK");
 
@@ -107,12 +103,11 @@ public class ShippingAddressControllerTest {
         request = mock(HttpServletRequest.class);
         httpSession = mock(HttpSession.class);
         model = mock(Model.class);
-        Item item = mock(Item.class);
+
         when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute(anyString())).thenReturn(item);
-        when(itemService.get(anyLong())).thenReturn(item);
+        when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
+        when(request.getHeader("Referer")).thenReturn("some");
         when(principal.getName()).thenReturn("ABC");
-//        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
         when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("USA");
         
@@ -127,13 +122,11 @@ public class ShippingAddressControllerTest {
         request = mock(HttpServletRequest.class);
         httpSession = mock(HttpSession.class);
         model = mock(Model.class);
-        Item item = mock(Item.class);
 
         when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute(anyString())).thenReturn(item);
-        when(itemService.get(anyLong())).thenReturn(item);
+        when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
+        when(request.getHeader("Referer")).thenReturn("some");
         when(principal.getName()).thenReturn("ABC");
-//        when(accountService.getAccountIdByName("ABC")).thenReturn(account);
         when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn(null);
 

@@ -58,8 +58,6 @@ public class CartController {
 
         HashMap<Item, Long> items = session.getItemHashMap(SHOPPING_CART, httpSession);
 
-
-
         if (items.isEmpty()) {
             model.addAttribute(EMPTY_CART, true);
         } else {

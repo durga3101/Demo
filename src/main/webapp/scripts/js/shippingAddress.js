@@ -15,7 +15,8 @@ function validateShippingAddressForm() {
     });
     return validate;
 }
-function showShippingAddressErrorMessage() {
+function
+showShippingAddressErrorMessage() {
     fields.forEach(function (field) {
         isNotNull(inputFieldSelector(field)) ? validator.hideErrorMessage(errorSelector(field)) : validator.displayErrorMessage(errorSelector(field));
     });
@@ -34,7 +35,7 @@ function isNotNull(selector) {
     if ((selector) === "#fld_street2") {
         if ($(selector).val() === ""){
             changeErrorMessage("street2","");
-            return false;
+            return true;
         }
         if ($(selector).val().length > 255) {
             changeErrorMessage("street2","Must enter valid street details");
@@ -53,8 +54,8 @@ function isNotNull(selector) {
     }
     if ((selector) === "#fld_state") {
         if ($(selector).val() === ""){
-            changeErrorMessage("state","Must enter state/province");
-            return false;
+            changeErrorMessage("state","");
+            return true;
         }
         if ($(selector).val().length > 100) {
             changeErrorMessage("state","Must enter valid state/province");

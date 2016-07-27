@@ -228,7 +228,6 @@ public class UserFlowTest extends UserJourneyBase {
         screen
                 .shows_error(EMPTY_STREET_ERR, STREET_1_FIELD)
                 .shows_error(EMPTY_CITY_ERR, CITY_FIELD)
-                .shows_error(EMPTY_STATE_ERR, STATE_FIELD)
                 .shows_error(EMPTY_PC_ERR, PC_FIELD);
 
         user

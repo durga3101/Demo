@@ -65,11 +65,11 @@ describe("validate addressShipping form", function () {
         expect(isNotNull("#fld_city")).toBeFalsy();
     });
 
-    it("should return false when state is empty", function () {
+    it("should return true when state is empty", function () {
         var emptyState = "";
         $("#fld_state").val(emptyState);
 
-        expect(isNotNull("#fld_state")).toBeFalsy();
+        expect(isNotNull("#fld_state")).toBeTruthy();
     });
 
     it("should return true when state is valid", function () {

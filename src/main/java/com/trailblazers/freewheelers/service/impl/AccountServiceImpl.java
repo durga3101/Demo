@@ -6,7 +6,7 @@ import com.trailblazers.freewheelers.mappers.MyBatisUtil;
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.model.AccountRole;
 import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.CountryList;
+import com.trailblazers.freewheelers.config.CountryList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 

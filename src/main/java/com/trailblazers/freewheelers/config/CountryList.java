@@ -1,4 +1,4 @@
-package com.trailblazers.freewheelers.service;
+package com.trailblazers.freewheelers.config;
 
 public class CountryList {
 

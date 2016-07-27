@@ -1,4 +1,4 @@
-package com.trailblazers.freewheelers.web;
+package com.trailblazers.freewheelers.utilities;
 
 import com.trailblazers.freewheelers.model.Country;
 import com.trailblazers.freewheelers.model.Item;
@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @Component
 public class Calculator {
@@ -41,9 +40,6 @@ public class Calculator {
 
     public long noOfItemsInCart(HashMap<Item, Long> items) {
         long noOfItemsInCart=0;
-//        for (int index=0;index<items.size();index++) {
-//            noOfItemsInCart+=items.get(index);
-//        }
         for (Item i :items.keySet()) {
             noOfItemsInCart += items.get(i);
         }

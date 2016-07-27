@@ -1,16 +1,15 @@
-package com.trailblazers.freewheelers.web;
+package com.trailblazers.freewheelers.utilities;
 
 import com.trailblazers.freewheelers.model.Country;
 import com.trailblazers.freewheelers.model.Item;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.matches;
 import static org.mockito.Mockito.*;
 
 public class CalculatorTest {
@@ -58,8 +57,6 @@ public class CalculatorTest {
         assertEquals(new BigDecimal("80.00"), calculator.getSubtotalFromCart(cartMap));
 
     }
-
-
 
     @Test
     public void shouldReturnDutyOf54IfInputIs1000WhenCountryNameIsUSA(){
@@ -109,6 +106,5 @@ public class CalculatorTest {
         cartMap.put(item3,1l);
 
         assertEquals(3l, calculator.noOfItemsInCart(cartMap));
-
     }
 }

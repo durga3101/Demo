@@ -3,6 +3,7 @@ package com.trailblazers.freewheelers.web;
 import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.utilities.Calculator;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
@@ -10,8 +11,6 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;

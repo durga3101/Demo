@@ -22,9 +22,7 @@ import static java.lang.Long.valueOf;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-    static final String URL = "/admin";
-
+    
     private PurchasedItemService purchasedItemService;
     private ItemService itemService;
     private AccountService accountService;

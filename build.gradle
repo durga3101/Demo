@@ -36,7 +36,7 @@ task npmClean(type: DefaultTask) << {
 }
 
 ext {
-    expectedLineCoverage = 89
+    expectedLineCoverage = 88
     expectedBranchCoverage = 83
 }
 

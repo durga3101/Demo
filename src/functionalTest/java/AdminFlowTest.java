@@ -55,8 +55,12 @@ public class AdminFlowTest extends UserJourneyBase {
                 .visits_admin_profile();
 
         screen
-                .there_should_be_an_order(CHROME_FRAME, "NEW", hugoOrderId)
+                .there_should_be_an_order(CHROME_FRAME, "NEW", hugoOrderId);
+
+        if(ORDER_ID_CONNECT_FEATURE){
+            screen
                 .there_should_be_an_order(CHROME_FRAME, "NEW", arnoOrderId);
+        }
         user
                 .changes_order_status(CHROME_FRAME, "IN_PROGRESS");
         screen

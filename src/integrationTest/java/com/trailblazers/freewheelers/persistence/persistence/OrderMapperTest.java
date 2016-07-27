@@ -30,6 +30,7 @@ public class OrderMapperTest extends MapperTestBase {
         secondOrder = new Order(accountId, new Date(), OrderStatus.IN_PROGRESS);
         orderMapper = getSqlSession().getMapper(OrderMapper.class);
 
+
         orderMapper.insert(firstOrder);
         orderMapper.insert(secondOrder);
     }

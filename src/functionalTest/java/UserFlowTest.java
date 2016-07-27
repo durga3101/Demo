@@ -15,61 +15,6 @@ public class UserFlowTest extends UserJourneyBase {
     public static final double TOTAL_DUTY = 0.0;
     public static final double GROSS_TOTAL = 120.0;
 
-//    @Test
-//    public void userFlowTest() throws Exception {
-//
-//        admin
-//                .there_is_no_account_for(RAJU)
-//                .there_is_a_frame(CHROME_FRAME, ONLY_TWO_LEFT);
-//        user
-//                .creates_an_account(RAJU,
-//                        SOME_EMAIL,
-//                        SOME_PASSWORD,
-//                        SOME_PASSWORD,
-//                        SOME_PHONE_NUMBER,
-//                        SOME_COUNTRY
-//                );
-//
-//        screen
-//                .shows_message(ACCOUNT_CREATION_SUCCESS);
-//
-//
-//        user
-//                .logs_in_with(SOME_EMAIL, SOME_PASSWORD);
-//
-//        user
-//                .visits_home_page()
-//                .add_item_to_cart(CHROME_FRAME)
-//                .visits_cart_page();
-//        screen
-//                .should_list_item(CHROME_FRAME);
-//        user
-//                .click_checkout_button()
-//                .click_proceed_to_payment_button()
-//                .entersShippingAddressDetails(ADDRESS_1,
-//                        ADDRESS_2,
-//                        CITY,
-//                        STATE,
-//                        POSTAL_CODE
-//                )
-//                .click_proceed_to_payment_button()
-//                .entersPaymentDetails(VISA,
-//                        VALID_CARD_NO,
-//                        CCV,
-//                        EXP_MONTH,
-//                        EXP_YEAR
-//                )
-//                .click_payment_button()
-//                .click_submit_button()
-//                .click_cancel_button();
-//
-//        List<Order> orders = admin.get_all_order_id_for_user(RAJU);
-//
-//        screen
-//                .shouldSeeOrderDetails(orders, CHROME_FRAME, SIMPLON_FRAME);
-//
-//
-//    }
 
     @Test
     public void userFlowTest() throws Exception {

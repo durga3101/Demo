@@ -53,7 +53,7 @@ public class PurchasedItemServiceImplTest {
 //        ReserveOrderServiceImpl reserveOrderService = new ReserveOrderServiceImpl(sqlSession);
 //        reserveOrderService.saveOrder(order);
 //
-//        verify(orderMapper).insert(order);
+//        verify(orderMapper).save(order);
 //
 //    }
 //

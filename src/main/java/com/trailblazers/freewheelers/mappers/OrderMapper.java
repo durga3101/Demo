@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface OrderMapper {
     @Insert(
-            "insert into order_table (account_id, status, reservation_timestamp) " +
+            "INSERT into order_table (account_id, status, reservation_timestamp) " +
                     "values (#{account_id}, #{status}, #{reservation_timestamp}) "
     )
     @Options(keyProperty = "order_id", useGeneratedKeys = true)

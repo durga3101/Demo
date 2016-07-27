@@ -1,14 +1,9 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Account;
-import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.model.PurchasedItem;
-import com.trailblazers.freewheelers.model.ShippingAddress;
-import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.service.OrderService;
-import com.trailblazers.freewheelers.service.PurchasedItemService;
-import com.trailblazers.freewheelers.service.ShippingAddressService;
+import com.trailblazers.freewheelers.model.*;
+import com.trailblazers.freewheelers.service.*;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
+import com.trailblazers.freewheelers.service.impl.OrderedItemServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -18,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
+
+import static com.trailblazers.freewheelers.FeatureToggles.ORDER_ID_CONNECT_FEATURE;
 import static com.trailblazers.freewheelers.web.GatewayController.PURCHASED_ITEMS;
 import static com.trailblazers.freewheelers.web.Session.ORDER;
 import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
@@ -44,6 +41,7 @@ public class GatewayControllerTest {
     private Session session;
     private OrderService orderService;
     private ShippingAddressService shippingAddressService;
+    private OrderedItemService orderedItemService;
     private Order order;
     private Date date;
 
@@ -56,6 +54,7 @@ public class GatewayControllerTest {
         account = mock(Account.class);
         session = mock(Session.class);
         orderService = mock(OrderService.class);
+        orderedItemService = mock(OrderedItemServiceImpl.class);
         order = mock(Order.class);
 
 
@@ -64,7 +63,7 @@ public class GatewayControllerTest {
         shippingAddressService = mock(ShippingAddressService.class);
         principal = mock(Principal.class);
 
-        gatewayController = new GatewayController(orderService, purchasedItemService,accountService, itemService, client, session,shippingAddressService);
+        gatewayController = new GatewayController(orderService, purchasedItemService,accountService, itemService, client, session,shippingAddressService, orderedItemService);
         when(request.getSession()).thenReturn(httpSession);
         when(principal.getName()).thenReturn("Luke");
         when(accountService.getAccountIdByName("Luke")).thenReturn(account);
@@ -72,7 +71,6 @@ public class GatewayControllerTest {
 
         item1 = mock(Item.class);
         item2 = mock(Item.class);
-        gatewayController = new GatewayController(orderService, purchasedItemService, accountService, itemService, client, session, shippingAddressService);
         items = new HashMap<>();
         fullCart = new HashMap<>();
         items.put(item1, 3L);
@@ -165,10 +163,23 @@ public class GatewayControllerTest {
         verify(httpSession).setAttribute(ORDER,1l);
 
     }
+
+    @Test
     public void postShouldStoreAddressInDatabaseIfPaymentIsSuccessful() throws Exception {
         ShippingAddress shippingAddress = mock(ShippingAddress.class);
         when(httpSession.getAttribute("shippingAddress")).thenReturn(shippingAddress);
         gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
         verify(shippingAddressService).createShippingAddress(shippingAddress);
+    }
+
+    @Test
+    public void shouldInsertIntoOrderItemTableWithOrderIDAndItemID(){
+        ORDER_ID_CONNECT_FEATURE = true;
+        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(items);
+
+        gatewayController.post(request, principal, "cc_number", "csc", "expiry_month", "expiry_year", "amount");
+
+        verify(orderedItemService, times(items.size())).save(any(OrderedItem.class));
+        ORDER_ID_CONNECT_FEATURE = false;
     }
 }

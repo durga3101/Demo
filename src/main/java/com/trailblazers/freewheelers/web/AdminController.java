@@ -39,12 +39,17 @@ public class AdminController {
             List<Order> allOrders= orderService.getAllOrders();
             for(Order order : allOrders){
                 List<OrderedItem> orderedItems = orderedItemService.getAllOrderedItemsByOrderId(order.getOrder_id());
-
+                //get Item from OrderedItem
+                //get accountName from account_id
+                //put both in Order
             }
+        //add allOrders to attribute
+
         }else{
             List<PurchasedItemDetail> allPurchasedItems = getAllPurchasedItems();
             model.addAttribute("purchasedItems", allPurchasedItems);
         }
+
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -9,6 +9,8 @@ public class Order {
     private Long account_id;
     private Date reservation_timestamp;
     private OrderStatus status;
+    private String accountName;
+    private String note;
 
     public Order(){
         //Must have an empty constructor for mapper to build an Order
@@ -50,4 +52,19 @@ public class Order {
         this.account_id = account_id;
     }
 
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

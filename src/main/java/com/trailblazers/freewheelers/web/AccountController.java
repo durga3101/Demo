@@ -2,8 +2,9 @@ package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.service.AccountService;
-import com.trailblazers.freewheelers.config.CountryList;
+import com.trailblazers.freewheelers.service.CountryService;
 import com.trailblazers.freewheelers.service.impl.AccountServiceImpl;
+import com.trailblazers.freewheelers.service.impl.CountryServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.trailblazers.freewheelers.model.AccountValidator.verifyInputs;
@@ -29,15 +31,18 @@ public class AccountController {
     private static final String COUNTRY = "country";
     public static final String VALIDATION_MESSAGE = "validationMessage";
     AccountService accountService;
+    CountryService countryService;
 
     public AccountController() {
         accountService = new AccountServiceImpl();
+        countryService=new CountryServiceImpl();
+
     }
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
     public ModelAndView createAccountForm(Model model) {
-        String[] countries;
-        countries = new CountryList().getCountries();
+        List<String> countries;
+        countries = countryService.getCountries();
         model.addAttribute(COUNTRY, countries);
         return new ModelAndView("account/create", VALIDATION_MESSAGE, model);
     }

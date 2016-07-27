@@ -6,6 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 @Service
@@ -28,4 +31,18 @@ public class CountryServiceImplTest {
        countryService.getByName("UK");
        verify(countryMapper).getByName("UK");
    }
+
+    @Test
+    public void getCountriesShouldReturnListOfCountries() {
+        List<String> countries = new ArrayList<>();
+        countries.add("UK");
+        countries.add("ITALY");
+        countries.add("CANADA");
+        countries.add("USA");
+        countries.add("GERMANY");
+        countries.add("FRANCE");
+        when(countryMapper.getCountries()).thenReturn(countries);
+        countryService.getCountries();
+        verify(countryMapper).getCountries();
+    }
 }

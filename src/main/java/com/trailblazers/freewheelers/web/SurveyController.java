@@ -42,16 +42,20 @@ public class SurveyController {
                       @ModelAttribute("survey")
                              @Valid SurveyEntryForm surveyEntryForm,
                       BindingResult bindingResult, HttpServletResponse response) {
+
         if (bindingResult.hasErrors()) {
             return "error";
         }
 
-        Cookie cookie = new Cookie(principal.getName(), "true");
+        String userEmail = principal.getName();
+        Account userAccount = accountService.getAccountFromEmail(userEmail);
+        String userName = userAccount.getAccount_name();
+
+        Cookie cookie = new Cookie(userName, "true");
         cookie.setMaxAge(ONE_DAY);
         response.addCookie(cookie);
-        String username = principal.getName();
-        Account account = accountService.getAccountFromEmail(username);
-        surveyService.submitSurvey(account.getAccount_id(), surveyEntryForm.surveyEntry());
+
+        surveyService.submitSurvey(userAccount.getAccount_id(), surveyEntryForm.surveyEntry());
         return "success";
     }
 

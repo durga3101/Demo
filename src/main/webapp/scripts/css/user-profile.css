@@ -14,3 +14,15 @@
     padding: 0;
     border-collapse: collapse;
 }
+
+#order-table-head .padded-col {
+    padding-bottom: 0;
+}
+
+#order-table-head .padded-col:first-child, #order-table-body .padded-col:first-child  {
+    padding-left: 0;
+}
+
+#order-table-head .padded-col:last-child, #order-table-body .padded-col:last-child {
+    padding-right: 0;
+}

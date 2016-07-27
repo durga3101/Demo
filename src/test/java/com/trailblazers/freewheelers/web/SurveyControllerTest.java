@@ -7,7 +7,6 @@ import com.trailblazers.freewheelers.model.SurveyEntry;
 import com.trailblazers.freewheelers.service.AccountService;
 import com.trailblazers.freewheelers.service.SurveyService;
 import com.trailblazers.freewheelers.web.forms.SurveyEntryForm;
-import org.apache.http.auth.BasicUserPrincipal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,17 +40,28 @@ public class SurveyControllerTest {
     private SurveyService surveyService;
     @Mock
     private AccountService accountService;
+
+    @Mock
+    private Principal principal;
+
+    @Mock
+    private Account userAccount;
+
     @InjectMocks
     private SurveyController surveyController;
 
-    private Principal principal = new BasicUserPrincipal(EMAIL);
-    private Account userAccount = new Account();
+
+
+//    private Principal principal = new BasicUserPrincipal(EMAIL);
+//    private Account userAccount = new Account();
     private MockHttpServletResponse mockResponse = new MockHttpServletResponse();
 
 
     @Before
     public void setUp() {
         given(accountService.getAccountFromEmail(EMAIL)).willReturn(userAccount);
+        when(userAccount.getAccount_name()).thenReturn(USERNAME);
+        when(principal.getName()).thenReturn(EMAIL);
     }
 
 

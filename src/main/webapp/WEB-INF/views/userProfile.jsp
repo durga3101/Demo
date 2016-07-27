@@ -45,21 +45,21 @@
             </c:when>
         <c:otherwise>
             <table class="table">
-                <thead>
+                <thead id="order-table-head">
                     <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Type</th>
+                        <th class="padded-col">Name</th>
+                        <th class="padded-col">Price</th>
+                        <th class="padded-col">Description</th>
+                        <th class="padded-col">Type</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="order-table-body">
                     <c:forEach var="item" items="${items}" varStatus="row">
                         <tr>
-                            <td><c:out value="${item.name}"/></td>
-                            <td>£<c:out value="${item.price}"/></td>
-                            <td><c:out value="${item.description}"/></td>
-                            <td><c:out value="${item.type}"/></td>
+                            <td class="padded-col"><c:out value="${item.name}"/></td>
+                            <td class="padded-col">£<c:out value="${item.price}"/></td>
+                            <td class="padded-col"><c:out value="${item.description}"/></td>
+                            <td class="padded-col"><c:out value="${item.type}"/></td>
                         </tr>
                      </c:forEach>
                 </c:otherwise>

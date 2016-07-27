@@ -1,4 +1,4 @@
-package com.trailblazers.freewheelers;
+package com.trailblazers.freewheelers.web.middleware;
 
 import com.trailblazers.freewheelers.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;

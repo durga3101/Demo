@@ -27,7 +27,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*"/>
-			<bean class="com.trailblazers.freewheelers.UserNameInterceptor">
+			<bean class="com.trailblazers.freewheelers.web.middleware.UserNameInterceptor">
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

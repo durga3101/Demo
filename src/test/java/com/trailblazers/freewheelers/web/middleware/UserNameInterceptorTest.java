@@ -1,7 +1,8 @@
-package com.trailblazers.freewheelers;
+package com.trailblazers.freewheelers.web.middleware;
 
 import com.trailblazers.freewheelers.model.Account;
 import com.trailblazers.freewheelers.service.AccountService;
+import com.trailblazers.freewheelers.web.middleware.UserNameInterceptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

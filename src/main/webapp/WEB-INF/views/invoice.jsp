@@ -43,7 +43,7 @@
             <td>London</td>
         </tr>
         <tr>
-            <td id="customer-city">${userDetails.city}</td>
+            <td id="customer-city">${userDetails.city}, ${userDetails.state}</td>
             <td>SE1 7TP</td>
         </tr>
         <tr>
@@ -120,15 +120,18 @@
             <td>Net total:</td>
             <td id="net-total">£${subTotal}</td>
         </tr>
+        <c:if test="${totalVat>0}">
         <tr>
             <td>VAT total:</td>
             <td id="total-vat">£${totalVat}</td>
         </tr>
-        <tr>
-            <td>Duty Tax:</td>
-            <td id="total-duty">£${totalDuty}</td>
-        </tr>
-
+        </c:if>
+        <c:if test="${totalDuty>0}">
+            <tr >
+            <td > Duty Tax:</td >
+            <td id = "total-duty" > £${totalDuty}</td >
+            </tr >
+        </c:if>
         <tr style="border-bottom: 1pt solid black;border-top:1pt solid black">
             <td>Gross total:</td>
             <td id="gross-total"><b>£${grossTotal}</b></td>

@@ -69,6 +69,7 @@ public class InvoiceController {
         } else {
             model.addAttribute("taxType","VAT");
             model.addAttribute("tax_rate",country.getVat_rate());
+
         }
         model.addAttribute("grossTotal",grandTotal.toString());
         model.addAttribute("items", items);

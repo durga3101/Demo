@@ -15,6 +15,7 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 import static com.trailblazers.freewheelers.helpers.Controls.*;
+import static com.trailblazers.freewheelers.helpers.SyntaxSugar.*;
 
 public class UserApi {
 
@@ -388,6 +389,42 @@ public class UserApi {
         WebDriverWait wait = new WebDriverWait(driver, 5L);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("customer-invoice"))));
 //        wait.withTimeout(seconds, TimeUnit.SECONDS);
+        return this;
+    }
+
+    public UserApi create_user_login_and_buy_item_and_view_invoice_as_user(String userName, String email, String password, String country, String item) {
+        this.is_logged_out()
+                .creates_an_account(userName,
+                        email,
+                        password,
+                        password,
+                        SOME_PHONE_NUMBER,
+                        country
+                )
+                .logs_in_with(email, password)
+                .visits_home_page()
+                .add_item_to_cart(item)
+                .visits_cart_page()
+                .click_checkout_button()
+                .entersShippingAddressDetails(ADDRESS_1,
+                        ADDRESS_2,
+                        CITY,
+                        STATE,
+                        POSTAL_CODE
+                )
+                .click_proceed_to_payment_button()
+                .entersPaymentDetails(VISA,
+                        VALID_CARD_NO,
+                        CCV,
+                        EXP_MONTH,
+                        EXP_YEAR
+                )
+                .click_payment_button()
+                .click_submit_button()
+                .click_cancel_button()
+                .clicksButtonWithId(VIEW_INVOICE_BUTTON)
+                .switchToInvoiceWindow();
+
         return this;
     }
 }

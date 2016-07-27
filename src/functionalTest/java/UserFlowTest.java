@@ -12,7 +12,6 @@ public class UserFlowTest extends UserJourneyBase {
 
     public static final double NET_TOTAL = 100.0;
     public static final double TOTAL_VAT = 20.0;
-    public static final double TOTAL_DUTY = 0.0;
     public static final double GROSS_TOTAL = 120.0;
 
 
@@ -266,11 +265,13 @@ public class UserFlowTest extends UserJourneyBase {
                 .clicksButtonWithId(VIEW_INVOICE_BUTTON)
                 .switchToInvoiceWindow()
                 .waitsForInvoice();
-
         screen
                 .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,SOME_COUNTRY)
                 .showInvoiceDetails(EMPTY_STRING,EMPTY_STRING,EMPTY_STRING,GROSS_TOTAL)
-                .showPurchasedItemInformationOnInvoice(NET_TOTAL, TOTAL_VAT, TOTAL_DUTY, GROSS_TOTAL);
+                .showPurchasedItemInformationOnInvoice(NET_TOTAL, TOTAL_VAT, GROSS_TOTAL)
+                .shouldNotDisplayDutyWhenUserBelongsToTheCountryWhichDoesContainDuty()
+                .shouldDisplayVat();
+
 
         user
                 .switchToReservePage();
@@ -290,5 +291,17 @@ public class UserFlowTest extends UserJourneyBase {
                             POSTAL_CODE);
         }
 
+        admin
+                .there_is_no_item(CHROME_FRAME)
+                .there_is_a_frame(CHROME_FRAME, ONLY_TWO_LEFT);
+
+        //Canada User
+        user.create_user_login_and_buy_item_and_view_invoice_as_user("CanadaUser","canadauser@example.com",SOME_PASSWORD,"CANADA",CHROME_FRAME);
+
+        screen
+                .showUserDetailsOnInvoice(ADDRESS_1, ADDRESS_2, CITY, POSTAL_CODE,"CANADA")
+                .showInvoiceDetails(EMPTY_STRING,EMPTY_STRING,EMPTY_STRING,54.50)
+                .shouldDisplayDuty()
+                .shouldNotDisplayVat();
     }
 }

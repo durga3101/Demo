@@ -251,12 +251,12 @@ public class ScreenApi {
         return this;
     }
 
-    public ScreenApi showPurchasedItemInformationOnInvoice(double netTotal, double totalVat, double totalDuty, double grossTotal) {
+    public ScreenApi showPurchasedItemInformationOnInvoice(double netTotal, double totalVat, double grossTotal) {
         assertThat(driver.findElement(By.id("customer-invoice")).getText(), containsString("Invoice"));
         assertThat(driver.findElement(By.id("item-list")).getText(), containsString(SIMPLON_FRAME));
         assertThat(driver.findElement(By.id("net-total")).getText(), containsString("" + netTotal));
         assertThat(driver.findElement(By.id("total-vat")).getText(), containsString("" + totalVat));
-        assertThat(driver.findElement(By.id("total-duty")).getText(), containsString("" + totalDuty));
+//        assertThat(driver.findElement(By.id("total-duty")).getText(), containsString("" + totalDuty));
         assertThat(driver.findElement(By.id("gross-total")).getText(), containsString("" + grossTotal));
 
         return this;
@@ -322,6 +322,26 @@ public class ScreenApi {
 
     public ScreenApi should_not_contain_login_link_in_header() {
         assertThat(driver.findElements(By.linkText("Login")).size(), is(0));
+        return this;
+    }
+
+    public ScreenApi shouldNotDisplayDutyWhenUserBelongsToTheCountryWhichDoesContainDuty() {
+        assertThat(driver.getPageSource(), not(containsString("Duty Tax:")));
+        return this;
+    }
+
+    public ScreenApi shouldDisplayDuty() {
+        assertThat(driver.getPageSource(), containsString("Duty Tax:"));
+        return this;
+    }
+
+    public ScreenApi shouldNotDisplayVat() {
+        assertThat(driver.getPageSource(), not(containsString("VAT total:")));
+        return this;
+    }
+
+    public ScreenApi shouldDisplayVat() {
+        assertThat(driver.getPageSource(), containsString("VAT total:"));
         return this;
     }
 }

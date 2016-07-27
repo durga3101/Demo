@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.utilities.Calculator;
@@ -11,14 +10,9 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
-
-import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class PaymentControllerTest {
     private HttpSession httpSession;
@@ -45,8 +39,8 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void shouldRedirectToHomeBeforeCreatingItemModelWhenNoItemInCart() throws Exception {
-        when(httpSession.getAttribute(anyString())).thenReturn(null);
+    public void shouldRedirectToHomeWhenTryToAccessPaymentPageFromURL() throws Exception {
+        when(request.getHeader("Referer")).thenReturn(null);
 
         String actual = controller.get(model,request);
         expected = "redirect:/";
@@ -56,26 +50,19 @@ public class PaymentControllerTest {
 
     @Test
     public void shouldReturnPaymentAfterCreatingItemModelWhenItemInCart() throws Exception {
-        HashMap<Item, Long> cart = mock(HashMap.class);
-        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(cart);
-        when(cart.isEmpty()).thenReturn(false);
-
+        when(request.getHeader("Referer")).thenReturn(anyString());
+        expected = "payment";
         String actual = controller.get(model,request);
 
-        expected = "payment";
         assertEquals(expected, actual);
 
     }
 
     @Test
     public void shouldAddSubtotalToModel() {
-        HashMap<Item, Long> cart = mock(HashMap.class);
-        when(cart.isEmpty()).thenReturn(false);
-        when(session.getItemHashMap(SHOPPING_CART, httpSession)).thenReturn(cart);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(httpSession);
         String grandTotal = "200.00";
-        when(httpSession.getAttribute(anyString())).thenReturn(grandTotal);
+        when(request.getHeader("Referer")).thenReturn(anyString());
+        when(httpSession.getAttribute("GRAND_TOTAL")).thenReturn(grandTotal);
 
         controller.get(model, request);
 

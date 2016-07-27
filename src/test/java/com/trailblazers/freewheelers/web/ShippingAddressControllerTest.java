@@ -73,8 +73,6 @@ public class ShippingAddressControllerTest {
 
     @Test
     public void shouldGetUserCountryFromAccountDatabase() throws Exception {
-        when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
         when(request.getHeader("Referer")).thenReturn("some");
         when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
         when(account.getCountry()).thenReturn("UK");
@@ -104,8 +102,6 @@ public class ShippingAddressControllerTest {
         httpSession = mock(HttpSession.class);
         model = mock(Model.class);
 
-        when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
         when(request.getHeader("Referer")).thenReturn("some");
         when(principal.getName()).thenReturn("ABC");
         when(accountService.getAccountFromEmail(anyString())).thenReturn(account);
@@ -123,8 +119,6 @@ public class ShippingAddressControllerTest {
         httpSession = mock(HttpSession.class);
         model = mock(Model.class);
 
-        when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("shoppingCart")).thenReturn(cart);
         when(request.getHeader("Referer")).thenReturn("some");
         when(principal.getName()).thenReturn("ABC");
         when(accountService.getAccountFromEmail(anyString())).thenReturn(account);

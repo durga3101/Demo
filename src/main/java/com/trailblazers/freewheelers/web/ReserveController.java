@@ -1,7 +1,6 @@
 package com.trailblazers.freewheelers.web;
 
 import com.trailblazers.freewheelers.model.Item;
-import com.trailblazers.freewheelers.service.impl.ItemServiceImpl;
 import com.trailblazers.freewheelers.web.forms.SurveyEntryForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ public class ReserveController {
     @RequestMapping(method = RequestMethod.GET)
     public void get(HttpServletRequest httpServletRequest, Model model, Principal principal, Session session) {
         HttpSession httpSession = httpServletRequest.getSession();
-        ItemServiceImpl itemService = new ItemServiceImpl();
+//        ItemServiceImpl itemService = new ItemServiceImpl();
 
         Long order_id= (Long) httpSession.getAttribute("order_id");
         HashMap<Item, Long> result = session.getItemHashMap(PURCHASED_ITEMS, httpSession);

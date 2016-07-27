@@ -33,8 +33,7 @@ public class ShippingAddressController {
     @RequestMapping(method = RequestMethod.GET)
 
     public String get(Model model, HttpServletRequest request, Principal principal) {
-
-        if (request.getSession().getAttribute("shoppingCart") == null || request.getHeader("Referer") == null) {
+        if (request.getHeader("Referer") == null) {
             return "redirect:/";
         }
 

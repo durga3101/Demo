@@ -1,6 +1,5 @@
 package com.trailblazers.freewheelers.web;
 
-import com.trailblazers.freewheelers.model.Item;
 import com.trailblazers.freewheelers.service.ItemService;
 import com.trailblazers.freewheelers.utilities.Calculator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-
-import static com.trailblazers.freewheelers.web.Session.SHOPPING_CART;
-
 
 @Controller
 @RequestMapping("/payment")
@@ -33,12 +28,11 @@ public class PaymentController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
-        HashMap<Item, Long> cart = session.getItemHashMap(SHOPPING_CART, httpSession);
-        if(cart.isEmpty()){
+        if(request.getHeader("Referer") == null){
             return "redirect:/";
         }
-        String grandTotal = (String) request.getSession().getAttribute("GRAND_TOTAL");
+        HttpSession httpSession = request.getSession();
+        String grandTotal = (String) httpSession.getAttribute("GRAND_TOTAL");
         model.addAttribute("grandTotal", grandTotal);
         return "payment";
     }

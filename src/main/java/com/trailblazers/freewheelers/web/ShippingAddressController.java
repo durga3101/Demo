@@ -35,7 +35,7 @@ public class ShippingAddressController {
     public String get(Model model, HttpServletRequest request, Principal principal) {
 
         if(request.getSession().getAttribute("shoppingCart") == null){
-            return "shippingAddress";
+            return "redirect:/";
         }
 
         Account userAccount = accountService.getAccountFromEmail(principal.getName());

@@ -48,9 +48,13 @@ public class ShippingAddressControllerTest {
     }
 
     @Test
-    public void shouldReturnShippingAddressPage() throws Exception {
+    public void shouldReturnHomePageWhenShoppingCartIsEmpty() throws Exception {
         when(request.getSession()).thenReturn(httpSession);
-        assertEquals("shippingAddress", shippingAddressController.get(model, request, principal));
+        when(httpSession.getAttribute("shoppingCart")).thenReturn(null);
+
+        String actual = shippingAddressController.get(model, request, principal);
+
+        assertEquals("redirect:/", actual);
     }
 
     @Test

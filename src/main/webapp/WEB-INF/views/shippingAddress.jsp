@@ -18,7 +18,7 @@
 <form id="shippingAddress_form" action="/shippingAddress/addShippingAddress" model="account" method="post"
       onsubmit="return  validateShippingAddressForm();">
     <div id="street1_field">
-        <label for="fld_street1">Street 1 <sup>*</sup></label>
+        <label for="fld_street1">Street 1 <sup class="mandatory">*</sup></label>
         <div class="controls">
             <input type="text" id="fld_street1" placeholder="Sesame St" name="street1">
             <span class="text-error"></span>
@@ -33,7 +33,7 @@
     </div>
 
     <div id="city_field">
-        <label for="fld_city">City <sup>*</sup></label>
+        <label for="fld_city">City <sup class="mandatory">*</sup></label>
         <div class="controls">
             <input type="text" id="fld_city" placeholder="San Francisco" name="city">
             <span class="text-error"></span>
@@ -49,7 +49,7 @@
     </div>
 
     <div id="postcode_field">
-        <label for="fld_postcode">Postal Code <sup>*</sup></label>
+        <label for="fld_postcode">Postal Code <sup class="mandatory">*</sup></label>
         <div class="controls">
             <input type="text" id="fld_postcode" placeholder="555-123456" name="postcode">
             <span class="text-error"></span>

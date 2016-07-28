@@ -76,6 +76,8 @@ public class Order {
     }
 
     public void addToOrderedItems(Item orderedItem) {
-        orderedItems.add(orderedItem);
+        if(orderedItems.indexOf(orderedItem) == -1) {
+            orderedItems.add(orderedItem);
+        }
     }
 }

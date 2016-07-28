@@ -36,7 +36,8 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     public void get(Model model) {
         if(ORDER_ID_CONNECT_FEATURE){
-            List<Order> allOrders= orderService.getAllOrders();
+
+            List<Order> allOrders = orderService.getAllOrders();
 
             for(Order order : allOrders){
                 List<OrderedItem> orderedItems = orderedItemService.getAllOrderedItemsByOrderId(order.getOrder_id());

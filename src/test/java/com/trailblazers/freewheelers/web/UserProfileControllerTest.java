@@ -105,9 +105,10 @@ public class UserProfileControllerTest {
     @Test
     public void shouldAddItemsAndUserDetailToModelAttributesWhenGetIsCalledForAdmin() {
         when(accountService.getRole(anyString())).thenReturn(ADMIN);
+        when(accountService.getAccountFromEmail("luke@gmail.com")).thenReturn(account);
         model = mock(ExtendedModelMap.class);
 
-        userProfileController.get("Luke", model, principal, request);
+        userProfileController.get("luke@gmail.com", model, principal, request);
 
         verify(model).addAttribute(eq("items"), any(List.class));
         verify(model).addAttribute("userDetail", account);

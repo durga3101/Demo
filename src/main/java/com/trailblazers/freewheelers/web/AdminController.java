@@ -43,8 +43,10 @@ public class AdminController {
                 //get Item from OrderedItem
                 for(OrderedItem orderedItem : orderedItems){
                     Item item = itemService.get(orderedItem.getItem_id());
-                    item.setQuantity(orderedItem.getQuantity());
-                    order.addToOrderedItems(item);
+                    if(item != null){
+                        item.setQuantity(orderedItem.getQuantity());
+                        order.addToOrderedItems(item);
+                    }
                 }
                 //get accountName from account_id
                 Long account_id = order.getAccount_id();

@@ -85,7 +85,7 @@
 
             <%--Order Id is not proper, It is created but not come to admin page, Ella Working On That So We can Add Order Id In Admin Page Later--%>
             <td class="order-id">
-                5
+
             </td>
         </form:form>
     </tr>
